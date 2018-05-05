@@ -1,0 +1,71 @@
+<view style="width:100%">
+  <view class="model-contanier">
+    <view class="model-display">
+    <image onTap="windowToggle"  class="bg-model" mode="widthFix" src="../../assets/images/bg.jpg" mode="" />
+  </view>
+</view>
+
+  <!-- 选择正面、背面、侧面 -->
+  <view class="aside-right">
+    <view class="aside-btns">
+      <view class="aside-btn btn-back ">背</view>
+      <view  class="aside-btn btn-front aside-btn-active" onTap="front">正面</view>
+      <view  class="aside-btn btn-side">侧</view>
+    </view>
+  </view>
+
+  <!-- 底部 -->
+  <view class="footer">
+
+    <view class="custom-window flex-box flex-wrap {{windowActive?'custom-active':''}}" >
+
+    <view class="custom-window-tab" >
+      <view class="iconfont icon-xia" onTap="windowToggle"></view>
+    </view>
+
+
+      <view class="custom-item" onTap="windowToggle">
+        <text class="iconfont icon-tupian"></text>
+        <view>
+          <text class="custom-item-text">图片</text>
+        </view>
+      </view>
+      <view class="custom-item">
+        <text class="iconfont icon-wenzi"></text>
+        <view>
+          <text class="custom-item-text">文字</text>
+        </view>
+      </view>
+      <view class="custom-item">
+        <text class="iconfont icon-tiezhi"></text>
+        <view>
+          <text class="custom-item-text">贴纸</text>
+        </view>
+      </view>
+      <view class="custom-item">
+        <text class="iconfont icon-xian"></text>
+        <view>
+          <text class="custom-item-text">线条</text>
+        </view>
+      </view>
+      <view class="custom-item">
+        <text class="iconfont icon-xingzhuang"></text>
+        <view>
+          <text class="custom-item-text">形状</text>
+        </view>
+      </view>
+      <view class="custom-item">
+        <text class="iconfont icon-beijing"></text>
+        <view>
+          <text class="custom-item-text">背景</text>
+        </view>
+      </view>
+    
+      
+    </view>
+    <view class="flex-box bottom">
+        <view class="goods-name flex-item-1">  男士V领纯棉T恤</view>
+        <button form-type="submit" class="customize-btn">开始定制</button>
+    </view>
+  </view>
+</view>
