@@ -29,12 +29,16 @@ Page({
     console.log(12312312)
   },
   windowToggle:function(e){
+   
     // console.log(21324567)
     this.setData({
       windowActive: !this.data.windowActive
     })
-    console.log(this.data.windowActive)
     
+  },
+  sticker(e){
+    console.log(e)
+    my.navigateTo({ url: '../sticker/sticker' });
   },
   // 点击正面
   front(e){

@@ -19,8 +19,8 @@
 
     <view class="custom-window flex-box flex-wrap {{windowActive?'custom-active':''}}" >
 
-    <view class="custom-window-tab" >
-      <view class="iconfont icon-xia" onTap="windowToggle"></view>
+    <view class="custom-window-tab" onTap="windowToggle">
+      <view class="iconfont icon-xia" ></view>
     </view>
 
 
@@ -36,7 +36,7 @@
           <text class="custom-item-text">文字</text>
         </view>
       </view>
-      <view class="custom-item">
+      <view class="custom-item" onTap="sticker">
         <text class="iconfont icon-tiezhi"></text>
         <view>
           <text class="custom-item-text">贴纸</text>

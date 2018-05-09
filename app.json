@@ -1,8 +1,10 @@
 {
   "pages": [
+  
     "pages/index/index",
     "pages/todos/todos",    
-    "pages/add-todo/add-todo"
+    "pages/add-todo/add-todo",
+    "pages/sticker/sticker"
   ],
   "window": {
     "defaultTitle": "开始定制"
