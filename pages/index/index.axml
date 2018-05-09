@@ -1,9 +1,21 @@
 <view style="width:100%">
+  <!-- 头部 -->
+  <view class="header">
+    <view class="text-header flex-box">
+      <view class="header-left">取消</view>
+      <view class="flex-item-1 header-center">添加文字</view>
+      <view class="header-right">
+        <button type="primary" class="add-text">添加</button>
+      </view>
+    </view>
+  </view>
+
   <view class="model-contanier">
     <view class="model-display">
-    <image onTap="windowToggle"  class="bg-model" mode="widthFix" src="../../assets/images/bg.jpg" mode="" />
+      <image onTap="windowToggle"  class="bg-model" mode="widthFix" src="../../assets/images/bg.jpg" mode="" />
+    </view>
+
   </view>
-</view>
 
   <!-- 选择正面、背面、侧面 -->
   <view class="aside-right">
@@ -14,58 +26,99 @@
     </view>
   </view>
 
+
+
+
   <!-- 底部 -->
   <view class="footer">
 
-    <view class="custom-window flex-box flex-wrap {{windowActive?'custom-active':''}}" >
+    <!-- 定制列表 -->
+    <view class="custome-list" a:if="{{footer == 'list'}}">
+      <view class="custome-window flex-box flex-wrap {{windowActive?'custome-active':''}}" >
 
-    <view class="custom-window-tab" onTap="windowToggle">
-      <view class="iconfont icon-xia" ></view>
+        <view class="custome-window-tab" onTap="windowToggle">
+          <view class="iconfont icon-xia" ></view>
+        </view>    
+        <view class="custome-item" onTap="windowToggle">
+            <text class="iconfont icon-tupian"></text>
+          <view>
+            <text class="custome-item-text">图片</text>
+          </view>
+        </view>
+        <view class="custome-item" onTap="textEdit"> 
+          <text class="iconfont icon-wenzi"></text>
+          <view>
+            <text class="custome-item-text">文字</text>
+          </view>
+        </view>
+        <view class="custome-item" onTap="sticker">
+          <text class="iconfont icon-tiezhi"></text>
+          <view>
+            <text class="custome-item-text">贴纸</text>
+          </view>
+        </view>
+        <view class="custome-item">
+          <text class="iconfont icon-xian"></text>
+          <view>
+            <text class="custome-item-text">线条</text>
+          </view>
+        </view>
+        <view class="custome-item">
+          <text class="iconfont icon-xingzhuang"></text>
+          <view>
+            <text class="custom-item-text">形状</text>
+          </view>
+        </view>
+        <view class="custome-item">
+          <text class="iconfont icon-beijing"></text>
+          <view>
+            <text class="custom-item-text">背景</text>
+          </view>
+        </view>  
+        </view>
+        
+        <view class="flex-box bottom">
+            <view class="goods-name flex-item-1">  男士V领纯棉T恤</view>
+            <button form-type="submit" class="customize-btn">开始定制</button>
+          </view>
+        
+        </view>
+  
+  <!-- 文字 -->
+    <view class="text-content" a:elif="{{footer == 'text'}}">
+      <view class="custome-window flex-box flex-wrap" >
+         <view class="custome-item" onTap="windowToggle">
+            <text class="iconfont icon-tupian"></text>
+          <view>
+            <text class="custome-item-text">字体</text>
+          </view>
+        </view>
+        <view class="custome-item">
+          <text class="iconfont icon-wenzi"></text>
+          <view>
+            <text class="custome-item-text">透明度</text>
+          </view>
+        </view>
+        <view class="custome-item" onTap="sticker">
+          <text class="iconfont icon-tiezhi"></text>
+          <view>
+            <text class="custome-item-text">颜色</text>
+          </view>
+        </view>
+      </view>
+      <view class="text-footer flex-box">
+        <input maxlength="10" class="flex-item-1 text-input" type="text" placeholder="最大输入长度10" />
+        <button type="primary" class="add-text">添加</button>
+
+      </view>
     </view>
-
-
-      <view class="custom-item" onTap="windowToggle">
-        <text class="iconfont icon-tupian"></text>
-        <view>
-          <text class="custom-item-text">图片</text>
-        </view>
-      </view>
-      <view class="custom-item">
-        <text class="iconfont icon-wenzi"></text>
-        <view>
-          <text class="custom-item-text">文字</text>
-        </view>
-      </view>
-      <view class="custom-item" onTap="sticker">
-        <text class="iconfont icon-tiezhi"></text>
-        <view>
-          <text class="custom-item-text">贴纸</text>
-        </view>
-      </view>
-      <view class="custom-item">
-        <text class="iconfont icon-xian"></text>
-        <view>
-          <text class="custom-item-text">线条</text>
-        </view>
-      </view>
-      <view class="custom-item">
-        <text class="iconfont icon-xingzhuang"></text>
-        <view>
-          <text class="custom-item-text">形状</text>
-        </view>
-      </view>
-      <view class="custom-item">
-        <text class="iconfont icon-beijing"></text>
-        <view>
-          <text class="custom-item-text">背景</text>
-        </view>
-      </view>
-    
       
-    </view>
-    <view class="flex-box bottom">
-        <view class="goods-name flex-item-1">  男士V领纯棉T恤</view>
-        <button form-type="submit" class="customize-btn">开始定制</button>
-    </view>
+      
   </view>
+
+   
+
+
+
+
 </view>

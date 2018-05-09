@@ -21,7 +21,8 @@ Page({
             scale: 1,  
             angle: 0,  
             active: false  
-        }]  
+    }],
+    footer:'list'  
   
   },
   onLoad() {},
@@ -29,7 +30,7 @@ Page({
     console.log(12312312)
   },
   windowToggle:function(e){
-   
+   my.navigateTo({ url: '../sticker/sticker' });
     // console.log(21324567)
     this.setData({
       windowActive: !this.data.windowActive
@@ -51,5 +52,11 @@ Page({
   // 点击侧面
   side(e){
     console.log(12)
+  },
+  // 点击文字
+  textEdit(){
+    this.setData({
+      footer:'text'
+    })
   }
 });

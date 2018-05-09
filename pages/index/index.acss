@@ -38,10 +38,24 @@
     width:100%;
 }
 
+
+/* 头部 */
+.header{
+    padding: 10px;
+}
+.header-center{
+    text-align: center;
+    font-size: 16px;
+}
+
+
+
+
 .model-display{
     /* display: table-cell; */
     width: 100%;
     text-align: center;
+    padding-top: 20px;
     /* vertical-align: middle; */
 }
 .aside-right{
@@ -75,7 +89,7 @@
 .footer{
     position: fixed;
     bottom: 0;
-    width: 100%
+    width: 100%;
 }
 .goods-name{
     text-align: center;
@@ -94,7 +108,7 @@
     border:none;
 }
 /* 定制窗口 */
-.custom-window-tab{
+.custome-window-tab{
     position: absolute;
     top: -20px;
     left: 50%;
@@ -108,17 +122,17 @@
     z-index: -1;
     margin-left: -20px;
 }
-.custom-window{
+.custome-window{
     background-color: #606163;
     border-radius: 10px 10px 0 0;
     position: relative;
     bottom:-10px;
     transition: all 0.5s
 }
-.custom-active{
+.custome-active{
     bottom: 40px;
 }
-.custom-item{
+.custome-item{
     color: white;
     width: calc(100% / 3);
     text-align: center;
@@ -127,7 +141,7 @@
     padding-top:10px;
     color: #C0C4CC;
 }
-.custom-item-text{
+.custome-item-text{
     line-height: 20px
 }
 .bottom{
@@ -135,4 +149,27 @@
     bottom: 0;
     z-index: 100;
     width: 100%;
+}
+
+/* 文字 */
+.text-content .custome-window{
+    bottom:0;
+}
+.text-footer{
+    background-color: #474747;
+    padding: 10px;
+}
+.text-input{
+    font-size: 12px;
+    border-radius: 5px;
+}
+.add-text{
+    line-height: 30px;
+    height: 30px;
+    font-size: 12px;
+    background-color: #E22567;
+    border: none;
+    width: 70px;
+    margin-left: 10px;
+    border-radius: 5px;
 }
