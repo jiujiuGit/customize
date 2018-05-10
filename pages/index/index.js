@@ -1,6 +1,9 @@
 Page({
   data: {
     windowActive:false,
+    headerConfig:{
+
+    },
     itemList: [{  
             id: 1,  
             image: '../../assets/images/108.png',//图片地址  
@@ -30,7 +33,7 @@ Page({
     console.log(12312312)
   },
   windowToggle:function(e){
-   my.navigateTo({ url: '../sticker/sticker' });
+  //  my.navigateTo({ url: '../sticker/sticker' });
     // console.log(21324567)
     this.setData({
       windowActive: !this.data.windowActive
@@ -57,6 +60,12 @@ Page({
   textEdit(){
     this.setData({
       footer:'text'
+    })
+  },
+  //头部取消按钮
+  cancle(){
+    this.setData({
+      footer:'list'
     })
   }
 });

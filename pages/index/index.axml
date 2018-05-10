@@ -1,11 +1,11 @@
 <view style="width:100%">
   <!-- 头部 -->
   <view class="header">
-    <view class="text-header flex-box">
-      <view class="header-left">取消</view>
+    <view class="text-header flex-box" a:if="{{footer == 'text'}}">
+      <view class="header-left cancle" onTap="cancle">取消</view>
       <view class="flex-item-1 header-center">添加文字</view>
       <view class="header-right">
-        <button type="primary" class="add-text">添加</button>
+        <button type="primary" class="btn-small">保存</button>
       </view>
     </view>
   </view>
@@ -20,9 +20,9 @@
   <!-- 选择正面、背面、侧面 -->
   <view class="aside-right">
     <view class="aside-btns">
-      <view class="aside-btn btn-back ">背</view>
+      <view class="aside-btn btn-back" ontap="back">背</view>
       <view  class="aside-btn btn-front aside-btn-active" onTap="front">正面</view>
-      <view  class="aside-btn btn-side">侧</view>
+      <view  class="aside-btn btn-side" onTap="side">侧</view>
     </view>
   </view>
 
@@ -39,7 +39,7 @@
         <view class="custome-window-tab" onTap="windowToggle">
           <view class="iconfont icon-xia" ></view>
         </view>    
-        <view class="custome-item" onTap="windowToggle">
+        <view class="custome-item " onTap="windowToggle">
             <text class="iconfont icon-tupian"></text>
           <view>
             <text class="custome-item-text">图片</text>
@@ -87,13 +87,13 @@
   <!-- 文字 -->
     <view class="text-content" a:elif="{{footer == 'text'}}">
       <view class="custome-window flex-box flex-wrap" >
-         <view class="custome-item" onTap="windowToggle">
+         <view class="custome-item custome-item-active" onTap="fontChoose">
             <text class="iconfont icon-tupian"></text>
           <view>
             <text class="custome-item-text">字体</text>
           </view>
         </view>
-        <view class="custome-item">
+        <view class="custome-item ">
           <text class="iconfont icon-wenzi"></text>
           <view>
             <text class="custome-item-text">透明度</text>
@@ -108,7 +108,7 @@
       </view>
       <view class="text-footer flex-box">
         <input maxlength="10" class="flex-item-1 text-input" type="text" placeholder="最大输入长度10" />
-        <button type="primary" class="add-text">添加</button>
+        <button type="primary" class="btn-small add-text">添加</button>
 
       </view>
     </view>
@@ -116,9 +116,28 @@
       
   </view>
 
-   
-
-
-
+  
 
 </view>
+
+
+<!-- 模板 -->
+<!-- header -->
+<!-- <template>
+   <view class="text-header flex-box" a:if="{{footer == 'text'}}">
+      <view class="header-left">取消</view>
+      <view class="flex-item-1 header-center">添加文字</view>
+      <view class="header-right">
+        <button type="primary" class="add-text">添加</button>
+      </view>
+    </view>
+  </template> -->
+  
+  <!-- <template>
+     <view class="custome-item custome-active" onTap="sticker">
+          <text class="iconfont icon-tiezhi"></text>
+          <view>
+            <text class="custome-item-text">颜色</text>
+          </view>
+        </view>
+  </template> -->
