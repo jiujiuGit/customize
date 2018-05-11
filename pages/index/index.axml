@@ -12,15 +12,31 @@
 
   <view class="model-contanier">
     <view class="model-display">
-      <image onTap="windowToggle"  class="bg-model" mode="widthFix" src="../../assets/images/bg.jpg" mode="" />
+      <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="../../assets/images/bg.jpg" mode="" />
     </view>
+    <!-- 操作区域 -->
+    <block a:for="{{itemList}}" a:key="{{item.id}}">
+      <view class="touchWrap" style="transform:scale({{item.scale}});top:{{item.top}}px;left:{{item.left}}px; ">
+        <view class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
+          <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image> 
+        
+          <!-- 删除图片 -->
+          <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTap='deleteItem'></image>  
+          <!-- 缩放旋转 -->
+          <image class='o' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/suofang.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTouchStart='touchStart' onTouchMove='touchMove' onTouchEnd='touchEnd'></image>  
+        </view>
+        
+      </view>
+    </block>
+
+
 
   </view>
 
   <!-- 选择正面、背面、侧面 -->
   <view class="aside-right">
     <view class="aside-btns">
-      <view class="aside-btn btn-back" ontap="back">背</view>
+      <view class="aside-btn btn-back" onTap="back">背</view>
       <view  class="aside-btn btn-front aside-btn-active" onTap="front">正面</view>
       <view  class="aside-btn btn-side" onTap="side">侧</view>
     </view>

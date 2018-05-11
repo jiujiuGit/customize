@@ -1,12 +1,12 @@
 <view class="sticker-list">
   <view class="item-left">
     <view class="stickerItem"  a:for="{{stickers}}" a:if="{{index%2==0}}">
-       <image mode="widthFix"  src="{{item.imgUrl}}" onTap="imageTap"/>
+       <image mode="widthFix"  src="{{item.imgUrl}}" onTap="imageTap" data-index="{{index}}"/>
     </view>
  </view>
  <view class="item-right">
     <view class="stickerItem"  a:for="{{stickers}}" a:if="{{index%2==1}}">
-       <image mode="widthFix"  src="{{item.imgUrl}}" onTap="imageTap"/>
+       <image mode="widthFix"  src="{{item.imgUrl}}" onTap="imageTap" data-index="{{index}}"/>
     </view>
  </view>
 </view>

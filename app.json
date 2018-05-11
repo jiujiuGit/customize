@@ -7,6 +7,8 @@
     "pages/sticker/sticker"
   ],
   "window": {
-    "defaultTitle": "开始定制"
+    "defaultTitle": "开始定制",
+     "pullRefresh": true,
+     "allowsBounceVertical":"NO"
   }
 }

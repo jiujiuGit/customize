@@ -90,6 +90,38 @@
     padding-top: 20px;
     /* vertical-align: middle; */
 }
+.touchWrap{
+    position: absolute
+}
+.imgWrap{
+    padding: 5px;
+    background-color: rgba(0,0,0,0);
+    width: 100px;
+}
+.imgItem{
+    width: 100%;
+}
+.touchActive{
+    border:2px dashed white;
+    box-sizing: border-box;
+     -webkit-box-sizing: border-box; 
+    -moz-box-sizing: border-box; 
+}
+.x{
+    width: 30px;
+    position: absolute;
+    top:-15px;
+    left: -15px;
+}
+.o{
+    width: 30px;
+    position: absolute;
+    bottom:-15px;
+    right: -15px;
+}
+
+
+
 .aside-right{
     position: fixed;
     bottom: 150px;
