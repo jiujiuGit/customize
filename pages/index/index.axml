@@ -17,9 +17,24 @@
     <!-- 操作区域 -->
     <block a:for="{{itemList}}" a:key="{{item.id}}">
       <view class="touchWrap" style="transform:scale({{item.scale}});top:{{item.top}}px;left:{{item.left}}px; ">
-        <view class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
+        <!-- 图片编辑 -->
+        <view a:if="{{item.type == 'image'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
           <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image> 
-        
+          
+          <!-- <text class="textItem"  data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'>{{item.text}}</text>  -->
+
+          <!-- 删除图片 -->
+          <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTap='deleteItem'></image>  
+          <!-- 缩放旋转 -->
+          <image class='o' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/suofang.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTouchStart='touchStart' onTouchMove='touchMove' onTouchEnd='touchEnd'></image>  
+        </view>
+
+        <!-- 文字编辑 -->
+         <view a:if="{{item.type == 'text'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
+          <!-- <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image>  -->
+          
+          <text class="textItem" onTap="textTap" data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'>{{item.text}}</text> 
+
           <!-- 删除图片 -->
           <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTap='deleteItem'></image>  
           <!-- 缩放旋转 -->
@@ -28,6 +43,7 @@
         
       </view>
     </block>
+  
 
 
 
@@ -36,9 +52,9 @@
   <!-- 选择正面、背面、侧面 -->
   <view class="aside-right">
     <view class="aside-btns">
-      <view class="aside-btn btn-back" onTap="back">背</view>
-      <view  class="aside-btn btn-front aside-btn-active" onTap="front">正面</view>
-      <view  class="aside-btn btn-side" onTap="side">侧</view>
+      <view class='aside-btn btn-back {{(currentTap ==  "back")? "aside-btn-active":""}}' onTap="back">背 <text a:if='{{currentTap ==  "back"}}'>面</text></view>
+      <view  class='aside-btn btn-front {{(currentTap ==  "front")? "aside-btn-active":""}} ' onTap="front">正 <text a:if='{{currentTap ==  "front"}}'>面</text></view>
+      <view  class='aside-btn btn-side {{(currentTap ==  "side")? "aside-btn-active":""}}' onTap="side">侧 <text a:if='{{currentTap ==  "side"}}'>面</text></view>
     </view>
   </view>
 
@@ -122,12 +138,24 @@
           </view>
         </view>
       </view>
+      
+        <!-- 字体列表 -->
+      <view class="font-list">
+        <radio-group class="radio-group" onChange="fontChoose">
+          <label class="text-radio"  a:for="{{fontList}}">
+            <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+
       <view class="text-footer flex-box">
         <input maxlength="10" class="flex-item-1 text-input" type="text" placeholder="最大输入长度10" />
-        <button type="primary" class="btn-small add-text">添加</button>
+        <button type="primary" onTap="addText" class="btn-small add-text">添加</button>
 
       </view>
     </view>
+
+    
       
       
   </view>

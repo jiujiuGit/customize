@@ -66,7 +66,9 @@ Page({
             y: 155,  
             scale: 1,//缩放比例  1为不缩放  
             angle: 0,//旋转角度  
-            active: false //判定点击状态  
+            active: false, //判定点击状态
+            rotate:0,
+            type:'image'  
         }
     item.image = this.data.stickers[tapIndex].imgUrl
     app.globalData.items.push(item);

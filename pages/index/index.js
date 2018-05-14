@@ -12,15 +12,41 @@ Page({
   
 
     footer:'list',
-    systemInfo: {} //窗口信息
+    systemInfo: {}, //窗口信息
+
+    currentTap:'front', //当前tap "front"-正面  "side"-侧面   "back"-背面
+
+    // 字体列表
+    fontList:[
+      {
+        name:'微软雅黑',
+        value:'微软雅黑',
+        checked: true
+      },
+      {
+        name:'mini简小宋',
+        value:'mini简小宋'
+      },
+      {
+        name:'宋体',
+        value:'宋体'
+      },
+      {
+        name:'新宋体',
+        value:'新宋体'
+      },
+    ]
   
   },
   getSystemInfoPage() {
     my.getSystemInfo({
       success: (res) => {
+        
         this.setData({
           systemInfo: res
+          
         })
+        console.log(this.data.systemInfo.windowWidth)
       }
     })
   },
@@ -28,7 +54,8 @@ Page({
     // 页面显示
     this.setData({
       itemList:app.globalData.items
-    })
+    });
+    this.getSystemInfoPage();
   },
   onLoad() {
     console.log(1)
@@ -41,9 +68,12 @@ Page({
     //   items : this.data.itemLits
     //  })
   },
-
+textTap(){
+console.log(323123)
+},
   // 图片touchStart
   WraptouchStart(e){
+    console.log(121)
     let items = this.data.itemList;
     
      for (let i = 0; i < items.length; i++) {  //旋转数据找到点击的  
@@ -56,6 +86,7 @@ Page({
                 items[this.data.index].active = true;  //开启点击属性  
             }  
         }  
+        console.log(this.data.index);
          
         items[this.data.index].lx = e.touches[0].clientX;  // 记录点击时的坐标值  
         items[this.data.index].ly = e.touches[0].clientY;  
@@ -108,9 +139,6 @@ Page({
     this.setData({ 
         temList: items  
     }) 
-    console.log(JSON.stringify(items))
-    console.log(JSON.stringify(this.data.itemList)) 
-    
     
   },
 
@@ -122,19 +150,20 @@ Page({
             items[i].active = false;  
   
             if (e.currentTarget.dataset.id == items[i].id) {  
-                // console.log('e.currentTarget.dataset.id', e.currentTarget.dataset.id)  
                 this.setData({
                   index:i
                 }) 
-                // console.log(items[index])  
+             
                 items[this.data.index].active = true;  
             }  
         }  
          //获取作为移动前角度的坐标  
         items[this.data.index].tx = e.touches[0].clientX;  
         items[this.data.index].ty = e.touches[0].clientY;  
-        //移动前的角度  
+        //移动前的角度
+       const index = this.data.index;
         items[this.data.index].anglePre = this.countDeg(items[index].x, items[index].y, items[index].tx, items[index].ty)  
+  
         //获取图片半径  
         items[this.data.index].r = this.getDistancs(items[index].x, items[index].y, items[index].left, items[index].top)  
     },  
@@ -146,7 +175,8 @@ Page({
         items[index]._tx = e.touches[0].clientX;  
         items[index]._ty = e.touches[0].clientY;  
         //移动的点到圆心的距离  
-        items[index].disPtoO = this.getDistancs(items[index].x, items[index].y, items[index]._tx - this.sysData.windowWidth * 0.125, items[index]._ty - 10)  
+      
+        items[index].disPtoO = this.getDistancs(items[index].x, items[index].y, items[index]._tx - this.data.systemInfo.windowWidth * 0.125, items[index]._ty - 10)  
   
         items[index].scale = items[index].disPtoO / items[index].r; //手指滑动的点到圆心的距离与半径的比值作为图片的放大比例  
         items[index].oScale = 1 / items[index].scale;//图片放大响应的右下角按钮同比缩小  
@@ -155,25 +185,55 @@ Page({
         items[index].angleNext = this.countDeg(items[index].x, items[index].y, items[index]._tx, items[index]._ty)  
         //角度差  
         items[index].new_rotate = items[index].angleNext - items[index].anglePre;  
-  
+       
         //叠加的角度差  
         items[index].rotate += items[index].new_rotate;  
+        
         items[index].angle = items[index].rotate; //赋值  
-  
+        
         //用过移动后的坐标赋值为移动前坐标  
         items[index].tx = e.touches[0].clientX;  
         items[index].ty = e.touches[0].clientY;  
         items[index].anglePre = this.countDeg(items[index].x, items[index].y, items[index].tx, items[index].ty)  
-  
+      
         //赋值setData渲染  
         this.setData({  
             itemList: items  
-        })  
+        }) 
+     
   },
+  countDeg: function (cx, cy, pointer_x, pointer_y) {  
+        var ox = pointer_x - cx;  
+        var oy = pointer_y - cy;  
+        var to = Math.abs(ox / oy);  
+        var angle = Math.atan(to) / (2 * Math.PI) * 360;//鼠标相对于旋转中心的角度  
+        // console.log("ox.oy:", ox, oy)  
+        if (ox < 0 && oy < 0)//相对在左上角，第四象限，js中坐标系是从左上角开始的，这里的象限是正常坐标系    
+        {  
+            angle = -angle;  
+        } else if (ox <= 0 && oy >= 0)//左下角,3象限    
+        {  
+            angle = -(180 - angle)  
+        } else if (ox > 0 && oy < 0)//右上角，1象限    
+        {  
+            angle = angle;  
+        } else if (ox > 0 && oy > 0)//右下角，2象限    
+        {  
+            angle = 180 - angle;  
+        }  
+  
+        return angle;  
+  },  
 
 
 
+//移动的点到圆心的距离 
+  getDistancs(cx,cy,pointer_x,pointer_y){
 
+    let discount  =  Math.sqrt(Math.pow((cx-pointer_x),2) + Math.pow((cy-pointer_y),2))
+    console.log(discount);
+    return discount;
+  },
   add(e) {
     console.log(12312312)
   },
@@ -186,26 +246,61 @@ Page({
     
   },
   sticker(e){
-    console.log(e)
+    
     my.navigateTo({ url: '../sticker/sticker' });
   },
   // 点击正面
   front(e){
-    console.log(e)
+    this.setData({
+      currentTap:'front'
+    })
   },
   // 点击背面
   back(e){
-
+    this.setData({
+      currentTap:'back'
+    })
   },
   // 点击侧面
   side(e){
-    console.log(12)
+    this.setData({
+      currentTap:'side'
+    })
   },
   // 点击文字
   textEdit(){
     this.setData({
       footer:'text'
     })
+  },
+  // 点击文字列表
+  fontChoose(e){
+    console.log('你选择的框架是：', e.detail.value)
+  },
+  addText(){
+
+    console.log(121)
+    let imgLength = app.globalData.items.length;
+    let item = {  
+            id: imgLength+1,   
+            top: 100,//初始图片的位置   
+            left: 100,  
+            x: 155, //初始圆心位置，可再downImg之后又宽高和初始的图片位置得出  
+            y: 155,  
+            scale: 1,//缩放比例  1为不缩放  
+            angle: 0,//旋转角度  
+            active: false, //判定点击状态
+            rotate:0,
+            type:'text'  //文字  
+        }
+        item.text = "jiujiu"
+        console.log(item)
+    app.globalData.items.push(item);
+
+    this.setData({
+      itemList:app.globalData.items
+    });
+  
   },
   //头部取消按钮
   cancle(){
