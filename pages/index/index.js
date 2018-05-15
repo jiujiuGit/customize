@@ -15,27 +15,57 @@ Page({
     systemInfo: {}, //窗口信息
 
     currentTap:'front', //当前tap "front"-正面  "side"-侧面   "back"-背面
+    colorList:[
+      {
+        colorCode:'#000000'
+      },
+      {
+        colorCode:'#FFFFFF'
+      },
+      {
+        colorCode:'#8B8B8B'
+      },
+      {
+        colorCode:'#E82D18'
+      },
+      {
+        colorCode:'#E84117'
+      },
+      {
+        colorCode:'#F2811B'
+      },
+      {
+        colorCode:'#EEB20E'
+      },
+      {
+        colorCode:'#B9D21F'
+      },
+    ], //颜色列表
 
+    textEditItem:'font', //当前字体编辑项，“font”-字体，transparency-透明度，color-颜色
     // 字体列表
     fontList:[
       {
-        name:'微软雅黑',
-        value:'微软雅黑',
+        name:'SimSun',
+        value:'宋体',
         checked: true
       },
       {
-        name:'mini简小宋',
-        value:'mini简小宋'
+        name:'KaiTi',
+        value:'楷体'
       },
       {
-        name:'宋体',
-        value:'宋体'
+        name:'Microsoft Yahei',
+        value:'微软雅黑'
       },
       {
-        name:'新宋体',
-        value:'新宋体'
+        name:'YouYuan',
+        value:'幼圆'
       },
-    ]
+    ],
+    textContent:''//文字内容
+
+  
   
   },
   getSystemInfoPage() {
@@ -273,13 +303,30 @@ console.log(323123)
       footer:'text'
     })
   },
-  // 点击文字列表
+  // 设置文字字体
+  setTextFont(){
+    this.setData({
+      textEditItem:'font'
+    })
+  },
+  // 点击字体列表
   fontChoose(e){
-    console.log('你选择的框架是：', e.detail.value)
+    console.log('你选择的字体是：', e.detail.value);
+    const currentIndex = this.data.index;
+    let items = this.data.itemList;
+    items[currentIndex].fontFamily = e.detail.value
+    this.setData({
+      itemList: items
+    })
+  },
+  bindTextInput(e){
+    this.setData({
+      textContent:e.detail.value
+    })
   },
   addText(){
 
-    console.log(121)
+
     let imgLength = app.globalData.items.length;
     let item = {  
             id: imgLength+1,   
@@ -291,16 +338,29 @@ console.log(323123)
             angle: 0,//旋转角度  
             active: false, //判定点击状态
             rotate:0,
-            type:'text'  //文字  
+            type:'text',  //文字  
+            fontFamily:'SimSun'
         }
-        item.text = "jiujiu"
-        console.log(item)
+        
+    item.text = this.data.textContent;
     app.globalData.items.push(item);
-
     this.setData({
       itemList:app.globalData.items
     });
   
+  },
+
+  // 设置透明度
+  setTextTransparency(){
+    this.setData({
+      textEditItem:'transparency'
+    })
+  },
+  //设置字体颜色
+  setTextColor(){
+    this.setData({
+      textEditItem:'color'
+    })
   },
   //头部取消按钮
   cancle(){

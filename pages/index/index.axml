@@ -33,7 +33,7 @@
          <view a:if="{{item.type == 'text'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
           <!-- <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image>  -->
           
-          <text class="textItem" onTap="textTap" data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'>{{item.text}}</text> 
+          <view class="textItem" onTap="textTap" data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'><text style='fontSize:12*{{item.oScale}}px;font-family:{{item.fontFamily}}'>{{item.text}}</text></view> 
 
           <!-- 删除图片 -->
           <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTap='deleteItem'></image>  
@@ -119,19 +119,19 @@
   <!-- 文字 -->
     <view class="text-content" a:elif="{{footer == 'text'}}">
       <view class="custome-window flex-box flex-wrap" >
-         <view class="custome-item custome-item-active" onTap="fontChoose">
+         <view class="custome-item {{(textEditItem == 'font')?'custome-item-active':''}}" onTap="setTextFont">
             <text class="iconfont icon-tupian"></text>
           <view>
             <text class="custome-item-text">字体</text>
           </view>
         </view>
-        <view class="custome-item ">
+        <view class="custome-item {{(textEditItem == 'transparency')?'custome-item-active':''}}" onTap="setTextTransparency">
           <text class="iconfont icon-wenzi"></text>
           <view>
             <text class="custome-item-text">透明度</text>
           </view>
         </view>
-        <view class="custome-item" onTap="sticker">
+        <view class="custome-item {{(textEditItem == 'color')?'custome-item-active':''}}" onTap="setTextColor">
           <text class="iconfont icon-tiezhi"></text>
           <view>
             <text class="custome-item-text">颜色</text>
@@ -140,7 +140,7 @@
       </view>
       
         <!-- 字体列表 -->
-      <view class="font-list">
+      <view class="font-list" a:if="{{textEditItem == 'font'}}">
         <radio-group class="radio-group" onChange="fontChoose">
           <label class="text-radio"  a:for="{{fontList}}">
             <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
@@ -148,8 +148,23 @@
         </radio-group>
       </view>
 
+      <!-- 字体透明度 -->
+      <view class="transparencySider" a:if="{{textEditItem == 'transparency'}}">
+        <text>调整透明度</text>
+        <slider value="100" min="0%" max="100%" show-value/>
+      </view>
+      <!-- 字体颜色 -->
+      <view class="textColor" a:if="{{textEditItem == 'color'}}">
+        <text >字体颜色</text>
+        <view class="color-list">
+          <view class="color-block" a:for="{{colorList}}" style="background-color:{{item.colorCode}}">
+
+          </view>
+        </view>
+      </view>
+
       <view class="text-footer flex-box">
-        <input maxlength="10" class="flex-item-1 text-input" type="text" placeholder="最大输入长度10" />
+        <input maxlength="10" onInput="bindTextInput" class="flex-item-1 text-input" id="text-input" type="text" placeholder="最大输入长度10" />
         <button type="primary" onTap="addText" class="btn-small add-text">添加</button>
 
       </view>
@@ -184,4 +199,4 @@
             <text class="custome-item-text">颜色</text>
           </view>
         </view>
-  </template> -->
+      </template> -->
