@@ -1,0 +1,4 @@
+<view>
+  <button type="default" onTap="addImg" plain>上传图片</button>
+  <image src="{{img}}" mode="" />
+</view>

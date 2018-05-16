@@ -4,7 +4,8 @@
     "pages/index/index",
     "pages/todos/todos",    
     "pages/add-todo/add-todo",
-    "pages/sticker/sticker"
+    "pages/sticker/sticker",
+    "pages/images/images"
   ],
   "window": {
     "defaultTitle": "开始定制",

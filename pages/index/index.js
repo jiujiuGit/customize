@@ -40,6 +40,15 @@ Page({
       {
         colorCode:'#B9D21F'
       },
+      {
+        colorCode:'#B9D21F'
+      },
+      {
+        colorCode:'#B9D21F'
+      },
+      {
+        colorCode:'#B9D21F'
+      },
     ], //颜色列表
 
     textEditItem:'font', //当前字体编辑项，“font”-字体，transparency-透明度，color-颜色
@@ -272,8 +281,20 @@ console.log(323123)
     // console.log(21324567)
     this.setData({
       windowActive: !this.data.windowActive
+    });
+    let items = this.data.itemList;
+    console.log(JSON.stringify())
+    console.log(items.length)
+    for(let i=0;i<items.length;i++){
+      items[i].active = false;
+    }
+    this.setData({
+      itemList:items
     })
     
+  },
+  imageEdit(){
+    my.navigateTo({ url: '../images/images' });
   },
   sticker(e){
     
@@ -284,17 +305,44 @@ console.log(323123)
     this.setData({
       currentTap:'front'
     })
+    my.confirm({
+      title: '温馨提示',
+      content: '是否清空画布',
+      confirmButtonText: '清空',
+      cancelButtonText: '取消',
+      success: (result) => {
+      
+      },
+    });
   },
   // 点击背面
   back(e){
     this.setData({
       currentTap:'back'
     })
+    my.confirm({
+      title: '温馨提示',
+      content: '是否清空画布',
+      confirmButtonText: '清空',
+      cancelButtonText: '取消',
+      success: (result) => {
+      
+      }
+    })
   },
   // 点击侧面
   side(e){
     this.setData({
       currentTap:'side'
+    })
+    my.confirm({
+      title: '温馨提示',
+      content: '是否清空画布',
+      confirmButtonText: '清空',
+      cancelButtonText: '取消',
+      success: (result) => {
+      
+      }
     })
   },
   // 点击文字
@@ -326,7 +374,6 @@ console.log(323123)
   },
   addText(){
 
-
     let imgLength = app.globalData.items.length;
     let item = {  
             id: imgLength+1,   
@@ -348,6 +395,22 @@ console.log(323123)
       itemList:app.globalData.items
     });
   
+  },
+  colorChoose(e){  //选择颜色
+    console.log(e.target.dataset.index);
+    const colorIndex =  e.target.dataset.index
+    let colorList = this.data.colorList;
+    for(let i = 0;i<colorList.length;i++){
+      if(i == colorIndex){
+        colorList[i].active = true
+      }else{
+        colorList[i].active = false
+      }
+    }
+  
+    this.setData({
+      colorList:colorList
+    })
   },
 
   // 设置透明度

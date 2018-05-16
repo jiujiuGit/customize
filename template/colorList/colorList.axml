@@ -1,3 +1,10 @@
-<view>
-  New Page
-</view>
+<template name="colorList">
+  <view>
+    <text >字体颜色</text>
+        <view class="colorList">
+          <view a:for="{{}}">
+
+          </view>
+        </view>
+  </view>
+</template>

@@ -102,12 +102,13 @@
 }
 .imgItem{
     width: 100%;
-}
-.touchActive{
-    border:2px dashed white;
     box-sizing: border-box;
      -webkit-box-sizing: border-box; 
     -moz-box-sizing: border-box; 
+}
+.touchActive{
+    border:2px dashed white;
+    
 }
 .x{
     width: 30px;
@@ -268,15 +269,33 @@
 }
 
 /* 颜色选择 */
+.colorSet{
+    text-align: center;
+    background-color: #5F6062;
+     border-top:1px solid #4D4D4D;
+}
 .color-list{
    width: 100%;
    overflow-x: scroll; 
    white-space:nowrap;
+  
+   
 }
 .color-block{
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     border-radius: 5px;
     display: inline-block;
     margin-left: 10px;
+    box-sizing:border-box;
+    -moz-box-sizing:border-box; /* Firefox */
+    -webkit-box-sizing:border-box; /* Safari */
+}
+.color-title{
+    line-height: 25px;
+    color: #CECECE;
+    font-size: 12px;
+}
+.color-block-active{
+    border:2px solid white
 }

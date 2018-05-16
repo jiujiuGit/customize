@@ -1,4 +1,6 @@
 Page({
-  data: {},
+  data: {
+    colorList:[]
+  },
   onLoad() {},
 });
