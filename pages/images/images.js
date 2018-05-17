@@ -1,11 +1,16 @@
 var app = getApp();
 Page({
   data: {
-    img:''
+    img:'',
+    ground:'' //当前编辑面   front 、siede、back
   },
-  onLoad() {},
+  onLoad(query) {
+  
+    this.setData({
+      ground:query.currentTap 
+    })
+  },
   addImg(){
-    console.log(231)
     let img ;
     const that = this;
     my.chooseImage({
@@ -28,8 +33,10 @@ Page({
               scale: 1,//缩放比例  1为不缩放  
               angle: 0,//旋转角度  
               active: false, //判定点击状态
+              opacity:1,//透明度
               rotate:0,
-              type:'image'  
+              type:'image',
+              ground:this.data.ground    
           }
       item.image = res.apFilePaths[0];
       app.globalData.items.push(item);

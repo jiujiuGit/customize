@@ -107,9 +107,9 @@ Page({
     //   items : this.data.itemLits
     //  })
   },
-textTap(){
-console.log(323123)
-},
+  textTap(){
+  console.log(323123)
+  },
   // 图片touchStart
   WraptouchStart(e){
     console.log(121)
@@ -175,9 +175,9 @@ console.log(323123)
     }
     
 
-    this.setData({ 
-        temList: items  
-    }) 
+    this.setData({
+      itemList:app.globalData.items
+    });
     
   },
 
@@ -283,8 +283,7 @@ console.log(323123)
       windowActive: !this.data.windowActive
     });
     let items = this.data.itemList;
-    console.log(JSON.stringify())
-    console.log(items.length)
+
     for(let i=0;i<items.length;i++){
       items[i].active = false;
     }
@@ -294,11 +293,12 @@ console.log(323123)
     
   },
   imageEdit(){
-    my.navigateTo({ url: '../images/images' });
+    const currentTap = this.data.currentTap;
+    my.navigateTo({ url: "../images/images?currentTap="+currentTap });
   },
   sticker(e){
-    
-    my.navigateTo({ url: '../sticker/sticker' });
+    const currentTap = this.data.currentTap;
+    my.navigateTo({ url: "../sticker/sticker?currentTap="+currentTap });
   },
   // 点击正面
   front(e){
@@ -311,7 +311,17 @@ console.log(323123)
       confirmButtonText: '清空',
       cancelButtonText: '取消',
       success: (result) => {
-      
+        if(result.confirm){
+          for(let i = 0;i<app.globalData.items.length;i++){
+            if(app.globalData.items[i].ground == 'front'){
+                app.globalData.items.splice(i,1)
+            }
+          }
+          this.setData({
+            itemList:app.globalData.items
+          });
+        }
+        
       },
     });
   },
@@ -326,7 +336,16 @@ console.log(323123)
       confirmButtonText: '清空',
       cancelButtonText: '取消',
       success: (result) => {
-      
+      if(result.confirm){
+          for(let i = 0;i<app.globalData.items.length;i++){
+            if(app.globalData.items[i].ground == 'back'){
+                app.globalData.items.splice(i,1)
+            }
+          }
+          this.setData({
+            itemList:app.globalData.items
+          });
+        }
       }
     })
   },
@@ -341,7 +360,16 @@ console.log(323123)
       confirmButtonText: '清空',
       cancelButtonText: '取消',
       success: (result) => {
-      
+        if(result.confirm){
+          for(let i = 0;i<app.globalData.items.length;i++){
+            if(app.globalData.items[i].ground == 'side'){
+                app.globalData.items.splice(i,1)
+            }
+          }
+          this.setData({
+            itemList:app.globalData.items
+          });
+        }
       }
     })
   },
@@ -373,7 +401,6 @@ console.log(323123)
     })
   },
   addText(){
-
     let imgLength = app.globalData.items.length;
     let item = {  
             id: imgLength+1,   
@@ -385,7 +412,9 @@ console.log(323123)
             angle: 0,//旋转角度  
             active: false, //判定点击状态
             rotate:0,
+            opacity:1,//透明度
             type:'text',  //文字  
+             ground:this.data.currentTap,
             fontFamily:'SimSun'
         }
         
@@ -425,10 +454,23 @@ console.log(323123)
       textEditItem:'color'
     })
   },
+ 
+
+  
   //头部取消按钮
   cancle(){
     this.setData({
       footer:'list'
     })
-  }
+  },
+   // 透明度设置
+   sliderChange(e) {
+     console.log('slider 改变后的值:', e.detail.value)
+     const index = this.data.index ;
+     app.globalData.items[index].opacity =  e.detail.value/100;
+    
+     this.setData({
+       itemList:app.globalData.items
+     })
+   }
 });

@@ -104,7 +104,9 @@
     width: 100%;
     box-sizing: border-box;
      -webkit-box-sizing: border-box; 
-    -moz-box-sizing: border-box; 
+    -moz-box-sizing: border-box;
+    /* opacity:0.4;
+    filter:alpha(opacity=40);  */
 }
 .touchActive{
     border:2px dashed white;
@@ -128,27 +130,28 @@
 .aside-right{
     position: fixed;
     bottom: 200px;
-    right: 20px;
+    right: 23px;
+
 }
 
 .aside-btn{
     background-color: #898989;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
     border-radius: 50%;
     text-align: center;
     color: white;
     font-size: 12px;
     margin-top: 10px;
-    margin-left: 5px;
+    margin-left: 8px;
     
 }
 .aside-btn-active{
-    background-color: #E62165;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
+    background-color: #E02666;
+    width: 44px;
+    height: 44px;
+    line-height: 44px;
     font-size: 14px;
     font-weight: bold;
     margin-left: 0;

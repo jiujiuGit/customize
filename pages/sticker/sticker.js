@@ -51,13 +51,20 @@ Page({
       mode: 'widthFix',
       },
       
-    ]
+    ],
+    ground:'' //当前编辑面   front 、siede、back
   },
-  onLoad() {},
+  onLoad(query) {
+    console.log(JSON.stringify(query));
+    this.setData({
+      ground:query.currentTap 
+    })
+  },
   imageTap(e) {
     console.log( e.target.dataset.index);
     let tapIndex = e.target.dataset.index;
     let imgLength = app.globalData.items.length;
+    console.log(this.data.ground )
     const item = {  
             id: imgLength+1,   
             top: 100,//初始图片的位置   
@@ -67,8 +74,10 @@ Page({
             scale: 1,//缩放比例  1为不缩放  
             angle: 0,//旋转角度  
             active: false, //判定点击状态
+            opacity:1,//透明度
             rotate:0,
-            type:'image'  
+            type:'image',
+            ground:this.data.ground  
         }
     item.image = this.data.stickers[tapIndex].imgUrl
     app.globalData.items.push(item);

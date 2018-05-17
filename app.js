@@ -32,6 +32,7 @@ App({
       //       active: false  
       // }
     ],
+    ground:""
   }
   // getUserInfo() {
   //   return new Promise((resolve, reject) => {

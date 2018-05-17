@@ -1,4 +1,4 @@
-<view style="width:100%">
+<view style="width:100%;background-color: white;">
   <!-- 头部 -->
   <view class="header">
     <view class="text-header flex-box" a:if="{{footer == 'text'}}">
@@ -10,16 +10,18 @@
     </view>
   </view>
 
-  <view class="model-contanier" >
+  <!-- 正面操作区域 -->
+  <view class="model-contanier" a:if="{{currentTap == 'front'}}">
     <view class="model-display" onTap = "windowToggle">
-      <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="../../assets/images/bg.jpg" mode="" />
+      <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="../../assets/images/middle_img_01.png" mode="" />
+      <!-- <image class="bg-model" mode="widthFix" src="../../assets/images/middle_img_01.svg" mode="" /> -->
     </view>
     <!-- 操作区域 -->
-    <block a:for="{{itemList}}" a:key="{{item.id}}">
+    <block a:for="{{itemList}}" a:if="{{item.ground == 'front'}}" a:key="{{item.id}}">
       <view class="touchWrap" style="transform:scale({{item.scale}});top:{{item.top}}px;left:{{item.left}}px; ">
         <!-- 图片编辑 -->
         <view a:if="{{item.type == 'image'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
-          <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image> 
+          <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px; opacity:{{item.opacity}}' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image> 
           
           <!-- <text class="textItem"  data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'>{{item.text}}</text>  -->
 
@@ -48,6 +50,80 @@
 
 
   </view>
+  <!-- 背面操作区域 -->
+  <view class="model-contanier" a:if="{{currentTap == 'back'}}"> 
+    <view class="model-display" onTap = "windowToggle">
+      <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="../../assets/images/middle_img_02.png" mode="" />
+      <!-- <image class="bg-model" mode="widthFix" src="../../assets/images/middle_img_03.svg" mode="" /> -->
+    </view>
+    <!-- 操作区域 -->
+    <block a:for="{{itemList}}" a:if="{{item.ground == 'back'}}" a:key="{{item.id}}">
+      <view class="touchWrap" style="transform:scale({{item.scale}});top:{{item.top}}px;left:{{item.left}}px; ">
+        <!-- 图片编辑 -->
+        <view a:if="{{item.type == 'image'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
+          <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image> 
+          
+          <!-- <text class="textItem"  data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'>{{item.text}}</text>  -->
+
+          <!-- 删除图片 -->
+          <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTap='deleteItem'></image>  
+          <!-- 缩放旋转 -->
+          <image class='o' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/suofang.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTouchStart='touchStart' onTouchMove='touchMove' onTouchEnd='touchEnd'></image>  
+        </view>
+
+        <!-- 文字编辑 -->
+         <view a:if="{{item.type == 'text'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
+          <!-- <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image>  -->
+          
+          <view class="textItem" onTap="textTap" data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'><text style='fontSize:12*{{item.oScale}}px;font-family:{{item.fontFamily}};opacity:{{item.opacity}}'>{{item.text}}</text></view> 
+
+          <!-- 删除图片 -->
+          <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTap='deleteItem'></image>  
+          <!-- 缩放旋转 -->
+          <image class='o' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/suofang.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTouchStart='touchStart' onTouchMove='touchMove' onTouchEnd='touchEnd'></image>  
+        </view>
+        
+      </view>
+    </block>
+  </view>
+  <!-- 侧面操作区域 -->
+  <view class="model-contanier" a:if="{{currentTap == 'side'}}">
+    <view class="model-display" onTap = "windowToggle">
+      <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="../../assets/images/middle_img_03.png" mode="" />
+      <!-- <image class="bg-model" mode="widthFix" src="../../assets/images/middle_img_02.svg" mode="" /> -->
+    </view>
+    <!-- 操作区域 -->
+    <block a:for="{{itemList}}" a:if="{{item.ground == 'side'}}" a:key="{{item.id}}">
+      <view class="touchWrap" style="transform:scale({{item.scale}});top:{{item.top}}px;left:{{item.left}}px; ">
+        <!-- 图片编辑 -->
+        <view a:if="{{item.type == 'image'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
+          <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image> 
+          
+          <!-- <text class="textItem"  data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'>{{item.text}}</text>  -->
+
+          <!-- 删除图片 -->
+          <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTap='deleteItem'></image>  
+          <!-- 缩放旋转 -->
+          <image class='o' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/suofang.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTouchStart='touchStart' onTouchMove='touchMove' onTouchEnd='touchEnd'></image>  
+        </view>
+
+        <!-- 文字编辑 -->
+         <view a:if="{{item.type == 'text'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
+          <!-- <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image>  -->
+          
+          <view class="textItem" onTap="textTap" data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'><text style='fontSize:12*{{item.oScale}}px;font-family:{{item.fontFamily}}'>{{item.text}}</text></view> 
+
+          <!-- 删除图片 -->
+          <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTap='deleteItem'></image>  
+          <!-- 缩放旋转 -->
+          <image class='o' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/suofang.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTouchStart='touchStart' onTouchMove='touchMove' onTouchEnd='touchEnd'></image>  
+        </view>
+        
+      </view>
+    </block>
+  </view>
+
+
 
   <!-- 选择正面、背面、侧面 -->
   <view class="aside-right">
@@ -151,7 +227,7 @@
       <!-- 字体透明度 -->
       <view class="transparencySider" a:if="{{textEditItem == 'transparency'}}">
         <text>调整透明度</text>
-        <slider value="100" min="0%" max="100%" show-value/>
+        <slider value="100" min="0%" max="100%"  onChange="sliderChange" show-value/>
       </view>
       <!-- 字体颜色 -->
       <view class="colorSet textColor" a:if="{{textEditItem == 'color'}}">
