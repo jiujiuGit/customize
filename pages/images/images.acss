@@ -1,0 +1,6 @@
+.uploadImg{
+    margin: 0 auto;
+}
+.addImgBtn{
+    margin-top: 200px;
+}

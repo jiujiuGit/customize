@@ -2,6 +2,10 @@ var app = getApp();
 Page({
   data: {
     windowActive:false,
+    windowPosition:{
+      before:0,
+      after:0
+    },
     headerConfig:{
 
     },
@@ -95,9 +99,25 @@ Page({
       itemList:app.globalData.items
     });
     this.getSystemInfoPage();
+    const pages = getCurrentPages();
+  
+    const curPage = pages[pages.length - 1];
+    if(curPage == undefined){
+      return;
+    }
+   
+    if(curPage.data.stickerIndex!=undefined){
+      this.setData({
+        footer:'imgTransparency',
+        index:curPage.data.stickerIndex
+      })
+    }
+    console.log(this.data.index)
+  
   },
   onLoad() {
-    console.log(1)
+    console.log(this.data.footer)
+
     // this.setData({
     //   itemList:app.globalData.items
     // })
@@ -267,18 +287,23 @@ Page({
 
 
 //移动的点到圆心的距离 
-  getDistancs(cx,cy,pointer_x,pointer_y){
+  getDistancs(cx, cy, pointer_x, pointer_y){
 
-    let discount  =  Math.sqrt(Math.pow((cx-pointer_x),2) + Math.pow((cy-pointer_y),2))
-    console.log(discount);
-    return discount;
+    // let discount  =  Math.sqrt(Math.pow((cx-pointer_x),2) + Math.pow((cy-pointer_y),2))
+    // console.log(discount);
+    // return discount;
+
+    var ox = pointer_x - cx;  
+        var oy = pointer_y - cy;  
+        return Math.sqrt(  
+            ox * ox + oy * oy  
+        );  
   },
   add(e) {
     console.log(12312312)
   },
   windowToggle:function(e){
-  //  my.navigateTo({ url: '../sticker/sticker' });
-    // console.log(21324567)
+    console.log("tap事件")
     this.setData({
       windowActive: !this.data.windowActive
     });
@@ -292,16 +317,77 @@ Page({
     })
     
   },
+  windowTouchStart(e){
+    //  let windowPosion = {};
+    //  let windowPostion = e.touches[0].clientY;
+    console.log("初始位置"+e.touches[0].clientY)
+    let windowPosition = this.data.windowPosition;
+    windowPosition.after = e.touches[0].clientY;
+    windowPosition.before = e.touches[0].clientY
+     this.setData({
+      windowPosition : windowPosition
+     })
+  },
+  windowTouchMove(e){
+    console.log(2)
+    let windowPosition = this.data.windowPosition;
+    console.log("移动到"+e.touches[0].clientY)
+    windowPosition.after = e.touches[0].clientY;
+    windowPosition.before = this.data.windowPosition.before;
+    this.setData({
+      windowPosition : windowPosition
+     })
+     console.log(Math.abs(this.data.windowPosition.before - this.data.windowPosition.after))
+     if(this.data.windowPosition.before - this.data.windowPosition.after>30){
+        this.setData({
+          windowActive: true
+        });
+     }
+     console.log(this.data.windowPosition.before - this.data.windowPosition.after)
+     if(this.data.windowPosition.before - this.data.windowPosition.after<-30){
+        this.setData({
+          windowActive: false
+        });
+     }
+  },
+  windowTouchEnd(){
+
+  },
+  windowHide(){
+    
+    this.setData({
+      windowActive: false
+    });
+   
+    const items = this.data.itemList;
+    items[this.data.index].active = false;
+    this.setData({
+      itemList:items
+    })
+     this.setData({
+      index:-1
+    })
+  },
   imageEdit(){
     const currentTap = this.data.currentTap;
     my.navigateTo({ url: "../images/images?currentTap="+currentTap });
   },
   sticker(e){
+    
     const currentTap = this.data.currentTap;
     my.navigateTo({ url: "../sticker/sticker?currentTap="+currentTap });
+    
   },
   // 点击正面
   front(e){
+    const ctx = my.createCanvasContext("mycanvas");
+    console.log(ctx);
+    ctx.toTempFilePath({
+     
+      success(e) {
+        console.log(e)
+      },
+    });
     this.setData({
       currentTap:'front'
     })
@@ -424,6 +510,7 @@ Page({
       itemList:app.globalData.items
     });
   
+  
   },
   colorChoose(e){  //选择颜色
     console.log(e.target.dataset.index);
@@ -462,9 +549,44 @@ Page({
     this.setData({
       footer:'list'
     })
+    let items = this.data.itemList;
+    let index = this.data.index;
+    console.log(index)
+
+    for(let i = 0;i<items.length;i++){
+      if(index == items[i].id){
+          items.splice(i,1)
+      }
+    }
+
+    for(let i = 0;i<app.globalData.items.length;i++){
+      if(index == app.globalData.items[i].id){
+          app.globalData.items.splice(i,1)
+      }
+    }
+    
+
+    this.setData({
+      itemList:app.globalData.items
+    });
+  },
+
+  // 头部保存按钮
+  saveEdit(){
+    this.setData({
+      footer:'list'
+    })
+    const items = this.data.itemList;
+    items[this.data.index].active = false;
+    this.setData({
+      itemList:items
+    })
+     this.setData({
+      index:-1
+    })
   },
    // 透明度设置
-   sliderChange(e) {
+  sliderChange(e) {
      console.log('slider 改变后的值:', e.detail.value)
      const index = this.data.index ;
      app.globalData.items[index].opacity =  e.detail.value/100;
@@ -472,5 +594,51 @@ Page({
      this.setData({
        itemList:app.globalData.items
      })
-   }
+  },
+  //  开始定制
+  customize(){
+    // console.log(1)
+    for(let i=0;i<this.data.itemList.length;i++){
+      
+      if(this.data.itemList[i].ground == 'front'){
+        console.log(1)
+        const item = this.data.itemList[i]
+        const ctx = my.createCanvasContext('canvasFront');
+        ctx.rotate(this.data.itemList[i].angle * Math.PI / 180);
+        // console.log(item.width)
+        // console.log(item.height)
+        ctx.drawImage(item.image,item.left,item.top,100,120)
+        // ctx.drawImage(this.data.itemList[i].image, item.left, item.top, item.width, item.height);
+        ctx.draw();
+        ctx.save();
+        ctx.restore();//恢复状态
+        ctx.toTempFilePath({
+          success(res) {
+            console.log(res)
+            // my.saveImage({url:res.apFilePath});
+            
+          },
+        });
+      }
+    }
+
+
+    
+    // ctx.restore();//恢复状态
+
+
+
+
+//     var ctx = my.createCanvasContext('canvasFront');
+// // var ctx = canvas.getContext("2d");
+// var img = new Image();
+// img.src = "https://img.alicdn.com/tfs/TB1GvVMj2BNTKJjy0FdXXcPpVXa-520-280.jpg";
+// img.onload = function (){
+//     // ctx.save();//保存状态
+//     // ctx.translate(200,200);//设置画布上的(0,0)位置，也就是旋转的中心点
+//     // ctx.rotate(45*Math.PI/180);
+//     ctx.drawImage(img,-img.width/2,-img.height/2);//把图片绘制在旋转的中心点，
+//     // ctx.restore();//恢复状态
+// }
+  }
 });

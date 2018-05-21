@@ -1,18 +1,19 @@
 <view style="width:100%;background-color: white;">
   <!-- 头部 -->
   <view class="header">
-    <view class="text-header flex-box" a:if="{{footer == 'text'}}">
+    <view class="text-header flex-box" a:if="{{footer == 'text' || footer == 'imgTransparency'}}">
       <view class="header-left cancle" onTap="cancle">取消</view>
-      <view class="flex-item-1 header-center">添加文字</view>
+      <view class="flex-item-1 header-center"a:if="{{footer == 'text'}}">添加文字</view>
+      <view class="flex-item-1 header-center" a:if="{{footer == 'imgTransparency'}}">添加图片</view>
       <view class="header-right">
-        <button type="primary" class="btn-small">保存</button>
+        <button type="primary" class="btn-small" onTap="saveEdit">保存</button>
       </view>
     </view>
   </view>
-
+  
   <!-- 正面操作区域 -->
   <view class="model-contanier" a:if="{{currentTap == 'front'}}">
-    <view class="model-display" onTap = "windowToggle">
+    <view class="model-display" onTap = "windowHide">
       <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="../../assets/images/middle_img_01.png" mode="" />
       <!-- <image class="bg-model" mode="widthFix" src="../../assets/images/middle_img_01.svg" mode="" /> -->
     </view>
@@ -21,7 +22,7 @@
       <view class="touchWrap" style="transform:scale({{item.scale}});top:{{item.top}}px;left:{{item.left}}px; ">
         <!-- 图片编辑 -->
         <view a:if="{{item.type == 'image'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
-          <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px; opacity:{{item.opacity}}' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image> 
+          <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style=' opacity:{{item.opacity}}' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image> 
           
           <!-- <text class="textItem"  data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'>{{item.text}}</text>  -->
 
@@ -35,7 +36,7 @@
          <view a:if="{{item.type == 'text'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
           <!-- <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image>  -->
           
-          <view class="textItem" onTap="textTap" data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'><text style='fontSize:12*{{item.oScale}}px;font-family:{{item.fontFamily}}'>{{item.text}}</text></view> 
+          <view class="textItem" onTap="textTap" data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px; opacity:{{item.opacity}}' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'><text style='fontSize:12*{{item.oScale}}px;font-family:{{item.fontFamily}}'>{{item.text}}</text></view> 
 
           <!-- 删除图片 -->
           <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTap='deleteItem'></image>  
@@ -52,7 +53,7 @@
   </view>
   <!-- 背面操作区域 -->
   <view class="model-contanier" a:if="{{currentTap == 'back'}}"> 
-    <view class="model-display" onTap = "windowToggle">
+    <view class="model-display" onTap = "windowHide">
       <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="../../assets/images/middle_img_02.png" mode="" />
       <!-- <image class="bg-model" mode="widthFix" src="../../assets/images/middle_img_03.svg" mode="" /> -->
     </view>
@@ -88,7 +89,7 @@
   </view>
   <!-- 侧面操作区域 -->
   <view class="model-contanier" a:if="{{currentTap == 'side'}}">
-    <view class="model-display" onTap = "windowToggle">
+    <view class="model-display" onTap = "windowHide">
       <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="../../assets/images/middle_img_03.png" mode="" />
       <!-- <image class="bg-model" mode="widthFix" src="../../assets/images/middle_img_02.svg" mode="" /> -->
     </view>
@@ -123,6 +124,8 @@
     </block>
   </view>
 
+  <!-- <canvas class="mycanvas" id="canvasFront"></canvas> -->
+
 
 
   <!-- 选择正面、背面、侧面 -->
@@ -140,12 +143,21 @@
   <!-- 底部 -->
   <view class="footer">
 
+    <!-- 图片文字等调整透明度 -->
+    <view class="imgTransparency" a:if="{{footer == 'imgTransparency'}}">
+      <view class="transparencySider" >
+        <text>调整透明度</text>
+        <slider style='margin-bottom:20px' value="100" min="0%" max="100%"  onChange="sliderChange" show-value/>
+      </view>
+    </view>
+
     <!-- 定制列表 -->
     <view class="custome-list" a:if="{{footer == 'list'}}">
-      <view class="custome-window flex-box flex-wrap {{windowActive?'custome-active':''}}" >
+      <view class="custome-window flex-box flex-wrap {{windowActive?'custome-active':''}}" onTouchStart='windowTouchStart' onTouchMove = 'windowTouchMove'>
 
-        <view class="custome-window-tab" onTap="windowToggle">
-          <view class="iconfont icon-xia" ></view>
+        <view class="custome-window-tab" onTap="windowToggle"  >
+          <view class="iconfont icon-xia" a:if='{{windowActive == true}}'></view>
+          <view class="iconfont icon-shang" a:if='{{windowActive == false}}'></view>
         </view>    
         <view class="custome-item " onTap="imageEdit">
             <text class="iconfont icon-tupian"></text>
@@ -187,62 +199,68 @@
         
         <view class="flex-box bottom">
             <view class="goods-name flex-item-1">  男士V领纯棉T恤</view>
-            <button form-type="submit" class="customize-btn">开始定制</button>
+            <button form-type="submit" class="customize-btn" onTap="customize">开始定制</button>
           </view>
         
         </view>
   
-  <!-- 文字 -->
-    <view class="text-content" a:elif="{{footer == 'text'}}">
-      <view class="custome-window flex-box flex-wrap" >
-         <view class="custome-item {{(textEditItem == 'font')?'custome-item-active':''}}" onTap="setTextFont">
-            <text class="iconfont icon-tupian"></text>
-          <view>
-            <text class="custome-item-text">字体</text>
+      <!-- 文字 -->
+      <view class="text-content" a:elif="{{footer == 'text'}}">
+        <view class="custome-window flex-box flex-wrap" >
+          <view class="custome-item {{(textEditItem == 'font')?'custome-item-active':''}}" onTap="setTextFont">
+              <text class="iconfont icon-tupian"></text>
+            <view>
+              <text class="custome-item-text">字体</text>
+            </view>
+          </view>
+          <view class="custome-item {{(textEditItem == 'transparency')?'custome-item-active':''}}" onTap="setTextTransparency">
+            <text class="iconfont icon-wenzi"></text>
+            <view>
+              <text class="custome-item-text">透明度</text>
+            </view>
+          </view>
+          <view class="custome-item {{(textEditItem == 'color')?'custome-item-active':''}}" onTap="setTextColor">
+            <text class="iconfont icon-tiezhi"></text>
+            <view>
+              <text class="custome-item-text">颜色</text>
+            </view>
           </view>
         </view>
-        <view class="custome-item {{(textEditItem == 'transparency')?'custome-item-active':''}}" onTap="setTextTransparency">
-          <text class="iconfont icon-wenzi"></text>
-          <view>
-            <text class="custome-item-text">透明度</text>
+        
+          <!-- 字体列表 -->
+        <view class="font-list" a:if="{{textEditItem == 'font'}}">
+          <radio-group class="radio-group" onChange="fontChoose">
+            <label class="text-radio"  a:for="{{fontList}}">
+              <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+            </label>
+          </radio-group>
+        </view>
+
+        <!-- 字体透明度 -->
+        <view class="transparencySider" a:if="{{textEditItem == 'transparency'}}">
+          <text>调整透明度</text>
+          <slider value="100" min="0%" max="100%"  onChange="sliderChange" show-value/>
+        </view>
+        <!-- 字体颜色 -->
+        <view class="colorSet textColor" a:if="{{textEditItem == 'color'}}">
+          <text class="color-title">字体颜色</text>
+          <view class="color-list">
+            <view class="color-block {{(item.active == true)?'color-block-active':''}}" a:for="{{colorList}}" data-index = "{{index}}" style="background-color:{{item.colorCode}}" onTap="colorChoose">
+
+            </view>
           </view>
         </view>
-        <view class="custome-item {{(textEditItem == 'color')?'custome-item-active':''}}" onTap="setTextColor">
-          <text class="iconfont icon-tiezhi"></text>
-          <view>
-            <text class="custome-item-text">颜色</text>
-          </view>
+
+        <view class="text-footer flex-box">
+          <input maxlength="10" onInput="bindTextInput" class="flex-item-1 text-input" id="text-input" type="text" placeholder="最大输入长度10" />
+          <button type="primary" onTap="addText" class="btn-small add-text">添加</button>
         </view>
-      </view>
-      
-        <!-- 字体列表 -->
-      <view class="font-list" a:if="{{textEditItem == 'font'}}">
-        <radio-group class="radio-group" onChange="fontChoose">
-          <label class="text-radio"  a:for="{{fontList}}">
-            <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
-          </label>
-        </radio-group>
       </view>
 
-      <!-- 字体透明度 -->
-      <view class="transparencySider" a:if="{{textEditItem == 'transparency'}}">
-        <text>调整透明度</text>
-        <slider value="100" min="0%" max="100%"  onChange="sliderChange" show-value/>
-      </view>
-      <!-- 字体颜色 -->
-      <view class="colorSet textColor" a:if="{{textEditItem == 'color'}}">
-        <text class="color-title">字体颜色</text>
-        <view class="color-list">
-          <view class="color-block {{(item.active == true)?'color-block-active':''}}" a:for="{{colorList}}" data-index = "{{index}}" style="background-color:{{item.colorCode}}" onTap="colorChoose">
+    
 
-          </view>
-        </view>
-      </view>
+    <view>
 
-      <view class="text-footer flex-box">
-        <input maxlength="10" onInput="bindTextInput" class="flex-item-1 text-input" id="text-input" type="text" placeholder="最大输入长度10" />
-        <button type="primary" onTap="addText" class="btn-small add-text">添加</button>
-      </view>
     </view>
 
     

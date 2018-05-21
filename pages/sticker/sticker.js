@@ -52,19 +52,21 @@ Page({
       },
       
     ],
-    ground:'' //当前编辑面   front 、siede、back
+    ground:'', //当前编辑面   front 、siede、back
+    stickIndex:''
   },
   onLoad(query) {
     console.log(JSON.stringify(query));
     this.setData({
       ground:query.currentTap 
     })
+    
   },
   imageTap(e) {
     console.log( e.target.dataset.index);
     let tapIndex = e.target.dataset.index;
     let imgLength = app.globalData.items.length;
-    console.log(this.data.ground )
+    console.log(imgLength)
     const item = {  
             id: imgLength+1,   
             top: 100,//初始图片的位置   
@@ -84,5 +86,22 @@ Page({
     my.navigateBack({
       delta: 2
     })
+    this.setData({
+      stickerIndex : item.id
+    })
+    const pages = getCurrentPages();
+  
+    const prePage = pages[pages.length - 2];
+   
+   
+    
+    prePage.setData({
+      footer:'imgTransparency',
+      index:app.globalData.items.length
+    })
+   
+
+   
+  
   },
 });
