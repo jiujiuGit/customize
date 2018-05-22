@@ -14,7 +14,7 @@ Page({
     let img ;
     const that = this;
     my.chooseImage({
-    count: 2,
+    count: 1,
     success: (res) => {
       // that.img = res.apFilePaths[0];
       // img.src = res.apFilePaths[0];
@@ -41,7 +41,15 @@ Page({
       item.image = res.apFilePaths[0];
       app.globalData.items.push(item);
       my.navigateBack({
-        delta: 2
+        delta: 1
+      })
+
+      const pages = getCurrentPages();
+      const prePage = pages[pages.length - 2];
+  
+      prePage.setData({
+        footer:'imgTransparency',
+        index:app.globalData.items.length-1
       })
 
     },

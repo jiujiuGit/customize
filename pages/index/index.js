@@ -6,9 +6,7 @@ Page({
       before:0,
       after:0
     },
-    headerConfig:{
-
-    },
+    headerSeen:true,
 
     //可编辑图片列表
     itemList: [],
@@ -76,9 +74,9 @@ Page({
         value:'幼圆'
       },
     ],
-    textContent:''//文字内容
+    textContent:'',//文字内容
 
-  
+    zindexSeen:false
   
   },
   getSystemInfoPage() {
@@ -105,18 +103,38 @@ Page({
     if(curPage == undefined){
       return;
     }
-   
+   console.log(curPage.data.stickerIndex)
     if(curPage.data.stickerIndex!=undefined){
+      console.log(1)
       this.setData({
         footer:'imgTransparency',
+        headerSeen:true,
         index:curPage.data.stickerIndex
       })
     }
-    console.log(this.data.index)
+    console.log(this.data.headerSeen)
   
   },
   onLoad() {
-    console.log(this.data.footer)
+    my.httpRequest({
+    url: 'http://httpbin.org/post',
+    method: 'POST',
+    data: {
+      from: '支付宝',
+      production: 'AlipayJSAPI',
+    },
+    dataType: 'json',
+    success: function(res) {
+      my.alert({content: 'success'});
+    },
+    fail: function(res) {
+      my.alert({content: 'fail'});
+    },
+    complete: function(res) {
+      my.hideLoading();
+      my.alert({content: 'complete'});
+    }
+});
 
     // this.setData({
     //   itemList:app.globalData.items
@@ -132,7 +150,10 @@ Page({
   },
   // 图片touchStart
   WraptouchStart(e){
-    console.log(121)
+
+    this.setData({
+      footer:'transparency'
+    })
     let items = this.data.itemList;
     
      for (let i = 0; i < items.length; i++) {  //旋转数据找到点击的  
@@ -304,6 +325,7 @@ Page({
   },
   windowToggle:function(e){
     console.log("tap事件")
+  
     this.setData({
       windowActive: !this.data.windowActive
     });
@@ -354,7 +376,9 @@ Page({
 
   },
   windowHide(){
-    
+    this.setData({
+      footer:'list'
+    })
     this.setData({
       windowActive: false
     });
@@ -380,6 +404,9 @@ Page({
   },
   // 点击正面
   front(e){
+    if(this.data.footer =='text'){
+      return; //编辑字体时不允许切换
+    }
     const ctx = my.createCanvasContext("mycanvas");
     console.log(ctx);
     ctx.toTempFilePath({
@@ -413,6 +440,9 @@ Page({
   },
   // 点击背面
   back(e){
+    if(this.data.footer =='text'){
+      return; //编辑字体时不允许切换
+    }
     this.setData({
       currentTap:'back'
     })
@@ -437,6 +467,9 @@ Page({
   },
   // 点击侧面
   side(e){
+    if(this.data.footer =='text'){
+      return; //编辑字体时不允许切换
+    }
     this.setData({
       currentTap:'side'
     })
@@ -552,12 +585,13 @@ Page({
     let items = this.data.itemList;
     let index = this.data.index;
     console.log(index)
-
-    for(let i = 0;i<items.length;i++){
-      if(index == items[i].id){
-          items.splice(i,1)
-      }
-    }
+    items.splice(index,1)
+    // for(let i = 0;i<items.length;i++){
+    //   items.splice[i]
+    //   // if(index == items[i].id){
+    //   //     items.splice(i,1)
+    //   // }
+    // }
 
     for(let i = 0;i<app.globalData.items.length;i++){
       if(index == app.globalData.items[i].id){
@@ -587,8 +621,9 @@ Page({
   },
    // 透明度设置
   sliderChange(e) {
-     console.log('slider 改变后的值:', e.detail.value)
+    
      const index = this.data.index ;
+     console.log(index)
      app.globalData.items[index].opacity =  e.detail.value/100;
     
      this.setData({

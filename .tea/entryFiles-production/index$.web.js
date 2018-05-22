@@ -1,4 +1,5 @@
 require('./config$');
+require('../..//pages/modelList/modelList');
 require('../..//pages/index/index');
 require('../..//pages/todos/todos');
 require('../..//pages/add-todo/add-todo');

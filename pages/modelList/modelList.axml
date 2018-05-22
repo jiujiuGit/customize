@@ -1,0 +1,32 @@
+<!-- <view style='width:100%;display: table-cell;vertical-align: middle;'> -->
+<view class="model-content">
+  <view >
+    <view class="model-text">
+    <text>选择款式</text>
+  </view>
+  <swiper
+    autoplay="{{autoplay}}"
+    interval="{{interval}}"
+    current="{{current}}"
+    onChange = "swiperChange"
+    >
+    <block a:for="{{5}}">
+      <swiper-item >
+        <view style='height:600rpx'>
+          <image mode="aspectFit" src="../../assets/images/t{{item}}.jpg" mode="" />
+        </view>
+        <view class="model-name">小狗</view>
+      </swiper-item>
+    </block>
+  </swiper>
+  
+  <view class="model-text">
+    <text>选择面料</text>
+  </view>
+  <view class="flex-box fabric-list">
+    <view class="fabric-btn" data-index='1' onTap='fabricTap'>名字</view>
+    <view class="fabric-btn fabric-btn-active" data-index='2' onTap='fabricTap'>名字2</view>
+  </view>
+  <view class="next-step" onTap="nextStep">下一步</view>
+  </view>
+</view>

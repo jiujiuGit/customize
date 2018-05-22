@@ -1,7 +1,7 @@
 <view style="width:100%;background-color: white;">
   <!-- 头部 -->
   <view class="header">
-    <view class="text-header flex-box" a:if="{{footer == 'text' || footer == 'imgTransparency'}}">
+    <view class="text-header flex-box" a:if="{{(footer == 'text' || footer == 'imgTransparency') && headerSeen}}">
       <view class="header-left cancle" onTap="cancle">取消</view>
       <view class="flex-item-1 header-center"a:if="{{footer == 'text'}}">添加文字</view>
       <view class="flex-item-1 header-center" a:if="{{footer == 'imgTransparency'}}">添加图片</view>
@@ -144,7 +144,10 @@
   <view class="footer">
 
     <!-- 图片文字等调整透明度 -->
-    <view class="imgTransparency" a:if="{{footer == 'imgTransparency'}}">
+    <view class="imgTransparency" a:if="{{footer == 'imgTransparency' || footer == 'transparency'}}">
+     <view a:if='{{zindexSeen}}'>
+       向上一层
+     </view>
       <view class="transparencySider" >
         <text>调整透明度</text>
         <slider style='margin-bottom:20px' value="100" min="0%" max="100%"  onChange="sliderChange" show-value/>

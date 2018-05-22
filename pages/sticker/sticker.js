@@ -84,11 +84,12 @@ Page({
     item.image = this.data.stickers[tapIndex].imgUrl
     app.globalData.items.push(item);
     my.navigateBack({
-      delta: 2
+      delta: 1
     })
     this.setData({
       stickerIndex : item.id
     })
+    console.log(this.data.stickerIndex)
     const pages = getCurrentPages();
   
     const prePage = pages[pages.length - 2];
@@ -97,7 +98,7 @@ Page({
     
     prePage.setData({
       footer:'imgTransparency',
-      index:app.globalData.items.length
+      index:app.globalData.items.length-1
     })
    
 
