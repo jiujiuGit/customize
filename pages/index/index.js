@@ -150,10 +150,13 @@ Page({
   },
   // 图片touchStart
   WraptouchStart(e){
-
-    this.setData({
-      footer:'transparency'
-    })
+    console.log(this.data.footer)
+    if(this.data.footer == 'list'){
+      this.setData({
+        footer:'transparency'
+      })
+    }
+    
     let items = this.data.itemList;
     
      for (let i = 0; i < items.length; i++) {  //旋转数据找到点击的  
@@ -675,5 +678,73 @@ Page({
 //     ctx.drawImage(img,-img.width/2,-img.height/2);//把图片绘制在旋转的中心点，
 //     // ctx.restore();//恢复状态
 // }
+  },
+
+  swapItems(arr, index1, index2){
+    arr[index1] = arr.splice(index2, 1, arr[index1])[0];
+    return arr;
+  },
+  // 向上一层
+  upZindex(e){
+    // console.log( e.target.dataset.id)
+    let items = this.data.itemList;
+    let index  = this.data.index;
+    const curItem = this.data.itemList[index]
+    console.log(index)
+
+    if(index+1 == items.length){
+      console.log("已经是最高一层");
+      return; //已经是最高一层
+    }
+    console.log(index);
+    items.splice(index,1);
+    items.splice(index+1,0,curItem)
+     console.log(items)
+    // const index1 = index-1
+    // const index2 = items
+    // items[index] = items.splice(items, index, items[index - 1])[0];
+    // items =  this.swapItems(items, index, index - 1);
+    // items.remove(index);
+    // item.splice(index+1,0,curItem);
+    // items.splice(index,1,items[index]);
+    // const curIndex = items[index].zindex;
+    // items[index].zindex = items[index+1].zindex; //和下一个交换位置
+    // items[index+1].zindex = curIndex;
+    // items.splice()
+    // console.log(items[index].zindex);
+    index = index+1
+    this.setData({
+      itemList:items,
+      index:index
+    })
+  },
+  // 向下一层
+  downZindex(){
+    
+    let items = this.data.itemList;
+    let index  = this.data.index;
+    const curItem = this.data.itemList[index]
+    if(index == 0){
+      console.log("已经是最后一层");
+      return; //已经是最高一层
+    }
+
+    console.log(items[index].zindex)
+    items.splice(index,1);
+    items.splice(index-1,0,curItem)
+    console.log(items)
+    // items[index] = items.splice(items, index, items[index + 1])[0];
+    // items = swapItems(items, index, index + 1);
+    // items.remove(index);
+    // item.splice(index+1,0,curItem);
+    // const curIndex = items[index].zindex; 
+    // items[index].zindex = items[index-1].zindex; //和上一个交换zindex
+    // items[index-1].zindex = curIndex
+    console.log(items[index].zindex);
+    index = index-1
+    this.setData({
+      itemList:items,
+      index:index
+    })
   }
 });

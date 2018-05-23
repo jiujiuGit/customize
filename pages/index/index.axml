@@ -1,7 +1,7 @@
 <view style="width:100%;background-color: white;">
   <!-- 头部 -->
   <view class="header">
-    <view class="text-header flex-box" a:if="{{(footer == 'text' || footer == 'imgTransparency') && headerSeen}}">
+    <view class="text-header flex-box" a:if="{{footer == 'text' || footer == 'imgTransparency'}}">
       <view class="header-left cancle" onTap="cancle">取消</view>
       <view class="flex-item-1 header-center"a:if="{{footer == 'text'}}">添加文字</view>
       <view class="flex-item-1 header-center" a:if="{{footer == 'imgTransparency'}}">添加图片</view>
@@ -19,10 +19,10 @@
     </view>
     <!-- 操作区域 -->
     <block a:for="{{itemList}}" a:if="{{item.ground == 'front'}}" a:key="{{item.id}}">
-      <view class="touchWrap" style="transform:scale({{item.scale}});top:{{item.top}}px;left:{{item.left}}px; ">
+      <view class="touchWrap"  style="transform:scale({{item.scale}});z-index:{{id}};top:{{item.top}}px;left:{{item.left}}px; ">
         <!-- 图片编辑 -->
         <view a:if="{{item.type == 'image'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
-          <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style=' opacity:{{item.opacity}}' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image> 
+          <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style=' opacity:{{item.opacity}}'  onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image> 
           
           <!-- <text class="textItem"  data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'>{{item.text}}</text>  -->
 
@@ -90,7 +90,7 @@
   <!-- 侧面操作区域 -->
   <view class="model-contanier" a:if="{{currentTap == 'side'}}">
     <view class="model-display" onTap = "windowHide">
-      <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="../../assets/images/middle_img_03.png" mode="" />
+      <image ontouchStar="WraptouchStart"  class="bg-model" mode="aspectFit" src="../../assets/images/middle_img_03.png" mode="" />
       <!-- <image class="bg-model" mode="widthFix" src="../../assets/images/middle_img_02.svg" mode="" /> -->
     </view>
     <!-- 操作区域 -->
@@ -145,8 +145,9 @@
 
     <!-- 图片文字等调整透明度 -->
     <view class="imgTransparency" a:if="{{footer == 'imgTransparency' || footer == 'transparency'}}">
-     <view a:if='{{zindexSeen}}'>
-       向上一层
+     <view a:if="{{footer == 'transparency'}}" class="flex-box zindex">
+       <view onTap="upZindex"><text class="iconfont icon-shang1"></text> 向上一层</view>
+       <view onTap="downZindex"> <text class="iconfont icon-shang1-copy"></text> 向下一层</view>
      </view>
       <view class="transparencySider" >
         <text>调整透明度</text>

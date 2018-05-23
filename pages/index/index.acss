@@ -317,3 +317,19 @@
     border-radius: 5px 5px 0 0;
     /* padding-bottom: 10rpx; */
 }
+.zindex{
+    justify-content: center;
+}
+.zindex>view{
+    padding: 6px;
+    background-color: #474747;
+    font-size: 12px;
+    color: #AAAAAA;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+.zindex>view>text{
+    margin-right: 1px;
+    vertical-align: middle;
+}

@@ -79,7 +79,8 @@ Page({
             opacity:1,//透明度
             rotate:0,
             type:'image',
-            ground:this.data.ground  
+            ground:this.data.ground,
+            zindex:imgLength+1  
         }
     item.image = this.data.stickers[tapIndex].imgUrl
     app.globalData.items.push(item);
