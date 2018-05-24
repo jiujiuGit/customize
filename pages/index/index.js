@@ -6,6 +6,7 @@ Page({
       before:0,
       after:0
     },
+    bgList:[],
     headerSeen:true,
 
     //可编辑图片列表
@@ -76,7 +77,8 @@ Page({
     ],
     textContent:'',//文字内容
 
-    zindexSeen:false
+    zindexSeen:false,
+    sliderValue:100
   
   },
   getSystemInfoPage() {
@@ -109,32 +111,43 @@ Page({
       this.setData({
         footer:'imgTransparency',
         headerSeen:true,
-        index:curPage.data.stickerIndex
+        index:curPage.data.stickerIndex,
+        sliderValue:100
       })
     }
     console.log(this.data.headerSeen)
+
   
   },
-  onLoad() {
+  onLoad(query) {
+
+    console.log(query)
+    console.log(query.prodId);
+    const that = this;
     my.httpRequest({
-    url: 'http://httpbin.org/post',
-    method: 'POST',
-    data: {
-      from: '支付宝',
-      production: 'AlipayJSAPI',
-    },
-    dataType: 'json',
-    success: function(res) {
-      my.alert({content: 'success'});
-    },
-    fail: function(res) {
-      my.alert({content: 'fail'});
-    },
-    complete: function(res) {
-      my.hideLoading();
-      my.alert({content: 'complete'});
-    }
-});
+      url: 'http://bbltest.color3.cn/Mobile/Api/get_style_bg',
+      method: 'post',
+      data: {
+        id:query.prodId
+        // from: '支付宝',
+        // production: 'AlipayJSAPI',
+      },
+      dataType: 'json',
+      success: function(res) {
+        // my.alert({content: 'success'});
+        console.log(JSON.stringify(res));
+        that.setData({
+          bgList:res.data.data
+        })
+      },
+      fail: function(res) {
+        // my.alert({content: 'fail'});
+      },
+      complete: function(res) {
+        // my.hideLoading();
+        // my.alert({content: 'complete'});
+      }
+    });
 
     // this.setData({
     //   itemList:app.globalData.items
@@ -170,11 +183,13 @@ Page({
             }  
         }  
         console.log(this.data.index);
-         
+        const curItem = items[this.data.index];
+        console.log(curItem.opacity )
         items[this.data.index].lx = e.touches[0].clientX;  // 记录点击时的坐标值  
         items[this.data.index].ly = e.touches[0].clientY;  
         this.setData({   //赋值   
-            itemList: items  
+            itemList: items,
+            sliderValue:parseInt(curItem.opacity*100) 
         })  
   },
   WraptouchMove: function (e) {  
@@ -400,9 +415,9 @@ Page({
     my.navigateTo({ url: "../images/images?currentTap="+currentTap });
   },
   sticker(e){
-    
+    const oritype = e.currentTarget.dataset.id
     const currentTap = this.data.currentTap;
-    my.navigateTo({ url: "../sticker/sticker?currentTap="+currentTap });
+    my.navigateTo({ url: "../sticker/sticker?currentTap="+currentTap+"&oritype="+oritype });
     
   },
   // 点击正面
@@ -421,6 +436,19 @@ Page({
     this.setData({
       currentTap:'front'
     })
+    let hasFrontItem = false;
+
+    for(let i=0;i<this.data.itemList.length;i++){
+      if(this.data.itemList[i].ground == 'front'){
+        hasFrontItem = true;
+        break;
+      }
+
+    }
+    if(hasFrontItem == false){
+      return;
+    }
+
     my.confirm({
       title: '温馨提示',
       content: '是否清空画布',
@@ -434,7 +462,7 @@ Page({
             }
           }
           this.setData({
-            itemList:app.globalData.items
+            itemList:[]
           });
         }
         
@@ -449,6 +477,19 @@ Page({
     this.setData({
       currentTap:'back'
     })
+
+    let hasBackItem = false;
+
+    for(let i=0;i<this.data.itemList.length;i++){
+      if(this.data.itemList[i].ground == 'back'){
+        hasBackItem = true;
+        break;
+      }
+
+    }
+    if(hasBackItem == false){
+      return;
+    }
     my.confirm({
       title: '温馨提示',
       content: '是否清空画布',
@@ -596,11 +637,11 @@ Page({
     //   // }
     // }
 
-    for(let i = 0;i<app.globalData.items.length;i++){
-      if(index == app.globalData.items[i].id){
-          app.globalData.items.splice(i,1)
-      }
-    }
+    // for(let i = 0;i<app.globalData.items.length;i++){
+    //   if(index == app.globalData.items[i].id){
+    //       app.globalData.items.splice(i,1)
+    //   }
+    // }
     
 
     this.setData({

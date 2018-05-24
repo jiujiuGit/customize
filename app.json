@@ -1,12 +1,12 @@
 {
   "pages": [
-    
+    "pages/modelList/modelList",
     "pages/index/index",
     "pages/todos/todos",    
     "pages/add-todo/add-todo",
     "pages/sticker/sticker",
-    "pages/images/images",
-    "pages/modelList/modelList"
+    "pages/images/images"
+    
     
   ],
   "window": {

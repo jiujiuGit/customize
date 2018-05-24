@@ -53,13 +53,42 @@ Page({
       
     ],
     ground:'', //当前编辑面   front 、siede、back
-    stickIndex:''
+    stickIndex:'' //
   },
   onLoad(query) {
-    console.log(JSON.stringify(query));
+    console.log(query.currentTap);
+    console.log(query.oritype)
+    const that = this;
     this.setData({
       ground:query.currentTap 
-    })
+    });
+    my.httpRequest({
+      url: 'http://bbltest.color3.cn/Mobile/Api/get_style_bg',
+      method: 'post',
+      data: {
+        type: 2,
+        oritype:query.oritype
+
+        // from: '支付宝',
+        // production: 'AlipayJSAPI',
+      },
+      dataType: 'json',
+      success: function(res) {
+        // my.alert({content: 'success'});
+        console.log(JSON.stringify(res));
+        // that.setData({
+        //   stickers:res.data.data
+        // })
+      },
+      fail: function(res) {
+        console.log(res)
+        // my.alert({content: 'fail'});
+      },
+      complete: function(res) {
+        // my.hideLoading();
+        // my.alert({content: 'complete'});
+      }
+    });
     
   },
   imageTap(e) {
@@ -76,7 +105,7 @@ Page({
             scale: 1,//缩放比例  1为不缩放  
             angle: 0,//旋转角度  
             active: false, //判定点击状态
-            opacity:1,//透明度
+            opacity:100,//透明度
             rotate:0,
             type:'image',
             ground:this.data.ground,

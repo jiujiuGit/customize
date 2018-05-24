@@ -99,13 +99,17 @@
     padding: 5px;
     background-color: rgba(0,0,0,0);
     width: 100px;
+    border:2px solid rgba(0,0,0,0);
+    /* box-sizing: border-box;
+     -webkit-box-sizing: border-box; 
+    -moz-box-sizing: border-box; */
 }
 .imgItem{
     width: 100%;
-    box-sizing: border-box;
-     -webkit-box-sizing: border-box; 
-    -moz-box-sizing: border-box;
     
+}
+.textItem{
+    text-align: center
 }
 .touchActive{
     border:2px dashed white;
@@ -204,7 +208,8 @@
     border-radius: 10px 10px 0 0;
     position: relative;
     bottom:-10px;
-    transition: all 0.5s
+    transition: all 0.5s;
+    justify-content: center;
 }
 .custome-active{
     bottom: 40px;

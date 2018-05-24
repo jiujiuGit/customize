@@ -14,14 +14,14 @@
   <!-- 正面操作区域 -->
   <view class="model-contanier" a:if="{{currentTap == 'front'}}">
     <view class="model-display" onTap = "windowHide">
-      <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="../../assets/images/middle_img_01.png" mode="" />
+      <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="{{bgList.pic1}}" mode="" />
       <!-- <image class="bg-model" mode="widthFix" src="../../assets/images/middle_img_01.svg" mode="" /> -->
     </view>
     <!-- 操作区域 -->
     <block a:for="{{itemList}}" a:if="{{item.ground == 'front'}}" a:key="{{item.id}}">
       <view class="touchWrap"  style="transform:scale({{item.scale}});z-index:{{id}};top:{{item.top}}px;left:{{item.left}}px; ">
         <!-- 图片编辑 -->
-        <view a:if="{{item.type == 'image'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
+        <view a:if="{{item.type == 'image'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);transform: rotateZ(-1);-webkit-transform: rotateZ(-1)">
           <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style=' opacity:{{item.opacity}}'  onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image> 
           
           <!-- <text class="textItem"  data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'>{{item.text}}</text>  -->
@@ -54,7 +54,7 @@
   <!-- 背面操作区域 -->
   <view class="model-contanier" a:if="{{currentTap == 'back'}}"> 
     <view class="model-display" onTap = "windowHide">
-      <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="../../assets/images/middle_img_02.png" mode="" />
+      <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="{{bgList.pic2}}" mode="" />
       <!-- <image class="bg-model" mode="widthFix" src="../../assets/images/middle_img_03.svg" mode="" /> -->
     </view>
     <!-- 操作区域 -->
@@ -76,7 +76,7 @@
          <view a:if="{{item.type == 'text'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
           <!-- <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image>  -->
           
-          <view class="textItem" onTap="textTap" data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'><text style='fontSize:12*{{item.oScale}}px;font-family:{{item.fontFamily}};opacity:{{item.opacity}}'>{{item.text}}</text></view> 
+          <view class="textItem " onTap="textTap" data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'><text style='fontSize:12*{{item.oScale}}px;font-family:{{item.fontFamily}};opacity:{{item.opacity}}'>{{item.text}}</text></view> 
 
           <!-- 删除图片 -->
           <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTap='deleteItem'></image>  
@@ -151,7 +151,7 @@
      </view>
       <view class="transparencySider" >
         <text>调整透明度</text>
-        <slider style='margin-bottom:20px' value="100" min="0%" max="100%"  onChange="sliderChange" show-value/>
+        <slider style='margin-bottom:20px' value="{{sliderValue}}" min="0%" max="100%"  onChange="sliderChange" show-value/>
       </view>
     </view>
 
@@ -163,37 +163,37 @@
           <view class="iconfont icon-xia" a:if='{{windowActive == true}}'></view>
           <view class="iconfont icon-shang" a:if='{{windowActive == false}}'></view>
         </view>    
-        <view class="custome-item " onTap="imageEdit">
+        <view class="custome-item " a:if="{{currentTap != 'side'}}" onTap="imageEdit">
             <text class="iconfont icon-tupian"></text>
           <view>
             <text class="custome-item-text">图片</text>
           </view>
         </view>
-        <view class="custome-item" onTap="textEdit"> 
+        <view class="custome-item" a:if="{{currentTap != 'side'}}" onTap="textEdit"> 
           <text class="iconfont icon-wenzi"></text>
           <view>
             <text class="custome-item-text">文字</text>
           </view>
         </view>
-        <view class="custome-item" onTap="sticker">
+        <view class="custome-item" data-id='5' onTap="sticker">
           <text class="iconfont icon-tiezhi"></text>
           <view>
             <text class="custome-item-text">贴纸</text>
           </view>
         </view>
-        <view class="custome-item">
+        <view class="custome-item" data-id='2' onTap="sticker">
           <text class="iconfont icon-xian"></text>
           <view>
             <text class="custome-item-text">线条</text>
           </view>
         </view>
-        <view class="custome-item">
+        <view class="custome-item" data-id='3' a:if="{{currentTap != 'side'}}" onTap="sticker">
           <text class="iconfont icon-xingzhuang"></text>
           <view>
             <text class="custom-item-text">形状</text>
           </view>
         </view>
-        <view class="custome-item">
+        <view class="custome-item" a:if="{{currentTap != 'side'}}">
           <text class="iconfont icon-beijing"></text>
           <view>
             <text class="custom-item-text">背景</text>

@@ -33,7 +33,7 @@ Page({
               scale: 1,//缩放比例  1为不缩放  
               angle: 0,//旋转角度  
               active: false, //判定点击状态
-              opacity:1,//透明度
+              opacity:100,//透明度
               rotate:0,
               type:'image',
               ground:this.data.ground    
