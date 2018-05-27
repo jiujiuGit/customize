@@ -1,17 +1,19 @@
 var app = getApp();
 Page({
   data: {
-    stickers:[{
-      "id":"405",
-      "picname":"旗头",
-      "usetype":"0",
-      "orderby":"0",
-      "type":"1",
-      "pic":"http://bbltest.color3.cn/Public/upload/diyset/2016/12-20/5858d5ed6f5bd.png",
-      "oritype":"5",
-      "picw":"400",
-      "pich":"400",
-    }],
+    stickers:[
+      // {
+      //   "id":"405",
+      //   "picname":"旗头",
+      //   "usetype":"0",
+      //   "orderby":"0",
+      //   "type":"1",
+      //   "pic":"http://bbltest.color3.cn/Public/upload/diyset/2016/12-20/5858d5ed6f5bd.png",
+      //   "oritype":"5",
+      //   "picw":"400",
+      //   "pich":"400",
+      // }
+    ],
     // stickers:[
     //   {
     //   imgUrl:'../../assets/images/t1.jpg',

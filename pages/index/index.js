@@ -7,6 +7,7 @@ Page({
       after:0
     },
     bgList:[],
+    picname:'',//商品名称
     headerSeen:true,
 
     //可编辑图片列表
@@ -123,6 +124,9 @@ Page({
 
     console.log(query)
     console.log(query.prodId);
+    this.setData({
+      picname:query.picname
+    })
     const that = this;
     my.httpRequest({
       url: 'http://bbltest.color3.cn/Mobile/Api/get_style_bg',
@@ -421,6 +425,13 @@ Page({
     my.navigateTo({ url: "../sticker/sticker?currentTap="+currentTap+"&oritype="+oritype });
     
   },
+  //背景列表
+  bgList(e){
+    const oritype = 2
+    const currentTap = this.data.currentTap;
+    my.navigateTo({ url: "../bgList/bgList?currentTap="+currentTap+"&oritype="+oritype });
+
+  },
   // 点击正面
   front(e){
     if(this.data.footer =='text'){
@@ -695,7 +706,8 @@ Page({
         ctx.toTempFilePath({
           success(res) {
             console.log(res.apFilePath)
-            let path = res.apFilePath.replace('png','')
+            let path = res.apFilePath
+            // let path = res.apFilePath.replace('.png','')
             console.log(path)
             my.uploadFile({
               url: 'http://bbltest.color3.cn/Mobile/Api/diyupload',

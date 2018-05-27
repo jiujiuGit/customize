@@ -8,7 +8,8 @@ Page({
     current:0,//当前轮播下标
     modelList:[], //
     fabricList:[],
-    fabricId:1 //当前点击的fabricID
+    fabricId:1, //当前点击的fabricID
+    picname:''
   },
   onShow(){
     const that = this;
@@ -70,7 +71,8 @@ Page({
     this.setData({  
       current: e.detail.current,
       fabricList :fabric ,
-      fabricId:fabric[0].id
+      fabricId:fabric[0].id,
+      picname:this.data.modelList[e.detail.current].picname
     })
     console.log(this.data.fabricList)
     // this.setData()
@@ -80,18 +82,8 @@ Page({
     console.log(this.data.current)
     console.log(this.data.fabricId)
     const index = this.data.current  //款式id
-    // if(0){
-    //   my.alert({
-    //     title: '提示',
-    //     content: '请选择面料',
-    //     buttonText: '确定',
-    //     success: () => {
-        
-    //     },
-    //   });
-    //   return;
-    // }
-    my.navigateTo({ url: "../index/index?prodId="+index });
+    const picname = this.data.picname
+    my.navigateTo({ url: "../index/index?prodId="+index+"&picname="+picname });
     app.globalData.items = []  //清空定制项
   }
 });

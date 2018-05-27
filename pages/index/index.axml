@@ -14,18 +14,18 @@
   <!-- 正面操作区域 -->
   <view class="model-contanier" a:if="{{currentTap == 'front'}}">
     <view class="model-display bg1" onTap = "windowHide">
-      <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="{{bgList.pic1}}" mode="" />
+      <image  class="bg-model" mode="widthFix" src="{{bgList.pic1}}" mode="" />
       <!-- <image class="bg-model" mode="widthFix" src="../../assets/images/middle_img_01.svg" mode="" /> -->
     </view>
     <view class="bg2">
-      <image  mode="widthFix" src="{{bgList.pic1}}" mode="" />
+      <image  mode="widthFix" src="{{bgList.pic2}}" mode="" />
     </view>
     <!-- 操作区域 -->
-    <block class="bg3" a:for="{{itemList}}" a:if="{{item.ground == 'front'}}" a:key="{{item.id}}">
+    <block class="bg3"  a:for="{{itemList}}" a:if="{{item.ground == 'front'}}" a:key="{{item.id}}">
       <view class="touchWrap"  style="transform:scale({{item.scale}});z-index:{{id}};top:{{item.top}}px;left:{{item.left}}px; ">
         <!-- 图片编辑 -->
         <view a:if="{{item.type == 'image'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);transform: rotateZ(-1);-webkit-transform: rotateZ(-1)">
-          <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style=' opacity:{{item.opacity}}'  onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image> 
+          <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style=' opacity:{{item.opacity}}'   onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image> 
           
           <!-- <text class="textItem"  data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'>{{item.text}}</text>  -->
 
@@ -56,12 +56,15 @@
   </view>
   <!-- 背面操作区域 -->
   <view class="model-contanier" a:if="{{currentTap == 'back'}}"> 
-    <view class="model-display" onTap = "windowHide">
+    <view class="model-display bg1" onTap = "windowHide">
       <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="{{bgList.pic2}}" mode="" />
       <!-- <image class="bg-model" mode="widthFix" src="../../assets/images/middle_img_03.svg" mode="" /> -->
     </view>
+     <view class="bg2">
+      <image  mode="widthFix" src="{{bgList.pic2}}" mode="" />
+    </view>
     <!-- 操作区域 -->
-    <block a:for="{{itemList}}" a:if="{{item.ground == 'back'}}" a:key="{{item.id}}">
+    <block class="bg3" a:for="{{itemList}}" a:if="{{item.ground == 'back'}}" a:key="{{item.id}}">
       <view class="touchWrap" style="transform:scale({{item.scale}});top:{{item.top}}px;left:{{item.left}}px; ">
         <!-- 图片编辑 -->
         <view a:if="{{item.type == 'image'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
@@ -196,7 +199,7 @@
             <text class="custom-item-text">形状</text>
           </view>
         </view>
-        <view class="custome-item" a:if="{{currentTap != 'side'}}">
+        <view class="custome-item" a:if="{{currentTap != 'side'}}" onTap="bgList">
           <text class="iconfont icon-beijing"></text>
           <view>
             <text class="custom-item-text">背景</text>
@@ -205,7 +208,7 @@
         </view>
         
         <view class="flex-box bottom">
-            <view class="goods-name flex-item-1">  男士V领纯棉T恤</view>
+            <view class="goods-name flex-item-1">  {{picname}}</view>
             <button form-type="submit" class="customize-btn" onTap="customize">开始定制</button>
           </view>
         

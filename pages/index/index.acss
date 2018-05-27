@@ -94,43 +94,30 @@
 }
 .bg1{
     position: absolute;
-            visibility: visible;
-            /* width: 378px;
-            height: 526px; */
-            z-index: 0;
-            opacity: 1;
-            /* transform: translate3d(0px, 0px, 0px); */
-            /*background-image: url('http://bbltest.color3.cn/Public/upload/diyset/2018/02-28/5a9662505b389.png');*/
-            background-repeat: no-repeat;
-            /* background-size: 378.72px 526px; */
-        }
+    visibility: visible;
+    z-index: 0;
+    opacity: 1;
+    background-repeat: no-repeat;
+}
 .bg2{
     position: absolute;
-            visibility: visible;
-            /* width: 378px;
-            height: 526px; */
-            z-index: 100;
-            opacity: 1;
-            /* transform: translate3d(0px, 0px, 0px); */
-            /*background-image: url('http://bbltest.color3.cn/Public/upload/diyset/2018/02-28/5a96626119d8f.png');*/
-            background-repeat: no-repeat;
-            /* background-size: 378.72px 526px; */
-        }
-        .bg3{
-            position: absolute;
-            cursor: pointer;
-            border: 1px dashed rgb(153, 153, 153);
-            
-            /* background-size: 298px 283px; */
-            visibility: visible;
-            /* width: 298px;
-            height: 283px; */
-            z-index: 5;
-            opacity: 1;
-            /* transform: translate3d(36px, 103px, 0px); */
-            /*background-image: url('http://bbltest.color3.cn/Public/upload/diy/2018-05-26/5b093d8fc8b85.jpg');*/
-            /* background-repeat: no-repeat; */
-        }
+    visibility: visible;
+    z-index: 100;
+    opacity: 1;
+    background-repeat: no-repeat;
+    width: 100%;
+    text-align: center;
+    padding-top: 5px;
+    pointer-events:none
+}
+.bg3{
+    position: absolute;
+    cursor: pointer;
+    border: 1px dashed rgb(153, 153, 153);
+    visibility: visible;
+    z-index: 5;
+    opacity: 1;
+}
 
 
 .touchWrap{
@@ -175,6 +162,7 @@
     position: fixed;
     bottom: 200px;
     right: 23px;
+    z-index: 1000;
 
 }
 
@@ -204,6 +192,7 @@
     position: fixed;
     bottom: 0;
     width: 100%;
+    z-index: 1000;
 }
 .goods-name{
     text-align: center;

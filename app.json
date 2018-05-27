@@ -5,7 +5,8 @@
     "pages/todos/todos",    
     "pages/add-todo/add-todo",
     "pages/sticker/sticker",
-    "pages/images/images"
+    "pages/images/images",
+    "pages/bgList/bgList"
     
     
   ],
