@@ -1,57 +1,68 @@
 var app = getApp();
 Page({
   data: {
-    stickers:[
-      {
-      imgUrl:'../../assets/images/t1.jpg',
-      mode: 'widthFix',
-      },
-      {
-      imgUrl:'../../assets/images/t5.jpg',
-      mode: 'widthFix',
-      },
-      {
-      imgUrl:'../../assets/images/t5.jpg',
-      mode: 'widthFix',
-      },
-      {
-      imgUrl:'../../assets/images/t2.jpg',
-      mode: 'widthFix',
-      },
-      {
-      imgUrl:'../../assets/images/t3.jpg',
-      mode: 'widthFix',
-      },
-      {
-      imgUrl:'../../assets/images/t4.jpg',
-      mode: 'widthFix',
-      },
-      {
-      imgUrl:'../../assets/images/t1.jpg',
-      mode: 'widthFix',
-      },
-      {
-      imgUrl:'../../assets/images/t5.jpg',
-      mode: 'widthFix',
-      },
-      {
-      imgUrl:'../../assets/images/t5.jpg',
-      mode: 'widthFix',
-      },
-      {
-      imgUrl:'../../assets/images/t2.jpg',
-      mode: 'widthFix',
-      },
-      {
-      imgUrl:'../../assets/images/t3.jpg',
-      mode: 'widthFix',
-      },
-      {
-      imgUrl:'../../assets/images/t4.jpg',
-      mode: 'widthFix',
-      },
+    stickers:[{
+      "id":"405",
+      "picname":"旗头",
+      "usetype":"0",
+      "orderby":"0",
+      "type":"1",
+      "pic":"http://bbltest.color3.cn/Public/upload/diyset/2016/12-20/5858d5ed6f5bd.png",
+      "oritype":"5",
+      "picw":"400",
+      "pich":"400",
+    }],
+    // stickers:[
+    //   {
+    //   imgUrl:'../../assets/images/t1.jpg',
+    //   mode: 'widthFix',
+    //   },
+    //   {
+    //   imgUrl:'../../assets/images/t5.jpg',
+    //   mode: 'widthFix',
+    //   },
+    //   {
+    //   imgUrl:'../../assets/images/t5.jpg',
+    //   mode: 'widthFix',
+    //   },
+    //   {
+    //   imgUrl:'../../assets/images/t2.jpg',
+    //   mode: 'widthFix',
+    //   },
+    //   {
+    //   imgUrl:'../../assets/images/t3.jpg',
+    //   mode: 'widthFix',
+    //   },
+    //   {
+    //   imgUrl:'../../assets/images/t4.jpg',
+    //   mode: 'widthFix',
+    //   },
+    //   {
+    //   imgUrl:'../../assets/images/t1.jpg',
+    //   mode: 'widthFix',
+    //   },
+    //   {
+    //   imgUrl:'../../assets/images/t5.jpg',
+    //   mode: 'widthFix',
+    //   },
+    //   {
+    //   imgUrl:'../../assets/images/t5.jpg',
+    //   mode: 'widthFix',
+    //   },
+    //   {
+    //   imgUrl:'../../assets/images/t2.jpg',
+    //   mode: 'widthFix',
+    //   },
+    //   {
+    //   imgUrl:'../../assets/images/t3.jpg',
+    //   mode: 'widthFix',
+    //   },
+    //   {
+    //   imgUrl:'../../assets/images/t4.jpg',
+    //   mode: 'widthFix',
+    //   },
       
-    ],
+    // ],
     ground:'', //当前编辑面   front 、siede、back
     stickIndex:'' //
   },
@@ -63,10 +74,10 @@ Page({
       ground:query.currentTap 
     });
     my.httpRequest({
-      url: 'http://bbltest.color3.cn/Mobile/Api/get_style_bg',
+      url: 'http://bbltest.color3.cn/Mobile/Api/get_diy_image',
       method: 'post',
       data: {
-        type: 2,
+        type: 1,
         oritype:query.oritype
 
         // from: '支付宝',
@@ -74,11 +85,12 @@ Page({
       },
       dataType: 'json',
       success: function(res) {
+        // console.log(JSON.stringify(res))
         // my.alert({content: 'success'});
-        console.log(JSON.stringify(res));
-        // that.setData({
-        //   stickers:res.data.data
-        // })
+        // console.log(JSON.stringify(res));
+        that.setData({
+          stickers:res.data.list
+        })
       },
       fail: function(res) {
         console.log(res)
@@ -111,7 +123,7 @@ Page({
             ground:this.data.ground,
             zindex:imgLength+1  
         }
-    item.image = this.data.stickers[tapIndex].imgUrl
+    item.image = this.data.stickers[tapIndex].pic
     app.globalData.items.push(item);
     my.navigateBack({
       delta: 1

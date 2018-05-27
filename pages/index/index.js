@@ -189,7 +189,7 @@ Page({
         items[this.data.index].ly = e.touches[0].clientY;  
         this.setData({   //赋值   
             itemList: items,
-            sliderValue:parseInt(curItem.opacity*100) 
+            sliderValue:parseInt(curItem.opacity) 
         })  
   },
   WraptouchMove: function (e) {  
@@ -412,6 +412,7 @@ Page({
   },
   imageEdit(){
     const currentTap = this.data.currentTap;
+  console.log(currentTap)
     my.navigateTo({ url: "../images/images?currentTap="+currentTap });
   },
   sticker(e){
@@ -693,7 +694,27 @@ Page({
         ctx.restore();//恢复状态
         ctx.toTempFilePath({
           success(res) {
-            console.log(res)
+            console.log(res.apFilePath)
+            let path = res.apFilePath.replace('png','')
+            console.log(path)
+            my.uploadFile({
+              url: 'http://bbltest.color3.cn/Mobile/Api/diyupload',
+              fileType: 'image',
+              fileName: 'file',
+              filePath: path,
+              success: (res) => {
+                console.log(JSON.stringify(res))
+                my.alert({
+                content: '上传成功'
+              });
+              },
+              fail(res) {
+                console.log(JSON.stringify(res))
+                // my.alert({
+                //   content: res.errorMessage || res.error,
+                // });
+              },
+            });
             // my.saveImage({url:res.apFilePath});
             
           },

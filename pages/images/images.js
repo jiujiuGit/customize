@@ -39,18 +39,40 @@ Page({
               ground:this.data.ground    
           }
       item.image = res.apFilePaths[0];
-      app.globalData.items.push(item);
-      my.navigateBack({
-        delta: 1
-      })
+      
+        my.uploadFile({
+              url: 'http://bbltest.color3.cn/Mobile/Api/diyupload',
+              fileType: 'image',
+              fileName: 'file',
+              filePath: item.image,
+              success: (res) => {
+              console.log(JSON.stringify(res.data))
 
-      const pages = getCurrentPages();
-      const prePage = pages[pages.length - 2];
-  
-      prePage.setData({
-        footer:'imgTransparency',
-        index:app.globalData.items.length-1
-      })
+              app.globalData.items.push(item);
+              my.navigateBack({
+                delta: 1
+              })
+
+              const pages = getCurrentPages();
+              const prePage = pages[pages.length - 2];
+          
+              prePage.setData({
+                footer:'imgTransparency',
+                index:app.globalData.items.length-1
+              })
+                // my.alert({
+                //   content: '上传成功'
+                // });
+              },
+              fail(res) {
+                console.log(JSON.stringify(res))
+                // my.alert({
+                //   content: res.errorMessage || res.error,
+                // });
+              },
+            });
+
+
 
     },
     fail: (res) => {
