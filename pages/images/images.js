@@ -46,8 +46,11 @@ Page({
               fileName: 'file',
               filePath: item.image,
               success: (res) => {
-              console.log(JSON.stringify(res.data))
-
+                // console.log(JSON.stringify(res))
+                const resData = JSON.parse(res.data)
+              // console.log(JSON.stringify(resData))
+              item.image =resData.data.url;
+              console.log(item.image);
               app.globalData.items.push(item);
               my.navigateBack({
                 delta: 1

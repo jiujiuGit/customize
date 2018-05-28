@@ -18,19 +18,19 @@
       <!-- <image class="bg-model" mode="widthFix" src="../../assets/images/middle_img_01.svg" mode="" /> -->
     </view>
     <view class="bg2">
-      <image  mode="widthFix" src="{{bgList.pic2}}" mode="" />
+      <image  mode="widthFix" src="{{bgList.pic1}}" mode="" />
     </view>
     <!-- 操作区域 -->
     <block class="bg3"  a:for="{{itemList}}" a:if="{{item.ground == 'front'}}" a:key="{{item.id}}">
       <view class="touchWrap"  style="transform:scale({{item.scale}});z-index:{{id}};top:{{item.top}}px;left:{{item.left}}px; ">
         <!-- 图片编辑 -->
-        <view a:if="{{item.type == 'image'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);transform: rotateZ(-1);-webkit-transform: rotateZ(-1)">
+        <view a:if="{{item.type == 'image'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
           <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style=' opacity:{{item.opacity}}'   onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image> 
           
           <!-- <text class="textItem"  data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'>{{item.text}}</text>  -->
 
           <!-- 删除图片 -->
-          <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTap='deleteItem'></image>  
+          <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;z-index:100000' data-id='{{item.id}}' onTap='deleteItem'></image>  
           <!-- 缩放旋转 -->
           <image class='o' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/suofang.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTouchStart='touchStart' onTouchMove='touchMove' onTouchEnd='touchEnd'></image>  
         </view>
@@ -73,7 +73,7 @@
           <!-- <text class="textItem"  data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'>{{item.text}}</text>  -->
 
           <!-- 删除图片 -->
-          <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTap='deleteItem'></image>  
+          <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;position:absolute;z-index:10000' data-id='{{item.id}}' onTap='deleteItem'></image>  
           <!-- 缩放旋转 -->
           <image class='o' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/suofang.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTouchStart='touchStart' onTouchMove='touchMove' onTouchEnd='touchEnd'></image>  
         </view>
@@ -130,7 +130,7 @@
     </block>
   </view>
 
-  <canvas class="mycanvas" id="canvasFront"></canvas>
+  <!-- <canvas class="mycanvas" id="canvasFront"></canvas> -->
 
 
 
