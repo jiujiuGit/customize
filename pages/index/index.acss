@@ -347,7 +347,12 @@
     width: 100%;
     height: 244px;
     z-index: -1;
+    background-color: white;
     /* display: none */
+}
+.www{
+    position: absolute;
+    z-index: 1000000;
 }
 .imgTransparency .transparencySider{
     border-radius: 5px 5px 0 0;

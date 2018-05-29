@@ -70,7 +70,30 @@ Page({
   },
   onLoad(query) {
     console.log(query.currentTap);
-    console.log(query.oritype)
+    console.log(query.oritype);
+    console.log(typeof(query.oritype))
+    switch(query.oritype){
+      case "2":
+        my.setNavigationBar({
+          title:'添加线条'
+        });
+        break;
+      case "3":
+         my.setNavigationBar({
+          title:'添加形状'
+        });
+        break;
+      case "5":
+       my.setNavigationBar({
+          title:'添加贴纸'
+        });
+        break;
+      case "6":
+        my.setNavigationBar({
+          title:'添加边框'
+        });
+        break;
+    }
     const that = this;
     this.setData({
       ground:query.currentTap 

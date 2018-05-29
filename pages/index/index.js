@@ -6,6 +6,7 @@ Page({
       before:0,
       after:0
     },
+    www:'',
     bgList:[],
     picname:'',//商品名称
     headerSeen:true,
@@ -587,7 +588,7 @@ Page({
             angle: 0,//旋转角度  
             active: false, //判定点击状态
             rotate:0,
-            opacity:1,//透明度
+            opacity:100,//透明度
             type:'text',  //文字  
              ground:this.data.currentTap,
             fontFamily:'SimSun'
@@ -679,8 +680,8 @@ Page({
   sliderChange(e) {
     
      const index = this.data.index ;
-     console.log(index)
-     app.globalData.items[index].opacity =  e.detail.value/100;
+     console.log(e.detail.value)
+     app.globalData.items[index].opacity =  e.detail.value;
     
      this.setData({
        itemList:app.globalData.items
@@ -688,26 +689,26 @@ Page({
   },
   //  开始定制
   customize(){
+    const that = this;
     // console.log(1)
     for(let i=0;i<this.data.itemList.length;i++){
       
       if(this.data.itemList[i].ground == 'front'){
-        console.log(1)
         const item = this.data.itemList[i]
-        const ctx = my.createCanvasContext('canvasFront');
-        ctx.rotate(this.data.itemList[i].angle * Math.PI / 180);
-        // console.log(item.width)
-        // console.log(item.height)
-        ctx.drawImage(item.image,item.left,item.top,100,120)
-        // ctx.drawImage(this.data.itemList[i].image, item.left, item.top, item.width, item.height);
+        item.crossOrigin = '';
+        let ctx = my.createCanvasContext('canvasFront');
+        // ctx.rotate(this.data.itemList[i].angle * Math.PI / 180);
+        ctx.drawImage('../../assets/images/108.png',item.left,item.top,100,120) 
         ctx.draw();
         ctx.save();
         ctx.restore();//恢复状态
         ctx.toTempFilePath({
           success(res) {
-            console.log(res.apFilePath)
-            let path = res.apFilePath
-            // let path = res.apFilePath.replace('.png','')
+            console.log(res)
+            // that.setData({
+            //   www:res
+            // })
+            let path = res.apFilePath;
             console.log(path)
             my.uploadFile({
               url: 'http://bbltest.color3.cn/Mobile/Api/diyupload',
@@ -717,17 +718,13 @@ Page({
               success: (res) => {
                 console.log(JSON.stringify(res))
                 my.alert({
-                content: '上传成功'
-              });
+                  content: '上传成功'
+                });
               },
               fail(res) {
                 console.log(JSON.stringify(res))
-                // my.alert({
-                //   content: res.errorMessage || res.error,
-                // });
               },
             });
-            // my.saveImage({url:res.apFilePath});
             
           },
         });
