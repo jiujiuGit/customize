@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/canvas/canvas",
     "pages/modelList/modelList",
     "pages/index/index",
     "pages/todos/todos",    

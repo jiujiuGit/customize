@@ -691,23 +691,34 @@ Page({
   customize(){
     const that = this;
     // console.log(1)
+    // console.log(JSON.stringify(this.data.itemList));
+    let ctx = my.createCanvasContext('canvasFront');
     for(let i=0;i<this.data.itemList.length;i++){
       
       if(this.data.itemList[i].ground == 'front'){
         const item = this.data.itemList[i]
         item.crossOrigin = '';
-        let ctx = my.createCanvasContext('canvasFront');
-        // ctx.rotate(this.data.itemList[i].angle * Math.PI / 180);
-        ctx.drawImage('../../assets/images/108.png',item.left,item.top,100,120) 
+        console.log(item.angle)
+        ctx.rotate(item.angle * Math.PI / 180);
+        // ctx.drawImage(item.image,item.left,item.top,100,120) 
+        console.log(item.image)
+        // ctx.drawImage('http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',0,0,100,120) 
+        ctx.drawImage('https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg',item.left,item.top,100,120) 
+
         ctx.draw();
         ctx.save();
         ctx.restore();//恢复状态
-        ctx.toTempFilePath({
+        
+      }
+      
+    }
+
+    setTimeout(function(){
+      let ctx1 = my.createCanvasContext('canvasFront');
+      ctx1.toTempFilePath({
           success(res) {
             console.log(res)
-            // that.setData({
-            //   www:res
-            // })
+      
             let path = res.apFilePath;
             console.log(path)
             my.uploadFile({
@@ -727,9 +738,33 @@ Page({
             });
             
           },
-        });
-      }
-    }
+    });
+    },1000)
+
+    // ctx.toTempFilePath({
+    //       success(res) {
+    //         console.log(res)
+      
+    //         let path = res.apFilePath;
+    //         console.log(path)
+    //         my.uploadFile({
+    //           url: 'http://bbltest.color3.cn/Mobile/Api/diyupload',
+    //           fileType: 'image',
+    //           fileName: 'file',
+    //           filePath: path,
+    //           success: (res) => {
+    //             console.log(JSON.stringify(res))
+    //             my.alert({
+    //               content: '上传成功'
+    //             });
+    //           },
+    //           fail(res) {
+    //             console.log(JSON.stringify(res))
+    //           },
+    //         });
+            
+    //       },
+    // });
 
 
     

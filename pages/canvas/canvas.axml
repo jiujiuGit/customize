@@ -1,0 +1,5 @@
+<view>
+  <canvas id="myCanvas"></canvas>
+  <view onTap="clickMe">点我生成图片</view>
+  <image src="http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png" mode="" />
+</view>

@@ -30,7 +30,7 @@
           <!-- <text class="textItem"  data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'>{{item.text}}</text>  -->
 
           <!-- 删除图片 -->
-          <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;z-index:100000' data-id='{{item.id}}' onTap='deleteItem'></image>  
+          <image class='x'  a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;z-index:100000' data-id='{{item.id}}' onTap='deleteItem'></image>  
           <!-- 缩放旋转 -->
           <image class='o' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/suofang.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTouchStart='touchStart' onTouchMove='touchMove' onTouchEnd='touchEnd'></image>  
         </view>
