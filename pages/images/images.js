@@ -25,7 +25,7 @@ Page({
 
       let imgLength = app.globalData.items.length;
       let item = {  
-              id: imgLength+1,   
+              // id: imgLength+1,   
               top: 100,//初始图片的位置   
               left: 100,  
               x: 155, //初始圆心位置，可再downImg之后又宽高和初始的图片位置得出  
@@ -50,8 +50,18 @@ Page({
                 const resData = JSON.parse(res.data)
               // console.log(JSON.stringify(resData))
               item.image =resData.data.url;
-              console.log(item.image);
-              app.globalData.items.push(item);
+              if(this.data.ground == 'front'){
+                let frontLength = app.globalData.frontItems.length;
+                item.id = frontLength+1;
+                app.globalData.frontItems.push(item);
+              }else if(this.data.ground == 'back'){
+                let backLength = app.globalData.backItems.length;
+                item.id = backLength+1;
+                app.globalData.backItems.push(item);
+              }
+
+              // console.log(item.image);
+              // app.globalData.items.push(item);
               my.navigateBack({
                 delta: 1
               })

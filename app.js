@@ -32,7 +32,11 @@ App({
       //       active: false  
       // }
     ],
-    ground:""
+    ground:"",
+    frontItems:[],
+    backItems:[],
+    stickIndex:-1, //点击的贴纸、图片等的index
+    footer:'list' //底部展示内容
   }
   // getUserInfo() {
   //   return new Promise((resolve, reject) => {

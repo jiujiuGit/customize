@@ -129,12 +129,12 @@ Page({
     
   },
   imageTap(e) {
-    console.log( e.target.dataset.index);
+    // console.log( e.target.dataset.index);
     let tapIndex = e.target.dataset.index;
     let imgLength = app.globalData.items.length;
-    console.log(imgLength)
+
     const item = {  
-            id: imgLength+1,   
+            // id: imgLength+1,   
             top: 100,//初始图片的位置   
             left: 100,  
             x: 155, //初始圆心位置，可再downImg之后又宽高和初始的图片位置得出  
@@ -149,24 +149,38 @@ Page({
             zindex:imgLength+1  
         }
     item.image = this.data.stickers[tapIndex].pic
-    app.globalData.items.push(item);
+    if(this.data.ground == 'front'){  //添加到front编辑列表
+      const frontLength = app.globalData.frontItems.length
+      item.id = frontLength+1;
+      app.globalData.frontItems.push(item)
+      app.globalData.stickerIndex = app.globalData.frontItems.length-1
+    }else if(this.data.ground == 'back'){ //添加到back编辑列表
+    const backLength = app.globalData.backItems.length
+      item.id = backLength+1;
+      app.globalData.backItems.push(item)
+      app.globalData.stickerIndex = app.globalData.backItems.length-1
+    }
+
+
+    // app.globalData.items.push(item);
     my.navigateBack({
       delta: 1
     })
+    console.log(item.id)
     this.setData({
       stickerIndex : item.id
     })
-    console.log(this.data.stickerIndex)
-    const pages = getCurrentPages();
+    app.globalData.footer = 'imgTransparency'
+    // const pages = getCurrentPages();
   
-    const prePage = pages[pages.length - 2];
+    // const prePage = pages[pages.length - 2];
    
    
     
-    prePage.setData({
-      footer:'imgTransparency',
-      index:app.globalData.items.length-1
-    })
+    // prePage.setData({
+    //   footer:'imgTransparency',
+    //   index:app.globalData.items.length-1
+    // })
    
 
    

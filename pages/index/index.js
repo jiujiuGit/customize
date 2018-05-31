@@ -13,6 +13,8 @@ Page({
 
     //可编辑图片列表
     itemList: [],
+    frontItemList:[], //正面编辑列表
+    backItemList:[],//背面编辑列表
     index:0,
   
 
@@ -91,40 +93,42 @@ Page({
           systemInfo: res
           
         })
-        console.log(this.data.systemInfo.windowWidth)
+        // console.log(this.data.systemInfo.windowWidth)
       }
     })
   },
   onShow() {
     // 页面显示
     this.setData({
-      itemList:app.globalData.items
+      backItemList:app.globalData.backItems,
+      frontItemList:app.globalData.frontItems,
+      index:app.globalData.stickerIndex,
+      footer:app.globalData.footer
     });
-    this.getSystemInfoPage();
-    const pages = getCurrentPages();
-  
-    const curPage = pages[pages.length - 1];
-    if(curPage == undefined){
-      return;
-    }
-   console.log(curPage.data.stickerIndex)
-    if(curPage.data.stickerIndex!=undefined){
-      console.log(1)
-      this.setData({
-        footer:'imgTransparency',
-        headerSeen:true,
-        index:curPage.data.stickerIndex,
-        sliderValue:100
-      })
-    }
-    console.log(this.data.headerSeen)
+    // this.getSystemInfoPage();
+    // const pages = getCurrentPages();
+    // const curPage = pages[pages.length - 1];
+    // if(curPage == undefined){
+    //   return;
+    // }
+ 
+    // if(curPage.data.stickerIndex!=undefined){
+    //   console.log(1)
+    //   this.setData({
+    //     footer:'imgTransparency',
+    //     headerSeen:true,
+    //     index:curPage.data.stickerIndex,
+    //     sliderValue:100
+    //   })
+    // }
+    // console.log(this.data.index)
 
   
   },
   onLoad(query) {
 
-    console.log(query)
-    console.log(query.prodId);
+    // console.log(query)
+    // console.log(query.prodId);
     this.setData({
       picname:query.picname
     })
@@ -140,7 +144,7 @@ Page({
       dataType: 'json',
       success: function(res) {
         // my.alert({content: 'success'});
-        console.log(JSON.stringify(res));
+        // console.log(JSON.stringify(res));
         that.setData({
           bgList:res.data.data
         })
@@ -164,18 +168,26 @@ Page({
     //  })
   },
   textTap(){
-  console.log(323123)
+  // console.log(323123)
   },
   // 图片touchStart
   WraptouchStart(e){
-    console.log(this.data.footer)
+    // console.log(this.data.footer)
     if(this.data.footer == 'list'){
       this.setData({
         footer:'transparency'
       })
     }
-    
-    let items = this.data.itemList;
+   
+    const curTap = this.data.currentTap;
+  
+    let items = [];
+    if(curTap == 'front'){
+       items = this.data.frontItemList;
+    }else if(curTap == 'back'){
+       items = this.data.backItemList; 
+    }
+
     
      for (let i = 0; i < items.length; i++) {  //旋转数据找到点击的  
             items[i].active = false;  
@@ -187,19 +199,40 @@ Page({
                 items[this.data.index].active = true;  //开启点击属性  
             }  
         }  
-        console.log(this.data.index);
+        
         const curItem = items[this.data.index];
-        console.log(curItem.opacity )
+        // console.log(this.data.index)
         items[this.data.index].lx = e.touches[0].clientX;  // 记录点击时的坐标值  
         items[this.data.index].ly = e.touches[0].clientY;  
-        this.setData({   //赋值   
-            itemList: items,
+
+    
+        if(curTap == 'front'){
+          this.setData({   //赋值   
+            frontItemList: items,
             sliderValue:parseInt(curItem.opacity) 
-        })  
+          })  
+        }else if(curTap == 'back'){
+          this.setData({   //赋值   
+            backItemList: items,
+            sliderValue:parseInt(curItem.opacity) 
+          })  
+        }
+        
   },
   WraptouchMove: function (e) {  
-    console.log(this.data.index)
-    let items = this.data.itemList;
+    // console.log(this.data.index)
+    // let items = this.data.itemList;
+    const curTap = this.data.currentTap;
+  
+    let items = [];
+    if(curTap == 'front'){
+       items = this.data.frontItemList;
+    }else if(curTap == 'back'){
+       items = this.data.backItemList; 
+    }
+
+
+
     let index = this.data.index;
         //移动时的坐标值也写图片的属性里  
         items[index]._lx = e.touches[0].clientX;  
@@ -214,16 +247,35 @@ Page({
         //把新的值赋给老的值  
         items[index].lx = e.touches[0].clientX;    
         items[index].ly = e.touches[0].clientY;  
+
+
+        if(curTap == 'front'){
+          this.setData({   //赋值   
+            frontItemList: items
+          })  
+        }else if(curTap == 'back'){
+          this.setData({   //赋值   
+            backItemList: items
+          })  
+        }
       
-        this.setData({//赋值就移动了  
-            itemList: items  
-        })  
+        // this.setData({//赋值就移动了  
+        //     itemList: items  
+        // })  
         
   } , 
 
   // 删除图片
   deleteItem(e){
-    let items = this.data.itemList;
+    // let items = this.data.itemList;
+    const curTap = this.data.currentTap;
+  
+    let items = [];
+    if(curTap == 'front'){
+       items = this.data.frontItemList;
+    }else if(curTap == 'back'){
+       items = this.data.backItemList; 
+    }
     let index = e.currentTarget.dataset.id;
 
     for(let i = 0;i<items.length;i++){
@@ -232,23 +284,41 @@ Page({
       }
     }
 
-    for(let i = 0;i<app.globalData.items.length;i++){
-      if(index == app.globalData.items[i].id){
-          app.globalData.items.splice(i,1)
-      }
+    // for(let i = 0;i<app.globalData.items.length;i++){
+    //   if(index == app.globalData.items[i].id){
+    //       app.globalData.items.splice(i,1)
+    //   }
+    // }
+    if(curTap == 'front'){
+          this.setData({   //赋值   
+            frontItemList: items
+          })  
+        }else if(curTap == 'back'){
+          this.setData({   //赋值   
+            backItemList: items
+          })  
     }
     
+    // console.log(app.globalData.frontItems)
 
-    this.setData({
-      itemList:app.globalData.items
-    });
+    // this.setData({
+    //   itemList:app.globalData.items
+    // });
     
   },
 
 // 触摸开始事件  items是this.data.itemList的全局变量，便于赋值  所有的值都应给到对应的对象里  
   touchStart: function (e) {  
        //找到点击的那个图片对象，并记录  
-        let items = this.data.itemList;
+        // let items = this.data.itemList;
+        const curTap = this.data.currentTap;
+  
+        let items = [];
+        if(curTap == 'front'){
+          items = this.data.frontItemList;
+        }else if(curTap == 'back'){
+          items = this.data.backItemList; 
+        }
         for (let i = 0; i < items.length; i++) {  
             items[i].active = false;  
   
@@ -273,7 +343,15 @@ Page({
     // 触摸移动事件    
   touchMove: function (e) {  
         //记录移动后的位置 
-        let items = this.data.itemList;
+        // let items = this.data.itemList;
+        const curTap = this.data.currentTap;
+  
+        let items = [];
+        if(curTap == 'front'){
+          items = this.data.frontItemList;
+        }else if(curTap == 'back'){
+          items = this.data.backItemList; 
+        }
         const index = this.data.index; 
         items[index]._tx = e.touches[0].clientX;  
         items[index]._ty = e.touches[0].clientY;  
@@ -300,9 +378,18 @@ Page({
         items[index].anglePre = this.countDeg(items[index].x, items[index].y, items[index].tx, items[index].ty)  
       
         //赋值setData渲染  
-        this.setData({  
-            itemList: items  
-        }) 
+        if(curTap == 'front'){
+          this.setData({   //赋值   
+            frontItemList: items
+          })  
+        }else if(curTap == 'back'){
+          this.setData({   //赋值   
+            backItemList: items
+          })  
+        }
+        // this.setData({  
+        //     itemList: items  
+        // }) 
      
   },
   countDeg: function (cx, cy, pointer_x, pointer_y) {  
@@ -344,10 +431,10 @@ Page({
         );  
   },
   add(e) {
-    console.log(12312312)
+    // console.log(12312312)
   },
   windowToggle:function(e){
-    console.log("tap事件")
+    // console.log("tap事件")
   
     this.setData({
       windowActive: !this.data.windowActive
@@ -365,7 +452,7 @@ Page({
   windowTouchStart(e){
     //  let windowPosion = {};
     //  let windowPostion = e.touches[0].clientY;
-    console.log("初始位置"+e.touches[0].clientY)
+    // console.log("初始位置"+e.touches[0].clientY)
     let windowPosition = this.data.windowPosition;
     windowPosition.after = e.touches[0].clientY;
     windowPosition.before = e.touches[0].clientY
@@ -374,21 +461,21 @@ Page({
      })
   },
   windowTouchMove(e){
-    console.log(2)
+    // console.log(2)
     let windowPosition = this.data.windowPosition;
-    console.log("移动到"+e.touches[0].clientY)
+    // console.log("移动到"+e.touches[0].clientY)
     windowPosition.after = e.touches[0].clientY;
     windowPosition.before = this.data.windowPosition.before;
     this.setData({
       windowPosition : windowPosition
      })
-     console.log(Math.abs(this.data.windowPosition.before - this.data.windowPosition.after))
+    //  console.log(Math.abs(this.data.windowPosition.before - this.data.windowPosition.after))
      if(this.data.windowPosition.before - this.data.windowPosition.after>30){
         this.setData({
           windowActive: true
         });
      }
-     console.log(this.data.windowPosition.before - this.data.windowPosition.after)
+    //  console.log(this.data.windowPosition.before - this.data.windowPosition.after)
      if(this.data.windowPosition.before - this.data.windowPosition.after<-30){
         this.setData({
           windowActive: false
@@ -406,18 +493,36 @@ Page({
       windowActive: false
     });
    
-    const items = this.data.itemList;
+   const curTap = this.data.currentTap;
+    let items = [];
+    if(curTap == 'front'){
+      items = this.data.frontItemList;
+    }else if(curTap == 'back'){
+      items = this.data.backItemList; 
+    }
     items[this.data.index].active = false;
-    this.setData({
-      itemList:items
-    })
+    if(curTap == 'front'){
+      this.setData({ //赋值 
+        frontItemList: items
+      }) 
+    }else if(curTap == 'back'){
+      this.setData({ //赋值 
+        backItemList: items
+      }) 
+    }
+
+    // const items = this.data.itemList;
+    // items[this.data.index].active = false;
+    // this.setData({
+    //   itemList:items
+    // })
      this.setData({
       index:-1
     })
   },
   imageEdit(){
     const currentTap = this.data.currentTap;
-  console.log(currentTap)
+  // console.log(currentTap)
     my.navigateTo({ url: "../images/images?currentTap="+currentTap });
   },
   sticker(e){
@@ -439,11 +544,11 @@ Page({
       return; //编辑字体时不允许切换
     }
     const ctx = my.createCanvasContext("mycanvas");
-    console.log(ctx);
+    // console.log(ctx);
     ctx.toTempFilePath({
      
       success(e) {
-        console.log(e)
+        // console.log(e)
       },
     });
     this.setData({
@@ -563,7 +668,7 @@ Page({
   },
   // 点击字体列表
   fontChoose(e){
-    console.log('你选择的字体是：', e.detail.value);
+    // console.log('你选择的字体是：', e.detail.value);
     const currentIndex = this.data.index;
     let items = this.data.itemList;
     items[currentIndex].fontFamily = e.detail.value
@@ -577,9 +682,9 @@ Page({
     })
   },
   addText(){
-    let imgLength = app.globalData.items.length;
+    // let imgLength = app.globalData.items.length;
     let item = {  
-            id: imgLength+1,   
+            // id: imgLength+1,   
             top: 100,//初始图片的位置   
             left: 100,  
             x: 155, //初始圆心位置，可再downImg之后又宽高和初始的图片位置得出  
@@ -590,12 +695,23 @@ Page({
             rotate:0,
             opacity:100,//透明度
             type:'text',  //文字  
-             ground:this.data.currentTap,
+            ground:this.data.currentTap,
             fontFamily:'SimSun'
         }
         
     item.text = this.data.textContent;
-    app.globalData.items.push(item);
+
+    if(this.data.currentTap == 'front'){
+      const frontLength = app.globalData.frontItems.length;
+      item.id = frontLength +1;
+      app.globalData.frontItems.push(item);
+    }else if(this.data.currentTap == 'back'){
+      const backLength = app.globalData.backItems.length;
+      item.id = backLength +1;
+      app.globalData.backItems.push(item);
+    }
+
+    // app.globalData.items.push(item);
     this.setData({
       itemList:app.globalData.items
     });
@@ -603,7 +719,7 @@ Page({
   
   },
   colorChoose(e){  //选择颜色
-    console.log(e.target.dataset.index);
+    // console.log(e.target.dataset.index);
     const colorIndex =  e.target.dataset.index
     let colorList = this.data.colorList;
     for(let i = 0;i<colorList.length;i++){
@@ -639,53 +755,92 @@ Page({
     this.setData({
       footer:'list'
     })
-    let items = this.data.itemList;
+    // let items = this.data.itemList;
+    const curTap = this.data.currentTap;
+  
+    let items = [];
+    if(curTap == 'front'){
+       items = this.data.frontItemList;
+    }else if(curTap == 'back'){
+       items = this.data.backItemList; 
+    }
     let index = this.data.index;
-    console.log(index)
-    items.splice(index,1)
-    // for(let i = 0;i<items.length;i++){
-    //   items.splice[i]
-    //   // if(index == items[i].id){
-    //   //     items.splice(i,1)
-    //   // }
-    // }
-
-    // for(let i = 0;i<app.globalData.items.length;i++){
-    //   if(index == app.globalData.items[i].id){
-    //       app.globalData.items.splice(i,1)
-    //   }
-    // }
-    
-
-    this.setData({
-      itemList:app.globalData.items
-    });
+    // console.log(index)
+    items.splice(index,1)  
+    if(curTap == 'front'){
+          this.setData({   //赋值   
+            frontItemList: items,
+          })  
+        }else if(curTap == 'back'){
+          this.setData({   //赋值   
+            backItemList: items,
+          })  
+    }
+    // this.setData({
+    //   itemList:app.globalData.items
+    // });
   },
 
   // 头部保存按钮
   saveEdit(){
+    const curTap = this.data.currentTap;
     this.setData({
       footer:'list'
     })
-    const items = this.data.itemList;
+    // const items = this.data.itemList;
+    let items = [];
+    if(curTap == 'front'){
+       items = this.data.frontItemList;
+    }else if(curTap == 'back'){
+       items = this.data.backItemList; 
+    }
+    // console.log(this.data.index)
+    // console.log(JSON.stringify(items))
     items[this.data.index].active = false;
-    this.setData({
-      itemList:items
-    })
-     this.setData({
-      index:-1
-    })
+    if(curTap == 'front'){
+          this.setData({   //赋值   
+            frontItemList: items,
+            index:-1
+          })  
+        }else if(curTap == 'back'){
+          this.setData({   //赋值   
+            backItemList: items,
+            index:-1
+            
+          })  
+    }
+
+    // this.setData({
+    //   itemList:items
+    // })
+    //  this.setData({
+    //   index:-1
+    // })
   },
    // 透明度设置
   sliderChange(e) {
-    
+     const curTap = this.data.currentTap;
      const index = this.data.index ;
-     console.log(e.detail.value)
-     app.globalData.items[index].opacity =  e.detail.value;
+     
+    //  console.log(e.detail.value)
+    if(curTap == 'front'){
+      let items = this.data.frontItemList;
+      items[index].opacity =  e.detail.value;
+      this.setData({
+       frontItemList:items
+      })
+    }else if(curTap == 'back'){
+      let items = this.data.backItemList;
+      items[index].opacity =  e.detail.value;
+      this.setData({
+       backItemList:items
+      })
+    }
+    //  app.globalData.items[index].opacity =  e.detail.value;
     
-     this.setData({
-       itemList:app.globalData.items
-     })
+    //  this.setData({
+    //    itemList:app.globalData.items
+    //  })
   },
   //  开始定制
   customize(){
@@ -698,10 +853,10 @@ Page({
       if(this.data.itemList[i].ground == 'front'){
         const item = this.data.itemList[i]
         item.crossOrigin = '';
-        console.log(item.angle)
+        // console.log(item.angle)
         ctx.rotate(item.angle * Math.PI / 180);
         // ctx.drawImage(item.image,item.left,item.top,100,120) 
-        console.log(item.image)
+        // console.log(item.image)
         // ctx.drawImage('http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',0,0,100,120) 
         ctx.drawImage('https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg',item.left,item.top,100,120) 
 
@@ -717,23 +872,23 @@ Page({
       let ctx1 = my.createCanvasContext('canvasFront');
       ctx1.toTempFilePath({
           success(res) {
-            console.log(res)
+            // console.log(res)
       
             let path = res.apFilePath;
-            console.log(path)
+            // console.log(path)
             my.uploadFile({
               url: 'http://bbltest.color3.cn/Mobile/Api/diyupload',
               fileType: 'image',
               fileName: 'file',
               filePath: path,
               success: (res) => {
-                console.log(JSON.stringify(res))
+                // console.log(JSON.stringify(res))
                 my.alert({
                   content: '上传成功'
                 });
               },
               fail(res) {
-                console.log(JSON.stringify(res))
+                // console.log(JSON.stringify(res))
               },
             });
             
@@ -793,64 +948,88 @@ Page({
   // 向上一层
   upZindex(e){
     // console.log( e.target.dataset.id)
-    let items = this.data.itemList;
+    // let items = this.data.itemList;
+    const curTap = this.data.currentTap;
+    let items = [];
     let index  = this.data.index;
-    const curItem = this.data.itemList[index]
-    console.log(index)
+    let curItem = {};
+    if(curTap == 'front'){
+      items = this.data.frontItemList;
+      curItem = this.data.frontItemList[index]
+    }else if(curTap == 'back'){
+      items = this.data.backItemList; 
+      curItem = this.data.backItemList[index]
+    }
+    // let index  = this.data.index;
+    // const curItem = this.data.itemList[index]
+    // console.log(index)
 
     if(index+1 == items.length){
       console.log("已经是最高一层");
       return; //已经是最高一层
     }
-    console.log(index);
+    // console.log(index);
     items.splice(index,1);
     items.splice(index+1,0,curItem)
-     console.log(items)
-    // const index1 = index-1
-    // const index2 = items
-    // items[index] = items.splice(items, index, items[index - 1])[0];
-    // items =  this.swapItems(items, index, index - 1);
-    // items.remove(index);
-    // item.splice(index+1,0,curItem);
-    // items.splice(index,1,items[index]);
-    // const curIndex = items[index].zindex;
-    // items[index].zindex = items[index+1].zindex; //和下一个交换位置
-    // items[index+1].zindex = curIndex;
-    // items.splice()
-    // console.log(items[index].zindex);
-    index = index+1
-    this.setData({
-      itemList:items,
-      index:index
-    })
+    //  console.log(items)
+    index = index+1;
+    if(curTap == 'front'){
+      this.setData({ //赋值 
+        frontItemList: items,
+        index:index
+      }) 
+    }else if(curTap == 'back'){
+      this.setData({ //赋值 
+        backItemList: items,
+        index:index
+      }) 
+    }
+
   },
   // 向下一层
   downZindex(){
     
-    let items = this.data.itemList;
+    // let items = this.data.itemList;
+
+    const curTap = this.data.currentTap;
+    let items = [];
     let index  = this.data.index;
-    const curItem = this.data.itemList[index]
+    let curItem = {};
+    if(curTap == 'front'){
+      items = this.data.frontItemList;
+      curItem = this.data.frontItemList[index]
+    }else if(curTap == 'back'){
+      items = this.data.backItemList; 
+      curItem = this.data.backItemList[index]
+    }
+   
+    
+     
+    // const curItem = this.data.itemList[index]
     if(index == 0){
       console.log("已经是最后一层");
       return; //已经是最高一层
     }
 
-    console.log(items[index].zindex)
+    // console.log(items[index].zindex)
     items.splice(index,1);
+    // console.log(curItem)
     items.splice(index-1,0,curItem)
-    console.log(items)
-    // items[index] = items.splice(items, index, items[index + 1])[0];
-    // items = swapItems(items, index, index + 1);
-    // items.remove(index);
-    // item.splice(index+1,0,curItem);
-    // const curIndex = items[index].zindex; 
-    // items[index].zindex = items[index-1].zindex; //和上一个交换zindex
-    // items[index-1].zindex = curIndex
-    console.log(items[index].zindex);
+    // console.log(JSON.stringify(items))
+
     index = index-1
-    this.setData({
-      itemList:items,
-      index:index
-    })
+
+    if(curTap == 'front'){
+      this.setData({ //赋值 
+        frontItemList: items,
+        index:index
+      }) 
+    }else if(curTap == 'back'){
+      this.setData({ //赋值 
+        backItemList: items,
+        index:index
+      }) 
+    }
+    
   }
 });
