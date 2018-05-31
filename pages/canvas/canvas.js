@@ -12,6 +12,7 @@ Page({
         this.ctx.translate(i*10, i*10);
         this.ctx.rotate(i*10 * Math.PI / 180);
         this.ctx.setGlobalAlpha(i/10)
+        this.ctx.setFillStyle('red');
         this.ctx.fillText('我是'+i, 90, 90)
 
         console.log(i)
@@ -20,6 +21,8 @@ Page({
         this.ctx.drawImage('https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg',0,0,100,120) 
         this.ctx.restore();//恢复状态
     }
+      this.ctx.setFillStyle('black');
+        this.ctx.fillText('我是Jiujiu', 90, 90)
     // this.ctx.translate(20, 20);
         // this.ctx.rotate(i*10 * Math.PI / 180);
         

@@ -2,7 +2,6 @@ require('./config$');
 
 function success() {
 require('../..//app');
-require('../..//pages/canvas/canvas');
 require('../..//pages/modelList/modelList');
 require('../..//pages/index/index');
 require('../..//pages/todos/todos');

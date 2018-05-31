@@ -475,7 +475,7 @@ Page({
             }
           }
           this.setData({
-            itemList:[]
+            itemList:app.globalData.items
           });
         }
         

@@ -217,12 +217,12 @@
       <!-- 文字 -->
       <view class="text-content" a:elif="{{footer == 'text'}}">
         <view class="custome-window flex-box flex-wrap" >
-          <view class="custome-item {{(textEditItem == 'font')?'custome-item-active':''}}" onTap="setTextFont">
+          <!-- <view class="custome-item {{(textEditItem == 'font')?'custome-item-active':''}}" onTap="setTextFont">
               <text class="iconfont icon-tupian"></text>
             <view>
               <text class="custome-item-text">字体</text>
             </view>
-          </view>
+          </view> -->
           <view class="custome-item {{(textEditItem == 'transparency')?'custome-item-active':''}}" onTap="setTextTransparency">
             <text class="iconfont icon-wenzi"></text>
             <view>
@@ -238,13 +238,13 @@
         </view>
         
           <!-- 字体列表 -->
-        <view class="font-list" a:if="{{textEditItem == 'font'}}">
+        <!-- <view class="font-list" a:if="{{textEditItem == 'font'}}">
           <radio-group class="radio-group" onChange="fontChoose">
             <label class="text-radio"  a:for="{{fontList}}">
               <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
             </label>
           </radio-group>
-        </view>
+        </view> -->
 
         <!-- 字体透明度 -->
         <view class="transparencySider" a:if="{{textEditItem == 'transparency'}}">
