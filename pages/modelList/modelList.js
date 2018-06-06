@@ -9,10 +9,50 @@ Page({
     modelList:[], //
     fabricList:[],
     fabricId:1, //当前点击的fabricID
-    picname:''
+    picname:'',
+    swiperList: [{//除了1，2之外，其它的swpClass都是swp-rightNo
+      aurl: "../start/start",
+      swpClass: "swp-center",
+      time: "2018年3月下11",
+      bname: "11111",
+      imgsrc: "../../assets/images/108.png"
+    }, {
+      aurl: "#",
+      swpClass: "swp-right",
+      time: "2018年3月下22",
+      bname: "22222",
+      imgsrc: "../../assets/images/108.png"
+    }, 
+    {
+      aurl: "#",
+      swpClass: "swp-rightNo",
+      time: "2018年3月下22",
+      bname: "33333",
+      imgsrc: "../../assets/images/108.png"
+    }, 
+    {
+      aurl: "#",
+      swpClass: "swp-rightNo",
+      time: "2018年3月下22",
+      bname: "44444",
+      imgsrc: "../../assets/images/108.png"
+    }, 
+    {
+      aurl: "#",
+      swpClass: "swp-rightNo",
+      time: "2018年3月下33",
+      bname: "55555",
+      imgsrc: "../../assets/images/108.png"
+    }],
+    swpCurIdx:0,
+    swpPrevPosition:'',
+    swpEndPosition:''
   },
   onShow(){
     const that = this;
+    my.showLoading({
+      content: '加载中...'
+    });
      my.httpRequest({
       url: 'http://bbltest.color3.cn/Mobile/Api/index',
       method: 'get',
@@ -23,11 +63,26 @@ Page({
       dataType: 'json',
       success: function(res) {
         console.log(JSON.stringify(res))
+        // let odelList = res.data.list;
+        my.hideLoading();
         let fabricList = res.data.list[that.data.current].typelist;
         fabricList[0].fabricActive = true;
+
+        let swpList =  res.data.list;
+        for(var i=0;i<swpList.length;i++){
+          if(i==0){
+            swpList[i].swpClass = 'swp-center'
+          }else if(i==1){
+            swpList[i].swpClass = 'swp-right'
+          }else{
+            swpList[i].swpClass = 'swp-rightNo'
+          }
+        }
         that.setData({
+          swiperList:swpList,
           modelList:res.data.list,
-          fabricList:fabricList
+          fabricList:fabricList,
+          swpCurIdx:0
         })
 
         // my.alert({content: 'success'});
@@ -79,11 +134,137 @@ Page({
     // console.log(this.data.current)  
   },
   nextStep(){
-    console.log(this.data.current)
-    console.log(this.data.fabricId)
-    const index = this.data.current  //款式id
-    const picname = this.data.picname
+  
+    const index = this.data.swpCurIdx  //款式id
+    // console.log(index)
+    const picname = this.data.swiperList[index].picname;
     my.navigateTo({ url: "../index/index?prodId="+index+"&picname="+picname });
-    app.globalData.items = []  //清空定制项
+    app.globalData.frontItems = []  //清空定制项
+    app.globalData.backItems = []
+    this.setData({
+      stickerIndex : -1
+    })
+    app.globalData.footer = 'list' //定制页面底部展示列表
+  },
+  swpBtn: function (e) {
+    var swp = this.data.swiperList;
+    var max = swp.length;
+    var idx = e.currentTarget.dataset.index;
+    var prev = swp[idx - 1];//前一个
+    var next = swp[idx + 1];//后一个
+    var curView = swp[idx];//当前
+    console.log(idx)
+   
+    if (prev) {//如果当前的前面有
+      if (next) {//当前的后面有
+        next.swpClass = "swp-right";
+      }
+      prev.swpClass = "swp-left";
+      curView.swpClass = "swp-center";
+      for (var i = 0; i < idx; i++) { //当前前一个的前面所有
+        swp[i].swpClass = 'swp-leftNo'
+      }
+    }
+    if (next) {//如果当前的后面有
+      if (prev) {//当前的前面有
+        prev.swpClass = "swp-left";
+      }
+      curView.swpClass = "swp-center";
+      next.swpClass = "swp-right";
+      for (var i = (idx + 2); i < max; i++) {//当前后一个的后面所有
+        swp[i].swpClass = 'swp-rightNo'
+      }
+    } else {
+      prev.swpClass = "swp-left";
+      curView.swpClass = "swp-center";
+    }
+
+    this.setData({
+      swiperList: swp,
+      swpCurIdx: idx
+    })
+  },
+  swpTouchStart:function(e){
+    console.log(e.touches[0].clientX)
+    this.setData({
+      swpPrevPosition: e.touches[0].clientX
+    })
+  },
+  swpTouchMove:function(e){
+    let clientX = this.data.swpPosition + e.touches[0].clientX;
+    this.setData({
+      swpEndPosition: e.touches[0].clientX
+    })
+    // console.log(this.data.swpPosition)
+  },
+  swpTouchEnd:function(e){
+
+    var swp = this.data.swiperList;
+    var max = swp.length;
+    var idx = this.data.swpCurIdx;
+    
+    let swpEndPosition = this.data.swpEndPosition;
+    let swpPrevPosition = this.data.swpPrevPosition;
+    if (swpEndPosition - swpPrevPosition>30){
+      if (idx == 0) {
+        return;
+      }
+      idx -=1
+      console.log('swipLeft')
+      this.setData({
+        swpCurIdx:idx
+      })
+    }
+    if (swpPrevPosition - swpEndPosition>30){
+      if (idx == max - 1) {
+        return;
+      }
+      idx += 1
+      console.log('swipRight')
+      this.setData({
+        swpCurIdx: idx
+      })
+    }
+    var prev = swp[idx - 1];//前一个
+    var next = swp[idx + 1];//后一个
+    var curView = swp[idx];//当前
+
+
+    if (prev) {//如果当前的前面有
+      if (next) {//当前的后面有
+        next.swpClass = "swp-right";
+      }
+      prev.swpClass = "swp-left";
+      curView.swpClass = "swp-center";
+      for (var i = 0; i < idx; i++) { //当前前一个的前面所有
+        swp[i].swpClass = 'swp-leftNo'
+      }
+    }
+    if (next) {//如果当前的后面有
+      if (prev) {//当前的前面有
+        prev.swpClass = "swp-left";
+      }
+      curView.swpClass = "swp-center";
+      next.swpClass = "swp-right";
+      for (var i = (idx + 2); i < max; i++) {//当前后一个的后面所有
+        swp[i].swpClass = 'swp-rightNo'
+      }
+    } else {
+      prev.swpClass = "swp-left";
+      curView.swpClass = "swp-center";
+    }
+    let fabric = this.data.modelList[this.data.swpCurIdx].typelist;
+   
+//     this.setData({  
+//       current: e.detail.current,
+//       fabricList :fabric ,
+//       fabricId:fabric[0].id,
+//       picname:this.data.modelList[e.detail.current].picname
+//     })
+    this.setData({
+      swiperList: swp,
+      fabricList :fabric ,
+      fabricId:fabric[0].id,
+    })
   }
 });

@@ -4,7 +4,7 @@
     <view class="model-text">
     <text>选择款式</text>
   </view>
-  <swiper
+  <!-- <swiper
     autoplay="{{autoplay}}"
     interval="{{interval}}"
     current="{{current}}"
@@ -18,7 +18,25 @@
         <view class="model-name">{{item.picname}}</view>
       </swiper-item>
     </block>
-  </swiper>
+  </swiper> -->
+  <view class='idx-content'>
+    <view class='idx-swiper' onTouchStart='swpTouchStart' onTouchMove='swpTouchMove' onTouchEnd='swpTouchEnd'>
+        <view   class='idx-cswp {{item.swpClass}}' 
+                a:for="{{swiperList}}" a:key=""
+                ontap="swpBtn"
+                data-index="{{index}}">
+            <image src='{{item.thumb}}' mode='aspectFit'></image>
+            <view class='swp-title' hidden="{{item.swpClass!=='swp-center'}}">
+                <view class='swp-btime'>{{item.picname}}</view>
+            </view>
+            <!-- <image src='{{item.imgsrc}}' mode='aspectFit'></image>
+            <view class='swp-title' hidden="{{item.swpClass!=='swp-center'}}">
+                <view class='swp-btime'>{{item.time}}</view>
+                <view class='swp-bname'>{{item.bname}}</view>
+            </view> -->
+        </view>
+    </view>
+</view>
   
   <view class="model-text">
     <text>选择面料</text>

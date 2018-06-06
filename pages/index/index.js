@@ -93,7 +93,7 @@ Page({
           systemInfo: res
           
         })
-        // console.log(this.data.systemInfo.windowWidth)
+        console.log(this.data.systemInfo.windowWidth)
       }
     })
   },
@@ -105,7 +105,7 @@ Page({
       index:app.globalData.stickerIndex,
       footer:app.globalData.footer
     });
-    // this.getSystemInfoPage();
+    this.getSystemInfoPage();
     // const pages = getCurrentPages();
     // const curPage = pages[pages.length - 1];
     // if(curPage == undefined){
@@ -358,8 +358,9 @@ Page({
         //移动的点到圆心的距离  
       
         items[index].disPtoO = this.getDistancs(items[index].x, items[index].y, items[index]._tx - this.data.systemInfo.windowWidth * 0.125, items[index]._ty - 10)  
-  
+        console.log(this.data.systemInfo.windowWidth)
         items[index].scale = items[index].disPtoO / items[index].r; //手指滑动的点到圆心的距离与半径的比值作为图片的放大比例  
+        console.log(items[index].scale)
         items[index].oScale = 1 / items[index].scale;//图片放大响应的右下角按钮同比缩小  
   
         //移动后位置的角度  
@@ -526,6 +527,8 @@ Page({
     my.navigateTo({ url: "../images/images?currentTap="+currentTap });
   },
   sticker(e){
+    
+    app.globalData.footer = 'list'
     const oritype = e.currentTarget.dataset.id
     const currentTap = this.data.currentTap;
     my.navigateTo({ url: "../sticker/sticker?currentTap="+currentTap+"&oritype="+oritype });
@@ -543,17 +546,18 @@ Page({
     if(this.data.footer =='text'){
       return; //编辑字体时不允许切换
     }
-    const ctx = my.createCanvasContext("mycanvas");
-    // console.log(ctx);
-    ctx.toTempFilePath({
+    // const ctx = my.createCanvasContext("mycanvas");
+    // // console.log(ctx);
+    // ctx.toTempFilePath({
      
-      success(e) {
-        // console.log(e)
-      },
-    });
+    //   success(e) {
+    //     // console.log(e)
+    //   },
+    // });
     this.setData({
       currentTap:'front'
     })
+    this.windowHide();
     let hasFrontItem = false;
 
     for(let i=0;i<this.data.itemList.length;i++){
@@ -595,7 +599,7 @@ Page({
     this.setData({
       currentTap:'back'
     })
-
+    this.windowHide();
     let hasBackItem = false;
 
     for(let i=0;i<this.data.itemList.length;i++){

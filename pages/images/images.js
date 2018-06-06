@@ -65,14 +65,18 @@ Page({
               my.navigateBack({
                 delta: 1
               })
-
-              const pages = getCurrentPages();
-              const prePage = pages[pages.length - 2];
-          
-              prePage.setData({
-                footer:'imgTransparency',
-                index:app.globalData.items.length-1
+              this.setData({
+                stickerIndex : item.id
               })
+              app.globalData.footer = 'imgTransparency'
+
+              // const pages = getCurrentPages();
+              // const prePage = pages[pages.length - 2];
+          
+              // prePage.setData({
+              //   footer:'imgTransparency',
+              //   index:app.globalData.items.length-1
+              // })
                 // my.alert({
                 //   content: '上传成功'
                 // });

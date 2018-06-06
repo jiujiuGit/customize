@@ -98,6 +98,9 @@ Page({
     this.setData({
       ground:query.currentTap 
     });
+    my.showLoading({
+      content: '加载中...'
+    });
     my.httpRequest({
       url: 'http://bbltest.color3.cn/Mobile/Api/get_diy_image',
       method: 'post',
@@ -110,9 +113,7 @@ Page({
       },
       dataType: 'json',
       success: function(res) {
-        // console.log(JSON.stringify(res))
-        // my.alert({content: 'success'});
-        // console.log(JSON.stringify(res));
+        my.hideLoading();
         that.setData({
           stickers:res.data.list
         })
@@ -171,19 +172,7 @@ Page({
       stickerIndex : item.id
     })
     app.globalData.footer = 'imgTransparency'
-    // const pages = getCurrentPages();
-  
-    // const prePage = pages[pages.length - 2];
-   
-   
-    
-    // prePage.setData({
-    //   footer:'imgTransparency',
-    //   index:app.globalData.items.length-1
-    // })
-   
 
-   
   
   },
 });
