@@ -709,16 +709,22 @@ Page({
       const frontLength = app.globalData.frontItems.length;
       item.id = frontLength +1;
       app.globalData.frontItems.push(item);
+      this.setData({
+        frontItemList:app.globalData.frontItems
+      });
     }else if(this.data.currentTap == 'back'){
       const backLength = app.globalData.backItems.length;
       item.id = backLength +1;
       app.globalData.backItems.push(item);
+      this.setData({
+        backLifrontItemListst:app.globalData.backItems
+      });
     }
 
     // app.globalData.items.push(item);
-    this.setData({
-      itemList:app.globalData.items
-    });
+    // this.setData({
+    //   itemList:app.globalData.items
+    // });
   
   
   },
@@ -825,7 +831,7 @@ Page({
   sliderChange(e) {
      const curTap = this.data.currentTap;
      const index = this.data.index ;
-     
+     console.log(index)
     //  console.log(e.detail.value)
     if(curTap == 'front'){
       let items = this.data.frontItemList;

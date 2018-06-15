@@ -1,0 +1,18 @@
+<view style='background-color:white'>
+  <view class="container">
+    <view class="flex-box">
+      <view class="type-item team">
+        <image src="../../assets/images/img_team.png" mode="widthFix" />
+        <view class="type-text">团体定制</view>
+      </view>
+      
+      <view class="type-item geren">
+        <image src="../../assets/images/img_geren.png" mode="widthFix" />
+        <view class="type-text">个人定制</view>
+      </view>
+    </view>
+    <view class="order-history">
+      <text >历史订单</text>
+    </view>
+  </view>
+</view>

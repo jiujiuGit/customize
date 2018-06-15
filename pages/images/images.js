@@ -54,10 +54,12 @@ Page({
                 let frontLength = app.globalData.frontItems.length;
                 item.id = frontLength+1;
                 app.globalData.frontItems.push(item);
+                app.globalData.stickerIndex = app.globalData.frontItems.length-1
               }else if(this.data.ground == 'back'){
                 let backLength = app.globalData.backItems.length;
                 item.id = backLength+1;
                 app.globalData.backItems.push(item);
+                app.globalData.stickerIndex = app.globalData.backItems.length-1
               }
 
               // console.log(item.image);
@@ -68,6 +70,7 @@ Page({
               this.setData({
                 stickerIndex : item.id
               })
+              
               app.globalData.footer = 'imgTransparency'
 
               // const pages = getCurrentPages();
