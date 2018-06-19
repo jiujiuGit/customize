@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/groupForm/groupForm",
     "pages/customType/customType",
     "pages/modelList/modelList",
     "pages/index/index",
@@ -8,7 +9,6 @@
     "pages/sticker/sticker",
     "pages/images/images",
     "pages/bgList/bgList"
-    
     
   ],
   "window": {

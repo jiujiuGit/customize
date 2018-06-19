@@ -6,7 +6,7 @@
         <view class="type-text">团体定制</view>
       </view>
       
-      <view class="type-item geren">
+      <view class="type-item geren" onTap="single">
         <image src="../../assets/images/img_geren.png" mode="widthFix" />
         <view class="type-text">个人定制</view>
       </view>

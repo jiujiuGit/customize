@@ -1,0 +1,12 @@
+<view class="container">
+  <form onSubmit="" onReset="">
+    <view class="section section-basic">
+      <view>基本信息</view>
+      <view class="section-content">
+        <view><text>联系人姓名</text><input type="text" placeholder="" auto-focus  /></view>
+        <view><label>联系电话</label><input type="" placeholder="" auto-focus  /></view>
+        <view><text>公司名称</text><input type="text" placeholder="" auto-focus  /></view>
+      </view>
+  </view>
+  </form>
+</view>

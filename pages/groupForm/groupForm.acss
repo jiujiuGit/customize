@@ -1,0 +1,23 @@
+.container{
+    background-color: rgba(242,243,245,1);
+    width:100%;
+}
+.section-content{
+    background-color: white;
+    margin: 20rpx 30rpx;
+    border-radius: 4px;
+}
+.section-content>view{
+    border-bottom: 1px dashed #D8D8D8;
+    padding: 10rpx 20rpx;
+    vertical-align: middle;
+}
+.section-content text{
+    width: 120rpx;
+    color: #7A7A7A;
+    vertical-align: middle;
+    line-height: 25px;
+}
+.section-content input {
+    width: 480rpx
+}
