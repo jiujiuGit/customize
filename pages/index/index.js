@@ -867,8 +867,8 @@ Page({
         ctx.rotate(item.angle * Math.PI / 180);
         // ctx.drawImage(item.image,item.left,item.top,100,120) 
         // console.log(item.image)
-        // ctx.drawImage('http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',0,0,100,120) 
-        ctx.drawImage('https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg',item.left,item.top,100,120) 
+        ctx.drawImage('http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',0,0,100,120) 
+        // ctx.drawImage('https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg',item.left,item.top,100,120) 
 
         ctx.draw();
         ctx.save();

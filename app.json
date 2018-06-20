@@ -1,11 +1,12 @@
 {
   "pages": [
+     "pages/canvas/canvas",
+    "pages/modelList/modelList",
+    "pages/orderDetail/orderDetail",
     "pages/groupForm/groupForm",
     "pages/customType/customType",
-    "pages/modelList/modelList",
+    
     "pages/index/index",
-    "pages/todos/todos",    
-    "pages/add-todo/add-todo",
     "pages/sticker/sticker",
     "pages/images/images",
     "pages/bgList/bgList"

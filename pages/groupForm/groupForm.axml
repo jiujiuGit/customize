@@ -1,12 +1,35 @@
 <view class="container">
   <form onSubmit="" onReset="">
     <view class="section section-basic">
-      <view>基本信息</view>
+      <view class="hint">基本信息</view>
       <view class="section-content">
         <view><text>联系人姓名</text><input type="text" placeholder="" auto-focus  /></view>
         <view><label>联系电话</label><input type="" placeholder="" auto-focus  /></view>
         <view><text>公司名称</text><input type="text" placeholder="" auto-focus  /></view>
       </view>
-  </view>
+    </view>
+
+    <view class="section section-address">
+      <view class="hint">收货地址</view>
+      <view class="section-content">
+        <view><text>联系人姓名</text><input type="text" placeholder="" auto-focus  /></view>
+        <view><text>详细地址</text><input type="text" placeholder="" auto-focus  /></view>
+      </view>
+    </view>
+
+    <view class="section section-address">
+      <view class="hint">定制需求</view>
+      <view class="section-content">
+        <view><text>定制服装人数</text><input type="text" placeholder="" auto-focus  /></view>
+        <view><text>每人定制数量</text><input type="text" placeholder="" auto-focus  /></view>
+        <view><text>预计使用时间</text><input type="text" placeholder="" auto-focus  /></view>
+
+      </view>
+    </view>
+
+
+    <view class="next">
+      <button formType="submit">下一步</button>
+    </view>
   </form>
 </view>
