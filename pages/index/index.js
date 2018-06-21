@@ -867,8 +867,25 @@ Page({
         ctx.rotate(item.angle * Math.PI / 180);
         // ctx.drawImage(item.image,item.left,item.top,100,120) 
         // console.log(item.image)
-        ctx.drawImage('http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',0,0,100,120) 
+        // ctx.drawImage('http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',0,0,100,120) 
         // ctx.drawImage('https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg',item.left,item.top,100,120) 
+
+        my.downloadFile({  
+      url: 'http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',  
+      success: function (res) {  
+        console.log(res);  
+        that.ctx = my.createCanvasContext('myCanvas');
+        console.log(res.apFilePath)
+        // that.ctx.drawImage(res.tempFilePath,0,0,100,200)
+        // that.ctx.drawImage('http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',0,0,100,120) 
+        // that.ctx.drawImage(res.apFilePath,0,0,100,200)
+        that.ctx.draw()
+        // that.data.mysrc = res.tempFilePath  
+      },fail:function(res){  
+  
+      }  
+    })  
+
 
         ctx.draw();
         ctx.save();

@@ -1,0 +1,69 @@
+.hotline{
+    font-size: 14px;
+    color: #239BC9;
+    padding: 20rpx;
+    background-color: #F2F3F5;
+}
+.tel{
+    border-bottom: 1px solid #F2F3F5;
+    text-decoration: underline
+}
+.personal-list{
+    padding-bottom: 50px;
+}
+.personal-item{
+    margin: 40rpx;
+    /* border-bottom: 1px dashed #D8D8D8;
+    border-bottom-width:710rpx; */
+}
+.header-img{
+    width: 70rpx;
+}
+.person-name{
+    line-height: 70rpx;
+    font-size: 15px;
+    font-weight: 600;
+}
+.person-msg{
+    vertical-align: middle;
+}
+.personal-image{
+    width: 160rpx;
+}
+.personal-images{
+    margin-left: 60rpx;
+    width: 610rpx;
+    overflow-x: scroll;
+}
+.personal-item-image{
+    /* margin-left: 10px; */
+    margin: 10px 0 0 10px;
+    /* border:1px solid red; */
+}
+.personal-remarks{
+    margin-left: 70rpx;
+    font-size: 12px;
+    line-height: 40px;
+}
+.qty{
+    margin-left: 20px;
+}
+.line{
+    width: 670rpx;
+    /* margin-left: 40rpx; */
+    border-bottom: 1px dashed #D8D8D8;
+}
+::-webkit-scrollbar{width:0;height:0}
+.footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.footer-btn{
+    background-color: #474747;
+    color: white;
+    font-size: 28rpx;
+    border:none;
+    height: 50px;
+    line-height: 50px;
+}

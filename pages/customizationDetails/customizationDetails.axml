@@ -1,0 +1,29 @@
+<view style='background-color:white'>
+  <view class="hotline"><text>客服热线：</text><text onTap="call" class="tel">400-7417474</text></view>
+  <view class="personal-list">
+    <view class="personal-item" a:for="{{5}}">
+
+      <view class="flex-box person-msg">
+        <view><image class="header-img" src="../../assets/images/img_team.png" mode="widthFix" /></view>
+        <view class="person-name">马姐姐</view>
+      </view>
+
+      <view class="flex-box personal-images">
+          <view class="personal-item-image" a:for='{{4}}'><image class="personal-image" src="../../assets/images/img_geren.png" mode="widthFix" /></view>
+      </view>
+    
+      <view class="personal-remarks">
+        <text>定制尺寸：XXXL</text>
+        <text class="qty">定制数量：12件</text>
+      </view>
+      <view class="line"></view>
+    
+    </view>
+      
+      
+  </view>
+
+  <view class="footer">
+    <button class="footer-btn" type="default" size="defaultSize" onTap="defaultTap"> 确认下单 </button>
+  </view>
+</view>

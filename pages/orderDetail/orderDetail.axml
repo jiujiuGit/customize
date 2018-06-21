@@ -6,24 +6,41 @@
 
     <view class="detail-container">
       <view>
-        <view class="section-card flex-box">
-          <image id='prodImg' src="../../assets/images/img_geren.png" mode="widthFix" />
-          <view>
-            <view class="prod-name">男白色T恤</view>
-            <view><text>已定制:54件</text> <text>未定制：100件</text></view>
+        <view class="section-card">
+          <view class="flex-box prod-msg">
+            <image id='prodImg' src="../../assets/images/img_geren.png" mode="widthFix" />
+            <view class="msg-right">
+              <view class="prod-name">男白色T恤</view>
+              <view class="custom-qty"><text>已定制:54件，   </text> <text>未定制：100件</text></view>
+              <view class="prod-price">￥2999.99</view>
+            </view>
+            
+          </view>
+          <view class="card-state">
+            <text class="state-hint">您的订单未确认</text> <text class="date">2018-09-10 19:00</text>
+          </view>
+          <view class="card-btn flex-box flex-justify-between"> 
+             <button form-type="reset" class="quit">取消订单</button>
+             <button form-type="confirm" class="comfirm">确认订单</button>
           </view>
         </view>
 
 
-        <view class="detail-section section1">
+        <view class="detail-section section-recive">
           <text class="section-title">收货信息</text>
           <view class="section-lines">
             <view>收货人：啾啾</view>
             <view>收货地址：上海市浦东新区</view>
           </view>
         </view>
-
-        <view class="detail-section">
+        <view class="detail-section section-qrcode">
+          <text class="section-title">定制二维码</text>
+          <!-- <image src="" mode="" /> -->
+          <view class="qrCode-text">
+            <text>长按保存，扫码进行个性化定制</text>
+          </view>
+        </view>
+        <view class="detail-section section-order">
           <text class="section-title">订单信息</text>
           <view class="section-lines">
             <view>订单编号：1290381923210</view>
