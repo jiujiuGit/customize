@@ -4,7 +4,7 @@ Page({
   },
   onReady() {
     this.ctx = my.createCanvasContext('myCanvas');
-     var img = new Image();
+    //  var img = new Image();
     var that = this;
                 // that.ctx.drawImage('http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',0,0,100,120) 
 

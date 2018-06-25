@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/modelList/modelList",
     "pages/customizationDetails/customizationDetails",
     "pages/orderDetail/orderDetail",
-    "pages/modelList/modelList",
+    
     "pages/canvas/canvas",
     "pages/groupForm/groupForm",
     "pages/customType/customType",

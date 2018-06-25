@@ -855,80 +855,61 @@ Page({
   //  开始定制
   customize(){
     const that = this;
-    // console.log(1)
-    // console.log(JSON.stringify(this.data.itemList));
-    let ctx = my.createCanvasContext('canvasFront');
-    for(let i=0;i<this.data.itemList.length;i++){
-      
-      if(this.data.itemList[i].ground == 'front'){
-        const item = this.data.itemList[i]
-        item.crossOrigin = '';
-        // console.log(item.angle)
-        ctx.rotate(item.angle * Math.PI / 180);
-        // ctx.drawImage(item.image,item.left,item.top,100,120) 
-        // console.log(item.image)
-        // ctx.drawImage('http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',0,0,100,120) 
-        // ctx.drawImage('https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg',item.left,item.top,100,120) 
+    this.ctx = my.createCanvasContext('canvasFront');
 
-        my.downloadFile({  
-      url: 'http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',  
-      success: function (res) {  
-        console.log(res);  
-        that.ctx = my.createCanvasContext('myCanvas');
-        console.log(res.apFilePath)
-        // that.ctx.drawImage(res.tempFilePath,0,0,100,200)
-        // that.ctx.drawImage('http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',0,0,100,120) 
-        // that.ctx.drawImage(res.apFilePath,0,0,100,200)
-        that.ctx.draw()
-        // that.data.mysrc = res.tempFilePath  
-      },fail:function(res){  
+    // my.downloadFile({  
+    //     // url: item.image, 
+    //     url:'http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png', 
+    //     success: function (res) {  
+    //       console.log(res);  
+    //       that.ctx = my.createCanvasContext('canvasFront');
+    //       that.ctx.drawImage(res.apFilePath,0,0,100,200)
+    //       that.ctx.draw();
+    //     },fail:function(res){  
+    
+    //     }  
+    // })  
+    this.ctx.save();
+    for(let i=0;i<this.data.frontItemList.length;i++){
+      const item = this.data.frontItemList[i]
+      // item.crossOrigin = '';
+      // console.log(item.angle)
+      
+      
   
-      }  
-    })  
-
-
-        ctx.draw();
-        ctx.save();
-        ctx.restore();//恢复状态
-        
-      }
-      
+      // console.log(item)
+      my.downloadFile({  
+        url: item.image,  
+        success: function (res) {  
+          console.log(res);  
+          
+          that.ctx = my.createCanvasContext('canvasFront');
+          that.ctx.save();
+          that.ctx.translate(item.left,item.top);
+          that.ctx.rotate(item.angle * Math.PI / 180);
+          // that.ctx.drawImage(res.apFilePath,item.left,item.top,item.width,item.height)
+          console.log(item.width+"+"+item.height)
+          that.ctx.drawImage(res.apFilePath,0,0,100,200)
+          that.ctx.draw()
+          that.ctx.restore();//恢复状态
+          
+        },fail:function(res){  
+    
+        }  
+      })  
+      this.ctx.draw();
+      // this.ctx.save();
+      this.ctx.restore();//恢复状态
     }
 
-    setTimeout(function(){
-      let ctx1 = my.createCanvasContext('canvasFront');
-      ctx1.toTempFilePath({
-          success(res) {
-            // console.log(res)
-      
-            let path = res.apFilePath;
-            // console.log(path)
-            my.uploadFile({
-              url: 'http://bbltest.color3.cn/Mobile/Api/diyupload',
-              fileType: 'image',
-              fileName: 'file',
-              filePath: path,
-              success: (res) => {
-                // console.log(JSON.stringify(res))
-                my.alert({
-                  content: '上传成功'
-                });
-              },
-              fail(res) {
-                // console.log(JSON.stringify(res))
-              },
-            });
-            
-          },
-    });
-    },1000)
-
-    // ctx.toTempFilePath({
+    // setTimeout(function(){
+    //   let ctx1 = my.createCanvasContext('canvasFront');
+    //   ctx1.toTempFilePath({
     //       success(res) {
-    //         console.log(res)
+    //         // console.log(res)
       
     //         let path = res.apFilePath;
-    //         console.log(path)
+    //         // console.log(path)
     //         my.uploadFile({
     //           url: 'http://bbltest.color3.cn/Mobile/Api/diyupload',
     //           fileType: 'image',
@@ -941,31 +922,15 @@ Page({
     //             });
     //           },
     //           fail(res) {
-    //             console.log(JSON.stringify(res))
+    //             // console.log(JSON.stringify(res))
     //           },
     //         });
             
     //       },
     // });
-
+    // },1000)
 
     
-    // ctx.restore();//恢复状态
-
-
-
-
-//     var ctx = my.createCanvasContext('canvasFront');
-// // var ctx = canvas.getContext("2d");
-// var img = new Image();
-// img.src = "https://img.alicdn.com/tfs/TB1GvVMj2BNTKJjy0FdXXcPpVXa-520-280.jpg";
-// img.onload = function (){
-//     // ctx.save();//保存状态
-//     // ctx.translate(200,200);//设置画布上的(0,0)位置，也就是旋转的中心点
-//     // ctx.rotate(45*Math.PI/180);
-//     ctx.drawImage(img,-img.width/2,-img.height/2);//把图片绘制在旋转的中心点，
-//     // ctx.restore();//恢复状态
-// }
   },
 
   swapItems(arr, index1, index2){
