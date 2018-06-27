@@ -1,0 +1,26 @@
+.sticker-list{
+    margin: 10px 20rpx;
+    overflow: hidden;
+}
+.sticker-list>view{
+    display: inline-block;
+  vertical-align: top;
+  width: 350rpx;
+}
+.item-right{
+    float: right;
+}
+.stickerItem{
+    width: 350rpx;
+    /* height: auto; */
+     display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+.item-right{
+    margin-left: 10rpx;
+}
+.stickerItem>image{
+    width: 100%;
+    /* border:1px solid red; */
+}

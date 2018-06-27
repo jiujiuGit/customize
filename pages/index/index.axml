@@ -96,7 +96,7 @@
   <!-- 侧面操作区域 -->
   <view class="model-contanier" a:if="{{currentTap == 'side'}}">
     <view class="model-display" onTap = "windowHide">
-      <image ontouchStar="WraptouchStart"  class="bg-model" mode="aspectFit" src="../../assets/images/middle_img_03.png" mode="" />
+      <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="{{bgList.pic3}}" mode="" />
       <!-- <image class="bg-model" mode="widthFix" src="../../assets/images/middle_img_02.svg" mode="" /> -->
     </view>
     <!-- 操作区域 -->

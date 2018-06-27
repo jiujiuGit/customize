@@ -134,11 +134,11 @@ Page({
     // console.log(this.data.current)  
   },
   nextStep(){
-  
-    const index = this.data.swpCurIdx  //款式id
+    const index = this.data.swpCurIdx;
+    const prodId = this.data.modelList[this.data.swpCurIdx].id;  //款式id
     // console.log(index)
     const picname = this.data.swiperList[index].picname;
-    my.navigateTo({ url: "../index/index?prodId="+index+"&picname="+picname });
+    my.navigateTo({ url: "../index/index?prodId="+prodId+"&picname="+picname });
     app.globalData.frontItems = []  //清空定制项
     app.globalData.backItems = []
     this.setData({

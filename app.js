@@ -36,7 +36,8 @@ App({
     frontItems:[],
     backItems:[],
     stickIndex:-1, //点击的贴纸、图片等的index
-    footer:'list' //底部展示内容
+    footer:'list', //底部展示内容
+    sideStickerId:'' //侧面贴纸或线条id
   }
   // getUserInfo() {
   //   return new Promise((resolve, reject) => {

@@ -10,6 +10,7 @@
     
     "pages/index/index",
     "pages/sticker/sticker",
+    "pages/sideSticker/sideSticker",
     "pages/images/images",
     "pages/bgList/bgList"
     

@@ -69,9 +69,9 @@ Page({
     stickIndex:'' //
   },
   onLoad(query) {
-    console.log(query.currentTap);
-    console.log(query.oritype);
-    console.log(typeof(query.oritype))
+    // console.log(query.currentTap);
+    // console.log(query.oritype);
+    // console.log(typeof(query.oritype))
     switch(query.oritype){
       case "2":
         my.setNavigationBar({

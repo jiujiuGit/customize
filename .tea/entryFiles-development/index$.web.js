@@ -8,5 +8,6 @@ require('../../pages/groupForm/groupForm');
 require('../../pages/customType/customType');
 require('../../pages/index/index');
 require('../../pages/sticker/sticker');
+require('../../pages/sideSticker/sideSticker');
 require('../../pages/images/images');
 require('../../pages/bgList/bgList');

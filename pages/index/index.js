@@ -8,6 +8,8 @@ Page({
     },
     www:'',
     bgList:[],
+    sideStickerId:app.globalData.sideStickerId,//侧面贴纸或线条id
+    prodId:'',//款式id
     picname:'',//商品名称
     headerSeen:true,
 
@@ -93,35 +95,50 @@ Page({
           systemInfo: res
           
         })
-        console.log(this.data.systemInfo.windowWidth)
+        // console.log(this.data.systemInfo.windowWidth)
       }
     })
   },
   onShow() {
+    const that = this;
     // 页面显示
     this.setData({
       backItemList:app.globalData.backItems,
       frontItemList:app.globalData.frontItems,
       index:app.globalData.stickerIndex,
-      footer:app.globalData.footer
+      footer:app.globalData.footer,
+      sideStickerId:app.globalData.sideStickerId
     });
     this.getSystemInfoPage();
-    // const pages = getCurrentPages();
-    // const curPage = pages[pages.length - 1];
-    // if(curPage == undefined){
-    //   return;
-    // }
- 
-    // if(curPage.data.stickerIndex!=undefined){
-    //   console.log(1)
-    //   this.setData({
-    //     footer:'imgTransparency',
-    //     headerSeen:true,
-    //     index:curPage.data.stickerIndex,
-    //     sliderValue:100
-    //   })
-    // }
-    // console.log(this.data.index)
+    console.log(this.data.sideStickerId)
+    if(this.data.sideStickerId){  //请求侧面背景图
+      my.httpRequest({
+        url: 'http://bbltest.color3.cn/Mobile/Api/getImageByDid',
+        method: 'post',
+        data: {
+          did: that.data.sideStickerId, //贴纸或线条id
+          tid:that.data.prodId,  //款式id
+          // oritype:query.oritype
+        },
+        dataType: 'json',
+        success: function(res) {
+          my.hideLoading();
+          let bgList = that.data.bgList;
+          bgList.pic3 = res
+          // that.setData({
+          //   stickers:res.data.list
+          // })
+        },
+        fail: function(res) {
+          console.log(res)
+          // my.alert({content: 'fail'});
+        },
+        complete: function(res) {
+          // my.hideLoading();
+          // my.alert({content: 'complete'});
+        }
+      });
+    }
 
   
   },
@@ -531,7 +548,13 @@ Page({
     app.globalData.footer = 'list'
     const oritype = e.currentTarget.dataset.id
     const currentTap = this.data.currentTap;
-    my.navigateTo({ url: "../sticker/sticker?currentTap="+currentTap+"&oritype="+oritype });
+
+    if(currentTap == 'side'){
+      my.navigateTo({ url: "../sideSticker/sideSticker?currentTap="+currentTap+"&oritype="+oritype });
+    }else{
+      my.navigateTo({ url: "../sticker/sticker?currentTap="+currentTap+"&oritype="+oritype });
+    }
+    
     
   },
   //背景列表
@@ -637,26 +660,27 @@ Page({
       return; //编辑字体时不允许切换
     }
     this.setData({
-      currentTap:'side'
+      currentTap:'side',
+      windowActive:true
     })
-    my.confirm({
-      title: '温馨提示',
-      content: '是否清空画布',
-      confirmButtonText: '清空',
-      cancelButtonText: '取消',
-      success: (result) => {
-        if(result.confirm){
-          for(let i = 0;i<app.globalData.items.length;i++){
-            if(app.globalData.items[i].ground == 'side'){
-                app.globalData.items.splice(i,1)
-            }
-          }
-          this.setData({
-            itemList:app.globalData.items
-          });
-        }
-      }
-    })
+    // my.confirm({
+    //   title: '温馨提示',
+    //   content: '是否清空画布',
+    //   confirmButtonText: '清空',
+    //   cancelButtonText: '取消',
+    //   success: (result) => {
+    //     if(result.confirm){
+    //       for(let i = 0;i<app.globalData.items.length;i++){
+    //         if(app.globalData.items[i].ground == 'side'){
+    //             app.globalData.items.splice(i,1)
+    //         }
+    //       }
+    //       this.setData({
+    //         itemList:app.globalData.items
+    //       });
+    //     }
+    //   }
+    // })
   },
   // 点击文字
   textEdit(){
@@ -854,6 +878,34 @@ Page({
   },
   //  开始定制
   customize(){
+
+    // 获取用户信息
+    my.getAuthCode({
+      scopes: 'auth_user', // 主动授权（弹框）：auth_user，静默授权（不弹框）：auth_base
+      success: (res) => {
+      
+        if (res.authCode) {
+          // 认证成功
+          // 调用自己的服务端接口，让服务端进行后端的授权认证，并且种session，需要解决跨域问题
+          my.httpRequest({
+            url: 'http://isv.com/auth', // 该url是自己的服务地址，实现的功能是服务端拿到authcode去开放平台进行token验证
+            data: {
+              authcode: res.authcode
+            },
+            success: () => {
+              // 授权成功并且服务器端登录成功
+            },
+            fail: () => {
+              // 根据自己的业务场景来进行错误处理
+            },
+          });
+        }
+      },
+    });
+
+
+
+
     const that = this;
     this.ctx = my.createCanvasContext('canvasFront');
 
