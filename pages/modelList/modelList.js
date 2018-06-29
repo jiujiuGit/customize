@@ -62,7 +62,7 @@ Page({
       },
       dataType: 'json',
       success: function(res) {
-        console.log(JSON.stringify(res))
+        // console.log(JSON.stringify(res))
         // let odelList = res.data.list;
         my.hideLoading();
         let fabricList = res.data.list[that.data.current].typelist;

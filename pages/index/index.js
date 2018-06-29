@@ -11,6 +11,7 @@ Page({
     sideStickerId:app.globalData.sideStickerId,//侧面贴纸或线条id
     prodId:'',//款式id
     picname:'',//商品名称
+    sidePicId:'',
     headerSeen:true,
 
     //可编辑图片列表
@@ -33,31 +34,7 @@ Page({
       },
       {
         colorCode:'#8B8B8B'
-      },
-      {
-        colorCode:'#E82D18'
-      },
-      {
-        colorCode:'#E84117'
-      },
-      {
-        colorCode:'#F2811B'
-      },
-      {
-        colorCode:'#EEB20E'
-      },
-      {
-        colorCode:'#B9D21F'
-      },
-      {
-        colorCode:'#B9D21F'
-      },
-      {
-        colorCode:'#B9D21F'
-      },
-      {
-        colorCode:'#B9D21F'
-      },
+      }
     ], //颜色列表
 
     textEditItem:'font', //当前字体编辑项，“font”-字体，transparency-透明度，color-颜色
@@ -124,10 +101,11 @@ Page({
         success: function(res) {
           my.hideLoading();
           let bgList = that.data.bgList;
-          bgList.pic3 = res
-          // that.setData({
-          //   stickers:res.data.list
-          // })
+          bgList.pic3 = res.data.pic
+          that.setData({
+            bgList:bgList,
+            sidePicId:res.data.id
+          })
         },
         fail: function(res) {
           console.log(res)
@@ -147,7 +125,8 @@ Page({
     // console.log(query)
     // console.log(query.prodId);
     this.setData({
-      picname:query.picname
+      picname:query.picname,
+      prodId:query.prodId
     })
     const that = this;
     my.httpRequest({
@@ -175,14 +154,24 @@ Page({
       }
     });
 
-    // this.setData({
-    //   itemList:app.globalData.items
-    // })
-   
-    // console.log(JSON.stringify(getApp().data.items ) );
-    //  this.setData({
-    //   items : this.data.itemLits
-    //  })
+    my.httpRequest({
+      url:'http://bbltest.color3.cn/Mobile/Api/getColorList',
+      method:'POST',
+      data:{},
+      dataType:'json',
+      success:function(res){
+        that.setData({
+          colorList:res.data.list
+        })
+        // console.log(JSON.stringify(res))
+      },
+      fail:function(){
+
+      },
+      complete:function(){
+
+      }
+    })
   },
   textTap(){
   // console.log(323123)
@@ -754,7 +743,8 @@ Page({
   },
   colorChoose(e){  //选择颜色
     // console.log(e.target.dataset.index);
-    const colorIndex =  e.target.dataset.index
+    const colorIndex =  e.target.dataset.index;
+
     let colorList = this.data.colorList;
     for(let i = 0;i<colorList.length;i++){
       if(i == colorIndex){
@@ -926,9 +916,6 @@ Page({
       const item = this.data.frontItemList[i]
       // item.crossOrigin = '';
       // console.log(item.angle)
-      
-      
-  
       // console.log(item)
       my.downloadFile({  
         url: item.image,  
@@ -985,6 +972,39 @@ Page({
     
   },
 
+
+  // 提交定制参数
+  saveworkdesk(){
+    my.httpRequest({
+      url:'http://bbltest.color3.cn/Mobile/Api/saveworkdesk',
+      dataType:'json',
+      method:'POST',
+      data:{
+        'type_id':'',   //款式id
+        'specitem_id':'',   //材质id
+        'position_front_remix':'',   //正面合成图片base64编码
+        'position_front':'',    //正面整体图片
+        'position_back_remix':'',    //反面合成图片
+        'position_back':'',     //反面整体图片
+        'position_side_id':'',   //侧面的图片
+        'size':'',  //尺码
+        'color':'',   //颜色id
+        'group_idf':'',  //正面组件id
+        'group_idb':'',  //反面组件id
+        'nickname':''  //支付宝用户昵称
+      },
+      success:function(){
+        
+      },
+      fail:function(){
+
+      },
+      complete:function(){
+        
+      }
+    })
+  },
+  
   swapItems(arr, index1, index2){
     arr[index1] = arr.splice(index2, 1, arr[index1])[0];
     return arr;
