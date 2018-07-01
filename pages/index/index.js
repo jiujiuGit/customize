@@ -18,6 +18,8 @@ Page({
     itemList: [],
     frontItemList:[], //正面编辑列表
     backItemList:[],//背面编辑列表
+    // frontEditArea:{}, //正面编辑框属性
+    // backEditArea:{}, //侧面编辑框属性
     index:0,
   
 
@@ -141,8 +143,16 @@ Page({
       success: function(res) {
         // my.alert({content: 'success'});
         // console.log(JSON.stringify(res));
+        // let frontEditArea = {
+        //     res.data
+        // };
+        // let backEditArea = {
+
+        // }
         that.setData({
           bgList:res.data.data
+          // frontEditArea:frontEditArea,
+          // backEditArea:backEditArea
         })
       },
       fail: function(res) {
@@ -253,6 +263,9 @@ Page({
         //把新的值赋给老的值  
         items[index].lx = e.touches[0].clientX;    
         items[index].ly = e.touches[0].clientY;  
+
+
+
 
 
         if(curTap == 'front'){
@@ -896,50 +909,88 @@ Page({
 
 
 
-    const that = this;
-    this.ctx = my.createCanvasContext('canvasFront');
+    let that = this;
+    that.ctx = my.createCanvasContext('canvasFront');
+    let frontItemList = that.data.frontItemList;
+    console.log(frontItemList)
+    // 先下载贴纸
+     for(let i=frontItemList.length-1;i>-1;i--){
+       console.log(frontItemList[i].image)
+        my.downloadFile({
+          url: frontItemList[i].image, // 下载文件地址
+          success: (res) => {
+            console.log(res.apFilePath)
+            console.log(frontItemList[0])
+            frontItemList[i].downloadFile = res.apFilePath;
+            console.log(frontItemList[i].downloadFile)
+            // newArr.push(res.apFilePath)
+          },
+          fail(res){
+            console.log(res)
+          }
+        });
+     }
 
-    // my.downloadFile({  
-    //     // url: item.image, 
-    //     url:'http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png', 
+
+    setTimeout(function(){
+      console.log(JSON.stringify(frontItemList))
+      for(let i=frontItemList.length-1;i>-1;i--){
+        
+        const item = frontItemList[i]
+        // this.ctx.rotate(30 * Math.PI / 180);
+        that.ctx.save();
+        // that.ctx.translate(i*10, i*10);
+        that.ctx.rotate(item.angle * Math.PI / 180);
+        // that.ctx.setGlobalAlpha(i/10)
+        // that.ctx.setFillStyle('red');
+        // that.ctx.fillText('我是'+i, 90, 90)
+        const left = item.left - that.data.bgList.left1;
+          const top = item.top - that.data.bgList.top1;
+          console.log(item.downloadFile)
+        // that.ctx.drawImage(item.image,left,top,100,120) 
+        that.ctx.drawImage(item.downloadFile,left,top,100,120) 
+        // that.ctx.drawImage('https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg',0,0,100,120) 
+        that.ctx.draw()
+        that.ctx.restore();//恢复状态
+        
+      }
+    },1000)
+
+    // for(let i=0;i<this.data.frontItemList.length;i++){
+    //   const item = this.data.frontItemList[i]
+    //   //that.ctx.drawImage('https://img.alicdn.com/tfs/TB1GvVMj2BNTKJjy0FdXXcPpVXa-520-280.jpg',left,top,100,200)
+    //   that.ctx.save();
+    //   my.downloadFile({  
+    //     url: item.image,  
     //     success: function (res) {  
-    //       console.log(res);  
-    //       that.ctx = my.createCanvasContext('canvasFront');
-    //       that.ctx.drawImage(res.apFilePath,0,0,100,200)
-    //       that.ctx.draw();
+    //       console.log(that.ctx);  
+          
+    //       // that.ctx = my.createCanvasContext('canvasFront');
+          
+    //       // that.ctx.translate(item.left,item.top);
+    //       that.ctx.rotate(item.angle * Math.PI / 180);
+    //       // that.ctx.drawImage(res.apFilePath,item.left,item.top,item.width,item.height)
+         
+    //       const left = item.left - that.data.bgList.left1;
+    //       const top = item.top - that.data.bgList.top1;
+    //        console.log(left+"+"+top+"********"+res.apFilePath)
+    //       that.ctx.drawImage(res.apFilePath,left,top,100,200)
+    //       // that.ctx.draw()
+          
+         
+    //       that.ctx.restore();//恢复状态
+          
     //     },fail:function(res){  
     
     //     }  
-    // })  
-    this.ctx.save();
-    for(let i=0;i<this.data.frontItemList.length;i++){
-      const item = this.data.frontItemList[i]
-      // item.crossOrigin = '';
-      // console.log(item.angle)
-      // console.log(item)
-      my.downloadFile({  
-        url: item.image,  
-        success: function (res) {  
-          console.log(res);  
-          
-          that.ctx = my.createCanvasContext('canvasFront');
-          that.ctx.save();
-          that.ctx.translate(item.left,item.top);
-          that.ctx.rotate(item.angle * Math.PI / 180);
-          // that.ctx.drawImage(res.apFilePath,item.left,item.top,item.width,item.height)
-          console.log(item.width+"+"+item.height)
-          that.ctx.drawImage(res.apFilePath,0,0,100,200)
-          that.ctx.draw()
-          that.ctx.restore();//恢复状态
-          
-        },fail:function(res){  
+    //   })  
+    //   console.log(12321)
     
-        }  
-      })  
-      this.ctx.draw();
-      // this.ctx.save();
-      this.ctx.restore();//恢复状态
-    }
+    // }
+
+    that.ctx.draw();
+    that.ctx.save();
+  
 
     // setTimeout(function(){
     //   let ctx1 = my.createCanvasContext('canvasFront');

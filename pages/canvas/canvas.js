@@ -8,17 +8,17 @@ Page({
     var that = this;
                 // that.ctx.drawImage('http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',0,0,100,120) 
 
-   my.downloadFile({  
-      url: 'http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',  
-      success: function (res) {  
-        console.log(res);  
-        that.ctx = my.createCanvasContext('myCanvas');  
-        that.ctx.drawImage(res.apFilePath,0,0,100,200)
-        that.ctx.draw()
-      },fail:function(res){  
+  //  my.downloadFile({  
+  //     url: 'http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',  
+  //     success: function (res) {  
+  //       console.log(res);  
+  //       that.ctx = my.createCanvasContext('myCanvas');  
+  //       that.ctx.drawImage(res.apFilePath,0,0,100,200)
+  //       that.ctx.draw()
+  //     },fail:function(res){  
   
-      }  
-    })  
+  //     }  
+  //   })  
 
     // my.getImageInfo({
     //   // src: 'http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',    //请求的网络图片路径
@@ -73,35 +73,35 @@ Page({
     // this.ctx.drawImage('http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',0,0,100,120) 
 
     // this.ctx.drawImage('https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg',0,0,100,120) 
-
-    for(var i=3;i>-1;i--){
-        
-   
-        // ctx.rotate(this.data.itemList[i].angle * Math.PI / 180);
-        // this.ctx.save();
-        // this.ctx.translate(i*10, i*10);
-        // this.ctx.rotate(i*10 * Math.PI / 180);
-        // this.ctx.setGlobalAlpha(i/10)
-        // this.ctx.setFillStyle('red');
-        // this.ctx.fillText('我是'+i, 90, 90)
-
-        // // this.ctx.drawImage('../../assets/images/108.png',0,0,100,120)
-        // this.ctx.drawImage('http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',0,0,100,120) 
-
-        // // this.ctx.drawImage('https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg',0,0,100,120) 
-        // this.ctx.restore();//恢复状态
+    let newArr = []
+    for(var i=0;i<30;i++){
+      my.downloadFile({
+        url: 'https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg', // 下载文件地址
+        success: (res) => {
+          newArr.push(res.apFilePath)
+        },
+      });
     }
-      this.ctx.setFillStyle('black');
-        // this.ctx.fillText('我是Jiujiu', 90, 90)
-    // this.ctx.translate(20, 20);
-        // this.ctx.rotate(i*10 * Math.PI / 180);
-        
-        // this.ctx.drawImage('http://bbltest.color3.cn/Public/upload/diyset/2016/12-23/585cdead2bd1f.png',0,0,100,120) 
 
-        // this.ctx.drawImage('https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg',0,0,100,120) 
- 
-    this.ctx.draw();
-    this.ctx.save();
+    setTimeout(function(){
+      for(var i=newArr.length-1;i>-1;i--){
+        console.log(newArr.length)
+        console.log(newArr[i])
+        // this.ctx.rotate(30 * Math.PI / 180);
+        that.ctx.save();
+        that.ctx.translate(i*10, i*10);
+        that.ctx.rotate(i*10 * Math.PI / 180);
+        that.ctx.setGlobalAlpha(i/10)
+        that.ctx.setFillStyle('red');
+        that.ctx.fillText('我是'+i, 90, 90)
+        that.ctx.drawImage(newArr[i],0,0,100,120) 
+        that.ctx.restore();//恢复状态
+      }
+        that.ctx.setFillStyle('black');
+          that.ctx.fillText('我是Jiujiu', 90, 90)
+      that.ctx.draw();
+      that.ctx.save();
+    },1000)
         
   },
   clickMe(){

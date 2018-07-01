@@ -118,10 +118,20 @@
     z-index: 5;
     opacity: 1;
 }
-
+.bg-model{
+    width: 750rpx;
+}
 
 .touchWrap{
     position: absolute
+}
+.area-box{
+    position: absolute;
+    /* left: 50px;
+    top: 100px; */
+    border:2px dashed #EDC206;
+    /* width: 160px;
+    height: 400px; */
 }
 .imgWrap{
     padding: 5px;
