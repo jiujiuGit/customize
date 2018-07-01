@@ -74,7 +74,7 @@ Page({
 
     // this.ctx.drawImage('https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg',0,0,100,120) 
     let newArr = []
-    for(var i=0;i<30;i++){
+    for(var i=0;i<3;i++){
       my.downloadFile({
         url: 'https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg', // 下载文件地址
         success: (res) => {

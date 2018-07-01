@@ -103,7 +103,8 @@ Page({
         success: function(res) {
           my.hideLoading();
           let bgList = that.data.bgList;
-          bgList.pic3 = res.data.pic
+          bgList.pic3 = res.data.data.pic
+          console.log(res.data.data.pic)
           that.setData({
             bgList:bgList,
             sidePicId:res.data.id
@@ -571,7 +572,7 @@ Page({
     if(this.data.footer =='text'){
       return; //编辑字体时不允许切换
     }
-    // const ctx = my.createCanvasContext("mycanvas");
+    
     // // console.log(ctx);
     // ctx.toTempFilePath({
      
@@ -726,7 +727,10 @@ Page({
             opacity:100,//透明度
             type:'text',  //文字  
             ground:this.data.currentTap,
-            fontFamily:'SimSun'
+            fontFamily:'SimSun',
+            fontSize:12,
+            color:'black'
+    
         }
         
     item.text = this.data.textContent;
@@ -736,20 +740,23 @@ Page({
       item.id = frontLength +1;
       app.globalData.frontItems.push(item);
       this.setData({
-        frontItemList:app.globalData.frontItems
+        frontItemList:app.globalData.frontItems,
+        index:frontLength
       });
     }else if(this.data.currentTap == 'back'){
       const backLength = app.globalData.backItems.length;
       item.id = backLength +1;
       app.globalData.backItems.push(item);
+      console.log(this.data.backItemList)
       this.setData({
-        backLifrontItemListst:app.globalData.backItems
+        backItemList:app.globalData.backItems,
+        index:backLength
       });
     }
 
     // app.globalData.items.push(item);
     // this.setData({
-    //   itemList:app.globalData.items
+    //   index:app.globalData.items
     // });
   
   
@@ -758,18 +765,49 @@ Page({
     // console.log(e.target.dataset.index);
     const colorIndex =  e.target.dataset.index;
 
-    let colorList = this.data.colorList;
-    for(let i = 0;i<colorList.length;i++){
-      if(i == colorIndex){
-        colorList[i].active = true
-      }else{
-        colorList[i].active = false
-      }
+    console.log(e.target.dataset.colorname);
+
+    const curTap = this.data.currentTap;
+    let items = [];
+    if(curTap == 'front'){
+      items = this.data.frontItemList;
+    }else if(curTap == 'back'){
+      items = this.data.backItemList; 
     }
+    let index = this.data.index;
+    items[index].color = e.target.dataset.colorname
+
+
+
+
+
+    if(curTap == 'front'){
+      this.setData({ //赋值 
+        frontItemList: items
+      }) 
+    }else if(curTap == 'back'){
+      this.setData({ //赋值 
+        backItemList: items
+      }) 
+    }
+
+
+
+
+
+
+    // let colorList = this.data.colorList;
+    // for(let i = 0;i<colorList.length;i++){
+    //   if(i == colorIndex){
+    //     colorList[i].active = true
+    //   }else{
+    //     colorList[i].active = false
+    //   }
+    // }
   
-    this.setData({
-      colorList:colorList
-    })
+    // this.setData({
+    //   colorList:colorList
+    // })
   },
 
   // 设置透明度
@@ -912,118 +950,135 @@ Page({
     let that = this;
     that.ctx = my.createCanvasContext('canvasFront');
     let frontItemList = that.data.frontItemList;
-    console.log(frontItemList)
-    // 先下载贴纸
-     for(let i=frontItemList.length-1;i>-1;i--){
-       console.log(frontItemList[i].image)
-        my.downloadFile({
+    console.log(JSON.stringify(frontItemList))
+    // 先下载贴纸,正反面
+     for(let i=frontItemList.length-1;i>-1;i--){  //正面
+        if(frontItemList[i].image !=undefined){
+          my.downloadFile({
           url: frontItemList[i].image, // 下载文件地址
-          success: (res) => {
-            console.log(res.apFilePath)
-            console.log(frontItemList[0])
+          success: (res) => {         
             frontItemList[i].downloadFile = res.apFilePath;
-            console.log(frontItemList[i].downloadFile)
-            // newArr.push(res.apFilePath)
           },
           fail(res){
-            console.log(res)
           }
         });
+        }
+     }
+
+     for(let i=backItemList.length-1;i>-1;i--){ //背面
+        if(backItemList[i].image !=undefined){
+          my.downloadFile({
+          url: backItemList[i].image, // 下载文件地址
+          success: (res) => {         
+            backItemList[i].downloadFile = res.apFilePath;
+          },
+          fail(res){
+          }
+        });
+        }
      }
 
 
     setTimeout(function(){
-      console.log(JSON.stringify(frontItemList))
+      // console.log(JSON.stringify(frontItemList))
       for(let i=frontItemList.length-1;i>-1;i--){
         
         const item = frontItemList[i]
         // this.ctx.rotate(30 * Math.PI / 180);
         that.ctx.save();
-        // that.ctx.translate(i*10, i*10);
-        that.ctx.rotate(item.angle * Math.PI / 180);
-        // that.ctx.setGlobalAlpha(i/10)
-        // that.ctx.setFillStyle('red');
-        // that.ctx.fillText('我是'+i, 90, 90)
         const left = item.left - that.data.bgList.left1;
-          const top = item.top - that.data.bgList.top1;
-          console.log(item.downloadFile)
-        // that.ctx.drawImage(item.image,left,top,100,120) 
-        that.ctx.drawImage(item.downloadFile,left,top,100,120) 
-        // that.ctx.drawImage('https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg',0,0,100,120) 
-        that.ctx.draw()
+        const top = item.top - that.data.bgList.top1;
+        const wh = item.pich / item.picw  //图片宽高比例
+        const height = 100*wh*item.scale;  //计算缩放后的图片高度
+        that.ctx.translate(left,top);
+        that.ctx.rotate(item.angle * Math.PI / 180);
+        that.ctx.setGlobalAlpha(item.opacity/100)
+       
+        if(item.downloadFile){  //绘制图片
+          that.ctx.drawImage(item.downloadFile,0,0,100*item.scale,height) 
+        }else if(item.text){    //绘制文字
+          that.ctx.setFillStyle('red');
+          that.ctx.setFontSize(12*item.scale);
+          that.ctx.fillText(item.text, 0, 0)
+        }
+
         that.ctx.restore();//恢复状态
         
       }
+      
+      that.ctx.draw();
+      that.ctx.save();
     },1000)
 
-    // for(let i=0;i<this.data.frontItemList.length;i++){
-    //   const item = this.data.frontItemList[i]
-    //   //that.ctx.drawImage('https://img.alicdn.com/tfs/TB1GvVMj2BNTKJjy0FdXXcPpVXa-520-280.jpg',left,top,100,200)
-    //   that.ctx.save();
-    //   my.downloadFile({  
-    //     url: item.image,  
-    //     success: function (res) {  
-    //       console.log(that.ctx);  
-          
-    //       // that.ctx = my.createCanvasContext('canvasFront');
-          
-    //       // that.ctx.translate(item.left,item.top);
-    //       that.ctx.rotate(item.angle * Math.PI / 180);
-    //       // that.ctx.drawImage(res.apFilePath,item.left,item.top,item.width,item.height)
-         
-    //       const left = item.left - that.data.bgList.left1;
-    //       const top = item.top - that.data.bgList.top1;
-    //        console.log(left+"+"+top+"********"+res.apFilePath)
-    //       that.ctx.drawImage(res.apFilePath,left,top,100,200)
-    //       // that.ctx.draw()
-          
-         
-    //       that.ctx.restore();//恢复状态
-          
-    //     },fail:function(res){  
-    
-    //     }  
-    //   })  
-    //   console.log(12321)
-    
-    // }
 
-    that.ctx.draw();
-    that.ctx.save();
-  
-
-    // setTimeout(function(){
-    //   let ctx1 = my.createCanvasContext('canvasFront');
-    //   ctx1.toTempFilePath({
-    //       success(res) {
-    //         // console.log(res)
+    setTimeout(function(){
+      // let ctx1 = my.createCanvasContext('canvasFront');
+      that.ctx.toTempFilePath({
+          success(res) {
+            // console.log(res)
       
-    //         let path = res.apFilePath;
-    //         // console.log(path)
-    //         my.uploadFile({
-    //           url: 'http://bbltest.color3.cn/Mobile/Api/diyupload',
-    //           fileType: 'image',
-    //           fileName: 'file',
-    //           filePath: path,
-    //           success: (res) => {
-    //             console.log(JSON.stringify(res))
-    //             my.alert({
-    //               content: '上传成功'
-    //             });
-    //           },
-    //           fail(res) {
-    //             // console.log(JSON.stringify(res))
-    //           },
-    //         });
+            let path = res.apFilePath;
+            console.log(path)
+            // console.log(path)
+            my.uploadFile({
+              url: 'http://bbltest.color3.cn/Mobile/Api/workupload',
+              fileType: 'image',
+              fileName: 'file',
+              filePath: path,
+              success: (res) => {
+                console.log(JSON.stringify(res))
+                my.alert({
+                  content: '上传成功'
+                });
+              },
+              fail(res) {
+                console.log(res)
+                // console.log(JSON.stringify(res))
+              },
+            });
             
-    //       },
-    // });
-    // },1000)
+          },
+    });
+    },2000)
 
     
   },
 
+// 绘制canvas
 
+  canvasDraw(itemList){
+
+    let that = this;
+    
+    that.ctx = my.createCanvasContext('canvasFront');
+    for(let i=itemList.length-1;i>-1;i--){
+        
+        const item = itemList[i]
+        // this.ctx.rotate(30 * Math.PI / 180);
+        that.ctx.save();
+        const left = item.left - that.data.bgList.left1;
+        const top = item.top - that.data.bgList.top1;
+        const wh = item.pich / item.picw  //图片宽高比例
+        const height = 100*wh*item.scale;  //计算缩放后的图片高度
+        that.ctx.translate(left,top);
+        that.ctx.rotate(item.angle * Math.PI / 180);
+        that.ctx.setGlobalAlpha(item.opacity/100)
+       
+        if(item.downloadFile){  //绘制图片
+          that.ctx.drawImage(item.downloadFile,0,0,100*item.scale,height) 
+        }else if(item.text){    //绘制文字
+          that.ctx.setFillStyle('red');
+          that.ctx.setFontSize(12*item.scale);
+          that.ctx.fillText(item.text, 0, 0)
+        }
+
+        that.ctx.restore();//恢复状态
+        
+      }
+      
+      that.ctx.draw();
+      that.ctx.save();
+  },
   // 提交定制参数
   saveworkdesk(){
     my.httpRequest({

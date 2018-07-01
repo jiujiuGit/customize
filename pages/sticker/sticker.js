@@ -147,9 +147,12 @@ Page({
             rotate:0,
             type:'image',
             ground:this.data.ground,
-            zindex:imgLength+1  
+            zindex:imgLength+1
+            
         }
     item.image = this.data.stickers[tapIndex].pic
+    item.picw  = this.data.stickers[tapIndex].picw;
+    item.pich = this.data.stickers[tapIndex].pich;
     if(this.data.ground == 'front'){  //添加到front编辑列表
       const frontLength = app.globalData.frontItems.length
       item.id = frontLength+1;
