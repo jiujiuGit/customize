@@ -125,6 +125,8 @@ Page({
           success:function(pic){
             bgList.pic1w = pic.width;
             bgList.pic1h = pic.height;
+            bgList.contLeft1 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
+            bgList.contTop1 = (that.data.systemInfo.windowHeight - pic.height)/2  //定制区域top
           },
           fail:function(res){
             console.log(res)
@@ -135,6 +137,8 @@ Page({
           success:function(pic){
             bgList.pic2w = pic.width;
             bgList.pic2h = pic.height;
+             bgList.contLeft2 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
+            bgList.contTop2 = (that.data.systemInfo.windowHeight - pic.height)/2  //定制区域top
           }
         });
 

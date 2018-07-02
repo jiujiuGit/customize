@@ -18,7 +18,7 @@
       <!-- <image class="bg-model" mode="widthFix" src="../../assets/images/middle_img_01.svg" mode="" /> -->
     </view>
     <view class="bg2">
-      <image class="bg-model"  mode="widthFix" src="{{bgList.pic1}}" />
+      <image class="bg-model"  mode="widthFix" src="{{bgList.pic1}}" style='width:{{bgList.pic1w}}px;height:{{bgList.pic1h}}px' />
     </view>
     <view class="area-box" style='top:{{bgList.top1}}px; left:{{bgList.left1}}px;width:{{bgList.width}}px;height:{{bgList.height}}px'></view>
     <!-- 操作区域 -->
@@ -60,11 +60,11 @@
   <!-- 背面操作区域 -->
   <view class="model-contanier" a:if="{{currentTap == 'back'}}"> 
     <view class="model-display bg1" onTap = "windowHide">
-      <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="{{bgList.pic2}}" mode="" />
+      <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="{{bgList.pic2}}"  style='width:{{bgList.pic2w}}px;height:{{bgList.pic2h}}px'/>
       <!-- <image class="bg-model" mode="widthFix" src="../../assets/images/middle_img_03.svg" mode="" /> -->
     </view>
      <view class="bg2">
-      <image  mode="widthFix" class="bg-model" src="{{bgList.pic2}}" mode="" />
+      <image  mode="widthFix" class="bg-model" src="{{bgList.pic2}}" style='width:{{bgList.pic2w}}px;height:{{bgList.pic2h}}px' />
     </view>
     <!-- 编辑框区域 -->
     <view class="area-box" style='top:{{bgList.top2}}px; left:{{bgList.left2}}px;width:{{bgList.width1}}px;height:{{bgList.height1}}px'></view>
