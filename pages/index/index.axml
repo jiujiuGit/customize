@@ -14,7 +14,7 @@
   <!-- 正面操作区域 -->
   <view class="model-contanier" a:if="{{currentTap == 'front'}}">
     <view class="model-display bg1" onTap = "windowHide">
-      <image  class="bg-model" mode="widthFix" src="{{bgList.pic1}}"  />
+      <image  class="bg-model" mode="widthFix" style='width:{{bgList.pic1w}}px;height:{{bgList.pic1h}}px' src="{{bgList.pic1}}"  />
       <!-- <image class="bg-model" mode="widthFix" src="../../assets/images/middle_img_01.svg" mode="" /> -->
     </view>
     <view class="bg2">
@@ -134,11 +134,11 @@
       </view>
     </block>
   </view>
-
+<!-- 
   <canvas class="mycanvas" id="canvasFront" style="width:{{bgList.width}}px; height:{{bgList.height}}px"></canvas>
-  <canvas class="mycanvas" id="canvasBack" style="width:{{bgList.width1}}px; height:{{bgList.height1}}px"></canvas>
-  <canvas class="mycanvas" id="frontRemix" style="width:{{bgList.width1}}px; height:{{bgList.height1}}px"></canvas>
-  <canvas class="mycanvas" id="backRemix" style="width:{{bgList.width1}}px; height:{{bgList.height1}}px"></canvas>
+  <canvas class="mycanvas" id="canvasBack" style="width:{{bgList.width1}}px; height:{{bgList.height1}}px"></canvas> -->
+  <canvas class="mycanvas" id="frontRemix" style="width:{{bgList.pic1w}}px; height:{{bgList.pic1h}}px"></canvas>
+  <!-- <canvas class="mycanvas" id="backRemix" style="width:{{bgList.pic2w}}px; height:{{bgList.pic2h}}px"></canvas> -->
 
 
 
