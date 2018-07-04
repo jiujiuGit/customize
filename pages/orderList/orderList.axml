@@ -1,0 +1,30 @@
+<view style='background:rgba(242,243,245,1);'>
+  <view class="order-item" a:for="{{5}}">
+    <view class="flex-box ">
+      <view ><image class="item-image" src="../../assets/images/108.png" mode="widthFix" /></view>
+      <view class="item-right flex-item-1">
+        <view class="flex-box flex-justify-between">
+          <view class="item-name">商品名称</view>
+          <view class="item-state">生产中</view>
+        </view>
+        <view class="progress flex-box">
+          <view class="down">已定制2件</view>
+          <view class="hang">未定制34件</view>
+        </view>
+
+        <view class="flex-box third-block flex-justify-between">
+          <view class="item-type team">团队</view>
+          <!-- <view class="item-type geren">个人</view> -->
+          <view class="more-btn">更多></view>
+        </view>
+      </view>
+    </view>
+    <view class="flex-box operate-btns">
+      <button form-type="submit" plain class="btn gray" >查看物流</button>
+      <!-- <button form-type="submit" class="btn pink" >开始定制</button> -->
+      <!-- <button form-type="submit" class="btn pink" >确认收货</button> -->
+      <button form-type="submit" class="btn pink" >修改收货地址</button>
+      
+    </view>
+  </view>
+</view>

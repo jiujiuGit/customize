@@ -1,0 +1,75 @@
+.order-item{
+    margin: 20rpx;
+    border-radius: 4px;
+    background-color: white;
+    padding: 20rpx;
+    width: 670rpx;
+}
+.item-image{
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+}
+.item-name{
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 5px;
+}
+.item-state{
+    color: #E02666;
+    font-size: 12px;
+    margin-top: 5px;
+}
+.progress{
+    color: #7F7F7F;
+    font-size: 14px;
+    margin-top: 10px;
+}
+.hang{
+    margin-left: 20px;
+}
+.third-block{
+    margin-top: 5px;
+}
+.item-type{
+    font-size: 8px;
+    width: 27px;
+    line-height: 14px;
+    text-align: center;
+}
+.team{
+    border: 1px solid #239BC9;
+    color: #239BC9;
+}
+.geren{
+    border: 1px solid #E88417;
+    color: #E88417;
+}
+.more-btn{
+    color:#9EA4AE;
+    font-size: 12px;
+}
+.operate-btns{
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #D8D8D8;
+    justify-content: flex-end;
+}
+.btn{
+    width: 85px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 13px;
+}
+.gray{
+    border:1px solid #7F7F7F;
+    color: #7F7F7F;
+    margin-right: 10px;
+}
+.pink{
+    border: 1px solid #E02666;
+    background-color: #E02666;
+    color: white;
+}

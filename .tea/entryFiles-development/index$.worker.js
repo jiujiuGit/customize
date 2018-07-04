@@ -2,6 +2,7 @@ require('./config$');
 
 function success() {
 require('../..//app');
+require('../../pages/orderList/orderList');
 require('../../pages/modelList/modelList');
 require('../../pages/customizationDetails/customizationDetails');
 require('../../pages/orderDetail/orderDetail');
