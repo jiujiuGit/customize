@@ -235,31 +235,90 @@ Page({
     // console.log(this.data.index)
     // let items = this.data.itemList;
     const curTap = this.data.currentTap;
+    let maxLeft ; //可移动的最大left值
+    let minLeft; //可移动的最小left值
+    let maxTop; //可移动的最大top值
+    let minTop;//可移动的最小top值
+    
+    
+
   
     let items = [];
+    let index = this.data.index;
+    let itemW ;//组件宽度
+    let itemH; //组件高度
     if(curTap == 'front'){
        items = this.data.frontItemList;
+       
+       itemW = parseInt(items[index].scale*100); //贴纸等组件的宽度
+       itemH = items[index].scale*100*(items[index].pich/items[index].picw);//贴纸等组件的高度
+       maxLeft = parseInt(this.data.bgList.left1)+(parseInt(this.data.bgList.width) - itemW);
+       minLeft = this.data.bgList.left1;
+
+       maxTop = parseInt(this.data.bgList.top1)+(parseInt(this.data.bgList.height) - itemH);
+       minTop = this.data.bgList.top1;
     }else if(curTap == 'back'){
        items = this.data.backItemList; 
+       itemW = parseInt(items[index].scale*100); //贴纸等组件的宽度
+       itemH = items[index].scale*100*(items[index].pich/items[index].picw);//贴纸等组件的高度
+       maxLeft = parseInt(this.data.bgList.left2)+(parseInt(this.data.bgList.width1) - itemW);
+       minLeft = this.data.bgList.left2;
+
+       maxTop = parseInt(this.data.bgList.top2)+(parseInt(this.data.bgList.height1) - itemH);
+       minTop = this.data.bgList.top2;
     }
+    console.log(maxLeft)
+    
 
 
+    
 
-    let index = this.data.index;
+        
         //移动时的坐标值也写图片的属性里  
         items[index]._lx = e.touches[0].clientX;  
         items[index]._ly = e.touches[0].clientY;  
+
+       
+        
+       let movex = items[index]._lx - items[index].lx//x方向移动值
+       let movey = items[index]._ly - items[index].ly//y方向移动值
+
+        
+        // const maxLeft = parseInt(this.data.bgList.left2)+(parseInt(this.data.bgList.width) - itemW); //可移动的最大left值
+
           
         //追加改动值  
-        items[index].left  += items[index]._lx - items[index].lx;  // x方向  
-        items[index].top += items[index]._ly - items[index].ly;    // y方向  
-        items[index].x +=  items[index]._lx - items[index].lx;  
-        items[index].y += items[index]._ly - items[index].ly;  
+        if(items[index].left<minLeft  && movex<0){
+          console.log("不能再左移了")
           
-        //把新的值赋给老的值  
-        items[index].lx = e.touches[0].clientX;    
-        items[index].ly = e.touches[0].clientY;  
+          // return;
+        }else if(items[index].left > maxLeft && movex>0){
+          console.log("不能再右移了")
+          // return;
+        }else{
+          items[index].left  += items[index]._lx - items[index].lx;  // x方向 
+          items[index].x +=  items[index]._lx - items[index].lx;   
+             //把新的值赋给老的值  
+          items[index].lx = e.touches[0].clientX;  
+        }
 
+        if(items[index].top<minTop && movey<0){
+          console.log('不能再往上移了')
+        }else if(items[index].top>maxTop && movey>0){
+          console.log('不能再往下移了')
+        }else{
+          items[index].top += items[index]._ly - items[index].ly;    // y方向  
+          items[index].y += items[index]._ly - items[index].ly;  
+          items[index].ly = e.touches[0].clientY;  
+
+        }
+        // if(){
+
+        // }
+        
+          
+        
+        
 
 
 
