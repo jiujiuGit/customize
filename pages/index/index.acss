@@ -67,7 +67,11 @@
 
 /* 头部 */
 .header{
-    padding: 5px 10px;
+    /* padding: 5px 10px; */
+    padding: 5px 20rpx;
+    position: fixed;
+    top: 0;
+    width: 710rpx;
 }
 .header-left{
     line-height: 30px;
@@ -89,7 +93,7 @@
     /* display: table-cell; */
     width: 100%;
     text-align: center;
-    padding-top: 5px;
+    /* padding-top: 5px; */
     /* vertical-align: middle; */
 }
 .bg1{
@@ -107,7 +111,7 @@
     background-repeat: no-repeat;
     width: 100%;
     text-align: center;
-    padding-top: 5px;
+    /* padding-top: 5px; */
     pointer-events:none
 }
 .bg3{

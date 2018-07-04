@@ -1,11 +1,11 @@
 {
   "pages": [
-    "pages/orderList/orderList",
+    
     "pages/modelList/modelList",
     "pages/customizationDetails/customizationDetails",
     "pages/orderDetail/orderDetail",
     "pages/canvas/canvas",
-    
+    "pages/orderList/orderList",
     "pages/groupForm/groupForm",
     "pages/customType/customType",
     

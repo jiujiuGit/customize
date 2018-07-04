@@ -120,28 +120,37 @@ Page({
         let bgList = res.data.data;
       
         // 获取图片宽度、高度
-        my.getImageInfo({
+        my.getImageInfo({  //正面
           src:res.data.data.pic1,
           success:function(pic){
             bgList.pic1w = pic.width;
             bgList.pic1h = pic.height;
             bgList.contLeft1 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
-            bgList.contTop1 = (that.data.systemInfo.windowHeight - pic.height)/2  //定制区域top
+            bgList.contTop1 = (that.data.systemInfo.windowHeight - pic.height -40)/2  //定制区域top
           },
           fail:function(res){
             console.log(res)
           }
         });
-         my.getImageInfo({
+         my.getImageInfo({  //背面
           src:res.data.data.pic2,
           success:function(pic){
             bgList.pic2w = pic.width;
             bgList.pic2h = pic.height;
              bgList.contLeft2 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
-            bgList.contTop2 = (that.data.systemInfo.windowHeight - pic.height)/2  //定制区域top
+            bgList.contTop2 = (that.data.systemInfo.windowHeight - pic.height -40)/2  //定制区域top
           }
         });
 
+         my.getImageInfo({  //侧面
+          src:res.data.data.pic3,
+          success:function(pic){
+            bgList.pic3w = pic.width;
+            bgList.pic3h = pic.height;
+             bgList.contLeft3 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
+            bgList.contTop3 = (that.data.systemInfo.windowHeight - pic.height -40)/2  //定制区域top
+          }
+        });
         
         that.setData({
           bgList:bgList,
