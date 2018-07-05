@@ -1,0 +1,38 @@
+<view style='width:100%'>
+  <view style='width:100%'>
+    <swiper
+      indicator-dots="{{indicatorDots}}"
+      autoplay="{{autoplay}}"
+      interval="{{interval}}"
+      class="classname"
+      >
+      <block a:for="{{background}}">
+        <swiper-item>
+          <view class="swiper-item bc_{{item}}">
+            <image src="{{item}}" mode="widthFix" />
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="side">正面</view>
+  </view>
+
+  <!-- 选择款式 -->
+  <view class="style-block">
+    <text class="hint">选择款式</text>
+    <view class="flex-box style-list">
+      <view class="box-item disable-box">{{tname}}</view>
+      <!-- <view class="box-item">长袖</view> -->
+    </view>
+  </view>
+
+  <!-- 选择尺码 -->
+  <view class="size-block">
+    <text class="hint">选择尺码</text>
+    <view class="flex-box size-list">
+      <view class="box-item (index == currentTap)?'box-active':''" a:for="{{sizes}}" data-index = {{index}} onTap="sizeTap">{{item}}</view>
+    
+    </view>
+  </view>
+
+</view>

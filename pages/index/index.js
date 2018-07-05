@@ -1320,8 +1320,8 @@ Page({
                 'group_idb':'',  //反面组件id
                 'nickname':userInfo.nickName  //支付宝用户昵称
               },
-              success:function(){
-                
+              success:function(res){
+                my.navigateTo({url:'../placeIndividualOrder/placeIndividualOrder?id='+res.data.id})
               },
               fail:function(){
 

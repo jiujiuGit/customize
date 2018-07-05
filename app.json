@@ -1,7 +1,8 @@
 {
   "pages": [
-    
+    "pages/placeIndividualOrder/placeIndividualOrder",
     "pages/modelList/modelList",
+    
     "pages/customizationDetails/customizationDetails",
     "pages/orderDetail/orderDetail",
     "pages/canvas/canvas",
