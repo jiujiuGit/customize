@@ -98,7 +98,7 @@ Page({
         that.ctx.restore();//恢复状态
       }
         that.ctx.setFillStyle('black');
-          that.ctx.fillText('我是Jiujiu', 90, 90)
+        that.ctx.fillText('我是Jiujiu', 90, 90)
       that.ctx.draw();
       that.ctx.save();
     },1000)

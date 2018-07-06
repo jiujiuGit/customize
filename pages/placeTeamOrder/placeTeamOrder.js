@@ -5,8 +5,7 @@ Page({
     autoplay: false,
     interval: 3000,
     // currentTab:1,
-    tname:'',//款式
-    sizes:[],
+    
     currentTab:1,
     side:'正面',
     sizeTab:0,
@@ -39,13 +38,7 @@ Page({
     });
 
   },
-  sizeTap(e){
-    console.log(e.target.dataset.index)
-    this.setData({
-      sizeTab:e.target.dataset.index
-    })
-    console.log(this.data.sizeTab)
-  },
+  
   left(){
     const that = this;
     let current = this.data.currentTab;

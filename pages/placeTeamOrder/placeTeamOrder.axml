@@ -1,7 +1,7 @@
 <view style='width:100%'>
   <view style='width:100%'>
-    <view class="icon-arrow icon-left" onTap="left"> < </view>
-    <view class="icon-arrow icon-right" onTap="right"> > </view>
+    <view class="icon-arrow iconfont icon-zuo icon-left" onTap="left"> </view>
+    <view class="icon-arrow iconfont icon-you icon-right" onTap="right">  </view>
     <swiper
       indicator-dots="{{indicatorDots}}"
       autoplay="{{autoplay}}"
@@ -24,21 +24,15 @@
 
   <!-- 选择款式 -->
   <view class="style-block">
-    <text class="hint">选择款式</text>
-    <view class="flex-box style-list">
-      <view class="box-item disable-box">{{tname}}</view>
-      <!-- <view class="box-item">长袖</view> -->
+    <text class="hint">订单信息</text>
+    <view class="input-area">
+      <input type="text" placeholder="定制服装名称" auto-focus  />
+      <input type="text" placeholder="LOGO下载地址" auto-focus  />
+     
     </view>
+    <view class="qty">定制数量：100件</view>
   </view>
 
-  <!-- 选择尺码 -->
-  <view class="size-block">
-    <text class="hint size-hint">尺码</text>
-    <view class="flex-box size-list">
-      <view class="box-item {{(index == sizeTab)?'box-active':''}}" a:for="{{sizes}}" data-index = {{index}} onTap="sizeTap">{{item}}</view>
-    
-    </view>
-  </view>
 
   <view class="confirm-order">
     <button type="primary" onTap="confirmOrder">确认订单</button>

@@ -1,4 +1,5 @@
-<view style="width:100%;background-color: #F4F7FA;">
+<!-- <view style="width:100%;background-color: #F4F7FA;"> -->
+  <view style="width:100%">
   <!-- 头部 -->
   <view class="header">
     <view class="text-header flex-box" a:if="{{footer == 'text' || footer == 'imgTransparency'}}">

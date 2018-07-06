@@ -1,16 +1,20 @@
 {
   "pages": [
-    "pages/placeIndividualOrder/placeIndividualOrder",
+    "pages/index/index",
     "pages/modelList/modelList",
+    "pages/canvas/canvas",
+    "pages/placeTeamOrder/placeTeamOrder",
+    "pages/placeIndividualOrder/placeIndividualOrder",
+    
     
     "pages/customizationDetails/customizationDetails",
     "pages/orderDetail/orderDetail",
-    "pages/canvas/canvas",
+    
     "pages/orderList/orderList",
     "pages/groupForm/groupForm",
     "pages/customType/customType",
     
-    "pages/index/index",
+    
     "pages/sticker/sticker",
     "pages/sideSticker/sideSticker",
     "pages/images/images",

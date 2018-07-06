@@ -98,20 +98,23 @@ Page({
   
   },
   onLoad(query) {
-
-    // console.log(query)
-    // console.log(query.prodId);
+    // this.setData({
+    //   picname:query.picname,
+    //   prodId:query.prodId,
+    //   fabricId:query.fabricId
+    // })
     this.setData({
-      picname:query.picname,
-      prodId:query.prodId,
-      fabricId:query.fabricId
+      picname:"T恤",
+      prodId:1,
+      fabricId:"21"
     })
     const that = this;
     my.httpRequest({
       url: 'http://bbltest.color3.cn/Mobile/Api/get_style_bg',
       method: 'post',
       data: {
-        id:query.prodId
+        // id:query.prodId
+        id:1
       },
       dataType: 'json',
       
