@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/modelList/modelList",
+    "pages/index/index",
+    
     "pages/canvas/canvas",
     "pages/placeTeamOrder/placeTeamOrder",
     "pages/placeIndividualOrder/placeIndividualOrder",

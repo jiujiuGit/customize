@@ -1,7 +1,7 @@
 require('@alipay/appx-compiler/lib/sjsEnvInit');
 require('./config$');
-require('../../pages/index/index');
 require('../../pages/modelList/modelList');
+require('../../pages/index/index');
 require('../../pages/canvas/canvas');
 require('../../pages/placeTeamOrder/placeTeamOrder');
 require('../../pages/placeIndividualOrder/placeIndividualOrder');

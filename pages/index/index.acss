@@ -48,8 +48,8 @@
     /* display: table; */
     /* height: 100%; */
     background-color:white;
-    width:100%;
-    position: absolute;
+    /* width:100%; */
+    position: relative;
     /* top:40px */
 }
 
@@ -72,6 +72,7 @@
     position: fixed;
     top: 0;
     width: 710rpx;
+    z-index: 300;
 }
 .header-left{
     line-height: 30px;
@@ -362,6 +363,7 @@
     height: 244px;
     z-index: -1;
     background-color: white;
+    visibility: hidden;
     /* display: none */
 }
 .www{

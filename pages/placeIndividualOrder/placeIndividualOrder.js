@@ -22,12 +22,12 @@ Page({
       dataType:'json',
       method: 'post',
       data:{
-        wid:77
+        wid:query.id
       },
       success: (res) => {
         console.log(res.data.data.pic2)
-        // let bgList = [res.data.data.pic1,res.data.data.pic2,res.data.data.pic3];
-        let bgList = ['../../assets/images/108.png','../../assets/images/img_geren.png']
+        let bgList = [res.data.data.pic1,res.data.data.pic2,res.data.data.pic3];
+        // let bgList = ['../../assets/images/108.png','../../assets/images/img_geren.png']
         console.log(bgList)
         that.setData({
           background:bgList,

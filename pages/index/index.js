@@ -83,6 +83,7 @@ Page({
             bgList:bgList,
             sidePicId:res.data.id
           })
+          console.log(that.data.sidePicId)
         },
         fail: function(res) {
           console.log(res)
@@ -98,16 +99,16 @@ Page({
   
   },
   onLoad(query) {
-    // this.setData({
-    //   picname:query.picname,
-    //   prodId:query.prodId,
-    //   fabricId:query.fabricId
-    // })
     this.setData({
-      picname:"T恤",
-      prodId:1,
-      fabricId:"21"
+      picname:query.picname,
+      prodId:query.prodId,
+      fabricId:query.fabricId
     })
+    // this.setData({
+    //   picname:"T恤",
+    //   prodId:1,
+    //   fabricId:"21"
+    // })
     const that = this;
     my.httpRequest({
       url: 'http://bbltest.color3.cn/Mobile/Api/get_style_bg',
@@ -121,37 +122,75 @@ Page({
       success: function(res) {
 
         let bgList = res.data.data;
-      
-        // 获取图片宽度、高度
-        my.getImageInfo({  //正面
-          src:res.data.data.pic1,
-          success:function(pic){
-            bgList.pic1w = pic.width;
-            bgList.pic1h = pic.height;
-            bgList.contLeft1 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
-            bgList.contTop1 = (that.data.systemInfo.windowHeight - pic.height -40)/2  //定制区域top
-          },
-          fail:function(res){
-            console.log(res)
-          }
-        });
-         my.getImageInfo({  //背面
-          src:res.data.data.pic2,
-          success:function(pic){
-            bgList.pic2w = pic.width;
-            bgList.pic2h = pic.height;
-             bgList.contLeft2 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
-            bgList.contTop2 = (that.data.systemInfo.windowHeight - pic.height -40)/2  //定制区域top
-          }
-        });
 
-         my.getImageInfo({  //侧面
-          src:res.data.data.pic3,
-          success:function(pic){
-            bgList.pic3w = pic.width;
-            bgList.pic3h = pic.height;
-             bgList.contLeft3 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
-            bgList.contTop3 = (that.data.systemInfo.windowHeight - pic.height -40)/2  //定制区域top
+        bgList.pic1w = 360; //正面宽高
+        bgList.pic1h = 500;
+
+        bgList.pic2w = 360; //背面宽高
+        bgList.pic2h = 500;
+
+        bgList.pic2w = 360; //侧面宽高
+        bgList.pic2h = 500;
+
+        bgList.contLeft1 = (that.data.systemInfo.windowWidth - bgList.pic1w)/2; //定制区域left
+        bgList.contTop1 = (that.data.systemInfo.windowHeight - bgList.pic1h -80)/2  //定制区域top
+
+        bgList.contLeft2 = (that.data.systemInfo.windowWidth - bgList.pic2w)/2; //定制区域left
+        bgList.contTop2 = (that.data.systemInfo.windowHeight - bgList.pic2h -80)/2  //定制区域top
+
+        bgList.contLeft3 = (that.data.systemInfo.windowWidth - bgList.pic3w)/2; //定制区域left
+        bgList.contTop3 = (that.data.systemInfo.windowHeight - bgList.pic3h -80)/2  //定制区域top
+        
+
+
+
+
+        // 获取图片宽度、高度
+        // my.getImageInfo({  //正面
+        //   src:res.data.data.pic1,
+        //   success:function(pic){
+        //     bgList.pic1w = pic.width;
+        //     bgList.pic1h = pic.height;
+        //     bgList.contLeft1 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
+        //     bgList.contTop1 = (that.data.systemInfo.windowHeight - pic.height -40)/2  //定制区域top
+        //   },
+        //   fail:function(res){
+        //     console.log(res)
+        //   }
+        // });
+        //  my.getImageInfo({  //背面
+        //   src:res.data.data.pic2,
+        //   success:function(pic){
+        //     bgList.pic2w = pic.width;
+        //     bgList.pic2h = pic.height;
+        //      bgList.contLeft2 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
+        //     bgList.contTop2 = (that.data.systemInfo.windowHeight - pic.height -40)/2  //定制区域top
+        //   }
+        // });
+
+        //  my.getImageInfo({  //侧面
+        //   src:res.data.data.pic3,
+        //   success:function(pic){
+        //     bgList.pic3w = pic.width;
+        //     bgList.pic3h = pic.height;
+        //      bgList.contLeft3 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
+        //     bgList.contTop3 = (that.data.systemInfo.windowHeight - pic.height -40)/2  //定制区域top
+        //   }
+        // });
+        my.downloadFile({
+          url: res.data.data.pic1, // 下载正面图片
+          success: (res) => {         
+            bgList.tempFilePath1 = res.apFilePath
+          },
+          fail(res){
+          }
+        });
+        my.downloadFile({
+          url: res.data.data.pic2, // 下载背面图片
+          success: (res) => {         
+            bgList.tempFilePath2 = res.apFilePath
+          },
+          fail(res){
           }
         });
         
@@ -986,16 +1025,16 @@ Page({
   //  开始定制
   customize(){
 
-  
-
-
-
-
     let that = this;
+    my.showLoading({
+      content: '提交中，请稍后...',
+      // delay: 1000,
+    });
     that.ctx = my.createCanvasContext('canvasFront');
     let frontItemList = that.data.frontItemList;
     let backItemList = that.data.backItemList;
     console.log(JSON.stringify(frontItemList))
+    
     // 先下载贴纸,正反面
      for(let i=frontItemList.length-1;i>-1;i--){  //正面
         if(frontItemList[i].image !=undefined){
@@ -1159,64 +1198,96 @@ Page({
     let itemList = [];
     let areaLeft ;
     let areaTop ;
+    let bgItem = {
+        "top":0,
+        "left":0,
+        "scale":1,
+        "angle":0,
+        "opacity":100,
+        "rotate":0,
+        "type":"image",
+        "ground":"front",
+        "zindex":1,
+        
+        "id":1,
+        // "downloadFile":"temp://1530967751185.png"
+    }
     if(side =='front'){
       itemList = that.data.frontItemList;
+      bgItem.picw = that.data.bgList.pic1w;
+      bgItem.pich = that.data.bgList.pic1h;
+      bgItem.downloadFile = that.data.bgList.tempFilePath1;
+      
+      itemList.unshift(bgItem);
       that.ctx = my.createCanvasContext('frontRemix');
       areaLeft = that.data.bgList.left1; //定制框left
       areaTop = that.data.bgList.top1; //定制框top
       // that.ctx.save();
-      let pic1 = ''
-      my.downloadFile({
-        url: that.data.bgList.pic1, // 下载文件地址
-        success: (res) => {
-          pic1 = res.apFilePath;
-          console.log(pic1)
-          console.log(that.data.bgList.pic1w)
-          that.ctx.save();
-          that.ctx.drawImage(pic1,0,0,that.data.bgList.pic1w,that.data.bgList.pic1h) 
-          that.ctx.restore();//恢复状态
-        },
-      });
+     
+      // my.downloadFile({
+      //   url: that.data.bgList.pic1, // 下载文件地址
+      //   success: (res) => {
+      //     pic1 = res.apFilePath;
+      //     // console.log(pic1)
+      //     // console.log(that.data.bgList.pic1w)
+      //     that.ctx.save();
+      //     that.ctx.drawImage(pic1,0,0,that.data.bgList.pic1w,that.data.bgList.pic1h) 
+      //     that.ctx.restore();//恢复状态
+      //   },
+      // });
       
     }else if(side == 'back'){
       
       itemList = that.data.backItemList;
+      bgItem.picw = that.data.bgList.pic2w;
+      bgItem.pich = that.data.bgList.pic2h;
+      bgItem.downloadFile = that.data.bgList.tempFilePath2;
+      itemList.unshift(bgItem);
       that.ctx = my.createCanvasContext('backRemix');
       areaLeft = that.data.bgList.left2; //定制框left
       areaTop = that.data.bgList.top2; //定制框top
       // that.ctx.save();
       let pic2 = ''
-       my.downloadFile({
-        url: that.data.bgList.pic2, // 下载文件地址
-        success: (res) => {
-          pic2 = res.apFilePath
-        },
-      });
-      that.ctx.drawImage(pic2,0,0,that.data.bgList.pic2w,that.data.bgList.pic2h) 
+      //  my.downloadFile({
+      //   url: that.data.bgList.pic2, // 下载文件地址
+      //   success: (res) => {
+      //     pic2 = res.apFilePath
+      //   },
+      // });
+      // that.ctx.drawImage(pic2,0,0,that.data.bgList.pic2w,that.data.bgList.pic2h) 
       // that.ctx.drawImage(item.downloadFile,0,0,100*item.scale,height) 
       // that.ctx.restore();//恢复状态
     }
-    
+  
+    // console.log(JSON.stringify(itemList))
     for(let i=itemList.length-1;i>-1;i--){
-        console.log(itemList[i])
+
         const item = itemList[i]
         // this.ctx.rotate(30 * Math.PI / 180);
         that.ctx.save();
-        const left = item.left - areaLeft;
-        const top = item.top - areaTop;
-        const wh = item.pich / item.picw  //图片宽高比例
-        const height = 100*wh*item.scale;  //计算缩放后的图片高度
-        that.ctx.translate(left,top);
-        that.ctx.rotate(item.angle * Math.PI / 180);
-        that.ctx.setGlobalAlpha(item.opacity/100)
-       
-        if(item.downloadFile){  //绘制图片
-          that.ctx.drawImage(item.downloadFile,0,0,100*item.scale,height) 
-        }else if(item.text){    //绘制文字
-          that.ctx.setFillStyle('red');
-          that.ctx.setFontSize(12*item.scale);
-          that.ctx.fillText(item.text, 0, 0)
+        if(i == 0){
+          // console.log(item)
+          that.ctx.drawImage(item.downloadFile,0,0,item.picw,item.pich) 
+        }else{
+          const left = parseInt(item.left) ;
+          const top = parseInt(item.top );
+          const wh = item.pich / item.picw  //图片宽高比例
+          const height = 100*wh*item.scale;  //计算缩放后的图片高度
+          that.ctx.translate(left,top);
+          that.ctx.rotate(item.angle * Math.PI / 180);
+          that.ctx.setGlobalAlpha(item.opacity/100)
+          console.log(left+"------"+top)
+          if(item.downloadFile){  //绘制图片
+            that.ctx.drawImage(item.downloadFile,0,0,100*item.scale,height) 
+          }else if(item.text){    //绘制文字
+            that.ctx.setFillStyle('red');
+            that.ctx.setFontSize(12*item.scale);
+            that.ctx.fillText(item.text, 0, 0)
+          }
         }
+
+
+        
 
         that.ctx.restore();//恢复状态
         
@@ -1252,13 +1323,7 @@ Page({
               success: (res) => {
                 // console.log(JSON.stringify(res.data))
                 const resData = JSON.parse(res.data)
-                let params = {
-                  position_front:'',
-                  position_back:'',
-                  position_front_remix:'',
-                  position_back_remix:''
-
-                };
+                let params = that.data.saveworkdesk
 
                 if(side == 'front'){
                   params.position_front = resData.data.url
@@ -1275,6 +1340,7 @@ Page({
                 that.setData({
                   saveworkdesk:params
                 })
+                console.log(that.data.saveworkdesk)
               },
               fail(res) {
                 console.log(res)
@@ -1287,13 +1353,24 @@ Page({
   },
   // 提交定制参数
   saveworkdesk(){
+    // if(1){
+    //     console.log(this.data.saveworkdesk)
+    //     return
+    // }
+
     let userInfo;
     const that = this;
       // 获取用户信息
     my.getAuthCode({
       scopes: 'auth_user', // 主动授权（弹框）：auth_user，静默授权（不弹框）：auth_base
       success: (res) => {
-      
+      // console.log(JSON.stringify(res))
+      let nickname ;
+      my.getAuthUserInfo({
+          success: (userInfo) => {
+            nickname = userInfo.nickName
+          }
+      });
         if (res.authCode) {
           // 认证成功
           // 调用自己的服务端接口，让服务端进行后端的授权认证，并且种session，需要解决跨域问题
@@ -1305,6 +1382,7 @@ Page({
             success: (res) => {
               // 授权成功并且服务器端登录成功
               userInfo = res
+              // console.log(JSON.stringify(res));
                my.httpRequest({
               url:'http://bbltest.color3.cn/Mobile/Api/saveworkdesk',
               dataType:'json',
@@ -1316,14 +1394,16 @@ Page({
                 'position_front':that.data.saveworkdesk.position_front,    //正面整体图片
                 'position_back_remix':that.data.saveworkdesk.position_back_remix,    //反面合成图片
                 'position_back':that.data.saveworkdesk.position_back,     //反面整体图片
-                'position_side_id':that.data.bgList.pic3,   //侧面的图片
+                'position_side_id':that.data.sidePicId,   //侧面的图片id
                 'size':that.data.fabricId,  //尺码
                 'color':'',   //颜色id
                 'group_idf':'',  //正面组件id
                 'group_idb':'',  //反面组件id
-                'nickname':userInfo.nickName  //支付宝用户昵称
+                'nickname':nickName,  //支付宝用户昵称
+                'zfb_userid':999 //支付宝id
               },
               success:function(res){
+                my.hideLoading();
                 my.navigateTo({url:'../placeIndividualOrder/placeIndividualOrder?id='+res.data.id})
               },
               fail:function(){
