@@ -22,7 +22,6 @@ Page({
       console.log(res)
       console.log(res.apFilePaths[0]);
 
-
       let imgLength = app.globalData.items.length;
       let item = {  
               // id: imgLength+1,   
@@ -39,6 +38,8 @@ Page({
               ground:this.data.ground    
           }
       item.image = res.apFilePaths[0];
+
+      
       
         my.uploadFile({
               url: 'http://bbltest.color3.cn/Mobile/Api/diyupload',
@@ -50,6 +51,21 @@ Page({
                 const resData = JSON.parse(res.data)
               // console.log(JSON.stringify(resData))
               item.image =resData.data.url;
+              console.log(item.image)
+
+              // 获取图片宽高
+              my.getImageInfo({
+                src:item.image,
+                success:(res)=>{
+                  console.log(JSON.stringify(res))
+                  item.picw = res.width,
+                  item.pich = res.height
+                },
+                fail:(res)=>{
+                  console.log(res)
+                }
+              });
+
               if(this.data.ground == 'front'){
                 let frontLength = app.globalData.frontItems.length;
                 item.id = frontLength+1;

@@ -1,7 +1,7 @@
 <view style='background-color:white'>
   <view class="container">
     <view class="flex-box">
-      <view class="type-item team">
+      <view class="type-item team" onTap="team">
         <image src="../../assets/images/img_team.png" mode="widthFix" />
         <view class="type-text">团体定制</view>
       </view>

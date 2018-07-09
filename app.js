@@ -9,6 +9,7 @@ App({
     items:[]
   },
   globalData:{
+    type:'', //定制类型 ，1个人，2团体
     items: [
       // {  
       //       id: 1,  

@@ -19,7 +19,11 @@
     line-height: 25px;
 }
 .section-content input {
-    width: 480rpx
+    width: 400rpx;
+    vertical-align: middle;
+}
+.section-demand{
+    padding-bottom: 60px;
 }
 .hint{
     padding: 20rpx 30rpx;
@@ -27,8 +31,25 @@
     font-size: 14px;
     font-weight: bold
 }
+.next{
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+}
 .next>button{
     background:rgba(71,71,71,1);
     color: white;
     font-size: 28rpx;
+}
+.provincePicker, .cityPicker{
+    width: 50%;
+}
+.picker{
+    text-align: right;
+    width: 140rpx;
+}
+.Italic{
+    font-style:italic;
 }

@@ -11,7 +11,10 @@
       </view>
     </view>
   </view>
-  
+  <!-- 勾 -->
+  <view id="gou" onTap="personalArea">
+    <text class="iconfont  icon-success-no-circle"></text>
+  </view>
   <!-- 正面操作区域 -->
   <view class="model-contanier" a:if="{{currentTap == 'front'}}" style='top:{{bgList.contTop1}}px;left:{{bgList.contLeft1}}px;width:{{bgList.pic1w}}px' >
     <view class="model-display bg1" onTap = "windowHide">
@@ -289,28 +292,21 @@
       
   </view>
 
-  
+    <!-- 弹框 -->
+  <view class="layer" a:if="{{personalArea}}">
+    <view class="layer-box">
+      <view class="layer-title">选择个人定制区域</view>
+      <view class="flex-box flex-wrap">
+        <view class="areaItem {{1 ==activeAreaid ? 'areaActive':''}}" data-index='1' onTap="areaTap">正面</view>
+        <view class="areaItem areaDisabel" data-index='2' onTap="areaTap">反面</view>
+        <view class="areaItem {{3 ==activeAreaid ? 'areaActive':''}}" data-index='3' onTap="areaTap">左侧</view>
+        <view class="areaItem {{4 ==activeAreaid ? 'areaActive':''}}" data-index='4' onTap="areaTap">右侧</view>
+        <block a:for="{{5}}">
+          
+        </block>
+      </view>
+      <view id="layer-btn">确定</view>
+    </view>
+  </view>
 
 </view>
-
-
-<!-- 模板 -->
-<!-- header -->
-<!-- <template>
-   <view class="text-header flex-box" a:if="{{footer == 'text'}}">
-      <view class="header-left">取消</view>
-      <view class="flex-item-1 header-center">添加文字</view>
-      <view class="header-right">
-        <button type="primary" class="add-text">添加</button>
-      </view>
-    </view>
-  </template> -->
-  
-  <!-- <template>
-     <view class="custome-item custome-active" onTap="sticker">
-          <text class="iconfont icon-tiezhi"></text>
-          <view>
-            <text class="custome-item-text">颜色</text>
-          </view>
-        </view>
-      </template> -->

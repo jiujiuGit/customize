@@ -1,6 +1,7 @@
 var app = getApp();
 Page({
   data: {
+    type:app.data.type,
     windowActive:false,
     windowPosition:{
       before:0,
@@ -12,7 +13,7 @@ Page({
     prodId:'',//款式id
     picname:'',//商品名称
     fabricId:'',//面料id
-    sidePicId:'',
+    sidePicId:0,
     headerSeen:true,
 
     //可编辑图片列表
@@ -38,7 +39,8 @@ Page({
     zindexSeen:false,
     sliderValue:100,
     sizes:[], //尺寸列表
-    saveworkdesk:{} //定制参数
+    saveworkdesk:{}, //定制参数
+    personalArea:true //选择个人定制区域弹框是否可见
   },
   getSystemInfoPage() {
     my.getSystemInfo({
@@ -230,8 +232,16 @@ Page({
       }
     })
   },
-  textTap(){
-  // console.log(323123)
+
+  areaTap(e){
+    console.log(e.currentTarget.dataset.index)
+    this.setData({
+      activeAreaid:e.currentTarget.dataset.index
+    })
+  },
+  // 选择个人定制区域
+  personalArea(){
+
   },
   // 图片touchStart
   WraptouchStart(e){
@@ -1064,7 +1074,7 @@ Page({
 
 
     setTimeout(function(){
-
+      console.log(frontItemList)
       that.canvasDraw('front');
       that.canvasDraw('back');
       that.canvasRemix('front');
@@ -1152,6 +1162,7 @@ Page({
     let areaTop ;
     if(side =='front'){
       itemList = that.data.frontItemList;
+      console.log(JSON.stringify(itemList))
       that.ctx = my.createCanvasContext('canvasFront');
       areaLeft = that.data.bgList.left1; //定制框left
       areaTop = that.data.bgList.top1; //定制框top
@@ -1364,13 +1375,12 @@ Page({
     my.getAuthCode({
       scopes: 'auth_user', // 主动授权（弹框）：auth_user，静默授权（不弹框）：auth_base
       success: (res) => {
-      // console.log(JSON.stringify(res))
-      let nickname ;
-      my.getAuthUserInfo({
-          success: (userInfo) => {
-            nickname = userInfo.nickName
-          }
-      });
+        let nickname ;
+        my.getAuthUserInfo({
+            success: (userInfo) => {
+              nickname = userInfo.nickName
+            }
+        });
         if (res.authCode) {
           // 认证成功
           // 调用自己的服务端接口，让服务端进行后端的授权认证，并且种session，需要解决跨域问题
@@ -1383,46 +1393,49 @@ Page({
               // 授权成功并且服务器端登录成功
               userInfo = res
               // console.log(JSON.stringify(res));
-               my.httpRequest({
-              url:'http://bbltest.color3.cn/Mobile/Api/saveworkdesk',
-              dataType:'json',
-              method:'POST',
-              data:{
-                'type_id':that.data.prodId,   //款式id
-                'specitem_id':that.data.fabricId,   //材质id
-                'position_front_remix':that.data.saveworkdesk.position_front_remix,   //正面合成图片base64编码
-                'position_front':that.data.saveworkdesk.position_front,    //正面整体图片
-                'position_back_remix':that.data.saveworkdesk.position_back_remix,    //反面合成图片
-                'position_back':that.data.saveworkdesk.position_back,     //反面整体图片
-                'position_side_id':that.data.sidePicId,   //侧面的图片id
-                'size':that.data.fabricId,  //尺码
-                'color':'',   //颜色id
-                'group_idf':'',  //正面组件id
-                'group_idb':'',  //反面组件id
-                'nickname':nickName,  //支付宝用户昵称
-                'zfb_userid':999 //支付宝id
-              },
-              success:function(res){
-                my.hideLoading();
-                my.navigateTo({url:'../placeIndividualOrder/placeIndividualOrder?id='+res.data.id})
-              },
-              fail:function(){
+              my.httpRequest({
+                url:'http://bbltest.color3.cn/Mobile/Api/saveworkdesk',
+                dataType:'json',
+                method:'POST',
+                data:{
+                  'type_id':that.data.prodId,   //款式id
+                  'specitem_id':that.data.fabricId,   //材质id
+                  'position_front':that.data.saveworkdesk.position_front_remix,   //正面合成图片base64编码
+                  'position_front_remix':that.data.saveworkdesk.position_front,    //正面整体图片
+                  'position_back':that.data.saveworkdesk.position_back_remix,    //反面合成图片
+                  'position_back_remix':that.data.saveworkdesk.position_back,     //反面整体图片
+                  'position_side_id':that.data.sidePicId,   //侧面的图片id
+                  'size':that.data.fabricId,  //尺码
+                  'color':'',   //颜色id
+                  'group_idf':'',  //正面组件id
+                  'group_idb':'',  //反面组件id
+                  'nickname':'',  //支付宝用户昵称
+                  'zfb_userid':999 //支付宝id
+                },
+                success:function(res){
+                  my.hideLoading();
+                  my.navigateTo({url:'../placeIndividualOrder/placeIndividualOrder?id='+res.data.id})
+                },
+                fail:function(){
 
-              },
-              complete:function(){
-                
-              }
-            })
+                },
+                complete:function(){
+                  
+                }
+              })
 
 
 
             },
-            fail: () => {
-              // 根据自己的业务场景来进行错误处理
+            fail: (res) => {
+              console.log(res)
             },
           });
         }
       },
+      fail:(res)=>{
+        console.log(res)
+      }
     });
 
 

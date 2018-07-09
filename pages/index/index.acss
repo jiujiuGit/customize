@@ -86,8 +86,22 @@
     font-size: 16px;
     line-height: 30px;
 }
-
-
+#gou{
+    position: fixed;
+    top: 30rpx;
+    left: 30rpx;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background:rgba(255,255,255,1);
+    box-shadow:0px 0px 20px 0px rgba(86,91,110,0.2);
+    line-height: 40px;
+    text-align: center;
+    z-index: 300;
+}
+.icon-success-no-circle{
+    color:#23B60B;
+}
 
 
 .model-display{
@@ -389,4 +403,41 @@
 .zindex>view>text{
     margin-right: 1px;
     vertical-align: middle;
+}
+.layer-box{
+    padding: 0 20rpx;
+}
+.layer-title{
+    text-align: center;
+    margin: 60rpx 0;
+    font-size: 15px;
+    font-weight: bolder;
+}
+.areaItem{
+    width: 140rpx;
+    height: 68rpx;
+    line-height: 68rpx;
+    text-align: center;
+    color:#7F7F7F;
+    font-size: 24rpx;
+    border-radius: 4rpx; 
+    border:1px solid #7F7F7F;
+    margin-left: 30rpx;
+    margin-top: 30rpx;
+}
+.areaDisabel{
+    background-color: #F7F7F7;
+    border: 1px solid #F7F7F7;
+    color: #9EA4AE;
+}
+.areaActive{
+    background-color: #E02666;
+    border: 1px solid #E02666;
+    color: white;
+}
+#layer-btn{
+    text-align: center;
+    margin: 40rpx;
+    color: #E02666;
+    text-decoration: underline;
 }

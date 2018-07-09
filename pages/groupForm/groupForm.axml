@@ -4,7 +4,7 @@
       <view class="hint">基本信息</view>
       <view class="section-content">
         <view><text>联系人姓名</text><input type="text" placeholder="" auto-focus  /></view>
-        <view><label>联系电话</label><input type="" placeholder="" auto-focus  /></view>
+        <view><text>联系电话</text><input type="" placeholder="" auto-focus  /></view>
         <view><text>公司名称</text><input type="text" placeholder="" auto-focus  /></view>
       </view>
     </view>
@@ -12,12 +12,33 @@
     <view class="section section-address">
       <view class="hint">收货地址</view>
       <view class="section-content">
-        <view><text>联系人姓名</text><input type="text" placeholder="" auto-focus  /></view>
+        <view class="flex-box">
+          <!-- 选择省 -->
+          <view class="flex-box provincePicker">
+            <text>请选择</text>
+            <picker onChange="bindPickerChange" value="{{index}}" range="{{pros}}"  range-key="name">
+              <view class="picker">
+                {{province.name}}
+                <text class="Italic">省</text>
+              </view>
+            </picker>
+          </view>
+          <!-- 选择市 -->
+          <view onTap="chooseCity" class="flex-box cityPicker">
+            <text>请选择</text>
+            <picker onChange="cityPickerChange" value="{{index}}" range="{{citys}}"  range-key="name" disabled ={{cityPicker}}>
+              <view class="picker">
+                {{city.name}}
+                <text class="Italic">市</text>
+              </view>
+            </picker>
+          </view>
+        </view>
         <view><text>详细地址</text><input type="text" placeholder="" auto-focus  /></view>
       </view>
     </view>
 
-    <view class="section section-address">
+    <view class="section section-demand">
       <view class="hint">定制需求</view>
       <view class="section-content">
         <view><text>定制服装人数</text><input type="text" placeholder="" auto-focus  /></view>
@@ -26,9 +47,10 @@
 
       </view>
     </view>
+    
 
 
-    <view class="next">
+    <view class="next" onTap="next">
       <button formType="submit">下一步</button>
     </view>
   </form>

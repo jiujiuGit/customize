@@ -1,7 +1,12 @@
 {
   "pages": [
-    "pages/modelList/modelList",
     "pages/index/index",
+    "pages/groupForm/groupForm",
+    "pages/modelList/modelList",
+    
+    "pages/customType/customType",
+    
+    
     
     "pages/canvas/canvas",
     "pages/placeTeamOrder/placeTeamOrder",
@@ -12,8 +17,8 @@
     "pages/orderDetail/orderDetail",
     
     "pages/orderList/orderList",
-    "pages/groupForm/groupForm",
-    "pages/customType/customType",
+    
+    
     
     
     "pages/sticker/sticker",
