@@ -40,7 +40,7 @@ Page({
     sliderValue:100,
     sizes:[], //尺寸列表
     saveworkdesk:{}, //定制参数
-    personalArea:true //选择个人定制区域弹框是否可见
+    personalArea:false //选择个人定制区域弹框是否可见
   },
   getSystemInfoPage() {
     my.getSystemInfo({
@@ -241,7 +241,15 @@ Page({
   },
   // 选择个人定制区域
   personalArea(){
-
+    this.setData({
+      personalArea:true
+    })
+  },
+  // 确定个人定制区域
+  confirmPsnArea(){
+    this.setData({
+      personalArea:false
+    })
   },
   // 图片touchStart
   WraptouchStart(e){
@@ -675,11 +683,30 @@ Page({
     
     
   },
-  //背景列表
-  bgList(e){
-    const oritype = 2
-    const currentTap = this.data.currentTap;
-    my.navigateTo({ url: "../bgList/bgList?currentTap="+currentTap+"&oritype="+oritype });
+  //清除功能
+  cleanUp(e){
+    my.confirm({
+      title: '温馨提示',
+      content: '是否清空画布',
+      confirmButtonText: '清空',
+      cancelButtonText: '取消',
+      success: (result) => {
+        if(result.confirm){
+          // for(let i = 0;i<app.globalData.items.length;i++){
+          //   if(app.globalData.items[i].ground == 'front'){
+          //       app.globalData.items.splice(i,1)
+          //   }
+          // }
+          // this.setData({
+          //   itemList:app.globalData.items
+          // });
+        }
+        
+      },
+    });
+    // const oritype = 2
+    // const currentTap = this.data.currentTap;
+    // my.navigateTo({ url: "../bgList/bgList?currentTap="+currentTap+"&oritype="+oritype });
 
   },
   // 点击正面

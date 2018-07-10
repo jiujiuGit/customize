@@ -2,10 +2,10 @@ require('./config$');
 require('./importScripts$');
 function success() {
 require('../..//app');
+require('../../pages/index/index');
 require('../../pages/groupForm/groupForm');
 require('../../pages/modelList/modelList');
 require('../../pages/customType/customType');
-require('../../pages/index/index');
 require('../../pages/canvas/canvas');
 require('../../pages/placeTeamOrder/placeTeamOrder');
 require('../../pages/placeIndividualOrder/placeIndividualOrder');

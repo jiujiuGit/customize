@@ -72,7 +72,8 @@
     position: fixed;
     top: 0;
     width: 710rpx;
-    z-index: 300;
+    z-index: 400;
+    background-color: white;
 }
 .header-left{
     line-height: 30px;

@@ -154,6 +154,7 @@
       <view class='aside-btn btn-back {{(currentTap ==  "back")? "aside-btn-active":""}}' onTap="back">背 <text a:if='{{currentTap ==  "back"}}'>面</text></view>
       <view  class='aside-btn btn-front {{(currentTap ==  "front")? "aside-btn-active":""}} ' onTap="front">正 <text a:if='{{currentTap ==  "front"}}'>面</text></view>
       <view  class='aside-btn btn-side {{(currentTap ==  "side")? "aside-btn-active":""}}' onTap="side">侧 <text a:if='{{currentTap ==  "side"}}'>面</text></view>
+    
     </view>
   </view>
 
@@ -213,10 +214,10 @@
             <text class="custom-item-text">形状</text>
           </view>
         </view>
-        <view class="custome-item" a:if="{{currentTap != 'side'}}" onTap="bgList">
+        <view class="custome-item" a:if="{{currentTap != 'side'}}" onTap="cleanUp">
           <text class="iconfont icon-beijing"></text>
           <view>
-            <text class="custom-item-text">背景</text>
+            <text class="custom-item-text">清除</text>
           </view>
         </view>  
         </view>
@@ -305,7 +306,7 @@
           
         </block>
       </view>
-      <view id="layer-btn">确定</view>
+      <view id="layer-btn" onTap="confirmPsnArea">确定</view>
     </view>
   </view>
 
