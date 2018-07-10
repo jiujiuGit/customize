@@ -2,11 +2,31 @@
   <view class="item-left">
     <view class="stickerItem"  a:for="{{stickers}}" a:if="{{index%2==0}}">
        <image mode="widthFix"  src="{{item.pic}}" onTap="imageTap" data-index="{{index}}"/>
+       <!-- <view class="pictype {{(item.pictype == 2)?'velcro':''}}">魔术贴</view>
+       <view class="pictype {{item.pictype == 3}}?'personalSticker':''">定制贴纸</view> -->
+       <view class="pictype velcro" a:if="{{item.pictype == 2}}">魔术贴</view>
+       <view class="pictype personalSticker"  a:if="{{item.pictype == 3}}">定制贴纸</view>
     </view>
  </view>
  <view class="item-right">
     <view class="stickerItem"  a:for="{{stickers}}" a:if="{{index%2==1}}">
        <image mode="widthFix"  src="{{item.pic}}" onTap="imageTap" data-index="{{index}}"/>
+       <view class="pictype velcro"  a:if="{{item.pictype == 2}}">魔术贴</view>
+       <view class="pictype personalSticker"  a:if="{{item.pictype == 3}}">定制贴纸</view>
+    </view >
+  </view>
+  
+
+    <!-- 弹框 -->
+<view class="layer" a:if="{{editContent}}">
+  <view class="layer-box">
+    <view id="layerTitle">请输入定制内容</view>
+    <view id="inputArea">
+      <input id="layerInput"  onInput="bindKeyInput" type="text" placeholder="" auto-focus  />
     </view>
- </view>
+    <view class="flex-box btns">
+      <view id="quit" onTap="quit">取消</view>
+      <view id="confirm" onTap="confirm">确定</view>
+    </view>
+  </view>
 </view>

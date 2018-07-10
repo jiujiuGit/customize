@@ -9,11 +9,14 @@ Page({
     },
     www:'',
     bgList:{},
-    sideStickerId:app.globalData.sideStickerId,//侧面贴纸或线条id
+    buttons:[], //可编辑面
+    leftStickerId:app.globalData.leftStickerId,//左侧面贴纸或线条id
+    leftStickerId:app.globalData.leftStickerId,//右侧面贴纸或线条id
     prodId:'',//款式id
     picname:'',//商品名称
     fabricId:'',//面料id
-    sidePicId:0,
+    leftSidePicId:0, //左侧图片id
+    rightSidePicId:0,//右侧图片id
     headerSeen:true,
 
     //可编辑图片列表
@@ -28,7 +31,7 @@ Page({
     footer:'list',
     systemInfo: {}, //窗口信息
 
-    currentTap:'front', //当前tap "front"-正面  "side"-侧面   "back"-背面
+    currentTap:'front', //当前tap "front"-正面   "back"-背面  "leftSide"-左侧  "rightSide"-右侧   
     colorList:[], //颜色列表
 
     textEditItem:'font', //当前字体编辑项，“font”-字体，transparency-透明度，color-颜色
@@ -62,16 +65,17 @@ Page({
       frontItemList:app.globalData.frontItems,
       index:app.globalData.stickerIndex,
       footer:app.globalData.footer,
-      sideStickerId:app.globalData.sideStickerId
+      leftStickerId:app.globalData.leftStickerId,
+      rightStickerId:app.globalData.rightStickerId
     });
     this.getSystemInfoPage();
-    console.log(this.data.sideStickerId)
-    if(this.data.sideStickerId){  //请求侧面背景图
+    console.log(this.data.prodId)
+    if(this.data.leftStickerId){  //请求左侧面背景图
       my.httpRequest({
         url: 'http://bbltest.color3.cn/Mobile/Api/getImageByDid',
         method: 'post',
         data: {
-          did: that.data.sideStickerId, //贴纸或线条id
+          did: that.data.leftStickerId, //贴纸或线条id
           tid:that.data.prodId,  //款式id
           // oritype:query.oritype
         },
@@ -79,11 +83,42 @@ Page({
         success: function(res) {
           my.hideLoading();
           let bgList = that.data.bgList;
-          bgList.pic3 = res.data.data.pic
+          bgList.pic3 = res.data.data.pic;
           console.log(res.data.data.pic)
           that.setData({
             bgList:bgList,
-            sidePicId:res.data.id
+            leftSidePicId:res.data.id
+          })
+          console.log(that.data.sidePicId)
+        },
+        fail: function(res) {
+          console.log(res)
+          // my.alert({content: 'fail'});
+        },
+        complete: function(res) {
+          // my.hideLoading();
+          // my.alert({content: 'complete'});
+        }
+      });
+    }
+    if(this.data.rightStickerId){  //请求右侧面背景图
+      my.httpRequest({
+        url: 'http://bbltest.color3.cn/Mobile/Api/getImageByDid',
+        method: 'post',
+        data: {
+          did: that.data.rightStickerId, //贴纸或线条id
+          tid:that.data.prodId,  //款式id
+          // oritype:query.oritype
+        },
+        dataType: 'json',
+        success: function(res) {
+          my.hideLoading();
+          let bgList = that.data.bgList;
+          bgList.pic4 = res.data.data.pic1
+          console.log(res.data.data.pic)
+          that.setData({
+            bgList:bgList,
+            leftSidePicId:res.data.id
           })
           console.log(that.data.sidePicId)
         },
@@ -112,6 +147,7 @@ Page({
     //   fabricId:"21"
     // })
     const that = this;
+    //获取背景图
     my.httpRequest({
       url: 'http://bbltest.color3.cn/Mobile/Api/get_style_bg',
       method: 'post',
@@ -198,9 +234,10 @@ Page({
         
         that.setData({
           bgList:bgList,
-          sizes:res.data.data.sizes
+          sizes:res.data.data.sizes,
+          buttons:res.data.data.buttons
         });
-        console.log(that.data.bgList)
+        console.log(that.data.buttons)
         
         
       },
@@ -212,7 +249,7 @@ Page({
         // my.alert({content: 'complete'});
       }
     });
-
+    //获取颜色列表
     my.httpRequest({
       url:'http://bbltest.color3.cn/Mobile/Api/getColorList',
       method:'POST',
@@ -230,7 +267,8 @@ Page({
       complete:function(){
 
       }
-    })
+    });
+   
   },
 
   areaTap(e){
@@ -675,7 +713,7 @@ Page({
     const oritype = e.currentTarget.dataset.id
     const currentTap = this.data.currentTap;
 
-    if(currentTap == 'side'){
+    if(currentTap == 'leftSide' || currentTap == 'rightSide'){
       my.navigateTo({ url: "../sideSticker/sideSticker?currentTap="+currentTap+"&oritype="+oritype });
     }else{
       my.navigateTo({ url: "../sticker/sticker?currentTap="+currentTap+"&oritype="+oritype });
@@ -687,7 +725,7 @@ Page({
   cleanUp(e){
     my.confirm({
       title: '温馨提示',
-      content: '是否清空画布',
+      content: '是否清空当前画布',
       confirmButtonText: '清空',
       cancelButtonText: '取消',
       success: (result) => {
@@ -799,33 +837,25 @@ Page({
       }
     })
   },
-  // 点击侧面
-  side(e){
+  // 点击左侧
+  leftSide(side){
     if(this.data.footer =='text'){
       return; //编辑字体时不允许切换
     }
     this.setData({
-      currentTap:'side',
+      currentTap:'leftSide',
       windowActive:true
     })
-    // my.confirm({
-    //   title: '温馨提示',
-    //   content: '是否清空画布',
-    //   confirmButtonText: '清空',
-    //   cancelButtonText: '取消',
-    //   success: (result) => {
-    //     if(result.confirm){
-    //       for(let i = 0;i<app.globalData.items.length;i++){
-    //         if(app.globalData.items[i].ground == 'side'){
-    //             app.globalData.items.splice(i,1)
-    //         }
-    //       }
-    //       this.setData({
-    //         itemList:app.globalData.items
-    //       });
-    //     }
-    //   }
-    // })
+  },
+  // 点击右侧
+  rightSide(side){
+    if(this.data.footer =='text'){
+      return; //编辑字体时不允许切换
+    }
+    this.setData({
+      currentTap:'rightSide',
+      windowActive:true
+    })
   },
   // 点击文字
   textEdit(){
@@ -1431,11 +1461,16 @@ Page({
                   'position_front_remix':that.data.saveworkdesk.position_front,    //正面整体图片
                   'position_back':that.data.saveworkdesk.position_back_remix,    //反面合成图片
                   'position_back_remix':that.data.saveworkdesk.position_back,     //反面整体图片
-                  'position_side_id':that.data.sidePicId,   //侧面的图片id
+                  'position_side_id':that.data.leftSidePicId,   //侧面的图片id左侧
+                  'position_side_id1':that.data.rightSidePicId,//侧面的图片id右侧
                   'size':that.data.fabricId,  //尺码
-                  'color':'',   //颜色id
-                  'group_idf':'',  //正面组件id
-                  'group_idb':'',  //反面组件id
+                  // 'color':'',   //颜色id
+                  // 'group_idf':'',  //正面组件id
+                  // 'group_idb':'',  //反面组件id
+                  'group_idl':that.data.leftStickerId, //左侧贴纸id
+                  'group_idr':that.data.rightStickerId,//右侧贴纸id
+                  'worksname':'',//作品名称
+                  'numtype':2, //1个人 2团体
                   'nickname':'',  //支付宝用户昵称
                   'zfb_userid':999 //支付宝id
                 },

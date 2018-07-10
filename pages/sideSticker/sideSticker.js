@@ -1,10 +1,15 @@
 var app = getApp();
 Page({
   data: {
-    stickers:[]
+    stickers:[],
+    currentTap:''
   },
   onLoad(query) {
     console.log(query.oritype);
+    console.log(query.currentTap);
+    this.setData({
+      currentTap:query.currentTap
+    })
     const that = this;
     switch(query.oritype){
       case "2":
@@ -49,7 +54,12 @@ Page({
   },
   imageTap(e){
     let tapIndex = e.target.dataset.index;
-    app.globalData.sideStickerId = this.data.stickers[tapIndex].id;
+    if(this.data.currentTap == 'leftSide'){
+      app.globalData.leftStickerId = this.data.stickers[tapIndex].id;
+    }else if(this.data.currentTap == 'rightSide'){
+      app.globalData.rightStickerId = this.data.stickers[tapIndex].id;
+    }
+    
      my.navigateBack({
       delta: 1
     })

@@ -102,41 +102,19 @@
       </view>
     </block>
   </view>
-  <!-- 侧面操作区域 -->
-  <view class="model-contanier" a:if="{{currentTap == 'side'}}">
+  <!-- 左侧面操作区域 -->
+  <view class="model-contanier" a:if="{{currentTap == 'leftSide'}}">
     <view class="model-display" style='padding-top:{{bgList.contTop1}}px;background-color:#F0F2F5' onTap = "windowHide">
       <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="{{bgList.pic3}}" mode="" />
       <!-- <image class="bg-model" mode="widthFix" src="../../assets/images/middle_img_02.svg" mode="" /> -->
     </view>
-    <!-- 操作区域 -->
-    <block a:for="{{itemList}}" a:if="{{item.ground == 'side'}}" a:key="{{item.id}}">
-      <view class="touchWrap" style="transform:scale({{item.scale}});top:{{item.top}}px;left:{{item.left}}px; ">
-        <!-- 图片编辑 -->
-        <view a:if="{{item.type == 'image'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
-          <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image> 
-          
-          <!-- <text class="textItem"  data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'>{{item.text}}</text>  -->
-
-          <!-- 删除图片 -->
-          <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTap='deleteItem'></image>  
-          <!-- 缩放旋转 -->
-          <image class='o' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/suofang.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTouchStart='touchStart' onTouchMove='touchMove' onTouchEnd='touchEnd'></image>  
-        </view>
-
-        <!-- 文字编辑 -->
-         <view a:if="{{item.type == 'text'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);">
-          <!-- <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image>  -->
-          
-          <view class="textItem" onTap="textTap" data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'><text style='fontSize:12*{{item.oScale}}px;font-family:{{item.fontFamily}}'>{{item.text}}</text></view> 
-
-          <!-- 删除图片 -->
-          <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTap='deleteItem'></image>  
-          <!-- 缩放旋转 -->
-          <image class='o' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/suofang.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTouchStart='touchStart' onTouchMove='touchMove' onTouchEnd='touchEnd'></image>  
-        </view>
-        
-      </view>
-    </block>
+  </view>
+   <!-- 右侧面操作区域 -->
+  <view class="model-contanier" a:if="{{currentTap == 'rightSide'}}">
+    <view class="model-display" style='padding-top:{{bgList.contTop1}}px;background-color:#F0F2F5' onTap = "windowHide">
+      <image ontouchStar="WraptouchStart"  class="bg-model" mode="widthFix" src="{{bgList.pic4}}" mode="" />
+      <!-- <image class="bg-model" mode="widthFix" src="../../assets/images/middle_img_02.svg" mode="" /> -->
+    </view>
   </view>
 
   <canvas class="mycanvas" id="canvasFront" style="width:{{bgList.width}}px; height:{{bgList.height}}px"></canvas>
@@ -151,10 +129,14 @@
   <!-- 选择正面、背面、侧面 -->
   <view class="aside-right">
     <view class="aside-btns">
-      <view class='aside-btn btn-back {{(currentTap ==  "back")? "aside-btn-active":""}}' onTap="back">背 <text a:if='{{currentTap ==  "back"}}'>面</text></view>
-      <view  class='aside-btn btn-front {{(currentTap ==  "front")? "aside-btn-active":""}} ' onTap="front">正 <text a:if='{{currentTap ==  "front"}}'>面</text></view>
-      <view  class='aside-btn btn-side {{(currentTap ==  "side")? "aside-btn-active":""}}' onTap="side">侧 <text a:if='{{currentTap ==  "side"}}'>面</text></view>
-    
+      <!-- <block a:for="{{buttons}}">
+        <view data-index = '{{index}}' class='aside-btn btn-back {{(currentTap ==  "back")? "aside-btn-active":""}}' onTap="back">背 <text a:if='{{currentTap ==  "back"}}'>面</text></view>
+      </block> -->
+      <view a:if="{{buttons.indexOf('反面')>-1}}" class='aside-btn btn-back {{(currentTap ==  "back")? "aside-btn-active":""}}' onTap="back">背 <text a:if='{{currentTap ==  "back"}}'>面</text></view>
+      <view a:if="{{buttons.indexOf('正面')>-1}}" class='aside-btn btn-front {{(currentTap ==  "front")? "aside-btn-active":""}} ' onTap="front">正 <text a:if='{{currentTap ==  "front"}}'>面</text></view>
+      <view a:if="{{buttons.indexOf('左侧')>-1}}" class='aside-btn btn-side {{(currentTap ==  "leftSide")? "aside-btn-active":""}}' onTap="leftSide">左 <text a:if='{{currentTap ==  "leftSide"}}'>侧</text></view>
+      <view a:if="{{buttons.indexOf('右侧')>-1}}" class='aside-btn btn-side {{(currentTap ==  "rightSide")? "aside-btn-active":""}}' onTap="rightSide">右 <text a:if='{{currentTap ==  "rightSide"}}'>侧</text></view>
+
     </view>
   </view>
 
@@ -184,13 +166,13 @@
           <view class="iconfont icon-xia" a:if='{{windowActive == true}}'></view>
           <view class="iconfont icon-shang" a:if='{{windowActive == false}}'></view>
         </view>    
-        <view class="custome-item " a:if="{{currentTap != 'side'}}" onTap="imageEdit">
+        <view class="custome-item " a:if="{{currentTap != 'leftSide' && currentTap != 'rightSide'}}" onTap="imageEdit">
             <text class="iconfont icon-tupian"></text>
           <view>
             <text class="custome-item-text">图片</text>
           </view>
         </view>
-        <view class="custome-item" a:if="{{currentTap != 'side'}}" onTap="textEdit"> 
+        <view class="custome-item" a:if="{{currentTap != 'leftSide' && currentTap != 'rightSide'}}" onTap="textEdit"> 
           <text class="iconfont icon-wenzi"></text>
           <view>
             <text class="custome-item-text">文字</text>
@@ -208,13 +190,13 @@
             <text class="custome-item-text">线条</text>
           </view>
         </view>
-        <view class="custome-item" data-id='3' a:if="{{currentTap != 'side'}}" onTap="sticker">
+        <view class="custome-item" data-id='3' a:if="{{currentTap != 'leftSide' && currentTap != 'rightSide'}}" onTap="sticker">
           <text class="iconfont icon-xingzhuang"></text>
           <view>
             <text class="custom-item-text">形状</text>
           </view>
         </view>
-        <view class="custome-item" a:if="{{currentTap != 'side'}}" onTap="cleanUp">
+        <view class="custome-item" onTap="cleanUp">
           <text class="iconfont icon-beijing"></text>
           <view>
             <text class="custom-item-text">清除</text>

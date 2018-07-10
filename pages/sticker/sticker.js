@@ -14,59 +14,11 @@ Page({
       //   "pich":"400",
       // }
     ],
-    // stickers:[
-    //   {
-    //   imgUrl:'../../assets/images/t1.jpg',
-    //   mode: 'widthFix',
-    //   },
-    //   {
-    //   imgUrl:'../../assets/images/t5.jpg',
-    //   mode: 'widthFix',
-    //   },
-    //   {
-    //   imgUrl:'../../assets/images/t5.jpg',
-    //   mode: 'widthFix',
-    //   },
-    //   {
-    //   imgUrl:'../../assets/images/t2.jpg',
-    //   mode: 'widthFix',
-    //   },
-    //   {
-    //   imgUrl:'../../assets/images/t3.jpg',
-    //   mode: 'widthFix',
-    //   },
-    //   {
-    //   imgUrl:'../../assets/images/t4.jpg',
-    //   mode: 'widthFix',
-    //   },
-    //   {
-    //   imgUrl:'../../assets/images/t1.jpg',
-    //   mode: 'widthFix',
-    //   },
-    //   {
-    //   imgUrl:'../../assets/images/t5.jpg',
-    //   mode: 'widthFix',
-    //   },
-    //   {
-    //   imgUrl:'../../assets/images/t5.jpg',
-    //   mode: 'widthFix',
-    //   },
-    //   {
-    //   imgUrl:'../../assets/images/t2.jpg',
-    //   mode: 'widthFix',
-    //   },
-    //   {
-    //   imgUrl:'../../assets/images/t3.jpg',
-    //   mode: 'widthFix',
-    //   },
-    //   {
-    //   imgUrl:'../../assets/images/t4.jpg',
-    //   mode: 'widthFix',
-    //   },
-      
-    // ],
+    
     ground:'', //当前编辑面   front 、siede、back
-    stickIndex:'' //
+    stickIndex:'', //
+    editContent:false, //是否弹出定制贴纸编辑框
+    inputValue:''
   },
   onLoad(query) {
     // console.log(query.currentTap);
@@ -153,6 +105,20 @@ Page({
     item.image = this.data.stickers[tapIndex].pic
     item.picw  = this.data.stickers[tapIndex].picw;
     item.pich = this.data.stickers[tapIndex].pich;
+    item.stickerid = this.data.stickers[tapIndex].id;
+    if(this.data.stickers[tapIndex].pictype != undefined){  //贴纸类型
+      item.pictype = this.data.stickers[tapIndex].pictype;
+    }
+
+    if(item.pictype == 3){  //定制贴纸，弹框输入定制内容
+      this.setData({
+        editContent:true
+      })
+      return;
+    }
+
+
+
     if(this.data.ground == 'front'){  //添加到front编辑列表
       const frontLength = app.globalData.frontItems.length
       item.id = frontLength+1;
@@ -178,4 +144,21 @@ Page({
 
   
   },
+  quit(){
+    this.setData({
+      editContent:false
+    })
+  },
+  confirm(){
+    this.setData({
+      editContent:false
+    })
+    console.log(this.data.inputValue)
+  },
+  bindKeyInput(e){
+    console.log(e)
+    this.setData({
+      inputValue: e.detail.value,
+    });
+  }
 });
