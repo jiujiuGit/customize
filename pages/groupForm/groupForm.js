@@ -26,7 +26,42 @@ Page({
 
    
   },
-
+  nameInput(e){
+    this.setData({
+      name: e.detail.value,
+    });
+  },
+  telInput(e){
+    this.setData({
+      phone: e.detail.value,
+    });
+  },
+  companyInput(e){
+    this.setData({
+      company: e.detail.value,
+    });
+  },
+  addressInput(e){
+    this.setData({
+      address: e.detail.value,
+    });
+  },
+  
+  peopleInput(e){
+    this.setData({
+      peoplenum: e.detail.value,
+    });
+  },
+  numberInput(e){
+    this.setData({
+      numper: e.detail.value,
+    });
+  },
+  timeInput(e){
+    this.setData({
+      yjtimwbank: e.detail.value,
+    });
+  },
   chooseCity(){
     const that = this;
     if(that.data.province.id == undefined){
@@ -79,6 +114,76 @@ Page({
     });
   },
   next(){
+    const that = this;
+    console.log(that.data.company);
+    // return;
+    if(that.data.name=='' || that.data.name == undefined){
+      my.alert({
+        title: '提示',
+        content: '联系人姓名不能为空！',
+        buttonText:'确定',
+      });
+      return;
+    }
+    if(that.data.phone=='' || that.data.phone == undefined){
+      my.alert({
+        title: '提示',
+        content: '联系人电话不能为空！',
+        buttonText:'确定',
+      });
+      return;
+    }
+    if(that.data.address=='' || that.data.address == undefined){
+      my.alert({
+        title: '提示',
+        content: '详细地址不能为空！',
+        buttonText:'确定',
+      });
+      return;
+    }
+    if(that.data.province.id=='' || that.data.province.id == undefined){
+      my.alert({
+        title: '提示',
+        content: '省信息不能为空！',
+        buttonText:'确定',
+      });
+      return;
+    }
+    if(that.data.city.id=='' || that.data.city.id == undefined){
+      my.alert({
+        title: '提示',
+        content: '市信息不能为空！',
+        buttonText:'确定',
+      });
+      return;
+    }
+    if(that.data.address=='' || that.data.address == undefined){
+      my.alert({
+        title: '提示',
+        content: '详细地址不能为空！',
+        buttonText:'确定',
+      });
+      return;
+    }
+    my.httpRequest({
+      url:'http://bbltest.color3.cn/Mobile/Api/subteamorder',
+      dataType:'json',
+      method:'POST',
+      data:{
+        company:that.data.company, //公司
+        phone:that.data.phone,//电话
+        name:that.data.name,//联系人姓名
+        pro_id:that.data.province.id,//省份id
+        city_id:that.data.city.id,//城市id
+        address:that.data.address,//详细地址
+        yjtimwbank:that.data.yjtimwbank,//预计使用时间
+        numper:that.data.numper,//每人件数
+        peoplenum:that.data.peoplenum//人数
+      },
+      success:function(res){
+
+      }
+    })
     my.navigateTo({url:'../index/index'})
   }
 });

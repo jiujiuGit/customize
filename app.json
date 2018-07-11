@@ -1,13 +1,13 @@
 {
   "pages": [
+    "pages/customType/customType",
+    "pages/placeTeamOrder/placeTeamOrder",
+    
+    "pages/groupForm/groupForm",
     "pages/modelList/modelList",
     "pages/index/index",
-    "pages/groupForm/groupForm",
     
-    
-    "pages/customType/customType",
-    
-    
+  
     
     "pages/canvas/canvas",
     "pages/placeTeamOrder/placeTeamOrder",

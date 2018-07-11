@@ -96,7 +96,7 @@
     z-index: 200;
     background-color: white;
 }
-.icon-gou{
+#resIcon{
     margin-top: 56px;
     text-align: center;
 }
@@ -111,4 +111,14 @@
     font-size: 12px;
     color: #7A7A7A;
     text-align: center;
+}
+
+#phone{
+    text-align: center;
+    text-decoration: underline;
+    color: #E02666;
+}
+.icon-gou{
+    font-size: 40px;
+    color: #23B60B;
 }

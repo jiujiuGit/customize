@@ -3,9 +3,9 @@
     <view class="section section-basic">
       <view class="hint">基本信息</view>
       <view class="section-content">
-        <view><text>联系人姓名</text><input type="text" placeholder="" auto-focus  /></view>
-        <view><text>联系电话</text><input type="" placeholder="" auto-focus  /></view>
-        <view><text>公司名称</text><input type="text" placeholder="" auto-focus  /></view>
+        <view><text>联系人姓名</text><input type="text" maxlength=12 placeholder="" auto-focus  onInput='nameInput'/></view>
+        <view><text>联系电话</text><input type="" placeholder=""   onInput='telInput' /></view>
+        <view><text>公司名称</text><input type="text" maxlength=60  placeholder=""  onInput='companyInput'   /></view>
       </view>
     </view>
 
@@ -34,16 +34,16 @@
             </picker>
           </view>
         </view>
-        <view><text>详细地址</text><input type="text" placeholder="" auto-focus  /></view>
+        <view><text>详细地址</text><input type="text" placeholder=""  onInput='addressInput' /></view>
       </view>
     </view>
 
     <view class="section section-demand">
       <view class="hint">定制需求</view>
       <view class="section-content">
-        <view><text>定制服装人数</text><input type="text" placeholder="" auto-focus  /></view>
-        <view><text>每人定制数量</text><input type="text" placeholder="" auto-focus  /></view>
-        <view><text>预计使用时间</text><input type="text" placeholder="" auto-focus  /></view>
+        <view><text>定制服装人数</text><input type="number" placeholder=""  onInput='peopleInput'/></view>
+        <view><text>每人定制数量</text><input type="number" placeholder="" onInput='numberInput' /></view>
+        <view><text>预计使用时间</text><input type="text" placeholder="例如：1个月后使用"  onInput='timeInput'/></view>
 
       </view>
     </view>

@@ -9,7 +9,11 @@ Page({
     currentTab:1,
     side:'正面',
     sizeTab:0,
-    success:false //是否下单成功
+    success:false, //是否下单成功
+    layerMsg:'',
+    worksname:'',
+    logolink:'',
+    resStr:''
   },
   onLoad(query) {
     // this.setData({
@@ -37,8 +41,33 @@ Page({
       },
     });
 
+    // 文案接口
+    my.httpRequest({
+      url: 'http://bbltest.color3.cn/Mobile/Api/getwenan', // 目标服务器url
+      dataType:'json',
+      method: 'post',
+      data:{
+       
+      },
+      success: (res) => {
+        that.setData({
+          resStr:res.data
+        })
+        // console.log(that.data.sizes)
+      },
+    });
+
   },
-  
+  nameInput(e){
+    this.setData({
+      worksname:e.detail.value
+    })
+  },
+  logoInput(e){
+    this.setData({
+      logolink:e.detail.value
+    })
+  },
   left(){
     const that = this;
     let current = this.data.currentTab;
@@ -131,28 +160,36 @@ Page({
   confirmOrder(){
     const that = this;
     my.httpRequest({
-      url:'http://bbltest.color3.cn/Mobile/Api/suborder',
+      url:'http://bbltest.color3.cn/Mobile/Api/issubteamorder',
       method:'POST',
       dataType:'json',
       data:{
-        size:that.data.sizes[that.data.sizeTab],
-        wid:77,
+        worksname:that.data.worksname,
+        logolink:that.data.logolink,
+        wid:112,
+        orderid:20,
         zfb_userid:'999'
       },
       success:function(res){
+        that.setData({
+            success:true
+        })
         if(res.data.status == 1){
           that.setData({
             success:true
           })
         }
       },
-      fail:function(){
-
+      fail:function(res){
+        
       }
     })
   },
 
   home(){
     my.reLaunch({url:'../customType/customType'});
+  },
+  call(){
+     my.makePhoneCall({ number: this.data.resStr.phone});
   }
 });

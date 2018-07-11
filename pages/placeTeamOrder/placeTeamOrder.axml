@@ -26,8 +26,8 @@
   <view class="style-block">
     <text class="hint">订单信息</text>
     <view class="input-area">
-      <input type="text" placeholder="定制服装名称" auto-focus  />
-      <input type="text" placeholder="LOGO下载地址" auto-focus  />
+      <input type="text" placeholder="定制服装名称" onInput="nameInput" auto-focus  />
+      <input type="text" placeholder="LOGO下载地址" onInput="logoInput" auto-focus  />
      
     </view>
     <view class="qty">定制数量：100件</view>
@@ -42,8 +42,9 @@
   <!-- 弹框 -->
   <view class="layer" a:if="{{success}}">
     <view class="layer-box">
-      <view class ="icon-gou"><text>gou</text></view>
-      <view class="resMsg">恭喜你，下单成功</view>
+      <view id='resIcon'><text class="iconfont icon-gou"></text></view>
+      <view class="resMsg">{{resStr.string}}</view>
+      <view id="phone" onTap="call">{{resStr.phone}}</view>
       <view class="home" onTap="home">返回首页</view>
     </view>
   </view>
