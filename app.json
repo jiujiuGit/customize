@@ -1,11 +1,16 @@
 {
   "pages": [
+   
     "pages/customType/customType",
+     "pages/individualForm/individualForm",
     "pages/placeTeamOrder/placeTeamOrder",
+    
+    "pages/index/index",
+    
     
     "pages/groupForm/groupForm",
     "pages/modelList/modelList",
-    "pages/index/index",
+    
     
   
     
@@ -25,7 +30,8 @@
     "pages/sticker/sticker",
     "pages/sideSticker/sideSticker",
     "pages/images/images",
-    "pages/bgList/bgList"
+    "pages/bgList/bgList",
+     "pages/todos/todos"
     
   ],
   "window": {

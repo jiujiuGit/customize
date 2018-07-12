@@ -36,7 +36,7 @@ Page({
       },
       dataType: 'json',
       success: function(res) {
-        my.hideLoading();
+        
         that.setData({
           stickers:res.data.list
         })
@@ -46,6 +46,7 @@ Page({
         // my.alert({content: 'fail'});
       },
       complete: function(res) {
+        my.hideLoading();
         // my.hideLoading();
         // my.alert({content: 'complete'});
       }

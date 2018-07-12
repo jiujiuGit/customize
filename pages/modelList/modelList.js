@@ -1,6 +1,7 @@
 var app = getApp();
 Page({
   data: {
+    type:0, //定制类型 ，1个人，2团体
     background: ['green', 'red', 'yellow'],
     indicatorDots: true,
     autoplay: false,
@@ -10,40 +11,7 @@ Page({
     fabricList:[],
     fabricId:1, //当前点击的fabricID
     picname:'',
-    swiperList: [{//除了1，2之外，其它的swpClass都是swp-rightNo
-      aurl: "../start/start",
-      swpClass: "swp-center",
-      time: "2018年3月下11",
-      bname: "11111",
-      imgsrc: "../../assets/images/108.png"
-    }, {
-      aurl: "#",
-      swpClass: "swp-right",
-      time: "2018年3月下22",
-      bname: "22222",
-      imgsrc: "../../assets/images/108.png"
-    }, 
-    {
-      aurl: "#",
-      swpClass: "swp-rightNo",
-      time: "2018年3月下22",
-      bname: "33333",
-      imgsrc: "../../assets/images/108.png"
-    }, 
-    {
-      aurl: "#",
-      swpClass: "swp-rightNo",
-      time: "2018年3月下22",
-      bname: "44444",
-      imgsrc: "../../assets/images/108.png"
-    }, 
-    {
-      aurl: "#",
-      swpClass: "swp-rightNo",
-      time: "2018年3月下33",
-      bname: "55555",
-      imgsrc: "../../assets/images/108.png"
-    }],
+    swiperList: [],//除了1，2之外，其它的swpClass都是swp-rightNo
     swpCurIdx:0,
     swpPrevPosition:'',
     swpEndPosition:''
@@ -112,7 +80,11 @@ Page({
       interval: e.detail.value
     })
   },
-  onLoad() {},
+  onLoad() {
+    this.setData({
+      type:app.globalData.type, //定制类型 ，1个人，2团体
+    })
+  },
   fabricTap(e){
     // console.log(e)
     // console.log(e.currentTarget.dataset.id)
@@ -138,14 +110,32 @@ Page({
     const prodId = this.data.modelList[this.data.swpCurIdx].id;  //款式id
     // console.log(index)
     const picname = this.data.swiperList[index].picname;
-    console.log(this.data.fabricId)
-    my.navigateTo({ url: "../index/index?prodId="+prodId+"&picname="+picname+'&fabricId'+this.data.fabricId });
-    app.globalData.frontItems = []  //清空定制项
-    app.globalData.backItems = []
-    this.setData({
-      stickerIndex : -1
-    })
-    app.globalData.footer = 'list' //定制页面底部展示列表
+    const fabricId = this.data.fabricId;
+    console.log(this.data.type)
+    if(this.data.type == 2){
+      app.globalData.teamData = {//团体
+        prodId:prodId, //款式id
+        picname:picname,//款式名字
+        fabricId:fabricId//面料id
+      }
+      my.navigateTo({url:'../groupForm/groupForm'});
+      // my.navigateTo({ url: "../index/index?prodId="+prodId+"&picname="+picname+'&fabricId'+this.data.fabricId });
+    }else if(this.data.type == 1){  //个人
+        my.navigateTo({url:'../index/index'});
+        // my.navigateTo({ url: "../index/index?prodId="+prodId+"&picname="+picname+'&fabricId'+this.data.fabricId });
+        app.globalData.frontItems = []  //清空定制项
+        app.globalData.backItems = []
+        this.setData({
+          stickerIndex : -1
+        })
+        app.globalData.individualData = {
+          prodId:prodId, //款式id
+          picname:picname,//款式名字
+          fabricId:fabricId//面料id
+      }
+        app.globalData.footer = 'list' //定制页面底部展示列表
+    }
+    
   },
   swpBtn: function (e) {
     var swp = this.data.swiperList;

@@ -1,0 +1,57 @@
+<view class="container">
+  <form onSubmit="" onReset="">
+    <view class="section section-basic">
+      <view class="hint">基本信息</view>
+      <view class="section-content">
+        <view><text>联系人姓名</text><input type="text" maxlength=12 placeholder="" auto-focus  onInput='nameInput'/></view>
+        <view><text>联系电话</text><input type="" placeholder=""   onInput='telInput' /></view>
+        <!-- <view><text>公司名称</text><input type="text" maxlength=60  placeholder=""  onInput='companyInput'   /></view> -->
+      </view>
+    </view>
+
+    <view class="section section-address">
+      <view class="hint">收货地址</view>
+      <view class="section-content">
+        <view class="flex-box">
+          <!-- 选择省 -->
+          <view class="flex-box provincePicker">
+            <text>请选择</text>
+            <picker onChange="bindPickerChange" value="{{index}}" range="{{pros}}"  range-key="name">
+              <view class="picker">
+                {{province.name}}
+                <text class="Italic">省</text>
+              </view>
+            </picker>
+          </view>
+          <!-- 选择市 -->
+          <view onTap="chooseCity" class="flex-box cityPicker">
+            <text>请选择</text>
+            <picker onChange="cityPickerChange" value="{{index}}" range="{{citys}}"  range-key="name" disabled ={{cityPicker}}>
+              <view class="picker">
+                {{city.name}}
+                <text class="Italic">市</text>
+              </view>
+            </picker>
+          </view>
+        </view>
+        <view><text>详细地址</text><input type="text" placeholder=""  onInput='addressInput' /></view>
+      </view>
+    </view>
+
+    <!-- <view class="section section-demand">
+      <view class="hint">定制需求</view>
+      <view class="section-content">
+        <view><text>定制服装人数</text><input type="number" placeholder=""  onInput='peopleInput'/></view>
+        <view><text>每人定制数量</text><input type="number" placeholder="" onInput='numberInput' /></view>
+        <view><text>预计使用时间</text><input type="text" placeholder="例如：1个月后使用"  onInput='timeInput'/></view>
+
+      </view>
+    </view> -->
+    
+
+
+    <view class="next" onTap="next">
+      <button formType="submit">下一步</button>
+    </view>
+  </form>
+</view>

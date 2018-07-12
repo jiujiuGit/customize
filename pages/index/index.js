@@ -1,7 +1,7 @@
 var app = getApp();
 Page({
   data: {
-    type:app.data.type,
+    type:app.globalData.type,
     windowActive:false,
     windowPosition:{
       before:0,
@@ -69,7 +69,7 @@ Page({
       rightStickerId:app.globalData.rightStickerId
     });
     this.getSystemInfoPage();
-    console.log(this.data.prodId)
+    console.log(this.data.frontItemList)
     if(this.data.leftStickerId){  //请求左侧面背景图
       my.httpRequest({
         url: 'http://bbltest.color3.cn/Mobile/Api/getImageByDid',
@@ -135,24 +135,30 @@ Page({
 
   
   },
-  onLoad(query) {
-    this.setData({
-      picname:query.picname,
-      prodId:query.prodId,
-      fabricId:query.fabricId
-    })
-    // this.setData({
-    //   picname:"T恤",
-    //   prodId:1,
-    //   fabricId:"21"
-    // })
+  onLoad(query) {  
+    if(app.globalData.type == 2){
+      this.setData({
+        type:app.globalData.type,
+        picname:app.globalData.teamData.picname,
+        prodId:app.globalData.teamData.prodId,
+        fabricId:app.globalData.teamData.fabricId
+      })
+    } else if(app.globalData.type == 1){
+      this.setData({
+        type:app.globalData.type,
+        picname:app.globalData.individualData.picname,
+        prodId:app.globalData.individualData.prodId,
+        fabricId:app.globalData.individualData.fabricId
+      })
+    }
+    
     const that = this;
     //获取背景图
     my.httpRequest({
       url: 'http://bbltest.color3.cn/Mobile/Api/get_style_bg',
       method: 'post',
       data: {
-        // id:query.prodId
+        // id:this.data.prodId
         id:1
       },
       dataType: 'json',
@@ -534,6 +540,10 @@ Page({
           items = this.data.backItemList; 
         }
         const index = this.data.index; 
+        console.log(items[index].pictype)
+        if(items[index].pictype == 2){
+          return;
+        }
         items[index]._tx = e.touches[0].clientX;  
         items[index]._ty = e.touches[0].clientY;  
         //移动的点到圆心的距离  
@@ -723,6 +733,8 @@ Page({
   },
   //清除功能
   cleanUp(e){
+    const currentTap = this.data.currentTap;
+    const that = this;
     my.confirm({
       title: '温馨提示',
       content: '是否清空当前画布',
@@ -730,6 +742,27 @@ Page({
       cancelButtonText: '取消',
       success: (result) => {
         if(result.confirm){
+
+          if(currentTap == 'front'){
+            that.setData({
+              frontItemList:[]
+            })
+          }else if(currentTap == 'back'){
+            that.setData({
+              backItemList:[]
+            })
+          }else if(currentTap == 'leftSide'){ //清除左侧
+            that.setData({
+              leftStickerId:'',
+              leftSidePicId:0, //左侧图片id
+    
+            })
+          }else if(currentTap == 'rightSide'){ //清除右侧
+            that.setData({
+              rightStickerId:'',
+              rightSidePicId:0,//右侧图片id
+            })
+          }
           // for(let i = 0;i<app.globalData.items.length;i++){
           //   if(app.globalData.items[i].ground == 'front'){
           //       app.globalData.items.splice(i,1)
@@ -1103,8 +1136,10 @@ Page({
     console.log(JSON.stringify(frontItemList))
     
     // 先下载贴纸,正反面
-     for(let i=frontItemList.length-1;i>-1;i--){  //正面
+    //  for(let i=frontItemList.length-1;i>-1;i--){  //正面
+     for(let i=0;i<frontItemList.length-1;i++){  //正面
         if(frontItemList[i].image !=undefined){
+          
           my.downloadFile({
           url: frontItemList[i].image, // 下载文件地址
           success: (res) => {         
@@ -1116,7 +1151,8 @@ Page({
         }
      }
 
-     for(let i=backItemList.length-1;i>-1;i--){ //背面
+    //  for(let i=backItemList.length-1;i>-1;i--){ //背面
+    for(let i=0;i<backItemList.length-1;i++){  //背面
         if(backItemList[i].image !=undefined){
           my.downloadFile({
           url: backItemList[i].image, // 下载文件地址
@@ -1230,7 +1266,8 @@ Page({
       areaTop = that.data.bgList.top2; //定制框top
     }
     
-    for(let i=itemList.length-1;i>-1;i--){
+    // for(let i=itemList.length-1;i>-1;i--){
+    for(let i=0;i<itemList.length-1;i++){
         console.log(itemList[i])
         const item = itemList[i]
         // this.ctx.rotate(30 * Math.PI / 180);
@@ -1328,8 +1365,8 @@ Page({
     }
   
     // console.log(JSON.stringify(itemList))
-    for(let i=itemList.length-1;i>-1;i--){
-
+    // for(let i=itemList.length-1;i>-1;i--){
+    for(let i=0;i<itemList.length;i++){
         const item = itemList[i]
         // this.ctx.rotate(30 * Math.PI / 180);
         that.ctx.save();
@@ -1428,77 +1465,86 @@ Page({
 
     let userInfo;
     const that = this;
-      // 获取用户信息
-    my.getAuthCode({
-      scopes: 'auth_user', // 主动授权（弹框）：auth_user，静默授权（不弹框）：auth_base
-      success: (res) => {
-        let nickname ;
-        my.getAuthUserInfo({
-            success: (userInfo) => {
-              nickname = userInfo.nickName
-            }
-        });
-        if (res.authCode) {
-          // 认证成功
-          // 调用自己的服务端接口，让服务端进行后端的授权认证，并且种session，需要解决跨域问题
-          my.httpRequest({
-            url: 'http://isv.com/auth', // 该url是自己的服务地址，实现的功能是服务端拿到authcode去开放平台进行token验证
-            data: {
-              authcode: res.authcode
-            },
-            success: (res) => {
-              // 授权成功并且服务器端登录成功
-              userInfo = res
-              // console.log(JSON.stringify(res));
-              my.httpRequest({
-                url:'http://bbltest.color3.cn/Mobile/Api/saveworkdesk',
-                dataType:'json',
-                method:'POST',
-                data:{
-                  'type_id':that.data.prodId,   //款式id
-                  'specitem_id':that.data.fabricId,   //材质id
-                  'position_front':that.data.saveworkdesk.position_front_remix,   //正面合成图片base64编码
-                  'position_front_remix':that.data.saveworkdesk.position_front,    //正面整体图片
-                  'position_back':that.data.saveworkdesk.position_back_remix,    //反面合成图片
-                  'position_back_remix':that.data.saveworkdesk.position_back,     //反面整体图片
-                  'position_side_id':that.data.leftSidePicId,   //侧面的图片id左侧
-                  'position_side_id1':that.data.rightSidePicId,//侧面的图片id右侧
-                  'size':that.data.fabricId,  //尺码
-                  // 'color':'',   //颜色id
-                  // 'group_idf':'',  //正面组件id
-                  // 'group_idb':'',  //反面组件id
-                  'group_idl':that.data.leftStickerId, //左侧贴纸id
-                  'group_idr':that.data.rightStickerId,//右侧贴纸id
-                  'worksname':'',//作品名称
-                  'numtype':2, //1个人 2团体
-                  'nickname':'',  //支付宝用户昵称
-                  'zfb_userid':999 //支付宝id
-                },
-                success:function(res){
-                  my.hideLoading();
-                  my.navigateTo({url:'../placeIndividualOrder/placeIndividualOrder?id='+res.data.id})
-                },
-                fail:function(){
-
-                },
-                complete:function(){
-                  
-                }
-              })
-
-
-
-            },
-            fail: (res) => {
-              console.log(res)
-            },
-          });
-        }
+    
+    my.httpRequest({
+      url:'http://bbltest.color3.cn/Mobile/Api/saveworkdesk',
+      dataType:'json',
+      method:'POST',
+      data:{
+        'type_id':that.data.prodId,   //款式id
+        'specitem_id':that.data.fabricId,   //材质id
+        'position_front':that.data.saveworkdesk.position_front_remix,   //正面合成图片base64编码
+        'position_front_remix':that.data.saveworkdesk.position_front,    //正面整体图片
+        'position_back':that.data.saveworkdesk.position_back_remix,    //反面合成图片
+        'position_back_remix':that.data.saveworkdesk.position_back,     //反面整体图片
+        'position_side_id':that.data.leftSidePicId,   //侧面的图片id左侧
+        'position_side_id1':that.data.rightSidePicId,//侧面的图片id右侧
+        'size':that.data.fabricId,  //尺码
+        // 'color':'',   //颜色id
+        'group_idf':'',  //正面贴纸组件id
+        'group_idb':'',  //背面贴纸组件id
+        'group_idl':that.data.leftStickerId, //左侧贴纸id
+        'group_idr':that.data.rightStickerId,//右侧贴纸id
+        'worksname':'',//作品名称
+        'numtype':2, //1个人 2团体
+        'nickname':app.globalData.userInfo.nickName,  //支付宝用户昵称
+        'zfb_userid':999 //支付宝id
       },
-      fail:(res)=>{
-        console.log(res)
+      success:function(res){
+        my.hideLoading();
+        if(that.data.type == 1){
+          my.navigateTo({url:'../placeIndividualOrder/placeIndividualOrder?id='+res.data.id})
+        }else if(that.data.type == 2){
+          my.navigateTo({url:'../placeTeamOrder/placeTeamOrder?id='+res.data.id})
+        }
+        
+      },
+      fail:function(){
+
+      },
+      complete:function(){
+        
       }
-    });
+    })
+
+
+    //   // 获取用户信息
+    // my.getAuthCode({
+    //   scopes: 'auth_user', // 主动授权（弹框）：auth_user，静默授权（不弹框）：auth_base
+    //   success: (res) => {
+    //     let nickname ;
+    //     my.getAuthUserInfo({
+    //         success: (userInfo) => {
+    //           nickname = userInfo.nickName
+    //         }
+    //     });
+    //     if (res.authCode) {
+    //       // 认证成功
+    //       // 调用自己的服务端接口，让服务端进行后端的授权认证，并且种session，需要解决跨域问题
+    //       my.httpRequest({
+    //         url: 'http://isv.com/auth', // 该url是自己的服务地址，实现的功能是服务端拿到authcode去开放平台进行token验证
+    //         data: {
+    //           authcode: res.authcode
+    //         },
+    //         success: (res) => {
+    //           // 授权成功并且服务器端登录成功
+    //           userInfo = res
+    //           // console.log(JSON.stringify(res));
+              
+
+
+
+    //         },
+    //         fail: (res) => {
+    //           console.log(res)
+    //         },
+    //       });
+    //     }
+    //   },
+    //   fail:(res)=>{
+    //     console.log(res)
+    //   }
+    // });
 
 
 
@@ -1597,4 +1643,5 @@ Page({
     }
     
   }
+ 
 });

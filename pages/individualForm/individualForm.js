@@ -37,32 +37,32 @@ Page({
       phone: e.detail.value,
     });
   },
-  companyInput(e){
-    this.setData({
-      company: e.detail.value,
-    });
-  },
+  // companyInput(e){
+  //   this.setData({
+  //     company: e.detail.value,
+  //   });
+  // },
   addressInput(e){
     this.setData({
       address: e.detail.value,
     });
   },
   
-  peopleInput(e){
-    this.setData({
-      peoplenum: e.detail.value,
-    });
-  },
-  numberInput(e){
-    this.setData({
-      numper: e.detail.value,
-    });
-  },
-  timeInput(e){
-    this.setData({
-      yjtimwbank: e.detail.value,
-    });
-  },
+  // peopleInput(e){
+  //   this.setData({
+  //     peoplenum: e.detail.value,
+  //   });
+  // },
+  // numberInput(e){
+  //   this.setData({
+  //     numper: e.detail.value,
+  //   });
+  // },
+  // timeInput(e){
+  //   this.setData({
+  //     yjtimwbank: e.detail.value,
+  //   });
+  // },
   chooseCity(){
     const that = this;
     if(that.data.province.id == undefined){
@@ -167,10 +167,11 @@ Page({
     //   return;
     // }
     my.httpRequest({
-      url:'http://bbltest.color3.cn/Mobile/Api/subteamorder',
+      url:'http://bbltest.color3.cn/Mobile/Api/subgerenaddress',
       dataType:'json',
       method:'POST',
       data:{
+        orderid:'',
         company:that.data.company, //公司
         phone:that.data.phone,//电话
         name:that.data.name,//联系人姓名

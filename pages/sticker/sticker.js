@@ -65,7 +65,7 @@ Page({
       },
       dataType: 'json',
       success: function(res) {
-        my.hideLoading();
+        
         that.setData({
           stickers:res.data.list
         })
@@ -75,6 +75,7 @@ Page({
         // my.alert({content: 'fail'});
       },
       complete: function(res) {
+        my.hideLoading();
         // my.hideLoading();
         // my.alert({content: 'complete'});
       }
@@ -85,8 +86,22 @@ Page({
     // console.log( e.target.dataset.index);
     let tapIndex = e.target.dataset.index;
     let imgLength = app.globalData.items.length;
-
-    const item = {  
+    let item = {};
+    if(this.data.stickers[tapIndex].pictype != undefined){  //贴纸类型
+          item.pictype = this.data.stickers[tapIndex].pictype;
+    }
+    
+    
+    console.log(item.pictype)
+    if(item.pictype == 3){  //定制贴纸，弹框输入定制内容
+      this.setData({
+        editContent:true
+      })
+      return;
+     
+    }else if(item.pictype == 1 || item.pictype == 2){  //普通贴纸和魔术贴
+      
+      item = {  
             // id: imgLength+1,   
             top: 100,//初始图片的位置   
             left: 100,  
@@ -102,22 +117,18 @@ Page({
             zindex:imgLength+1
             
         }
-    item.image = this.data.stickers[tapIndex].pic
-    item.picw  = this.data.stickers[tapIndex].picw;
-    item.pich = this.data.stickers[tapIndex].pich;
-    item.stickerid = this.data.stickers[tapIndex].id;
-    if(this.data.stickers[tapIndex].pictype != undefined){  //贴纸类型
-      item.pictype = this.data.stickers[tapIndex].pictype;
+      if(item.pictype == 1){
+        item.pictype = 1;
+      }else{
+        item.pictype = 2;
+      }
+      item.image = this.data.stickers[tapIndex].pic
+      item.picw  = this.data.stickers[tapIndex].picw;
+      item.pich = this.data.stickers[tapIndex].pich;
+      item.stickerid = this.data.stickers[tapIndex].id;
     }
 
-    if(item.pictype == 3){  //定制贴纸，弹框输入定制内容
-      this.setData({
-        editContent:true
-      })
-      return;
-    }
-
-
+    console.log(item)
 
     if(this.data.ground == 'front'){  //添加到front编辑列表
       const frontLength = app.globalData.frontItems.length
@@ -153,7 +164,49 @@ Page({
     this.setData({
       editContent:false
     })
-    console.log(this.data.inputValue)
+
+    let item = {  
+        pictype:3,
+        // id: imgLength+1,   
+        top: 100,//初始图片的位置   
+        left: 100,  
+        x: 155, //初始圆心位置，可再downImg之后又宽高和初始的图片位置得出  
+        y: 155,  
+        scale: 1,//缩放比例  1为不缩放  
+        angle: 0,//旋转角度  
+        active: false, //判定点击状态
+        rotate:0,
+        opacity:100,//透明度
+        type:'text',  //文字  
+        ground:this.data.currentTap,
+        fontFamily:'SimSun',
+        fontSize:12,
+        color:'black'
+      }
+      
+      item.text =  this.data.inputValue;
+      if(this.data.ground == 'front'){  //添加到front编辑列表
+      const frontLength = app.globalData.frontItems.length
+      item.id = frontLength+1;
+      app.globalData.frontItems.push(item)
+      app.globalData.stickerIndex = app.globalData.frontItems.length-1
+    }else if(this.data.ground == 'back'){ //添加到back编辑列表
+    const backLength = app.globalData.backItems.length
+      item.id = backLength+1;
+      app.globalData.backItems.push(item)
+      app.globalData.stickerIndex = app.globalData.backItems.length-1
+    }
+
+
+    // app.globalData.items.push(item);
+    my.navigateBack({
+      delta: 1
+    })
+    console.log(item.id)
+    this.setData({
+      stickerIndex : item.id
+    })
+    app.globalData.footer = 'imgTransparency'
   },
   bindKeyInput(e){
     console.log(e)
