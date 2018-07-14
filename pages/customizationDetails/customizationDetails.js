@@ -21,5 +21,18 @@ Page({
   },
   call(){
      my.makePhoneCall({ number: '400-7417474' });
+  },
+  defaultTap(){
+    my.httpRequest({
+      url: 'http://bbltest.color3.cn/Mobile/Api/sureorderchil', // 目标服务器url
+      mthod:'POST',
+      dataType:'json',
+      data:{
+
+      },
+      success: (res) => {
+        
+      },
+    });
   }
 });
