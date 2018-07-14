@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/orderDetail/orderDetail",
+    "pages/orderList/orderList",
    
     "pages/customType/customType",
      "pages/individualForm/individualForm",
@@ -20,9 +22,9 @@
     
     
     "pages/customizationDetails/customizationDetails",
-    "pages/orderDetail/orderDetail",
     
-    "pages/orderList/orderList",
+    
+    
     
     
     

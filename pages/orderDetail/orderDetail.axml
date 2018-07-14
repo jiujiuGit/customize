@@ -1,27 +1,28 @@
 <view style="background-color:#474747;width:750rpx">
   <view>
     <view class="state">
-      <text class="iconfont icon-beijing"></text> <text class="state-des">定制生产中</text>
+      <image id='loading-icon' src="../../assets/icon/icon_loading.png" mode="widthFixed" /> <text class="state-des">{{orderDetail.statusName}}</text>
     </view>
 
     <view class="detail-container">
       <view>
         <view class="section-card">
           <view class="flex-box prod-msg">
-            <image id='prodImg' src="../../assets/images/img_geren.png" mode="widthFix" />
+            <image id='prodImg' src="{{orderDetail.position_front_image}}" mode="aspectFit" />
             <view class="msg-right">
-              <view class="prod-name">男白色T恤</view>
-              <view class="custom-qty"><text>已定制:54件，   </text> <text>未定制：100件</text></view>
-              <view class="prod-price">￥2999.99</view>
+              <view class="prod-name">{{orderDetail.worksname}}</view>
+              <view class="custom-qty"><text>已定制:{{orderDetail.yinum}}件，   </text> <text>未定制：{{orderDetail.weinum}}件</text></view>
+              <view class="prod-price">￥{{orderDetail.total_amount}}</view>
             </view>
             
           </view>
-          <view class="card-state">
-            <text class="state-hint">您的订单未确认</text> <text class="date">2018-09-10 19:00</text>
+          <view class="card-state" >
+            <text class="state-hint">您的订单{{orderDetail.statusName}}</text> <text class="date">{{orderDetail.nowtime}}</text>
           </view>
           <view class="card-btn flex-box flex-justify-between"> 
-             <button form-type="reset" class="quit">取消订单</button>
-             <button form-type="confirm" class="comfirm">确认订单</button>
+             <button form-type="reset" class="quit" a:if="{{orderDetail.order_status == '1' || orderDetail.order_status == '3'}}" onTap="cancle">取消订单</button>
+             <button form-type="confirm" class="comfirm" onTap="confirm">确认订单</button>
+             <button type="default" size="defaultSize" onTap="defaultTap" a:if="{{orderDetail.order_status == '1'}}">提醒发货 </button>
           </view>
         </view>
 
@@ -29,11 +30,11 @@
         <view class="detail-section section-recive">
           <text class="section-title">收货信息</text>
           <view class="section-lines">
-            <view>收货人：啾啾</view>
-            <view>收货地址：上海市浦东新区</view>
+            <view>收货人：{{orderDetail.consignee}}</view>
+            <view>收货地址：{{orderDetail.address}}</view>
           </view>
         </view>
-        <view class="detail-section section-qrcode">
+        <view class="detail-section section-qrcode" a:if="{{orderDetail.erweima!='' && orderDetail.order_status == '3'}}">
           <text class="section-title">定制二维码</text>
           <!-- <image src="" mode="" /> -->
           <view class="qrCode-text">
@@ -43,9 +44,9 @@
         <view class="detail-section section-order">
           <text class="section-title">订单信息</text>
           <view class="section-lines">
-            <view>订单编号：1290381923210</view>
-            <view>订单时间：2018:10：10</view>
-            <view>下单时间：2016:10:12</view>
+            <view>订单编号：{{orderDetail.order_sn}}</view>
+            <view>订单时间：{{orderDetail.ordertime}}</view>
+            <view>下单时间：{{orderDetail.addtime}}</view>
           </view>
         </view>
 

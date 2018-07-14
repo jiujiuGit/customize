@@ -14,6 +14,7 @@
     font-weight: 600;
     font-size: 14px;
     margin-top: 5px;
+    
 }
 .item-state{
     color: #E02666;
@@ -57,8 +58,8 @@
 }
 .btn{
     width: 85px;
-    height: 35px;
-    line-height: 35px;
+    height: 30px;
+    line-height: 30px;
     text-align: center;
     border-radius: 4px;
     font-size: 13px;
@@ -72,4 +73,28 @@
     border: 1px solid #E02666;
     background-color: #E02666;
     color: white;
+}
+#my-layer{
+    /* width: auto; */
+}
+#text{
+    font-weight: bold;
+    text-align: center;
+    line-height: 20px;
+    font-size:15px;
+    margin: 20px 0;
+    /* white-space: nowrap; */
+    padding: 0 15px;
+}
+#close{
+    text-align: center;
+    margin-bottom: 10px;
+    color: #7A7A7A;
+    font-size: 12px;
+}
+#phone{
+    color: #E02666;
+    text-align: center;
+    line-height: 50px;
+    text-decoration: underline;
 }
