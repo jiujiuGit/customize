@@ -1,6 +1,7 @@
 Page({
   data: {
     orderSn:'',//父订单号
+    list:[]
   },
   onLoad(query) {
     const that = this;
@@ -15,7 +16,9 @@ Page({
         order_sn:that.data.orderSn
       },
       success: (res) => {
-        
+        that.setData({
+          list:res.data.data
+        })
       },
     });
   },

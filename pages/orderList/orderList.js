@@ -3,10 +3,22 @@ Page({
     orderList:[],
     wenan:{},
     text:'', //弹框显示内容
-    showLayer:false
+    showLayer:false,
+    systemInfo:''
   },
   onLoad() {
     const that = this;
+
+    // 获取屏幕信息
+    my.getSystemInfo({
+      success: (res) => {
+        this.setData({
+          systemInfo: res
+        })
+      }
+    })
+
+
     my.showLoading({
       content: '加载中...',
     });
@@ -25,7 +37,7 @@ Page({
           // 0未确认 未付款（团队订单不显示下面定制按钮） 1已确认（团队订单显示定制生产中） 3付款（如果是个人就显示生产中 如果是团队就显示个人定制中 下方开始选择定制按钮） 4已发货 5已完成 6已取消
           switch(statusCode){
             case "0":
-              list[i].statusName = '未确认';
+              list[i].statusName = '未付款';
               break;
             case "1":
               list[i].statusName = '已确认';
@@ -93,16 +105,52 @@ Page({
       showLayer:false
     })
   },
-  kefu(){
+  // 支付按钮
+  pay(){
     this.setData({
       showLayer:true,
-      text:this.data.wenan.string
+      text:this.data.wenan.quzhifu
     })
   },
+  // 修改地址
   updateAddr(){
     this.setData({
       showLayer:true,
       text:this.data.wenan.xiugaidizhi
     })
+  },
+  // 查看物流
+  wuliu(e){
+    my.navigateTo({url:'../orderDetail/orderDetail?id='+e.currentTarget.dataset.id});
+  },
+  // 开始定制
+  confirm(e){
+    const that = this;
+    my.httpRequest({
+      method:'POST',
+      dataType:'json',
+      url: 'http://bbltest.color3.cn/Mobile/Api/suborder', // 目标服务器url
+      data:{
+        orderid:e.currentTarget.dataset.id
+      },
+      success: (res) => {
+        
+      },
+    });
+  },
+  // 确认收货
+  recieve(e){
+    const that = this;
+    my.httpRequest({
+      method:'POST',
+      dataType:'json',
+      url: 'http://bbltest.color3.cn/Mobile/Api/sureordershouhuo', // 目标服务器url
+      data:{
+        orderid:e.currentTarget.dataset.id
+      },
+      success: (res) => {
+        
+      },
+    });
   }
 });

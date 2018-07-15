@@ -41,7 +41,7 @@
   </view>
 
   <view class="confirm-order">
-    <button type="primary" onTap="confirmOrder">确认订单</button>
+    <button type="primary" onTap="confirmOrder">下一步</button>
   </view>
 
   

@@ -53,3 +53,11 @@
 .Italic{
     font-style:italic;
 }
+#call{
+    position: fixed;
+    left: 20px;
+    bottom: 80px;
+    color:#239BC9;
+    font-size: 12px;
+    text-decoration: underline;
+}

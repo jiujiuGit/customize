@@ -1,4 +1,4 @@
-<view style='background:rgba(242,243,245,1);'>
+<view style='background:rgba(242,243,245,1);height:{{systemInfo.screenHeight}}px;overflow:scroll'>
   <view class="order-item" a:for="{{orderList}}">
     <view class="flex-box ">
       <view ><image class="item-image" src="{{item.position_front_image}}" mode="widthFix" /></view>
@@ -20,16 +20,23 @@
       </view>
     </view>
     <view class="flex-box operate-btns">
-      <button form-type="submit" plain class="btn gray" a:if="{{item.order_status == '4'}}" onTap="wuliu">查看物流</button>
-      <button form-type="submit" class="btn pink" a:if="{{item.order_status == '0' && item.numtype!='2'}}">开始定制</button>
-      <button form-type="submit" class="btn pink" a:if="{{item.order_status == '0'}}" onTap="kefu">联系客服</button>
-      <button form-type="submit" class="btn pink" a:if="{{item.order_status == '4'}}">确认收货</button>
-      <button form-type="submit" class="btn pink" onTap="updateAddr" a:if="{{item.order_status == '1'}}">修改收货地址</button>
+      <button form-type="submit" plain class="btn gray" a:if="{{item.order_status == '4'}}" data-id='{{item.order_id}}' onTap="wuliu">查看物流</button>
+      <button form-type="submit" class="btn pink" a:if="{{item.order_status == '3' && item.numtype=='2'}}" data-id='{{item.order_id}}' onTap='confirm'>开始定制</button>
+      <button form-type="submit" class="btn pink" a:if="{{item.order_status == '0'}}" onTap="pay" >去支付</button>
+      <button form-type="submit" class="btn pink" a:if="{{item.order_status == '4'}}" data-id='{{item.order_id}}' onTap="recieve">确认收货</button>
+      <button form-type="submit" class="btn pink" onTap="updateAddr" a:if="{{(item.numtype=='2' && item.order_status == '1')||(item.numtype=='1' && item.order_status == '1')}}">修改收货地址</button>
+
+     <!-- <button form-type="submit" plain class="btn gray" data-id='{{item.order_id}}' onTap="wuliu">查看物流</button>
+      <button form-type="submit" class="btn pink" data-id='{{item.order_id}}' onTap='confirm'>开始定制</button>
+      <button form-type="submit" class="btn pink"  onTap="pay" >去支付</button>
+      <button form-type="submit" class="btn pink"  data-id='{{item.order_id}}' onTap="recieve">确认收货</button>
+      <button form-type="submit" class="btn pink" onTap="updateAddr" >修改收货地址</button> -->
+
       
     </view>
   </view>
 
-  <view class="layer" id="my-layer" a:if="{{showLayer}}">
+  <view class="layer"  id="my-layer" a:if="{{showLayer}}">
     <view class="layer-box">
       <view id="text">{{text}}</view>
       <view id="phone">{{wenan.phone}}</view>

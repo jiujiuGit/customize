@@ -16,15 +16,19 @@ Page({
     logolink:'',
     resStr:'',
     wid:'',//保存定制信息后返回的wid
+    area:''//团体定制下个人可编辑区域
+  
   },
   onLoad(query) {
     // this.setData({
     //   id:query.id
     // });
     const that = this;
-    console.log(query.id)
+    console.log(query.area)
+   
     this.setData({
-      wid:query.id
+      wid:query.id,
+      area:query.area
     })
     my.httpRequest({
       url: 'http://bbltest.color3.cn/Mobile/Api/getWorkdetail', // 目标服务器url
@@ -177,6 +181,7 @@ Page({
         // orderid:20,
         wid:that.data.wid,
         orderid:app.globalData.order,
+        area:this.data.area,//个人可定制区域
         zfb_userid:'999'
       },
       success:function(res){

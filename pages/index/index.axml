@@ -280,10 +280,11 @@
     <view class="layer-box">
       <view class="layer-title">选择个人定制区域</view>
       <view class="flex-box flex-wrap">
-        <view a:if="{{buttons.indexOf('正面')>-1}}" class="areaItem {{1 ==activeAreaid ? 'areaActive':''}}" data-index='1' onTap="areaTap">正面</view>
+        <view a:for="{{individualArea}}" class="areaItem {{item.active ? 'areaActive':''}}  {{item.disable?'areaDisabel':''}}" data-index='{{index}}' onTap="areaTap">{{item.name}}</view>
+        <!-- <view a:if="{{buttons.indexOf('正面')>-1}}" class="areaItem {{1 ==activeAreaid ? 'areaActive':''}}" data-index='1' onTap="areaTap">正面</view>
         <view a:if="{{buttons.indexOf('反面')>-1}}" class="areaItem areaDisabel" data-index='2' onTap="areaTap">反面</view>
         <view a:if="{{buttons.indexOf('左侧')>-1}}" class="areaItem {{3 ==activeAreaid ? 'areaActive':''}}" data-index='3' onTap="areaTap">左侧</view>
-        <view a:if="{{buttons.indexOf('右侧')>-1}}" class="areaItem {{4 ==activeAreaid ? 'areaActive':''}}" data-index='4' onTap="areaTap">右侧</view>
+        <view a:if="{{buttons.indexOf('右侧')>-1}}" class="areaItem {{4 ==activeAreaid ? 'areaActive':''}}" data-index='4' onTap="areaTap">右侧</view> -->
         <block a:for="{{5}}">
           
         </block>

@@ -20,10 +20,12 @@
             <text class="state-hint">您的订单{{orderDetail.statusName}}</text> <text class="date">{{orderDetail.nowtime}}</text>
           </view>
           <view class="card-btn flex-box flex-justify-between"> 
-             <button form-type="reset" class="quit" a:if="{{orderDetail.order_status == '1' || orderDetail.order_status == '3'}}" onTap="cancle">取消订单</button>
-             <button form-type="confirm" class="comfirm" onTap="confirm">确认订单</button>
-             <button type="default" size="defaultSize" onTap="defaultTap" a:if="{{orderDetail.order_status == '3'}}">提醒发货 </button>
-          </view>
+             
+             <button form-type="confirm" class="comfirm" a:if="{{orderDetail.numtype == '2' && orderDetail.order_status == '3'}}" onTap="confirm">确认订单</button>
+             <button form-type="confirm" class="comfirm" a:if="{{orderDetail.order_status == '0'}}" onTap="pay">去支付</button>
+             <button type="default" size="defaultSize" onTap="remind" a:if="{{(orderDetail.numtype == '1'&& orderDetail.order_status == '3')|| (orderDetail.numtype == '2'&& orderDetail.order_status == '1')}}">提醒发货 </button>
+             <button form-type="reset" class="quit" a:if="{{(orderDetail.order_status == '0') || (orderDetail.order_status == '3' && orderDetail.numtype == '2')}}" onTap="cancle">取消订单</button>
+            </view>
         </view>
 
 
@@ -52,6 +54,15 @@
 
 
       </view>
+    </view>
+  </view>
+
+  <!-- 弹框 -->
+  <view class="layer" id="my-layer" a:if="{{showLayer}}">
+    <view class="layer-box">
+      <view id="text">{{wenan.quzhifu}}</view>
+      <view id="phone">{{wenan.phone}}</view>
+      <view id="close" onTap="closeLayer">关闭</view>
     </view>
   </view>
 </view>

@@ -18,7 +18,8 @@ Page({
     ground:'', //当前编辑面   front 、siede、back
     stickIndex:'', //
     editContent:false, //是否弹出定制贴纸编辑框
-    inputValue:''
+    inputValue:'',
+    individualStickerId:''
   },
   onLoad(query) {
     // console.log(query.currentTap);
@@ -95,7 +96,8 @@ Page({
     console.log(item.pictype)
     if(item.pictype == 3){  //定制贴纸，弹框输入定制内容
       this.setData({
-        editContent:true
+        editContent:true,
+        individualStickerId:this.data.stickers[tapIndex].id
       })
       return;
      
@@ -178,10 +180,11 @@ Page({
         rotate:0,
         opacity:100,//透明度
         type:'text',  //文字  
-        ground:this.data.currentTap,
+        ground:this.data.ground,
         fontFamily:'SimSun',
         fontSize:12,
-        color:'black'
+        color:'black',
+        stickerid:this.data.individualStickerId
       }
       
       item.text =  this.data.inputValue;

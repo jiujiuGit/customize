@@ -49,9 +49,10 @@
     </view> -->
     
 
-
+    <view id='call' onTap="call"> <text></text>客服热线：{{wenan.phone}}</view>
     <view class="next" onTap="next">
       <button formType="submit">下一步</button>
     </view>
   </form>
+
 </view>

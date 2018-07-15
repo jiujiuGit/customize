@@ -135,6 +135,7 @@ Page({
     })
     console.log(num, source)
   },
+  // 下一步
   confirmOrder(){
     const that = this;
     my.httpRequest({
@@ -148,9 +149,10 @@ Page({
       },
       success:function(res){
         if(res.data.status == 1){
-          that.setData({
-            success:true
-          })
+          my.navigateTo({url:'../individualForm/individualForm?id='+res.data.order});
+          // that.setData({
+          //   success:true
+          // })
         }
       },
       fail:function(){

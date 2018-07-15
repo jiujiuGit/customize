@@ -43,7 +43,9 @@ Page({
     sliderValue:100,
     sizes:[], //尺寸列表
     saveworkdesk:{}, //定制参数
-    personalArea:false //选择个人定制区域弹框是否可见
+    individualArea:[],//个人定制区域
+    personalArea:false, //选择个人定制区域弹框是否可见
+    parent_orderid:''//团体订单id（团体定制下的个人定制）
   },
   getSystemInfoPage() {
     my.getSystemInfo({
@@ -136,30 +138,46 @@ Page({
   
   },
   onLoad(query) {  
-    if(app.globalData.type == 2){
+    this.setData({
+        type:app.globalData.type,
+        picname:app.globalData.teamData.picname,
+        prodId:app.globalData.teamData.prodId,
+        fabricId:app.globalData.teamData.fabricId
+      })
+    if(app.globalData.type == 2){  //团体
       this.setData({
         type:app.globalData.type,
         picname:app.globalData.teamData.picname,
         prodId:app.globalData.teamData.prodId,
         fabricId:app.globalData.teamData.fabricId
       })
-    } else if(app.globalData.type == 1){
+    } else if(app.globalData.type == 1){ //个人
       this.setData({
         type:app.globalData.type,
         picname:app.globalData.individualData.picname,
         prodId:app.globalData.individualData.prodId,
         fabricId:app.globalData.individualData.fabricId
       })
+    }else if(app.globalData.type == 3){ //团体下个人定制
+      this.setData({
+        type:app.globalData.type,
+        picname:app.globalData.teamIndividual.picname,
+        prodId:app.globalData.teamIndividual.prodId,
+        fabricId:app.globalData.teamIndividual.fabricId,
+        parent_orderid:app.globalData.teamIndividual.parent_orderid
+      })
     }
     
     const that = this;
     //获取背景图
+    
     my.httpRequest({
       url: 'http://bbltest.color3.cn/Mobile/Api/get_style_bg',
       method: 'post',
       data: {
         // id:this.data.prodId
-        id:1
+        id:1,//款式id
+        parent_orderid:that.data.parent_orderid,//团体订单id
       },
       dataType: 'json',
       
@@ -241,9 +259,23 @@ Page({
         that.setData({
           bgList:bgList,
           sizes:res.data.data.sizes,
-          buttons:res.data.data.buttons
+          buttons:res.data.data.buttons,
+          // individualArea:res.data.data.buttons
         });
-        console.log(that.data.buttons)
+        let individualArea = []
+        for(let i=0;i<res.data.data.buttons.length;i++){
+          let btnItem = {
+            name:res.data.data.buttons[i],
+            active:false,
+            disable:false
+          }
+          individualArea.push(btnItem)
+
+        }
+        that.setData({
+          individualArea:individualArea
+        })
+        console.log(that.data.individualArea)
         
         
       },
@@ -278,15 +310,63 @@ Page({
   },
 
   areaTap(e){
-    console.log(e.currentTarget.dataset.index)
+    const index = e.currentTarget.dataset.index
+    let areas = this.data.individualArea;
+    if(areas[index].disable){
+      return;
+    }
+    areas[index].active = !areas[index].active;
     this.setData({
-      activeAreaid:e.currentTarget.dataset.index
+      individualArea:areas
     })
+    
   },
   // 选择个人定制区域
   personalArea(){
+    // let front = this.data.individualArea.indexof
+    let individualArea = this.data.individualArea;
+    let frontIndex,
+        backIndex,
+        leftIndex,
+        rightIndex;
+    for(let i=0;i<individualArea.length;i++){
+      if(individualArea[i].name == '正面'){
+          frontIndex = i
+      }else if(individualArea[i].name == '反面'){
+          backIndex = i
+      }else if(individualArea[i].name == '左侧'){
+          leftIndex = i
+      }else if(individualArea[i].name == '右侧'){
+          rightIndex = i
+      }
+      
+    }
+    // console.log(this.data.frontItemList.length)
+    if(this.data.frontItemList.length>0){
+      individualArea[frontIndex].disable = true
+    }else{
+      individualArea[frontIndex].disable = false
+    }
+    if(this.data.backItemList.length>0){
+      individualArea[backIndex].disable = true
+    }else{
+      individualArea[backIndex].disable = false
+    }
+    if(this.data.leftStickerId!=0){
+      individualArea[leftIndex].disable = true
+    }else{
+      individualArea[leftIndex].disable = false
+    }
+    if(this.data.rightStickerId!=0){
+      individualArea[rightIndex].disable = true
+    }else{
+      individualArea[rightIndex].disable = false
+    }
+
+
     this.setData({
-      personalArea:true
+      personalArea:true,
+      individualArea:individualArea
     })
   },
   // 确定个人定制区域
@@ -692,6 +772,7 @@ Page({
     }else if(curTap == 'back'){
       items = this.data.backItemList; 
     }
+   
     items[this.data.index].active = false;
     if(curTap == 'front'){
       this.setData({ //赋值 
@@ -793,9 +874,33 @@ Page({
     //     // console.log(e)
     //   },
     // });
+    let individualArea = this.data.individualArea;
+    let frontIndex;
+    for(let i=0;i<individualArea.length;i++){
+      if(individualArea[i].name == '正面'){
+          frontIndex = i
+      }
+    }
+    if(individualArea[frontIndex].active){
+      my.confirm({
+        title: '温馨提示',
+        content: '是否清空个人定制区域（正面）',
+        confirmButtonText: '清空',
+        cancelButtonText: '取消',
+        success: (result) => {
+         if(result.confirm){
+           individualArea[frontIndex].active =false
+         }else{
+           return;
+         }
+        },
+      });
+    }
     this.setData({
-      currentTap:'front'
-    })
+      currentTap:'front',
+      individualArea:individualArea
+    });
+
     this.windowHide();
     let hasFrontItem = false;
 
@@ -832,11 +937,37 @@ Page({
   },
   // 点击背面
   back(e){
+    
     if(this.data.footer =='text'){
       return; //编辑字体时不允许切换
     }
+    let individualArea = this.data.individualArea;
+    let backIndex;
+        
+    for(let i=0;i<individualArea.length;i++){
+      if(individualArea[i].name == '反面'){
+          backIndex = i
+      }  
+    }
+    if(individualArea[backIndex].active){
+      my.confirm({
+        title: '温馨提示',
+        content: '是否清空个人定制区域（反面）',
+        confirmButtonText: '清空',
+        cancelButtonText: '取消',
+        success: (result) => {
+         if(result.confirm){
+           individualArea[backIndex].active =false;
+         }else{
+           return;
+         }
+        },
+      });
+    }
+
     this.setData({
-      currentTap:'back'
+      currentTap:'back',
+      individualArea:individualArea
     })
     this.windowHide();
     let hasBackItem = false;
@@ -851,33 +982,59 @@ Page({
     if(hasBackItem == false){
       return;
     }
-    my.confirm({
-      title: '温馨提示',
-      content: '是否清空画布',
-      confirmButtonText: '清空',
-      cancelButtonText: '取消',
-      success: (result) => {
-      if(result.confirm){
-          for(let i = 0;i<app.globalData.items.length;i++){
-            if(app.globalData.items[i].ground == 'back'){
-                app.globalData.items.splice(i,1)
-            }
-          }
-          this.setData({
-            itemList:app.globalData.items
-          });
-        }
-      }
-    })
+    // my.confirm({
+    //   title: '温馨提示',
+    //   content: '是否清空画布',
+    //   confirmButtonText: '清空',
+    //   cancelButtonText: '取消',
+    //   success: (result) => {
+    //   if(result.confirm){
+    //       for(let i = 0;i<app.globalData.items.length;i++){
+    //         if(app.globalData.items[i].ground == 'back'){
+    //             app.globalData.items.splice(i,1)
+    //         }
+    //       }
+    //       this.setData({
+    //         itemList:app.globalData.items
+    //       });
+    //     }
+    //   }
+    // })
   },
   // 点击左侧
   leftSide(side){
     if(this.data.footer =='text'){
       return; //编辑字体时不允许切换
     }
+    let individualArea = this.data.individualArea;
+    let leftIndex;
+        
+    for(let i=0;i<individualArea.length;i++){
+      if(individualArea[i].name == '左侧'){
+          leftIndex = i
+      }  
+    }
+    if(individualArea[leftIndex].active){
+      my.confirm({
+        title: '温馨提示',
+        content: '是否清空个人定制区域（左侧）',
+        confirmButtonText: '清空',
+        cancelButtonText: '取消',
+        success: (result) => {
+         if(result.confirm){
+           individualArea[leftIndex].active =false;
+         }else{
+           return;
+         }
+        },
+      });
+    }
+
+
     this.setData({
       currentTap:'leftSide',
-      windowActive:true
+      windowActive:true,
+      individualArea:individualArea
     })
   },
   // 点击右侧
@@ -885,9 +1042,34 @@ Page({
     if(this.data.footer =='text'){
       return; //编辑字体时不允许切换
     }
+
+    let individualArea = this.data.individualArea;
+    let rightIndex;
+        
+    for(let i=0;i<individualArea.length;i++){
+      if(individualArea[i].name == '右侧'){
+          rightIndex = i
+      }  
+    }
+    if(individualArea[rightIndex].active){
+      my.confirm({
+        title: '温馨提示',
+        content: '是否清空个人定制区域（右侧）',
+        confirmButtonText: '清空',
+        cancelButtonText: '取消',
+        success: (result) => {
+         if(result.confirm){
+           individualArea[rightIndex].active =false;
+         }else{
+           return;
+         }
+        },
+      });
+    }
     this.setData({
       currentTap:'rightSide',
-      windowActive:true
+      windowActive:true,
+      individualArea:individualArea
     })
   },
   // 点击文字
@@ -1465,7 +1647,24 @@ Page({
 
     let userInfo;
     const that = this;
-    
+    let frontStickers = '';
+    let backStickers = '';
+    console.log(this.data.frontItemList)
+    for(let i=0;i<this.data.frontItemList.length;i++){
+      if(this.data.frontItemList[i].pictype != undefined){
+        // frontStickers.push(this.data.frontItemList[i].stickerid)
+        frontStickers+=this.data.frontItemList[i].stickerid+','
+      }
+    }
+    for(let i=0;i<this.data.backItemList.length;i++){
+      if(this.data.backItemList[i].pictype != undefined){
+        // backStickers.push(this.data.backItemList[i].stickerid)
+        backStickers+=this.data.backItemList[i].stickerid+','
+      }
+    }
+
+    console.log(frontStickers)
+    console.log(backStickers)
     my.httpRequest({
       url:'http://bbltest.color3.cn/Mobile/Api/saveworkdesk',
       dataType:'json',
@@ -1481,21 +1680,35 @@ Page({
         'position_side_id1':that.data.rightSidePicId,//侧面的图片id右侧
         'size':that.data.fabricId,  //尺码
         // 'color':'',   //颜色id
-        'group_idf':'',  //正面贴纸组件id
-        'group_idb':'',  //背面贴纸组件id
+        'group_idf':frontStickers,  //正面贴纸组件id
+        'group_idb':backStickers,  //背面贴纸组件id
         'group_idl':that.data.leftStickerId, //左侧贴纸id
         'group_idr':that.data.rightStickerId,//右侧贴纸id
         'worksname':'',//作品名称
-        'numtype':2, //1个人 2团体
+        'numtype':app.globalData.type, //1个人 2团体
         'nickname':app.globalData.userInfo.nickName,  //支付宝用户昵称
-        'zfb_userid':999 //支付宝id
+        'zfb_userid':app.globalData.userInfo.userId, //支付宝id
+        'touxiang':app.globalData.userInfo.headerImg //支付宝头像
       },
       success:function(res){
         my.hideLoading();
+        // console.log()
         if(that.data.type == 1){
-          my.navigateTo({url:'../placeIndividualOrder/placeIndividualOrder?id='+res.data.id})
+          my.navigateTo({url:'../placeIndividualOrder/placeIndividualOrder?id='+res.data.id}) //id订单号
         }else if(that.data.type == 2){
-          my.navigateTo({url:'../placeTeamOrder/placeTeamOrder?id='+res.data.id})
+          let area = '';
+          // console.log(that.data.individualArea)
+          for(let i=0;i<that.data.individualArea.length;i++){
+            if(that.data.individualArea[i].active){
+              // area.push(that.data.individualArea[i].name)
+              area+=that.data.individualArea[i].name+","
+            }
+          }
+          console.log(area)
+          // app.globalData.area = area;
+          my.navigateTo({url:'../placeTeamOrder/placeTeamOrder?id='+res.data.id+'&area='+area})
+        }else if(that.data.type == 3){
+          my.navigateTo({url:'../placeIndividualOrder/placeIndividualOrder?id='+res.data.id})
         }
         
       },

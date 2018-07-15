@@ -1,15 +1,16 @@
 var app = getApp();
 Page({
   data: {
+    orderId:'',
     pros:[],  //省列表
     citys:[],  //市列表
     province:{},//选中的省信息
     cityPicker:true, //未选中省不能选择市
     city:{}, //选中的市信息
-    
+    wenan:{} //弹框文案
   
   },
-  onLoad() {
+  onLoad(query) {
     const that = this;
     my.httpRequest({
       url: 'http://bbltest.color3.cn/Mobile/Api/getPro', // 目标服务器url
@@ -20,11 +21,22 @@ Page({
       },
       success: (res) => {
         that.setData({
-          pros:res.data.list
+          pros:res.data.list,
+          orderId:query.id
         })
       },
     });
-
+    my.httpRequest({
+      url: 'http://bbltest.color3.cn/Mobile/Api/getwenan', // 目标服务器url
+      methos:'POST',
+      dataType:'json',
+      data:{},
+      success: (res) => {
+        that.setData({
+          wenan:res.data
+        })
+      },
+    });
    
   },
   nameInput(e){
@@ -35,6 +47,11 @@ Page({
   telInput(e){
     this.setData({
       phone: e.detail.value,
+    });
+  },
+  call(){
+    my.makePhoneCall({
+      number: this.data.wenan.phone, // 电话号码
     });
   },
   // companyInput(e){
@@ -171,7 +188,7 @@ Page({
       dataType:'json',
       method:'POST',
       data:{
-        orderid:'',
+        orderid:that.data.orderId,
         company:that.data.company, //公司
         phone:that.data.phone,//电话
         name:that.data.name,//联系人姓名
@@ -184,9 +201,18 @@ Page({
       },
       success:function(res){
         console.log(res.data.order)
-        app.globalData.teamData.order = res.data.order
+        // app.globalData.teamData.order = res.data.order
+        my.showToast({
+          type: 'success',
+          content: '提交成功！',
+          duration: 3000,
+          success: () => {
+            my.reLaunch({url:'../customType/customType'});
+          },
+        });
+        
       }
     })
-    my.navigateTo({url:'../index/index'})
+    
   }
 });
