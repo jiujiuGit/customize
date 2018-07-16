@@ -1318,34 +1318,37 @@ Page({
     console.log(JSON.stringify(frontItemList))
     
     // 先下载贴纸,正反面
-    //  for(let i=frontItemList.length-1;i>-1;i--){  //正面
-     for(let i=0;i<frontItemList.length-1;i++){  //正面
-        if(frontItemList[i].image !=undefined){
+    // //  for(let i=frontItemList.length-1;i>-1;i--){  //正面
+    //  for(let i=0;i<frontItemList.length-1;i++){  //正面
+    //   console.log(i)
+    //   console.log(frontItemList[i])
+    //     if(frontItemList[i].image !=undefined){
           
-          my.downloadFile({
-          url: frontItemList[i].image, // 下载文件地址
-          success: (res) => {         
-            frontItemList[i].downloadFile = res.apFilePath;
-          },
-          fail(res){
-          }
-        });
-        }
-     }
+    //       my.downloadFile({
+    //       url: frontItemList[i].image, // 下载文件地址
+    //       success: (res) => {         
+    //         frontItemList[i].downloadFile = res.apFilePath;
+    //         console.log(frontItemList)
+    //       },
+    //       fail(res){
+    //       }
+    //     });
+    //     }
+    //  }
 
-    //  for(let i=backItemList.length-1;i>-1;i--){ //背面
-    for(let i=0;i<backItemList.length-1;i++){  //背面
-        if(backItemList[i].image !=undefined){
-          my.downloadFile({
-          url: backItemList[i].image, // 下载文件地址
-          success: (res) => {         
-            backItemList[i].downloadFile = res.apFilePath;
-          },
-          fail(res){
-          }
-        });
-        }
-     }
+    // //  for(let i=backItemList.length-1;i>-1;i--){ //背面
+    // for(let i=0;i<backItemList.length-1;i++){  //背面
+    //     if(backItemList[i].image !=undefined){
+    //       my.downloadFile({
+    //       url: backItemList[i].image, // 下载文件地址
+    //       success: (res) => {         
+    //         backItemList[i].downloadFile = res.apFilePath;
+    //       },
+    //       fail(res){
+    //       }
+    //     });
+    //     }
+    //  }
 
 
     setTimeout(function(){
@@ -1435,6 +1438,7 @@ Page({
     let itemList = [];
     let areaLeft ;
     let areaTop ;
+    console.log(that.data.frontItemList)
     if(side =='front'){
       itemList = that.data.frontItemList;
       console.log(JSON.stringify(itemList))
@@ -1447,7 +1451,7 @@ Page({
       areaLeft = that.data.bgList.left2; //定制框left
       areaTop = that.data.bgList.top2; //定制框top
     }
-    
+    console.log(itemList)
     // for(let i=itemList.length-1;i>-1;i--){
     for(let i=0;i<itemList.length-1;i++){
         console.log(itemList[i])
@@ -1465,7 +1469,7 @@ Page({
         if(item.downloadFile){  //绘制图片
           that.ctx.drawImage(item.downloadFile,0,0,100*item.scale,height) 
         }else if(item.text){    //绘制文字
-          that.ctx.setFillStyle('red');
+          that.ctx.setFillStyle(item.color);
           that.ctx.setFontSize(12*item.scale);
           that.ctx.fillText(item.text, 0, 0)
         }
@@ -1688,7 +1692,7 @@ Page({
         'numtype':app.globalData.type, //1个人 2团体
         'nickname':app.globalData.userInfo.nickName,  //支付宝用户昵称
         'zfb_userid':app.globalData.userInfo.userId, //支付宝id
-        'touxiang':app.globalData.userInfo.headerImg //支付宝头像
+        'touxiang':app.globalData.userInfo.avatar //支付宝头像
       },
       success:function(res){
         my.hideLoading();

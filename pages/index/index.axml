@@ -167,37 +167,43 @@
           <view class="iconfont icon-shang" a:if='{{windowActive == false}}'></view>
         </view>    
         <view class="custome-item " a:if="{{currentTap != 'leftSide' && currentTap != 'rightSide'}}" onTap="imageEdit">
-            <text class="iconfont icon-tupian"></text>
+            <!-- <text class="iconfont icon-tupian"></text> -->
+            <image class="img-icon" src="../../assets/icon/icon_tupian.png" mode="widthFix" />
           <view>
             <text class="custome-item-text">图片</text>
           </view>
         </view>
         <view class="custome-item" a:if="{{currentTap != 'leftSide' && currentTap != 'rightSide'}}" onTap="textEdit"> 
-          <text class="iconfont icon-wenzi"></text>
+          <!-- <text class="iconfont icon-wenzi"></text> -->
+          <image class="img-icon" src="../../assets/icon/icon_text.png" mode="widthFix" />
           <view>
             <text class="custome-item-text">文字</text>
           </view>
         </view>
         <view class="custome-item" data-id='5' onTap="sticker">
-          <text class="iconfont icon-tiezhi"></text>
+          <!-- <text class="iconfont icon-tiezhi"></text> -->
+          <image class="img-icon" src="../../assets/icon/icon_img.png" mode="widthFix" />
           <view>
             <text class="custome-item-text">贴纸</text>
           </view>
         </view>
         <view class="custome-item" data-id='2' onTap="sticker">
-          <text class="iconfont icon-xian"></text>
+          <!-- <text class="iconfont icon-xian"></text> -->
+          <image class="img-icon" src="../../assets/icon/icon_xiantiao.png" mode="widthFix" />
           <view>
             <text class="custome-item-text">线条</text>
           </view>
         </view>
         <view class="custome-item" data-id='3' a:if="{{currentTap != 'leftSide' && currentTap != 'rightSide'}}" onTap="sticker">
-          <text class="iconfont icon-xingzhuang"></text>
+          <!-- <text class="iconfont icon-xingzhuang"></text> -->
+          <image class="img-icon" src="../../assets/icon/icon_xingzhuang.png" mode="widthFix" />
           <view>
             <text class="custom-item-text">形状</text>
           </view>
         </view>
         <view class="custome-item" onTap="cleanUp">
-          <text class="iconfont icon-beijing"></text>
+          <!-- <text class="iconfont icon-beijing"></text> -->
+          <image class="img-icon" src="../../assets/icon/icon_del.png" mode="widthFix" />
           <view>
             <text class="custom-item-text">清除</text>
           </view>

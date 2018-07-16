@@ -130,30 +130,38 @@ Page({
       item.stickerid = this.data.stickers[tapIndex].id;
     }
 
-    console.log(item)
+    my.downloadFile({
+      url: item.image, // 下载文件地址
+      success: (res) => {         
+        item.downloadFile = res.apFilePath;
+        if(this.data.ground == 'front'){  //添加到front编辑列表
+          const frontLength = app.globalData.frontItems.length
+          item.id = frontLength+1;
+          app.globalData.frontItems.push(item)
+          app.globalData.stickerIndex = app.globalData.frontItems.length-1
+        }else if(this.data.ground == 'back'){ //添加到back编辑列表
+        const backLength = app.globalData.backItems.length
+          item.id = backLength+1;
+          app.globalData.backItems.push(item)
+          app.globalData.stickerIndex = app.globalData.backItems.length-1
+        }
 
-    if(this.data.ground == 'front'){  //添加到front编辑列表
-      const frontLength = app.globalData.frontItems.length
-      item.id = frontLength+1;
-      app.globalData.frontItems.push(item)
-      app.globalData.stickerIndex = app.globalData.frontItems.length-1
-    }else if(this.data.ground == 'back'){ //添加到back编辑列表
-    const backLength = app.globalData.backItems.length
-      item.id = backLength+1;
-      app.globalData.backItems.push(item)
-      app.globalData.stickerIndex = app.globalData.backItems.length-1
-    }
 
+        // app.globalData.items.push(item);
+        my.navigateBack({
+          delta: 1
+        })
+        console.log(item.id)
+        this.setData({
+          stickerIndex : item.id
+        })
+        app.globalData.footer = 'imgTransparency'
+          },
+          fail(res){
+          }
+    });
 
-    // app.globalData.items.push(item);
-    my.navigateBack({
-      delta: 1
-    })
-    console.log(item.id)
-    this.setData({
-      stickerIndex : item.id
-    })
-    app.globalData.footer = 'imgTransparency'
+    
 
   
   },

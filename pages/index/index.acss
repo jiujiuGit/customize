@@ -286,6 +286,9 @@
 .custome-item-text{
     line-height: 20px
 }
+.img-icon{
+    width:20px;
+}
 .bottom{
     position: fixed;
     bottom: 0;

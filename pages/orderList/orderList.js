@@ -1,3 +1,4 @@
+var app = getApp();
 Page({
   data: {
     orderList:[],
@@ -27,10 +28,10 @@ Page({
       dataType:"json",
       method:'POST',
       data:{
-        userid:999
+        userid:app.globalData.userInfo.userId
       },
       success: (res) => {
-
+         my.hideLoading();
         let list = res.data.list;
         for(let i=0;i<list.length;i++){
           let statusCode = list[i].order_status
@@ -76,6 +77,9 @@ Page({
         that.setData({
           orderList:list
         })
+      },
+      fail(res){
+        console.log(res)
       },
       complete:(res)=>{
         my.hideLoading();
@@ -130,6 +134,21 @@ Page({
       method:'POST',
       dataType:'json',
       url: 'http://bbltest.color3.cn/Mobile/Api/suborder', // 目标服务器url
+      data:{
+        orderid:e.currentTarget.dataset.id
+      },
+      success: (res) => {
+        
+      },
+    });
+  },
+  // 提醒发货
+  remind(e){
+    const that = this;
+    my.httpRequest({
+      method:'POST',
+      dataType:'json',
+      url: 'http://bbltest.color3.cn/Mobile/Api/txfahuo', // 目标服务器url
       data:{
         orderid:e.currentTarget.dataset.id
       },

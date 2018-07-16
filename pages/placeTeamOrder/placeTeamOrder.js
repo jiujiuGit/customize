@@ -182,7 +182,7 @@ Page({
         wid:that.data.wid,
         orderid:app.globalData.order,
         area:this.data.area,//个人可定制区域
-        zfb_userid:'999'
+        zfb_userid:app.globalData.userInfo.userId
       },
       success:function(res){
         that.setData({

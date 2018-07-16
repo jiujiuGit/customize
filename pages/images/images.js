@@ -66,45 +66,41 @@ Page({
                 }
               });
 
-              if(this.data.ground == 'front'){
-                let frontLength = app.globalData.frontItems.length;
-                item.id = frontLength+1;
-                app.globalData.frontItems.push(item);
-                app.globalData.stickerIndex = app.globalData.frontItems.length-1
-              }else if(this.data.ground == 'back'){
-                let backLength = app.globalData.backItems.length;
-                item.id = backLength+1;
-                app.globalData.backItems.push(item);
-                app.globalData.stickerIndex = app.globalData.backItems.length-1
-              }
+              my.downloadFile({
+                url: item.image, // 下载文件地址
+                success: (res) => {         
+                  item.downloadFile = res.apFilePath;
+                  if(this.data.ground == 'front'){
+                    let frontLength = app.globalData.frontItems.length;
+                    item.id = frontLength+1;
+                    app.globalData.frontItems.push(item);
+                    app.globalData.stickerIndex = app.globalData.frontItems.length-1
+                  }else if(this.data.ground == 'back'){
+                    let backLength = app.globalData.backItems.length;
+                    item.id = backLength+1;
+                    app.globalData.backItems.push(item);
+                    app.globalData.stickerIndex = app.globalData.backItems.length-1
+                  }
 
-              // console.log(item.image);
-              // app.globalData.items.push(item);
-              my.navigateBack({
-                delta: 1
-              })
-              this.setData({
-                stickerIndex : item.id
-              })
+                  my.navigateBack({
+                    delta: 1
+                  })
+                  this.setData({
+                    stickerIndex : item.id
+                  })
+                  
+                  app.globalData.footer = 'imgTransparency'
+                  // console.log(frontItemList)
+                },
+                fail(res){
+                }
+              });
+
               
-              app.globalData.footer = 'imgTransparency'
 
-              // const pages = getCurrentPages();
-              // const prePage = pages[pages.length - 2];
-          
-              // prePage.setData({
-              //   footer:'imgTransparency',
-              //   index:app.globalData.items.length-1
-              // })
-                // my.alert({
-                //   content: '上传成功'
-                // });
               },
               fail(res) {
                 console.log(JSON.stringify(res))
-                // my.alert({
-                //   content: res.errorMessage || res.error,
-                // });
               },
             });
 

@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/customType/customType",
     "pages/orderList/orderList",
     
@@ -11,7 +12,7 @@
      "pages/individualForm/individualForm",
     "pages/placeTeamOrder/placeTeamOrder",
     
-    "pages/index/index",
+    
     
     
     "pages/groupForm/groupForm",

@@ -1,3 +1,4 @@
+var app = getApp();
 Page({
   data: {
     background: [],
@@ -10,12 +11,13 @@ Page({
     currentTab:1,
     side:'正面',
     sizeTab:0,
-    success:false //是否下单成功
+    success:false, //是否下单成功
+    wid:''//
   },
   onLoad(query) {
-    // this.setData({
-    //   id:query.id
-    // });
+    this.setData({
+      wid:query.id
+    });
     const that = this;
     my.httpRequest({
       url: 'http://bbltest.color3.cn/Mobile/Api/getWorkdetail', // 目标服务器url
@@ -144,8 +146,8 @@ Page({
       dataType:'json',
       data:{
         size:that.data.sizes[that.data.sizeTab],
-        wid:77,
-        zfb_userid:'999'
+        wid:that.data.wid,
+        zfb_userid:app.globalData.userInfo.userId
       },
       success:function(res){
         if(res.data.status == 1){

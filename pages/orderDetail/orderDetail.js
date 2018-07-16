@@ -5,7 +5,7 @@ Page({
     orderDetail:{
       "order_id":"2",
       "order_sn":"201807061412193415",
-      "order_status":"6",
+      "order_status":"3",
       "consignee":"",
       "total_amount":"0.00",
       "province":"0",
@@ -43,8 +43,8 @@ Page({
         orderid:query.id
       },
       success: (res) => {
-        let orderDetail = res.data.data;
-        // let orderDetail = that.data.orderDetail
+        // let orderDetail = res.data.data;
+        let orderDetail = that.data.orderDetail
         //0 未付款 1已确认（不显示二维码,团体订单显示生产中 提醒发货） 3付款（如果是个人就显示生产中 如果是团队就显示定制中 显示二维码） 4已发货 5已完成 6已取消
         switch(orderDetail.order_status){
           case '0':
@@ -112,7 +112,8 @@ Page({
   },
   //确认订单
   confirm(){
-    my.navigateTo({url:'../customizationDetails/customizationDetails?id='+this.data.orderDetail.order_sn});
+    // console.log(this.data.orderDetail.id)
+    my.navigateTo({url:'../customizationDetails/customizationDetails?order_sn='+this.data.orderDetail.order_sn+'&id='+this.data.orderId});
   },
   //去支付
   pay(){

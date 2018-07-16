@@ -24,8 +24,8 @@
       <button form-type="submit" class="btn pink" a:if="{{item.order_status == '3' && item.numtype=='2'}}" data-id='{{item.order_id}}' onTap='confirm'>开始定制</button>
       <button form-type="submit" class="btn pink" a:if="{{item.order_status == '0'}}" onTap="pay" >去支付</button>
       <button form-type="submit" class="btn pink" a:if="{{item.order_status == '4'}}" data-id='{{item.order_id}}' onTap="recieve">确认收货</button>
-      <button form-type="submit" class="btn pink" onTap="updateAddr" a:if="{{(item.numtype=='2' && item.order_status == '1')||(item.numtype=='1' && item.order_status == '1')}}">修改收货地址</button>
-
+      <button form-type="submit" class="btn pink" onTap="updateAddr" a:if="{{(item.numtype=='2' && item.order_status == '3')||(item.numtype=='1' && item.order_status == '1')}}">修改收货地址</button>
+      <button form-type="submit" class="btn pink" onTap="remind" data-id='{{item.order_id}}' a:if="{{(item.numtype=='2' && item.order_status == '1')||(item.numtype=='1' && item.order_status == '3')}}">提醒发货</button>
      <!-- <button form-type="submit" plain class="btn gray" data-id='{{item.order_id}}' onTap="wuliu">查看物流</button>
       <button form-type="submit" class="btn pink" data-id='{{item.order_id}}' onTap='confirm'>开始定制</button>
       <button form-type="submit" class="btn pink"  onTap="pay" >去支付</button>

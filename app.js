@@ -48,20 +48,32 @@ App({
     }
 
   },
-  onLaunch(options) {
+  onLaunch(res) {
+    this.getUserInfo()
     // my.alert({content: '启动参数：'+JSON.stringify(options.query)});
 
     // 获取团体定制下的个人定制参数
-    if(1){
-      return
+    // if(1){
+    //   return
+    // }
+    let options = {
+      parent_orderid:1,
+      picname:'我的T恤',
+      prodId : 1,
+      fabricId:12,
     }
+    // my.alert({content: '启动参数：'+JSON.stringify(options.query.x),});
+    // console.log('query', options.query);
+    // console.log('App Launch', options);
+
+
     // console.log(this.globalData.userInfo)
     this.globalData.type = 3
-    this.globalData.teamIndividual.parent_orderid = 1
-    this.globalData.teamIndividual.picname="我的T恤"
-    this.globalData.teamIndividual.prodId = 1
-    this.globalData.teamIndividual.fabricId = 12
-    console.log(this.globalData.teamIndividual.picname)
+    this.globalData.teamIndividual.parent_orderid = options.parent_orderid
+    this.globalData.teamIndividual.picname=options.picname
+    this.globalData.teamIndividual.prodId = options.prodId
+    this.globalData.teamIndividual.fabricId = options.fabricId
+    // console.log(this.globalData.teamIndividual.picname)
     // this.setData({
     //   parent_orderid:99,//团体订单id
     //   picName:'团体单',//商品名称
@@ -69,35 +81,47 @@ App({
     //   fabricId:'12',//面料id
 
     // })
-    my.navigateTo({url:'../index/index'});
+    // my.navigateTo({url:'../index/index'});
 
     // 团体定制id
     console.log('query', options.query);
     console.log('App Launch', options);
   },
-  // getUserInfo() {
-  //   return new Promise((resolve, reject) => {
-  //     if (this.userInfo) resolve(this.userInfo);
+  getUserInfo() {
+    return new Promise((resolve, reject) => {
+      if (this.userInfo) resolve(this.userInfo);
 
-  //     my.getAuthCode({
-  //       scopes: ['auth_user'],
-  //       success: (authcode) => {
-  //         console.info(authcode);
-
-  //         my.getAuthUserInfo({
-  //           success: (res) => {
-  //             this.userInfo = res;
-  //             resolve(this.userInfo);
-  //           },
-  //           fail: () => {
-  //             reject({});
-  //           },
-  //         });
-  //       },
-  //       fail: () => {
-  //         reject({});
-  //       },
-  //     });
-  //   });
-  // },
+      my.getAuthCode({
+        scopes: ['auth_user'],
+        success: (authcode) => {
+          console.info(authcode);
+          var  authCode = authcode
+          my.getAuthUserInfo({
+            success: (res) => {
+              this.globalData.userInfo = res;
+              console.log(authcode)
+              my.httpRequest({
+                url: 'http://bbltest.color3.cn/Mobile/Api/getZFBuserInfo', // 目标服务器url
+                method:'POST',
+                dataType:'json',
+                data:{
+                  code:authcode.authCode
+                },
+                success: (res) => {
+                  this.globalData.userInfo.userId = res.data.user_id
+                },
+              });
+              resolve(this.userInfo);
+            },
+            fail: () => {
+              reject({});
+            },
+          });
+        },
+        fail: () => {
+          reject({});
+        },
+      });
+    });
+  },
 });
