@@ -32,7 +32,7 @@ Page({
     const that = this;
     this.setData({
       orderId:query.id
-      // orderId:'2'
+      // orderId:84
     })
   
     my.httpRequest({
@@ -40,11 +40,11 @@ Page({
       method:'POST',
       dataType:'json',
       data:{
-        orderid:query.id
+        orderid:that.data.orderId
       },
       success: (res) => {
-        // let orderDetail = res.data.data;
-        let orderDetail = that.data.orderDetail
+        let orderDetail = res.data.data;
+        // let orderDetail = that.data.orderDetail
         //0 未付款 1已确认（不显示二维码,团体订单显示生产中 提醒发货） 3付款（如果是个人就显示生产中 如果是团队就显示定制中 显示二维码） 4已发货 5已完成 6已取消
         switch(orderDetail.order_status){
           case '0':
@@ -144,5 +144,8 @@ Page({
       },
     });
   },
-  
+  //保存二维码
+  saveqrcode(){
+    my.saveImage({url:this.data.orderDetail.erweima});
+  }
 });

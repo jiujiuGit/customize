@@ -53,11 +53,11 @@ App({
     // my.alert({content: '启动参数：'+JSON.stringify(options.query)});
 
     // 获取团体定制下的个人定制参数
-    // if(1){
-    //   return
-    // }
+    if(1){
+      return
+    }
     let options = {
-      parent_orderid:1,
+      parent_orderid:84,
       picname:'我的T恤',
       prodId : 1,
       fabricId:12,

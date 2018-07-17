@@ -36,9 +36,9 @@
             <view>收货地址：{{orderDetail.address}}</view>
           </view>
         </view>
-        <view class="detail-section section-qrcode" a:if="{{orderDetail.erweima!='' && orderDetail.order_status == '3'}}">
+        <view class="detail-section section-qrcode" a:if="{{orderDetail.erweima!=''&&orderDetail.numtype == '2'}}">
           <text class="section-title">定制二维码</text>
-          <!-- <image src="" mode="" /> -->
+          <image onLongTap='saveqrcode' src="{{orderDetail.erweima}}" id='erweima' mode="widthFix" />
           <view class="qrCode-text">
             <text>长按保存，扫码进行个性化定制</text>
           </view>

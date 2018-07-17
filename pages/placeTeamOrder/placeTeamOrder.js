@@ -180,14 +180,11 @@ Page({
         // wid:112,
         // orderid:20,
         wid:that.data.wid,
-        orderid:app.globalData.order,
+        orderid:app.globalData.teamData.order,
         area:this.data.area,//个人可定制区域
         zfb_userid:app.globalData.userInfo.userId
       },
       success:function(res){
-        that.setData({
-            success:true
-        })
         if(res.data.status == 1){
           that.setData({
             success:true

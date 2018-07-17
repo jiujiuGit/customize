@@ -41,14 +41,18 @@
   </view>
 
   <view class="confirm-order">
-    <button type="primary" onTap="confirmOrder">下一步</button>
+    <button type="primary" onTap="confirmOrder">
+      <text a:if="{{type == 1}}">下一步</text>
+      <text a:if="{{type == 3}}">确认订单</text>
+    </button>
+    <!-- <button type="primary"  onTap="defaultTap"> 确认订单 </button> -->
   </view>
 
   
   <!-- 弹框 -->
   <view class="layer" a:if="{{success}}">
     <view class="layer-box">
-      <view class ="icon-gou"><text>gou</text></view>
+      <view id ="gou"><text class="iconfont icon-success-no-circle"></text></view>
       <view class="resMsg">恭喜你，下单成功</view>
       <view class="home" onTap="home">返回首页</view>
     </view>

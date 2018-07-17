@@ -94,17 +94,19 @@ Page({
     
     
     console.log(item.pictype)
-    if(item.pictype == 3){  //定制贴纸，弹框输入定制内容
+    if(item.pictype == "3"){  //定制贴纸，弹框输入定制内容
       this.setData({
         editContent:true,
-        individualStickerId:this.data.stickers[tapIndex].id
+        individualStickerId:this.data.stickers[tapIndex].id,
+        individualSticker :this.data.stickers[tapIndex] //个性定制贴纸index
       })
       return;
      
-    }else if(item.pictype == 1 || item.pictype == 2){  //普通贴纸和魔术贴
+    }else if(item.pictype == "1" || item.pictype == "2"){  //普通贴纸和魔术贴
       
       item = {  
-            // id: imgLength+1,   
+            // id: imgLength+1,
+            pictype:this.data.stickers[tapIndex].pictype,   
             top: 100,//初始图片的位置   
             left: 100,  
             x: 155, //初始圆心位置，可再downImg之后又宽高和初始的图片位置得出  
@@ -119,11 +121,11 @@ Page({
             zindex:imgLength+1
             
         }
-      if(item.pictype == 1){
-        item.pictype = 1;
-      }else{
-        item.pictype = 2;
-      }
+      // if(item.pictype == 1){
+      //   item.pictype = 1;
+      // }else{
+      //   item.pictype = 2;
+      // }
       item.image = this.data.stickers[tapIndex].pic
       item.picw  = this.data.stickers[tapIndex].picw;
       item.pich = this.data.stickers[tapIndex].pich;
@@ -174,7 +176,7 @@ Page({
     this.setData({
       editContent:false
     })
-
+console.log(this.data.individualSticker.fontsize)
     let item = {  
         pictype:3,
         // id: imgLength+1,   
@@ -190,8 +192,8 @@ Page({
         type:'text',  //文字  
         ground:this.data.ground,
         fontFamily:'SimSun',
-        fontSize:12,
-        color:'black',
+        fontSize:this.data.individualSticker.fontsize,
+        color:this.data.individualSticker.fontcolor,
         stickerid:this.data.individualStickerId
       }
       

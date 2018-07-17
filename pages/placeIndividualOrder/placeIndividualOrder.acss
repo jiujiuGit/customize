@@ -72,9 +72,13 @@
     border-radius: 0;
 }
 
-.icon-gou{
-    margin-top: 56px;
+#gou{
+    margin-top: 30px;
     text-align: center;
+}
+.icon-success-no-circle{
+    color:#23B60B;
+    font-size: 30px;
 }
 .resMsg{
     font-size: 15px;

@@ -2,9 +2,9 @@ require('./config$');
 
 function success() {
 require('../..//app');
-require('../../pages/index/index');
 require('../../pages/customType/customType');
 require('../../pages/orderList/orderList');
+require('../../pages/index/index');
 require('../../pages/orderDetail/orderDetail');
 require('../../pages/individualForm/individualForm');
 require('../../pages/placeTeamOrder/placeTeamOrder');

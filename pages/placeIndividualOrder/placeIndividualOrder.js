@@ -12,12 +12,16 @@ Page({
     side:'正面',
     sizeTab:0,
     success:false, //是否下单成功
-    wid:''//
+    wid:'',//
+    type:app.globalData.type
   },
   onLoad(query) {
+    console.log(app.globalData.type)
     this.setData({
-      wid:query.id
+      wid:query.id,
+      type:app.globalData.type
     });
+    console.log(this.data.type)
     const that = this;
     my.httpRequest({
       url: 'http://bbltest.color3.cn/Mobile/Api/getWorkdetail', // 目标服务器url
@@ -151,7 +155,14 @@ Page({
       },
       success:function(res){
         if(res.data.status == 1){
-          my.navigateTo({url:'../individualForm/individualForm?id='+res.data.order});
+          if(that.data.type==1){
+            my.navigateTo({url:'../individualForm/individualForm?id='+res.data.order});
+          }else if(that.data.type == 3){
+            that.setData({
+              success:true
+            })
+          }
+          
           // that.setData({
           //   success:true
           // })
