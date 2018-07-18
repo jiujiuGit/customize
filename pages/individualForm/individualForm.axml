@@ -55,4 +55,13 @@
     </view>
   </form>
 
+
+  <view class="layer" a:if="{{layerShow}}">
+    <view class="layer-box">
+      <view id='gou'><text class="iconfont icon-gou"></text></view>
+      <view id='resStr'>恭喜您，下单成功！</view>
+      <view id='btn' onTap="call">联系客服</view>
+    </view>
+  </view>
+
 </view>

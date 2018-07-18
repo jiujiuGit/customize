@@ -1,16 +1,17 @@
 {
   "pages": [
-    
+
+"pages/index/index",
     "pages/customType/customType",
     "pages/orderList/orderList",
+    "pages/customizationDetails/customizationDetails",
     
-    "pages/index/index",
     
     "pages/orderDetail/orderDetail",
     
-   
+   "pages/individualForm/individualForm",
     
-     "pages/individualForm/individualForm",
+     
     "pages/placeTeamOrder/placeTeamOrder",
     
     
@@ -27,13 +28,9 @@
     "pages/placeIndividualOrder/placeIndividualOrder",
     
     
-    "pages/customizationDetails/customizationDetails",
     
     
-    
-    
-    
-    
+  
     
     "pages/sticker/sticker",
     "pages/sideSticker/sideSticker",

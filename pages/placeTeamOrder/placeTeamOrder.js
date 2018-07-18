@@ -39,6 +39,14 @@ Page({
       },
       success: (res) => {
         console.log(res.data.data.pic2)
+        if(res.data.status==0){
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          return;
+        }
         let bgList = [res.data.data.pic1,res.data.data.pic2,res.data.data.pic3];
         // let bgList = [res.data.data.pic1,res.data.data.pic2,res.data.data.pic3];
         // let bgList = ['../../assets/images/108.png','../../assets/images/img_geren.png']
@@ -61,6 +69,14 @@ Page({
        
       },
       success: (res) => {
+        if(res.data.status==0){
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          return;
+        }
         that.setData({
           resStr:res.data
         })
@@ -185,11 +201,17 @@ Page({
         zfb_userid:app.globalData.userInfo.userId
       },
       success:function(res){
-        if(res.data.status == 1){
-          that.setData({
-            success:true
-          })
+        if(res.data.status==0){
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          return;
         }
+        that.setData({
+            success:true
+        })
       },
       fail:function(res){
         

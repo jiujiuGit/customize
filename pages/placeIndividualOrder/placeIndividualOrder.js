@@ -31,6 +31,14 @@ Page({
         wid:query.id
       },
       success: (res) => {
+        if(res.data.status==0){
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          return;
+        }
         console.log(res.data.data.pic2)
         let bgList = [res.data.data.pic1,res.data.data.pic2,res.data.data.pic3];
         // let bgList = ['../../assets/images/108.png','../../assets/images/img_geren.png']
@@ -154,6 +162,14 @@ Page({
         zfb_userid:app.globalData.userInfo.userId
       },
       success:function(res){
+        if(res.data.status==0){
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          return;
+        }
         if(res.data.status == 1){
           if(that.data.type==1){
             my.navigateTo({url:'../individualForm/individualForm?id='+res.data.order});

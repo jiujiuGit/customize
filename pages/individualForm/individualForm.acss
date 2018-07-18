@@ -61,3 +61,26 @@
     font-size: 12px;
     text-decoration: underline;
 }
+
+#gou{
+    color: #23B60B;
+    margin-top: 40px;
+    font-size: 30px;
+    text-align: center
+}
+#resStr{
+    font-weight: bold;
+    font-size: 15px;
+    margin: 30px 0;
+    text-align: center
+}
+#btn{
+    color: #239BC9;
+    font-size: 12px;
+    text-decoration: underline;
+    margin-bottom: 40px;
+    text-align: center
+}
+.icon-gou{
+    font-size: 40px;
+}

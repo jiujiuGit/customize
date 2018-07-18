@@ -16,12 +16,22 @@ Page({
       method:'POST',
       dataType:'json',
       data:{
-        order_sn:that.data.orderSn
+        // order_sn:that.data.orderSn
+        order_sn:'201802281730032698'
       },
       success: (res) => {
-        that.setData({
-          list:res.data.data
-        })
+        if(res.data.status){
+          that.setData({
+            list:res.data.data
+          })
+        }else{
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+        }
+        
       },
     });
   },
@@ -50,6 +60,12 @@ Page({
                 });
               },
             });
+        }else{
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
         }
       },
     });

@@ -33,6 +33,14 @@ Page({
         // console.log(JSON.stringify(res))
         // let odelList = res.data.list;
         my.hideLoading();
+        if(res.data.status==0){
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          return;
+        }
         let fabricList = res.data.list[that.data.current].typelist;
         fabricList[0].fabricActive = true;
 

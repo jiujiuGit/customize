@@ -43,6 +43,14 @@ Page({
         orderid:that.data.orderId
       },
       success: (res) => {
+        if(res.data.status==0){
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          return;
+        }
         let orderDetail = res.data.data;
         // let orderDetail = that.data.orderDetail
         //0 未付款 1已确认（不显示二维码,团体订单显示生产中 提醒发货） 3付款（如果是个人就显示生产中 如果是团队就显示定制中 显示二维码） 4已发货 5已完成 6已取消
@@ -85,6 +93,14 @@ Page({
       dataType:'json',
       data:{},
       success: (res) => {
+        if(res.data.status==0){
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          return;
+        }
         that.setData({
           wenan:res.data
         })

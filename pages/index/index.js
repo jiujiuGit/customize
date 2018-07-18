@@ -84,13 +84,22 @@ Page({
         dataType: 'json',
         success: function(res) {
           my.hideLoading();
-          let bgList = that.data.bgList;
-          bgList.pic3 = res.data.data.pic;
+          if(res.data.status){
+            let bgList = that.data.bgList;
+            bgList.pic3 = res.data.data.pic;
 
-          that.setData({
-            bgList:bgList,
-            leftSidePicId:res.data.id
-          })
+            that.setData({
+              bgList:bgList,
+              leftSidePicId:res.data.id
+            })
+          }else{
+            my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          }
+          
 
         },
         fail: function(res) {
@@ -115,13 +124,22 @@ Page({
         dataType: 'json',
         success: function(res) {
           my.hideLoading();
-          let bgList = that.data.bgList;
-          bgList.pic4 = res.data.data.pic1
+          if(res.data.status){
+            let bgList = that.data.bgList;
+            bgList.pic4 = res.data.data.pic1
 
-          that.setData({
-            bgList:bgList,
-            leftSidePicId:res.data.id
-          })
+            that.setData({
+              bgList:bgList,
+              leftSidePicId:res.data.id
+            })
+          }else{
+            my.showToast({
+              type: 'fail',
+              content: '服务器繁忙，请稍候再试',
+              duration: 2000,
+            });
+          }
+          
 
         },
         fail: function(res) {
@@ -182,8 +200,16 @@ Page({
       dataType: 'json',
       
       success: function(res) {
-
+        if(res.data.status == 0){
+          my.showToast({
+              type: 'fail',
+              content: '服务器繁忙，请稍候再试',
+              duration: 2000,
+          });
+          return;
+        }
         let bgList = res.data.data;
+        
 
         bgList.pic1w = 360; //正面宽高
         bgList.pic1h = 500;
@@ -294,6 +320,14 @@ Page({
       data:{},
       dataType:'json',
       success:function(res){
+        if(res.data.status==0){
+          my.showToast({
+              type: 'fail',
+              content: '服务器繁忙，请稍候再试',
+              duration: 2000,
+          });
+          return;
+        }
         that.setData({
           colorList:res.data.list
         })
@@ -1363,7 +1397,7 @@ Page({
       console.log(1)
         const item = itemList[i]
         // console.log(itemList)
-        if(item.image == undefined){
+        if(item.image == undefined && item.type == 'image'){
           return;
         }
         // this.ctx.rotate(30 * Math.PI / 180);
@@ -1379,6 +1413,8 @@ Page({
         if(item.downloadFile){  //绘制图片
           that.ctx.drawImage(item.downloadFile,0,0,100*item.scale,height) 
         }else if(item.text){    //绘制文字
+        console.log(item.color)
+        console.log(item.fontSize*item.scale)
           that.ctx.setFillStyle(item.color);
           that.ctx.setFontSize(item.fontSize*item.scale);
           that.ctx.fillText(item.text, 0, 0)
@@ -1596,7 +1632,14 @@ Page({
       },
       success:function(res){
         my.hideLoading();
-
+        if(res.data.status == 0){
+          my.showToast({
+              type: 'fail',
+              content: '服务器繁忙，请稍候再试',
+              duration: 2000,
+          });
+          return;
+        }
         if(that.data.type == 1){
           my.navigateTo({url:'../placeIndividualOrder/placeIndividualOrder?id='+res.data.id}) //id订单号
         }else if(that.data.type == 2){

@@ -48,20 +48,25 @@ App({
     }
 
   },
-  onLaunch(res) {
+  onLaunch(options) {
     this.getUserInfo()
+    console.log(options.query)
     // my.alert({content: '启动参数：'+JSON.stringify(options.query)});
 
     // 获取团体定制下的个人定制参数
-    if(1){
-      return
+    if(options.query == undefined){
+        return;
     }
-    let options = {
-      parent_orderid:84,
-      picname:'我的T恤',
-      prodId : 1,
-      fabricId:12,
-    }
+    // if(options.query.parent_orderid==undefined||options.query.parent_orderid == ''||options.query.parent_orderid ==null){
+    //   console.log(1)
+    //   return
+    // }
+    // let options = {
+    //   parent_orderid:84,
+    //   picname:'我的T恤',
+    //   prodId : 1,
+    //   fabricId:12,
+    // }
     // my.alert({content: '启动参数：'+JSON.stringify(options.query.x),});
     // console.log('query', options.query);
     // console.log('App Launch', options);
@@ -69,10 +74,10 @@ App({
 
     // console.log(this.globalData.userInfo)
     this.globalData.type = 3
-    this.globalData.teamIndividual.parent_orderid = options.parent_orderid
-    this.globalData.teamIndividual.picname=options.picname
-    this.globalData.teamIndividual.prodId = options.prodId
-    this.globalData.teamIndividual.fabricId = options.fabricId
+    this.globalData.teamIndividual.parent_orderid = options.query.parent_orderid
+    this.globalData.teamIndividual.picname=options.query.picname
+    this.globalData.teamIndividual.prodId = options.query.prodId
+    this.globalData.teamIndividual.fabricId = options.query.fabricId
     // console.log(this.globalData.teamIndividual.picname)
     // this.setData({
     //   parent_orderid:99,//团体订单id
@@ -108,7 +113,15 @@ App({
                   code:authcode.authCode
                 },
                 success: (res) => {
-                  this.globalData.userInfo.userId = res.data.user_id
+                  if(res.data.status){
+                    this.globalData.userInfo.userId = res.data.user_id
+                  }else{
+                    my.showToast({
+                      type: 'fail',
+                      content: '服务器繁忙，请稍候再试',
+                      duration: 2000,
+                    });
+                  }
                 },
               });
               resolve(this.userInfo);
@@ -124,4 +137,5 @@ App({
       });
     });
   },
+  
 });

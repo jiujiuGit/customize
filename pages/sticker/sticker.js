@@ -66,7 +66,14 @@ Page({
       },
       dataType: 'json',
       success: function(res) {
-        
+        if(res.data.status==0){
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          return;
+        }
         that.setData({
           stickers:res.data.list
         })

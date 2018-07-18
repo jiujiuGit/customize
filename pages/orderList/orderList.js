@@ -32,6 +32,14 @@ Page({
       },
       success: (res) => {
          my.hideLoading();
+         if(res.data.status==0){
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          return;
+        }
         let list = res.data.list;
         for(let i=0;i<list.length;i++){
           let statusCode = list[i].order_status
@@ -91,6 +99,14 @@ Page({
       dataType:'json',
       data:{},
       success: (res) => {
+        if(res.data.status==0){
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          return;
+        }
         that.setData({
           wenan:res.data
         })
@@ -138,7 +154,19 @@ Page({
         orderid:e.currentTarget.dataset.id
       },
       success: (res) => {
-        
+        if(res.data.status==0){
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          return;
+        }
+        my.showToast({
+            type: 'success',
+            content: '提交成功',
+            duration: 2000,
+        });
       },
     });
   },
@@ -153,7 +181,19 @@ Page({
         orderid:e.currentTarget.dataset.id
       },
       success: (res) => {
-        
+        if(res.data.status==0){
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          return;
+        }
+        my.showToast({
+            type: 'success',
+            content: '提交成功',
+            duration: 2000,
+        });
       },
     });
   },
@@ -168,7 +208,19 @@ Page({
         orderid:e.currentTarget.dataset.id
       },
       success: (res) => {
-        
+         if(res.data.status==0){
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          return;
+        }
+        my.showToast({
+            type: 'success',
+            content: '提交成功',
+            duration: 2000,
+        });
       },
     });
   }

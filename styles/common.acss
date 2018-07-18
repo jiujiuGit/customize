@@ -42,7 +42,7 @@
     background-color: rgba(0,0,0,0.6);
 }
 .layer-box{
-    width:50%;   
+    width:60%;   
     position: absolute;   
     top: 50%;   
     left: 50%;   
@@ -54,4 +54,7 @@
     border-radius: 8px;
     z-index: 2100;
     background-color: white;
-}
+  }
+  /* .icon-success-no-circle{
+    font-size: 30px;
+  } */

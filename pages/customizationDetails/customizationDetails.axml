@@ -9,9 +9,10 @@
         <view><image class="header-img" src="{{item.leftpic}}" mode="widthFix" /></view>
         <view><image class="header-img" src="{{item.rightpic}}" mode="widthFix" /></view> -->
         <!-- <view><image class="header-img" src="../../assets/images/img_team.png" mode="widthFix" /></view> -->
-        <!-- <view><image class="header-img" src="{{item.touxiang}}" mode="widthFix" /></view> -->
+        <view><image class="header-img" a:if="{{item.touxiang!=null}}" src="{{item.touxiang}}" mode="widthFix" /></view>
+        <view><image class="header-img" a:if="{{item.touxiang==null}}"  src="../../assets/images/img_geren.png" mode="widthFix" /></view>
 
-        <view class="person-name">{{item.nickname}}小姐姐</view>
+        <view class="person-name">{{item.nickname}}</view>
       </view>
 
       <view class="flex-box personal-images">

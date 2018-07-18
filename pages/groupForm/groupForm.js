@@ -19,9 +19,18 @@ Page({
 
       },
       success: (res) => {
-        that.setData({
-          pros:res.data.list
-        })
+        if(res.data.status){
+          that.setData({
+            pros:res.data.list
+          })
+        }else{
+           my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+        }
+        
       },
     });
 
@@ -87,9 +96,18 @@ Page({
       dataType:'json',
 
       success: (res) => {
-        that.setData({
-          citys:res.data.list
-        })
+        if(res.data.status){
+          that.setData({
+            citys:res.data.list
+          })
+        }else{
+           my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+        }
+        
       },
       fail:(res) => {
 
@@ -118,54 +136,54 @@ Page({
     const that = this;
     console.log(that.data.company);
     
-    // if(that.data.name=='' || that.data.name == undefined){
-    //   my.alert({
-    //     title: '提示',
-    //     content: '联系人姓名不能为空！',
-    //     buttonText:'确定',
-    //   });
-    //   return;
-    // }
-    // if(that.data.phone=='' || that.data.phone == undefined){
-    //   my.alert({
-    //     title: '提示',
-    //     content: '联系人电话不能为空！',
-    //     buttonText:'确定',
-    //   });
-    //   return;
-    // }
-    // if(that.data.address=='' || that.data.address == undefined){
-    //   my.alert({
-    //     title: '提示',
-    //     content: '详细地址不能为空！',
-    //     buttonText:'确定',
-    //   });
-    //   return;
-    // }
-    // if(that.data.province.id=='' || that.data.province.id == undefined){
-    //   my.alert({
-    //     title: '提示',
-    //     content: '省信息不能为空！',
-    //     buttonText:'确定',
-    //   });
-    //   return;
-    // }
-    // if(that.data.city.id=='' || that.data.city.id == undefined){
-    //   my.alert({
-    //     title: '提示',
-    //     content: '市信息不能为空！',
-    //     buttonText:'确定',
-    //   });
-    //   return;
-    // }
-    // if(that.data.address=='' || that.data.address == undefined){
-    //   my.alert({
-    //     title: '提示',
-    //     content: '详细地址不能为空！',
-    //     buttonText:'确定',
-    //   });
-    //   return;
-    // }
+    if(that.data.name=='' || that.data.name == undefined){
+      my.alert({
+        title: '提示',
+        content: '联系人姓名不能为空！',
+        buttonText:'确定',
+      });
+      return;
+    }
+    if(that.data.phone=='' || that.data.phone == undefined){
+      my.alert({
+        title: '提示',
+        content: '联系人电话不能为空！',
+        buttonText:'确定',
+      });
+      return;
+    }
+    if(that.data.address=='' || that.data.address == undefined){
+      my.alert({
+        title: '提示',
+        content: '详细地址不能为空！',
+        buttonText:'确定',
+      });
+      return;
+    }
+    if(that.data.province.id=='' || that.data.province.id == undefined){
+      my.alert({
+        title: '提示',
+        content: '省信息不能为空！',
+        buttonText:'确定',
+      });
+      return;
+    }
+    if(that.data.city.id=='' || that.data.city.id == undefined){
+      my.alert({
+        title: '提示',
+        content: '市信息不能为空！',
+        buttonText:'确定',
+      });
+      return;
+    }
+    if(that.data.address=='' || that.data.address == undefined){
+      my.alert({
+        title: '提示',
+        content: '详细地址不能为空！',
+        buttonText:'确定',
+      });
+      return;
+    }
     my.httpRequest({
       url:'http://bbltest.color3.cn/Mobile/Api/subteamorder',
       dataType:'json',
@@ -183,7 +201,16 @@ Page({
       },
       success:function(res){
         console.log(res.data.order)
-        app.globalData.teamData.order = res.data.order
+        if(res.data.status){
+          app.globalData.teamData.order = res.data.order
+        }else{
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+        }
+
       }
     })
     my.navigateTo({url:'../index/index'})
