@@ -156,6 +156,7 @@ Page({
   
   },
   onLoad(query) {  
+    // const that = this;
     this.setData({
         type:app.globalData.type,
         picname:app.globalData.teamData.picname,
@@ -208,67 +209,107 @@ Page({
           });
           return;
         }
-        let bgList = res.data.data;
+        that.setData({
+          bgList:res.data.data
+        })
+        app.globalData.eidtAreaParams  = {
+          left1:res.data.data.left1,
+          top1:res.data.data.top1,
+          left2:res.data.data.left2,
+          top2:res.data.data.top2
+        }  //
+        console.log(app.globalData.eidtAreaParams)
+
+        // let bgList = res.data.data;
         
 
-        bgList.pic1w = 360; //正面宽高
-        bgList.pic1h = 500;
+        //获取图片宽度、高度
+        my.getImageInfo({  //正面
+          src:res.data.data.pic1,
+          success:function(pic){
+            that.data.bgList.pic1w = pic.width;
+            that.data.bgList.pic1h = pic.height;
+            that.data.bgList.contLeft1 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
+            that.data.bgList.contTop1 = (that.data.systemInfo.windowHeight - pic.height -40)/2  //定制区域top
 
-        bgList.pic2w = 360; //背面宽高
-        bgList.pic2h = 500;
+            that.setData({
+              bgList:that.data.bgList
+            })
+          },
+          fail:function(res){
+            console.log(res)
+          }
+        });
+         my.getImageInfo({  //背面
+          src:res.data.data.pic2,
+          success:function(pic){
+            that.data.bgList.pic2w = pic.width;
+            that.data.bgList.pic2h = pic.height;
+             that.data.bgList.contLeft2 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
+            that.data.bgList.contTop2 = (that.data.systemInfo.windowHeight - pic.height -40)/2  //定制区域top
+            that.setData({
+              bgList:that.data.bgList
+            })
+          }
+        });
 
-        bgList.pic2w = 360; //侧面宽高
-        bgList.pic2h = 500;
+         my.getImageInfo({  //侧面
+          src:res.data.data.pic3,
+          success:function(pic){
+            that.data.bgList.pic3w = pic.width;
+            that.data.bgList.pic3h = pic.height;
+             that.data.bgList.contLeft3 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
+            that.data.bgList.contTop3 = (that.data.systemInfo.windowHeight - pic.height -40)/2  //定制区域top
+            that.setData({
+              bgList:that.data.bgList
+            })
+          }
+        });
 
-        bgList.contLeft1 = (that.data.systemInfo.windowWidth - bgList.pic1w)/2; //定制区域left
-        bgList.contTop1 = (that.data.systemInfo.windowHeight - bgList.pic1h -80)/2  //定制区域top
 
-        bgList.contLeft2 = (that.data.systemInfo.windowWidth - bgList.pic2w)/2; //定制区域left
-        bgList.contTop2 = (that.data.systemInfo.windowHeight - bgList.pic2h -80)/2  //定制区域top
 
-        bgList.contLeft3 = (that.data.systemInfo.windowWidth - bgList.pic3w)/2; //定制区域left
-        bgList.contTop3 = (that.data.systemInfo.windowHeight - bgList.pic3h -80)/2  //定制区域top
+        // bgList.pic1w = 360; //正面宽高
+        // bgList.pic1h = 500;
+
+        // bgList.pic2w = 360; //背面宽高
+        // bgList.pic2h = 500;
+
+        // bgList.pic2w = 360; //侧面宽高
+        // bgList.pic2h = 500;
+      
+        // setTimeout(function(){
+        //   bgList.contLeft1 = (that.data.systemInfo.windowWidth - bgList.pic1w)/2; //定制区域left
+        //   bgList.contTop1 = (that.data.systemInfo.windowHeight - bgList.pic1h -80)/2  //定制区域top
+
+        //   bgList.contLeft2 = (that.data.systemInfo.windowWidth - bgList.pic2w)/2; //定制区域left
+        //   bgList.contTop2 = (that.data.systemInfo.windowHeight - bgList.pic2h -80)/2  //定制区域top
+
+        //   bgList.contLeft3 = (that.data.systemInfo.windowWidth - bgList.pic3w)/2; //定制区域left
+        //   bgList.contTop3 = (that.data.systemInfo.windowHeight - bgList.pic3h -80)/2  //定制区域top
+
+        //   that.setData({
+        //     bgList:bgList,
+        //     sizes:res.data.data.sizes,
+        //     buttons:res.data.data.buttons,
+        //     // individualArea:res.data.data.buttons
+        //   });
+        //   console.log(that.data.bgList)
+        // },1200)
+
+        that.setData({
+          // bgList:bgList,
+          sizes:res.data.data.sizes,
+          buttons:res.data.data.buttons,
+          // individualArea:res.data.data.buttons
+        });
         
-
-
-
-
-        // 获取图片宽度、高度
-        // my.getImageInfo({  //正面
-        //   src:res.data.data.pic1,
-        //   success:function(pic){
-        //     bgList.pic1w = pic.width;
-        //     bgList.pic1h = pic.height;
-        //     bgList.contLeft1 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
-        //     bgList.contTop1 = (that.data.systemInfo.windowHeight - pic.height -40)/2  //定制区域top
-        //   },
-        //   fail:function(res){
-        //     console.log(res)
-        //   }
-        // });
-        //  my.getImageInfo({  //背面
-        //   src:res.data.data.pic2,
-        //   success:function(pic){
-        //     bgList.pic2w = pic.width;
-        //     bgList.pic2h = pic.height;
-        //      bgList.contLeft2 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
-        //     bgList.contTop2 = (that.data.systemInfo.windowHeight - pic.height -40)/2  //定制区域top
-        //   }
-        // });
-
-        //  my.getImageInfo({  //侧面
-        //   src:res.data.data.pic3,
-        //   success:function(pic){
-        //     bgList.pic3w = pic.width;
-        //     bgList.pic3h = pic.height;
-        //      bgList.contLeft3 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
-        //     bgList.contTop3 = (that.data.systemInfo.windowHeight - pic.height -40)/2  //定制区域top
-        //   }
-        // });
         my.downloadFile({
           url: res.data.data.pic1, // 下载正面图片
           success: (res) => {         
-            bgList.tempFilePath1 = res.apFilePath
+            that.data.bgList.tempFilePath1 = res.apFilePath;
+            that.setData({
+              bgList:that.data.bgList
+            })
           },
           fail(res){
           }
@@ -276,18 +317,16 @@ Page({
         my.downloadFile({
           url: res.data.data.pic2, // 下载背面图片
           success: (res) => {         
-            bgList.tempFilePath2 = res.apFilePath
+            that.data.bgList.tempFilePath2 = res.apFilePath
+            that.setData({
+              bgList:that.data.bgList
+            })
           },
           fail(res){
           }
         });
         
-        that.setData({
-          bgList:bgList,
-          sizes:res.data.data.sizes,
-          buttons:res.data.data.buttons,
-          // individualArea:res.data.data.buttons
-        });
+        
         let individualArea = []
         for(let i=0;i<res.data.data.buttons.length;i++){
           let btnItem = {

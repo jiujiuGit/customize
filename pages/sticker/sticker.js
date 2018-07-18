@@ -114,8 +114,8 @@ Page({
       item = {  
             // id: imgLength+1,
             pictype:this.data.stickers[tapIndex].pictype,   
-            top: 100,//初始图片的位置   
-            left: 100,  
+            // top: 100,//初始图片的位置   
+            // left: 100,  
             x: 155, //初始圆心位置，可再downImg之后又宽高和初始的图片位置得出  
             y: 155,  
             scale: 1,//缩放比例  1为不缩放  
@@ -144,12 +144,14 @@ Page({
       success: (res) => {         
         item.downloadFile = res.apFilePath;
         if(this.data.ground == 'front'){  //添加到front编辑列表
+        item.left = (parseInt(app.globalData.eidtAreaParams.left1) - 100)/2
           const frontLength = app.globalData.frontItems.length
           item.id = frontLength+1;
           app.globalData.frontItems.push(item)
           app.globalData.stickerIndex = app.globalData.frontItems.length-1
         }else if(this.data.ground == 'back'){ //添加到back编辑列表
         const backLength = app.globalData.backItems.length
+        item.left = (parseInt(app.globalData.eidtAreaParams.left2) - 100)/2
           item.id = backLength+1;
           app.globalData.backItems.push(item)
           app.globalData.stickerIndex = app.globalData.backItems.length-1

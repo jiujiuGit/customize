@@ -119,10 +119,10 @@
 
   <canvas class="mycanvas" id="canvasFront" style="width:{{bgList.width}}px; height:{{bgList.height}}px"></canvas>
   <canvas class="mycanvas" id="canvasBack" style="width:{{bgList.width1}}px; height:{{bgList.height1}}px"></canvas>
-  <canvas class="mycanvas" id="frontRemix" style="width:360px; height:500px"></canvas>
-  <canvas class="mycanvas" id="backRemix" style="width:360px; height:500px"></canvas>
-  <!-- <canvas class="mycanvas" id="frontRemix" style="width:{{bgList.pic1w}}px; height:{{bgList.pic1h}}px"></canvas>
-  <canvas class="mycanvas" id="backRemix" style="width:{{bgList.pic2w}}px; height:{{bgList.pic2h}}px"></canvas> -->
+  <!-- <canvas class="mycanvas" id="frontRemix" style="width:360px; height:500px"></canvas>
+  <canvas class="mycanvas" id="backRemix" style="width:360px; height:500px"></canvas> -->
+  <canvas class="mycanvas" id="frontRemix"  style="width:{{bgList.pic1w}}px; height:{{bgList.pic1h}}px"></canvas>
+  <canvas class="mycanvas" id="backRemix" style="width:{{bgList.pic2w}}px; height:{{bgList.pic2h}}px"></canvas>
 
 
 

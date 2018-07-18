@@ -21,6 +21,8 @@ App({
     footer:'list', //底部展示内容
     leftStickerId:'', //左侧面贴纸或线条id
     rightStickerId:'',
+
+    eidtAreaParams:'',
     // area:[],//团体定制下个人可编辑区域
 
 
