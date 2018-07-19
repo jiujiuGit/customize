@@ -1,7 +1,7 @@
 {
   "pages": [
 
-"pages/index/index",
+    "pages/index/index",
     "pages/customType/customType",
     "pages/orderList/orderList",
     "pages/customizationDetails/customizationDetails",

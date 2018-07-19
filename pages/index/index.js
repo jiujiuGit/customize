@@ -213,10 +213,14 @@ Page({
           bgList:res.data.data
         })
         app.globalData.eidtAreaParams  = {
-          left1:res.data.data.left1,
-          top1:res.data.data.top1,
-          left2:res.data.data.left2,
-          top2:res.data.data.top2
+          width1:parseInt(res.data.data.width),
+          width2:parseInt(res.data.data.width1),
+          height1:parseInt(res.data.data.height),
+          height2:parseInt(res.data.data.height2),
+          left1:parseInt(res.data.data.left1),
+          top1:parseInt(res.data.data.top1),
+          left2:parseInt(res.data.data.left2),
+          top2:parseInt(res.data.data.top2)
         }  //
         console.log(app.globalData.eidtAreaParams)
 
@@ -230,7 +234,7 @@ Page({
             that.data.bgList.pic1w = pic.width;
             that.data.bgList.pic1h = pic.height;
             that.data.bgList.contLeft1 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
-            that.data.bgList.contTop1 = (that.data.systemInfo.windowHeight - pic.height -40)/2  //定制区域top
+            that.data.bgList.contTop1 = (that.data.systemInfo.windowHeight - pic.height -100)/2  //定制区域top
 
             that.setData({
               bgList:that.data.bgList
@@ -246,7 +250,7 @@ Page({
             that.data.bgList.pic2w = pic.width;
             that.data.bgList.pic2h = pic.height;
              that.data.bgList.contLeft2 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
-            that.data.bgList.contTop2 = (that.data.systemInfo.windowHeight - pic.height -40)/2  //定制区域top
+            that.data.bgList.contTop2 = (that.data.systemInfo.windowHeight - pic.height -100)/2  //定制区域top
             that.setData({
               bgList:that.data.bgList
             })
@@ -259,7 +263,7 @@ Page({
             that.data.bgList.pic3w = pic.width;
             that.data.bgList.pic3h = pic.height;
              that.data.bgList.contLeft3 = (that.data.systemInfo.windowWidth - pic.width)/2; //定制区域left
-            that.data.bgList.contTop3 = (that.data.systemInfo.windowHeight - pic.height -40)/2  //定制区域top
+            that.data.bgList.contTop3 = (that.data.systemInfo.windowHeight - pic.height -100)/2  //定制区域top
             that.setData({
               bgList:that.data.bgList
             })
@@ -838,7 +842,10 @@ Page({
     }else if(curTap == 'back'){
       items = this.data.backItemList; 
     }
-   
+  //  console.log(this.data.index)
+    if(this.data.index == undefined || items[this.data.index].active == undefined){
+      return;
+    }
     items[this.data.index].active = false;
     if(curTap == 'front'){
       this.setData({ //赋值 
@@ -1433,7 +1440,7 @@ Page({
       //   console.log(i)
       // }
     for(let i=0;i<itemList.length;i++){
-      console.log(1)
+
         const item = itemList[i]
         // console.log(itemList)
         if(item.image == undefined && item.type == 'image'){
@@ -1441,19 +1448,26 @@ Page({
         }
         // this.ctx.rotate(30 * Math.PI / 180);
         that.ctx.save();
+        // console.log(areaLeft)
+        that.ctx.fillText('Hello', 50, 12)
         const left = item.left - areaLeft;
-        const top = item.top - areaTop;
+        let top = item.top - areaTop;
+        if(item.text){
+          top = item.fontSize*item.scale+top;  //文字top要加上文字的高度
+        }
         const wh = item.pich / item.picw  //图片宽高比例
         const height = 100*wh*item.scale;  //计算缩放后的图片高度
+
         that.ctx.translate(left,top);
         that.ctx.rotate(item.angle * Math.PI / 180);
         that.ctx.setGlobalAlpha(item.opacity/100)
+
        
         if(item.downloadFile){  //绘制图片
           that.ctx.drawImage(item.downloadFile,0,0,100*item.scale,height) 
+
         }else if(item.text){    //绘制文字
-        console.log(item.color)
-        console.log(item.fontSize*item.scale)
+
           that.ctx.setFillStyle(item.color);
           that.ctx.setFontSize(item.fontSize*item.scale);
           that.ctx.fillText(item.text, 0, 0)

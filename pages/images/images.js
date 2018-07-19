@@ -25,8 +25,8 @@ Page({
       let imgLength = app.globalData.items.length;
       let item = {  
               // id: imgLength+1,   
-              top: 100,//初始图片的位置   
-              left: 100,  
+              // top: 100,//初始图片的位置   
+              // left: 100,  
               x: 155, //初始圆心位置，可再downImg之后又宽高和初始的图片位置得出  
               y: 155,  
               scale: 1,//缩放比例  1为不缩放  
@@ -68,15 +68,20 @@ Page({
 
               my.downloadFile({
                 url: item.image, // 下载文件地址
-                success: (res) => {         
+                success: (res) => { 
+                  const  eidtAreaParams = app.globalData.eidtAreaParams       
                   item.downloadFile = res.apFilePath;
                   if(this.data.ground == 'front'){
                     let frontLength = app.globalData.frontItems.length;
                     item.id = frontLength+1;
+                    item.left = eidtAreaParams.left2+(eidtAreaParams.width1 - 100)/2;
+                    item.top = eidtAreaParams.top2 + (eidtAreaParams.height1 - 100)/2
                     app.globalData.frontItems.push(item);
                     app.globalData.stickerIndex = app.globalData.frontItems.length-1
                   }else if(this.data.ground == 'back'){
                     let backLength = app.globalData.backItems.length;
+                    item.left = eidtAreaParams.left2+(eidtAreaParams.width2 - 100)/2;
+                    item.top = eidtAreaParams.top2 + (eidtAreaParams.height2 - 100)/2
                     item.id = backLength+1;
                     app.globalData.backItems.push(item);
                     app.globalData.stickerIndex = app.globalData.backItems.length-1
