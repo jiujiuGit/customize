@@ -75,17 +75,21 @@ Page({
                     let frontLength = app.globalData.frontItems.length;
                     item.id = frontLength+1;
                     item.left = eidtAreaParams.left2+(eidtAreaParams.width1 - 100)/2;
-                    item.top = eidtAreaParams.top2 + (eidtAreaParams.height1 - 100)/2
+                    item.top = eidtAreaParams.top2 + (eidtAreaParams.height1 - 100*(item.pich/item.picw))/2
+                    console.log(item.left+"*********"+item.top)
                     app.globalData.frontItems.push(item);
                     app.globalData.stickerIndex = app.globalData.frontItems.length-1
                   }else if(this.data.ground == 'back'){
                     let backLength = app.globalData.backItems.length;
                     item.left = eidtAreaParams.left2+(eidtAreaParams.width2 - 100)/2;
-                    item.top = eidtAreaParams.top2 + (eidtAreaParams.height2 - 100)/2
+                    item.top = eidtAreaParams.top2 + (eidtAreaParams.height2 - 100*(item.pich/item.picw))/2
                     item.id = backLength+1;
                     app.globalData.backItems.push(item);
                     app.globalData.stickerIndex = app.globalData.backItems.length-1
                   }
+                   item.y = item.left + 50;
+                  item.x = item.top+(100*(item.pich/item.picw))/2
+
 
                   my.navigateBack({
                     delta: 1

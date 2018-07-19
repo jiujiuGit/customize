@@ -511,8 +511,6 @@ Page({
     let maxTop; //可移动的最大top值
     let minTop;//可移动的最小top值
     
-    
-
   
     let items = [];
     let index = this.data.index;
@@ -538,11 +536,6 @@ Page({
        maxTop = parseInt(this.data.bgList.top2)+(parseInt(this.data.bgList.height1) - itemH);
        minTop = this.data.bgList.top2;
     }
-
-    
-
-
-    
 
         
         //移动时的坐标值也写图片的属性里  
@@ -717,7 +710,7 @@ Page({
         items[index].rotate += items[index].new_rotate;  
         
         items[index].angle = items[index].rotate; //赋值  
-        
+
         //用过移动后的坐标赋值为移动前坐标  
         items[index].tx = e.touches[0].clientX;  
         items[index].ty = e.touches[0].clientY;  
@@ -843,7 +836,7 @@ Page({
       items = this.data.backItemList; 
     }
   //  console.log(this.data.index)
-    if(this.data.index == undefined || items[this.data.index].active == undefined){
+    if(this.data.index == undefined ){
       return;
     }
     items[this.data.index].active = false;
@@ -1380,7 +1373,7 @@ Page({
     });
     // that.ctx = my.createCanvasContext('canvasFront');
     // let frontItemList = that.data.frontItemList;
-    // let backItemList = that.data.backItemList;
+    // let backItemList = that.data.backItemList;                                            h 
     that.canvasDraw('front');
     that.canvasDraw('back');
     that.canvasRemix('front');

@@ -116,8 +116,8 @@ Page({
             pictype:this.data.stickers[tapIndex].pictype,   
             // top: 50,//初始图片的位置   
             // left: 100,  
-            x: 155, //初始圆心位置，可再downImg之后又宽高和初始的图片位置得出  
-            y: 155,  
+            x: 150, //初始圆心位置，可再downImg之后又宽高和初始的图片位置得出  
+            y: 150,  
             scale: 1,//缩放比例  1为不缩放  
             angle: 0,//旋转角度  
             active: false, //判定点击状态
@@ -133,6 +133,8 @@ Page({
       // }else{
       //   item.pictype = 2;
       // }
+
+      // 初始宽度为100px
       item.image = this.data.stickers[tapIndex].pic
       item.picw  = this.data.stickers[tapIndex].picw;
       item.pich = this.data.stickers[tapIndex].pich;
@@ -147,22 +149,32 @@ Page({
         if(this.data.ground == 'front'){  //添加到front编辑列表
         // console.log(app.globalData.eidtAreaParams)
         item.left = eidtAreaParams.left1+(eidtAreaParams.width1 - 100)/2;
-        item.top = eidtAreaParams.top1 + (eidtAreaParams.height1 - 100)/2
-        console.log(item.top)
-        console.log(item.left)
+        item.top = eidtAreaParams.top1 + (eidtAreaParams.height1 - 100*(item.pich/item.picw))/2;
+        // item.x = item.left + 50;
+        // item.y = item.top1+(100*(item.pich/item.picw))
+        
           const frontLength = app.globalData.frontItems.length
           item.id = frontLength+1;
           app.globalData.frontItems.push(item)
           app.globalData.stickerIndex = app.globalData.frontItems.length-1
         }else if(this.data.ground == 'back'){ //添加到back编辑列表
         const backLength = app.globalData.backItems.length
+        console.log(eidtAreaParams.left2)
+        console.log(eidtAreaParams.top2)
+        console.log(eidtAreaParams.height2)
           item.left = eidtAreaParams.left2+(eidtAreaParams.width2 - 100)/2;
-          item.top = eidtAreaParams.top2 + (eidtAreaParams.height2 - 100)/2
+          item.top = eidtAreaParams.top2 + (eidtAreaParams.height2 - 100*(item.pich/item.picw))/2
+          console.log(item.top)
+        console.log(item.left)
+          // item.x = item.left2 + 50;
+          // item.y = item.top2+(100*(item.pich/item.picw))
           item.id = backLength+1;
           app.globalData.backItems.push(item)
           app.globalData.stickerIndex = app.globalData.backItems.length-1
         }
-
+        item.y = item.left + 50;
+        item.x = item.top+(100*(item.pich/item.picw))/2
+        console.log(item.x+"_____"+item.y)
 
         // app.globalData.items.push(item);
         my.navigateBack({
