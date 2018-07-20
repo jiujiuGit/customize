@@ -168,8 +168,10 @@ Page({
           app.globalData.backItems.push(item)
           app.globalData.stickerIndex = app.globalData.backItems.length-1
         }
-        item.y = item.left + 50;
-        item.x = item.top+(100*(item.pich/item.picw))/2
+        item.x = item.left + 50;
+        item.y = item.top+(100*(item.pich/item.picw))/2
+        console.log(item)
+        console.log(item.x+"****"+item.y)
 
 
         // app.globalData.items.push(item);

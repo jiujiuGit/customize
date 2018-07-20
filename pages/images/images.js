@@ -48,62 +48,65 @@ Page({
               filePath: item.image,
               success: (res) => {
                 // console.log(JSON.stringify(res))
-                const resData = JSON.parse(res.data)
+                  const resData = JSON.parse(res.data)
               // console.log(JSON.stringify(resData))
-              item.image =resData.data.url;
-              console.log(item.image)
+                item.image =resData.data.url;
+                console.log(item.image)
 
-              // 获取图片宽高
-              my.getImageInfo({
-                src:item.image,
-                success:(res)=>{
-                  console.log(JSON.stringify(res))
-                  item.picw = res.width,
-                  item.pich = res.height
-                },
-                fail:(res)=>{
-                  console.log(res)
-                }
-              });
+                // 获取图片宽高
+                my.getImageInfo({
+                  src:item.image,
+                  success:(res)=>{
+                    console.log(JSON.stringify(res))
+                    item.picw = res.width,
+                    item.pich = res.height,
+                    my.downloadFile({
+                  url: item.image, // 下载文件地址
+                  success: (res) => { 
+                    const  eidtAreaParams = app.globalData.eidtAreaParams       
+                    item.downloadFile = res.apFilePath;
+                    if(this.data.ground == 'front'){
+                      let frontLength = app.globalData.frontItems.length;
+                      item.id = frontLength+1;
+                      item.left = eidtAreaParams.left2+(eidtAreaParams.width1 - 100)/2;
+                      item.top = eidtAreaParams.top2 + (eidtAreaParams.height1 - 100*(item.pich/item.picw))/2
+                      console.log(item.left+"*********"+item.top)
+                      app.globalData.frontItems.push(item);
+                      app.globalData.stickerIndex = app.globalData.frontItems.length-1
+                    }else if(this.data.ground == 'back'){
+                      let backLength = app.globalData.backItems.length;
+                      item.left = eidtAreaParams.left2+(eidtAreaParams.width2 - 100)/2;
+                      item.top = eidtAreaParams.top2 + (eidtAreaParams.height2 - 100*(item.pich/item.picw))/2
+                      item.id = backLength+1;
+                      app.globalData.backItems.push(item);
+                      app.globalData.stickerIndex = app.globalData.backItems.length-1
+                    }
+                    item.x = item.left + 50;
+                    item.y = item.top+(100*(item.pich/item.picw))/2
+                    console.log(item)
+                    console.log(item.x+"****"+item.y)
 
-              my.downloadFile({
-                url: item.image, // 下载文件地址
-                success: (res) => { 
-                  const  eidtAreaParams = app.globalData.eidtAreaParams       
-                  item.downloadFile = res.apFilePath;
-                  if(this.data.ground == 'front'){
-                    let frontLength = app.globalData.frontItems.length;
-                    item.id = frontLength+1;
-                    item.left = eidtAreaParams.left2+(eidtAreaParams.width1 - 100)/2;
-                    item.top = eidtAreaParams.top2 + (eidtAreaParams.height1 - 100*(item.pich/item.picw))/2
-                    console.log(item.left+"*********"+item.top)
-                    app.globalData.frontItems.push(item);
-                    app.globalData.stickerIndex = app.globalData.frontItems.length-1
-                  }else if(this.data.ground == 'back'){
-                    let backLength = app.globalData.backItems.length;
-                    item.left = eidtAreaParams.left2+(eidtAreaParams.width2 - 100)/2;
-                    item.top = eidtAreaParams.top2 + (eidtAreaParams.height2 - 100*(item.pich/item.picw))/2
-                    item.id = backLength+1;
-                    app.globalData.backItems.push(item);
-                    app.globalData.stickerIndex = app.globalData.backItems.length-1
+
+                    my.navigateBack({
+                      delta: 1
+                    })
+                    this.setData({
+                      stickerIndex : item.id
+                    })
+                    
+                    app.globalData.footer = 'imgTransparency'
+                    // console.log(frontItemList)
+                  },
+                  fail(res){
                   }
-                   item.y = item.left + 50;
-                  item.x = item.top+(100*(item.pich/item.picw))/2
-
-
-                  my.navigateBack({
-                    delta: 1
-                  })
-                  this.setData({
-                    stickerIndex : item.id
-                  })
-                  
-                  app.globalData.footer = 'imgTransparency'
-                  // console.log(frontItemList)
-                },
-                fail(res){
-                }
+                });
+              },
+              fail:(res)=>{
+                console.log(res)
+              }
               });
+
+              
 
               
 

@@ -644,6 +644,7 @@ Page({
        //找到点击的那个图片对象，并记录  
         // let items = this.data.itemList;
         const curTap = this.data.currentTap;
+        const index = this.data.index;
   
         let items = [];
         if(curTap == 'front'){
@@ -659,18 +660,19 @@ Page({
                   index:i
                 }) 
              
-                items[this.data.index].active = true;  
+                items[index].active = true;  
             }  
         }  
+        
          //获取作为移动前角度的坐标  
-        items[this.data.index].tx = e.touches[0].clientX;  
-        items[this.data.index].ty = e.touches[0].clientY;  
+        items[index].tx = e.touches[0].clientX;  
+        items[index].ty = e.touches[0].clientY;  
         //移动前的角度
-       const index = this.data.index;
-        items[this.data.index].anglePre = this.countDeg(items[index].x, items[index].y, items[index].tx, items[index].ty)  
+       
+        items[index].anglePre = this.countDeg(items[index].x, items[index].y, items[index].tx, items[index].ty)  
   
         //获取图片半径  
-        items[this.data.index].r = this.getDistancs(items[index].x, items[index].y, items[index].left, items[index].top)  
+        items[index].r = this.getDistancs(items[index].x, items[index].y, items[index].left, items[index].top)  
     },  
     // 触摸移动事件    
   touchMove: function (e) {  
