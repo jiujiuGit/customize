@@ -216,15 +216,13 @@ Page({
           width1:parseInt(res.data.data.width),
           width2:parseInt(res.data.data.width1),
           height1:parseInt(res.data.data.height),
-          height2:parseInt(res.data.data.height2),
+          height2:parseInt(res.data.data.height1),
           left1:parseInt(res.data.data.left1),
           top1:parseInt(res.data.data.top1),
           left2:parseInt(res.data.data.left2),
           top2:parseInt(res.data.data.top2)
         }  //
-        console.log(app.globalData.eidtAreaParams)
 
-        // let bgList = res.data.data;
         
 
         //获取图片宽度、高度
@@ -1426,12 +1424,8 @@ Page({
       areaLeft = that.data.bgList.left2; //定制框left
       areaTop = that.data.bgList.top2; //定制框top
     }
-    console.log(itemList)
-    console.log(itemList.length)
-    // for(let i=itemList.length-1;i>-1;i--){
-      // for(let i=0;i<1;i++){
-      //   console.log(i)
-      // }
+
+
     for(let i=0;i<itemList.length;i++){
 
         const item = itemList[i]
@@ -1442,7 +1436,7 @@ Page({
         // this.ctx.rotate(30 * Math.PI / 180);
         that.ctx.save();
         // console.log(areaLeft)
-        that.ctx.fillText('Hello', 50, 12)
+        // that.ctx.fillText('Hello', 50, 12)
         const left = item.left - areaLeft;
         let top = item.top - areaTop;
         if(item.text){
@@ -1471,7 +1465,7 @@ Page({
     }
       
       that.ctx.draw();
-      that.ctx.save();
+      // that.ctx.save();
   },
 
   //canvas正反面合成图（包含背景图）

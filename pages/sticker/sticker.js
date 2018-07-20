@@ -159,28 +159,24 @@ Page({
           app.globalData.stickerIndex = app.globalData.frontItems.length-1
         }else if(this.data.ground == 'back'){ //添加到back编辑列表
         const backLength = app.globalData.backItems.length
-        console.log(eidtAreaParams.left2)
-        console.log(eidtAreaParams.top2)
-        console.log(eidtAreaParams.height2)
+
           item.left = eidtAreaParams.left2+(eidtAreaParams.width2 - 100)/2;
           item.top = eidtAreaParams.top2 + (eidtAreaParams.height2 - 100*(item.pich/item.picw))/2
-          console.log(item.top)
-        console.log(item.left)
-          // item.x = item.left2 + 50;
-          // item.y = item.top2+(100*(item.pich/item.picw))
+
+
           item.id = backLength+1;
           app.globalData.backItems.push(item)
           app.globalData.stickerIndex = app.globalData.backItems.length-1
         }
         item.y = item.left + 50;
         item.x = item.top+(100*(item.pich/item.picw))/2
-        console.log(item.x+"_____"+item.y)
+
 
         // app.globalData.items.push(item);
         my.navigateBack({
           delta: 1
         })
-        console.log(item.id)
+
         this.setData({
           stickerIndex : item.id
         })
