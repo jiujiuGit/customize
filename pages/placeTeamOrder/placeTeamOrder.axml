@@ -30,7 +30,7 @@
       <input type="text" placeholder="LOGO下载地址" onInput="logoInput" auto-focus  />
      
     </view>
-    <view class="qty">定制数量：100件</view>
+    <view class="qty">定制数量：{{num}}件</view>
   </view>
 
 

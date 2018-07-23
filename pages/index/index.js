@@ -95,7 +95,7 @@ Page({
           }else{
             my.showToast({
             type: 'fail',
-            content: '服务器繁忙，请稍候再试',
+            content: '暂时不提供此组件定制,请重新选择',
             duration: 2000,
           });
           }
@@ -135,7 +135,7 @@ Page({
           }else{
             my.showToast({
               type: 'fail',
-              content: '服务器繁忙，请稍候再试',
+              content: '暂时不提供此组件定制,请重新选择',
               duration: 2000,
             });
           }
@@ -1238,22 +1238,18 @@ Page({
     }
 
 
-
-
-
-
-    // let colorList = this.data.colorList;
-    // for(let i = 0;i<colorList.length;i++){
-    //   if(i == colorIndex){
-    //     colorList[i].active = true
-    //   }else{
-    //     colorList[i].active = false
-    //   }
-    // }
+    let colorList = this.data.colorList;
+    for(let i = 0;i<colorList.length;i++){
+      if(i == colorIndex){
+        colorList[i].active = true
+      }else{
+        colorList[i].active = false
+      }
+    }
   
-    // this.setData({
-    //   colorList:colorList
-    // })
+    this.setData({
+      colorList:colorList
+    })
   },
 
   // 设置透明度
@@ -1395,11 +1391,11 @@ Page({
       that.uploadDrawImg('frontRemix')
       that.uploadDrawImg('backRemix')
     
-    },2000);
+    },3000);
 
     setTimeout(function(){
       that.saveworkdesk();
-    },4000)
+    },5000)
 
     
   },

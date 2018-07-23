@@ -3,9 +3,13 @@ Page({
   data: {
     pros:[],  //省列表
     citys:[],  //市列表
-    province:{},//选中的省信息
+    province:{
+      name:''
+    },//选中的省信息
     cityPicker:true, //未选中省不能选择市
-    city:{}, //选中的市信息
+    city:{
+      name:''
+    }, //选中的市信息
     
   
   },
@@ -58,6 +62,7 @@ Page({
   },
   
   peopleInput(e){
+  
     this.setData({
       peoplenum: e.detail.value,
     });
@@ -122,7 +127,9 @@ Page({
     this.setData({
       province: this.data.pros[e.detail.value],
       cityPicker:false,
-      city:{}
+      city:{
+        name:''
+      },
     });
   
   },
@@ -135,7 +142,7 @@ Page({
   next(){
     const that = this;
     console.log(that.data.company);
-    
+    var sMobile = that.data.phone 
     if(that.data.name=='' || that.data.name == undefined){
       my.alert({
         title: '提示',
@@ -144,6 +151,16 @@ Page({
       });
       return;
     }
+    
+    if(!(/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/.test(sMobile))&& !(/0\d{2}-\d{7,8}/.test(sMobile))){ 
+       my.alert({
+        title: '提示',
+        content: '请输入正确的电话号码！',
+        buttonText:'确定',
+      });
+      return;
+    } 
+    
     if(that.data.phone=='' || that.data.phone == undefined){
       my.alert({
         title: '提示',
@@ -180,6 +197,22 @@ Page({
       my.alert({
         title: '提示',
         content: '详细地址不能为空！',
+        buttonText:'确定',
+      });
+      return;
+    }
+    if(!(/^([1-9][0-9]*){1,3}$/.test(that.data.peoplenum))){
+      my.alert({
+        title: '提示',
+        content: '请输入正确的定制服装人数！',
+        buttonText:'确定',
+      });
+      return;
+    }
+    if(!(/^([1-9][0-9]*){1,3}$/.test(that.data.numper))){
+      my.alert({
+        title: '提示',
+        content: '请输入正确的定制数量！',
         buttonText:'确定',
       });
       return;

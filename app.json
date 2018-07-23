@@ -1,15 +1,25 @@
 {
   "pages": [
-
     "pages/index/index",
     "pages/customType/customType",
+     "pages/individualForm/individualForm",
+    "pages/groupForm/groupForm",
+    
+    
+    
+   
+    
+    
+    
+    
+    
     "pages/orderList/orderList",
     "pages/customizationDetails/customizationDetails",
     
     
     "pages/orderDetail/orderDetail",
     
-   "pages/individualForm/individualForm",
+  
     
      
     "pages/placeTeamOrder/placeTeamOrder",
@@ -17,7 +27,7 @@
     
     
     
-    "pages/groupForm/groupForm",
+    
     "pages/modelList/modelList",
     
     

@@ -6,7 +6,7 @@ Page({
     autoplay: false,
     interval: 3000,
     // currentTab:1,
-    
+    num:0,//定制数量
     currentTab:1,
     side:'正面',
     sizeTab:0,
@@ -25,6 +25,8 @@ Page({
     // });
     const that = this;
     console.log(query.area)
+
+    const orderid = app.globalData.teamData.order; //团体订单orderid
    
     this.setData({
       wid:query.id,
@@ -35,7 +37,8 @@ Page({
       dataType:'json',
       method: 'post',
       data:{
-        wid:query.id
+        wid:query.id,
+        orderid:orderid
       },
       success: (res) => {
         console.log(res.data.data.pic2)
@@ -54,7 +57,8 @@ Page({
         that.setData({
           background:bgList,
           tname:res.data.data.tname,
-          sizes:res.data.data.sizes
+          sizes:res.data.data.sizes,
+          num:res.data.data.num
         })
         console.log(that.data.sizes)
       },

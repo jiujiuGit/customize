@@ -84,3 +84,8 @@
 .icon-gou{
     font-size: 40px;
 }
+.timeOut{
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+}

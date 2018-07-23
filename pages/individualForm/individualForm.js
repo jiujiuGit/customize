@@ -4,11 +4,16 @@ Page({
     orderId:'',
     pros:[],  //省列表
     citys:[],  //市列表
-    province:{},//选中的省信息
+    province:{
+      name:''
+    },//选中的省信息
     cityPicker:true, //未选中省不能选择市
-    city:{}, //选中的市信息
+    city:{
+      name:''
+    }, //选中的市信息
     wenan:{}, //弹框文案
-    layerShow:false
+    layerShow:false,
+    sec:10
   },
   onLoad(query) {
     const that = this;
@@ -140,7 +145,9 @@ Page({
     this.setData({
       province: this.data.pros[e.detail.value],
       cityPicker:false,
-      city:{}
+      city:{
+        name:''
+      },
     });
   
   },
@@ -170,6 +177,15 @@ Page({
       });
       return;
     }
+    if(!(/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/.test(that.data.phone))&& !(/0\d{2}-\d{7,8}/.test(that.data.phone))){ 
+       my.alert({
+        title: '提示',
+        content: '请输入正确的电话号码！',
+        buttonText:'确定',
+      });
+      return;
+    } 
+    
     if(that.data.address=='' || that.data.address == undefined){
       my.alert({
         title: '提示',
@@ -230,7 +246,30 @@ Page({
         }
         that.setData({
             layerShow:true
+        })
+        
+        var timesRun = 10;
+        var interval = setInterval(function(){
+          timesRun -= 1;
+          that.setData({
+            sec:timesRun
           })
+          if(timesRun === 0){
+            clearInterval(interval);
+            that.setData({
+              layerShow:false
+            })
+            my.reLaunch({
+              url: '../customType/customType', // 页面路径。如果页面不为 tabbar 页面则路径后可以带参数。参数规则如下：路径与参数之间使用
+              success: (res) => {
+                
+              },
+            });
+
+          }
+          
+          //do whatever here..
+        }, 1000);
         // if(res.data.status){
           
         // }else{

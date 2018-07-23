@@ -4,7 +4,7 @@
       <view class="hint">基本信息</view>
       <view class="section-content">
         <view><text>联系人姓名</text><input type="text" maxlength=12 placeholder="" auto-focus  onInput='nameInput'/></view>
-        <view><text>联系电话</text><input type="" placeholder=""   onInput='telInput' /></view>
+        <view><text>联系电话</text><input type="number" placeholder=""   onInput='telInput' /></view>
         <!-- <view><text>公司名称</text><input type="text" maxlength=60  placeholder=""  onInput='companyInput'   /></view> -->
       </view>
     </view>
@@ -19,7 +19,7 @@
             <picker onChange="bindPickerChange" value="{{index}}" range="{{pros}}"  range-key="name">
               <view class="picker">
                 {{province.name}}
-                <text class="Italic">省</text>
+                <text class="Italic" a:if="{{province.name==''}}">省</text>
               </view>
             </picker>
           </view>
@@ -29,7 +29,7 @@
             <picker onChange="cityPickerChange" value="{{index}}" range="{{citys}}"  range-key="name" disabled ={{cityPicker}}>
               <view class="picker">
                 {{city.name}}
-                <text class="Italic">市</text>
+                <text class="Italic" a:if="{{city.name==''}}">市</text>
               </view>
             </picker>
           </view>
@@ -60,6 +60,7 @@
     <view class="layer-box">
       <view id='gou'><text class="iconfont icon-gou"></text></view>
       <view id='resStr'>恭喜您，下单成功！</view>
+      <view class="timeOut">{{sec}}s后返回首页</view>
       <view id='btn' onTap="call">联系客服</view>
     </view>
   </view>
