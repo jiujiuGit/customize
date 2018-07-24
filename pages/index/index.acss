@@ -143,13 +143,15 @@
 }
 
 .touchWrap{
-    position: absolute
+    position: absolute;
+    z-index: 100;
 }
 .area-box{
     position: absolute;
     /* left: 50px;
     top: 100px; */
-    border:2px dashed #EDC206;
+    border:2px dashed #FFA700;
+    z-index: 100;
     /* width: 160px;
     height: 400px; */
 }
@@ -190,31 +192,31 @@
 
 .aside-right{
     position: fixed;
-    bottom: 200px;
-    right: 23px;
+    bottom: 360rpx;
+    right: 30rpx;
     z-index: 1000;
 
 }
 
 .aside-btn{
-    background-color: #898989;
-    width: 28px;
-    height: 28px;
-    line-height: 28px;
+    background-color: #8A8A8A;
+    width: 60rpx;
+    height: 60rpx;
+    line-height: 60rpx;
     border-radius: 50%;
     text-align: center;
     color: white;
-    font-size: 12px;
-    margin-top: 10px;
-    margin-left: 8px;
+    font-size: 20rpx;
+    margin-top: 20rpx;
+    margin-left: 14rpx;
     
 }
 .aside-btn-active{
     background-color: #E02666;
-    width: 44px;
-    height: 44px;
-    line-height: 44px;
-    font-size: 14px;
+    width: 88rpx;
+    height: 88rpx;
+    line-height: 88rpx;
+    font-size: 26rpx;
     font-weight: bold;
     margin-left: 0;
 }
@@ -225,7 +227,10 @@
     z-index: 1000;
 }
 .goods-name{
-    text-align: center;
+    padding-left: 60rpx;
+    font-size: 28rpx;
+    font-weight: bolder;
+    text-align: left;
     background-color: #474747;
     line-height: 40px;
     color: white
@@ -235,10 +240,12 @@
     border-radius: 0;
     color: white;
     font-size: 14px;
-    width: 120px;
+    width: 250rpx;
     height: 40px;
     line-height: 40px;
     border:none;
+    font-weight: bolder;
+    font-size: 28rpx;
 }
 
 .custome-item-active{
@@ -250,7 +257,7 @@
 
 /* 定制窗口 */
 .custome-window-tab{
-    position: absolute;
+    /* position: absolute;
     top: -20px;
     left: 50%;
     border-radius: 50%;
@@ -259,17 +266,30 @@
     line-height: 30px;
     color: white;
     text-align: center;
-    background-color: #5E5E5E;
+    background-color: rgba(0,0,0,0.6);
     z-index: -1;
-    margin-left: -20px;
+    margin-left: -20px; */
+    position: absolute;
+    top: -40rpx;
+    left: 50%;
+    text-align: center;
+    margin-left: -40rpx;
+    width:80rpx;
+    height:40rpx; 
+    line-height: 40rpx;
+    background-color: rgba(0,0,0,0.6);
+    color:white;
+    border-radius:40rpx 40rpx 0 0; /* 左上、右上、右下、左下 */
+    
 }
 .custome-window{
-    background-color: #606163;
+    background-color: rgba(0,0,0,0.6);
     border-radius: 10px 10px 0 0;
     position: relative;
     bottom:-10px;
     transition: all 0.5s;
     justify-content: center;
+    /* opacity: 60%; */
 }
 .custome-active{
     bottom: 40px;
@@ -284,7 +304,9 @@
     color: #C0C4CC;
 }
 .custome-item-text{
-    line-height: 20px
+    line-height: 20px;
+    color:#FFFFFF;
+    font-size: 20rpx;
 }
 .img-icon{
     width:20px;
@@ -440,7 +462,7 @@ visibility: hidden;
     text-align: center;
     color:#7F7F7F;
     font-size: 24rpx;
-    border-radius: 4rpx; 
+    border-radius: 8rpx; 
     border:1px solid #7F7F7F;
     margin-left: 30rpx;
     margin-top: 30rpx;
@@ -454,10 +476,12 @@ visibility: hidden;
     background-color: #E02666;
     border: 1px solid #E02666;
     color: white;
+    font-weight: bolder;
 }
 #layer-btn{
     text-align: center;
     margin: 40rpx;
     color: #E02666;
     text-decoration: underline;
+    font-size:24rpx;
 }

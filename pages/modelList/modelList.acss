@@ -42,7 +42,7 @@
     text-align: center;
     line-height: 60rpx;
     color: #9EA4AE;
-    margin: 70rpx 0 30rpx 0;
+    margin: 0rpx 0 30rpx 0;
 }
 .fabric-list{
     justify-content: center;
@@ -107,7 +107,8 @@
 }
 .idx-content .idx-swiper .idx-cswp .swp-title .swp-btime {
   text-align: center;
-  font-size: 28rpx;
+  font-size: 24rpx;
+  font-weight: bolder;
 }
 .idx-content .idx-swiper .idx-cswp .swp-title .swp-bname {
   text-align: center;

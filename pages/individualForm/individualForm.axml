@@ -4,7 +4,7 @@
       <view class="hint">基本信息</view>
       <view class="section-content">
         <view><text>联系人姓名</text><input type="text" maxlength=12 placeholder="" auto-focus  onInput='nameInput'/></view>
-        <view><text>联系电话</text><input type="number" placeholder=""   onInput='telInput' /></view>
+        <view><text>联系电话</text><input type="text" placeholder=""   onInput='telInput' /></view>
         <!-- <view><text>公司名称</text><input type="text" maxlength=60  placeholder=""  onInput='companyInput'   /></view> -->
       </view>
     </view>

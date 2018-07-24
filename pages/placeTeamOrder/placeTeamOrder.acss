@@ -72,6 +72,9 @@
     background-color: #474747;
     border:none;
     border-radius: 0;
+    font-weight: bolder;
+    font-size: 28rpx;
+    letter-spacing: 2rpx;
 }
 .layer{
     position: absolute;

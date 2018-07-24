@@ -12,12 +12,23 @@
     padding: 10rpx 20rpx;
     vertical-align: middle;
 }
-.section-content text{
+.section-content>view text{
     width: 120rpx;
     color: #7A7A7A;
     vertical-align: middle;
-    line-height: 25px;
+    line-height: 70rpx;
+    font-size: 30rpx;
+    /* margin: 36rpx 0; */
 }
+/* .choose{
+    width: 120rpx;
+    color: #7A7A7A;
+    vertical-align: middle;
+  
+    font-size: 30rpx;
+    line-height: 46rpx;
+    margin: 36rpx 0;
+} */
 .section-content input {
     width: 400rpx;
     vertical-align: middle;
@@ -52,4 +63,17 @@
 }
 .Italic{
     font-style:italic;
+}
+.dashed-none{
+    border-bottom: none!important;
+}
+
+.placeholder{
+    /* display: none; */
+    font-size: 22rpx;
+    font-style: italic;
+    color:#9EA4AE
+}
+.section-content input{
+    margin-left: 14rpx;
 }

@@ -194,7 +194,7 @@ Page({
       url: 'http://bbltest.color3.cn/Mobile/Api/get_style_bg',
       method: 'post',
       data: {
-        // id:this.data.prodId
+        // id:this.data.prodId,
         id:1,//款式id
         parent_orderid:that.data.parent_orderid,//团体订单id
       },
@@ -1180,17 +1180,22 @@ Page({
         }
         
     item.text = this.data.textContent;
-
+    const eidtAreaParams = app.globalData.eidtAreaParams
     if(this.data.currentTap == 'front'){
       const frontLength = app.globalData.frontItems.length;
       item.id = frontLength +1;
+      item.left = eidtAreaParams.left1+(eidtAreaParams.width1 - 100)/2;
+      item.top = eidtAreaParams.top1 + (eidtAreaParams.height1)/2;
       app.globalData.frontItems.push(item);
+      
       this.setData({
         frontItemList:app.globalData.frontItems,
         index:frontLength
       });
     }else if(this.data.currentTap == 'back'){
       const backLength = app.globalData.backItems.length;
+      item.left = eidtAreaParams.left2+(eidtAreaParams.width2 - 100)/2;
+      item.top = eidtAreaParams.top2 + (eidtAreaParams.height2)/2;
       item.id = backLength +1;
       app.globalData.backItems.push(item);
 
@@ -1538,7 +1543,7 @@ Page({
         if(i == 0){
           that.ctx.drawImage(item.downloadFile,0,0,item.picw,item.pich) 
         }else{
-          if(item.image == undefined){
+          if(item.image == undefined && item.type == 'image'){
             return;
           }
           const left = parseInt(item.left) ;

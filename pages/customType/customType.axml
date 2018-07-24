@@ -1,15 +1,16 @@
 <view style='background-color:white'>
   <view class="container">
     <view class="flex-box">
+      <view class="type-item geren" onTap="single">
+        <image src="../../assets/images/img_geren.png" mode="widthFix" />
+        <view class="type-text">个人定制</view>
+      </view>
       <view class="type-item team" onTap="team">
         <image src="../../assets/images/img_team.png" mode="widthFix" />
         <view class="type-text">团体定制</view>
       </view>
       
-      <view class="type-item geren" onTap="single">
-        <image src="../../assets/images/img_geren.png" mode="widthFix" />
-        <view class="type-text">个人定制</view>
-      </view>
+      
     </view>
     <view class="order-history">
       <text onTap="history">历史订单</text>

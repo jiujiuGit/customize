@@ -4,8 +4,8 @@
       <view class="hint">基本信息</view>
       <view class="section-content">
         <view><text>联系人姓名</text><input type="text" maxlength=12 placeholder="" auto-focus  onInput='nameInput'/></view>
-        <view><text>联系电话</text><input type="number" placeholder=""   onInput='telInput' /></view>
-        <view><text>公司名称</text><input type="text" maxlength=60  placeholder=""  onInput='companyInput'   /></view>
+        <view><text>联系电话</text><input type="text" placeholder=""   onInput='telInput' /></view>
+        <view class="dashed-none"><text>公司名称</text><input type="text" maxlength=60  placeholder=""  onInput='companyInput'   /></view>
       </view>
     </view>
 
@@ -15,7 +15,7 @@
         <view class="flex-box">
           <!-- 选择省 -->
           <view class="flex-box provincePicker">
-            <text>请选择</text>
+            <text class="choose">请选择</text>
             <picker onChange="bindPickerChange" value="{{index}}" range="{{pros}}"  range-key="name">
               <view class="picker">
                 {{province.name}}
@@ -25,7 +25,7 @@
           </view>
           <!-- 选择市 -->
           <view onTap="chooseCity" class="flex-box cityPicker">
-            <text>请选择</text>
+            <text class="choose">请选择</text>
             <picker onChange="cityPickerChange" value="{{index}}" range="{{citys}}"  range-key="name" disabled ={{cityPicker}}>
               <view class="picker">
                 {{city.name}}
@@ -34,7 +34,7 @@
             </picker>
           </view>
         </view>
-        <view><text>详细地址</text><input type="text" placeholder=""  onInput='addressInput' /></view>
+        <view  class="dashed-none"><text>详细地址</text><input type="text" placeholder=""  onInput='addressInput' /></view>
       </view>
     </view>
 
@@ -43,7 +43,7 @@
       <view class="section-content">
         <view><text>定制服装人数</text><input type="number" placeholder=""  onInput='peopleInput'/></view>
         <view><text>每人定制数量</text><input type="number" placeholder="" onInput='numberInput' /></view>
-        <view><text>预计使用时间</text><input type="text" placeholder="例如：1个月后使用"  onInput='timeInput'/></view>
+        <view  class="dashed-none"><text>预计使用时间</text><input type="text" placeholder-class='placeholder' placeholder="例如：1个月后使用"  onInput='timeInput'/></view>
 
       </view>
     </view>

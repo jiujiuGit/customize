@@ -1,8 +1,8 @@
 <!-- <view style="width:100%;background-color: #F4F7FA;"> -->
   <view style="width:100%">
   <!-- 头部 -->
-  <view class="header">
-    <view class="text-header flex-box" a:if="{{footer == 'text' || footer == 'imgTransparency'}}">
+  <view class="header" a:if="{{footer == 'text' || footer == 'imgTransparency'}}">
+    <view class="text-header flex-box" >
       <view class="header-left cancle" onTap="cancle">取消</view>
       <view class="flex-item-1 header-center"a:if="{{footer == 'text'}}">添加文字</view>
       <view class="flex-item-1 header-center" a:if="{{footer == 'imgTransparency'}}">添加图片</view>
@@ -138,8 +138,8 @@
       </block> -->
       <view a:if="{{buttons.indexOf('反面')>-1}}" class='aside-btn btn-back {{(currentTap ==  "back")? "aside-btn-active":""}}' onTap="back">背 <text a:if='{{currentTap ==  "back"}}'>面</text></view>
       <view a:if="{{buttons.indexOf('正面')>-1}}" class='aside-btn btn-front {{(currentTap ==  "front")? "aside-btn-active":""}} ' onTap="front">正 <text a:if='{{currentTap ==  "front"}}'>面</text></view>
-      <view a:if="{{buttons.indexOf('左侧')>-1}}" class='aside-btn btn-side {{(currentTap ==  "leftSide")? "aside-btn-active":""}}' onTap="leftSide">左 <text a:if='{{currentTap ==  "leftSide"}}'>侧</text></view>
-      <view a:if="{{buttons.indexOf('右侧')>-1}}" class='aside-btn btn-side {{(currentTap ==  "rightSide")? "aside-btn-active":""}}' onTap="rightSide">右 <text a:if='{{currentTap ==  "rightSide"}}'>侧</text></view>
+      <view a:if="{{buttons.indexOf('左侧')>-1}}" class='aside-btn btn-side {{(currentTap ==  "leftSide")? "aside-btn-active":""}}' onTap="leftSide">左侧</view>
+      <view a:if="{{buttons.indexOf('右侧')>-1}}" class='aside-btn btn-side {{(currentTap ==  "rightSide")? "aside-btn-active":""}}' onTap="rightSide">右侧</view>
 
     </view>
   </view>
@@ -202,14 +202,14 @@
           <!-- <text class="iconfont icon-xingzhuang"></text> -->
           <image class="img-icon" src="../../assets/icon/icon_xingzhuang.png" mode="widthFix" />
           <view>
-            <text class="custom-item-text">形状</text>
+            <text class="custome-item-text">形状</text>
           </view>
         </view>
         <view class="custome-item" onTap="cleanUp">
           <!-- <text class="iconfont icon-beijing"></text> -->
           <image class="img-icon" src="../../assets/icon/icon_del.png" mode="widthFix" />
           <view>
-            <text class="custom-item-text">清除</text>
+            <text class="custome-item-text">清除</text>
           </view>
         </view>  
         </view>
@@ -231,13 +231,16 @@
             </view>
           </view> -->
           <view class="custome-item {{(textEditItem == 'transparency')?'custome-item-active':''}}" onTap="setTextTransparency">
-            <text class="iconfont icon-wenzi"></text>
+            <image class="img-icon" src="../../assets/icon/icon_touming.png" mode="widthFix" />
+
+            <!-- <text class="iconfont icon-wenzi"></text> -->
             <view>
               <text class="custome-item-text">透明度</text>
             </view>
           </view>
           <view class="custome-item {{(textEditItem == 'color')?'custome-item-active':''}}" onTap="setTextColor">
-            <text class="iconfont icon-tiezhi"></text>
+            <!-- <text class="iconfont icon-tiezhi"></text> -->
+            <image class="img-icon" src="../../assets/icon/icon_yanse.png" mode="widthFix" />            
             <view>
               <text class="custome-item-text">颜色</text>
             </view>

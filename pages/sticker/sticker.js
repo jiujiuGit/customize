@@ -201,7 +201,8 @@ Page({
     this.setData({
       editContent:false
     })
-console.log(this.data.individualSticker.fontsize)
+    const eidtAreaParams = app.globalData.eidtAreaParams
+// console.log(this.data.individualSticker.fontsize)
     let item = {  
         pictype:3,
         // id: imgLength+1,   
@@ -225,12 +226,15 @@ console.log(this.data.individualSticker.fontsize)
       item.text =  this.data.inputValue;
       if(this.data.ground == 'front'){  //添加到front编辑列表
       const frontLength = app.globalData.frontItems.length;
-      
+      item.left = eidtAreaParams.left1+(eidtAreaParams.width1 - 100)/2;
+      item.top = eidtAreaParams.top1 + (eidtAreaParams.height1)/2;
       item.id = frontLength+1;
       app.globalData.frontItems.push(item)
       app.globalData.stickerIndex = app.globalData.frontItems.length-1
     }else if(this.data.ground == 'back'){ //添加到back编辑列表
-    const backLength = app.globalData.backItems.length
+      const backLength = app.globalData.backItems.length
+      item.left = eidtAreaParams.left2+(eidtAreaParams.width2 - 100)/2;
+      item.top = eidtAreaParams.top2 + (eidtAreaParams.height2)/2;
       item.id = backLength+1;
       app.globalData.backItems.push(item)
       app.globalData.stickerIndex = app.globalData.backItems.length-1
