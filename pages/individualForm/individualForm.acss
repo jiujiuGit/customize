@@ -51,6 +51,7 @@
 .picker{
     text-align: right;
     width: 140rpx;
+    line-height: 70rpx;
 }
 .Italic{
     font-style:italic;

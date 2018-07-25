@@ -40,10 +40,15 @@
 }
 .model-text{
     text-align: center;
-    line-height: 60rpx;
+    /* margin-top: 80rpx; */
+    /* line-height: 60rpx; */
     color: #9EA4AE;
-    margin: 0rpx 0 30rpx 0;
-}
+    margin: 80rpx 0 30rpx 0;
+    font-size: 24rpx;
+  }
+  #fabric-text{
+    margin-top: 0;
+  }
 .fabric-list{
     justify-content: center;
 }
@@ -109,6 +114,7 @@
   text-align: center;
   font-size: 24rpx;
   font-weight: bolder;
+  margin-top: 20rpx;
 }
 .idx-content .idx-swiper .idx-cswp .swp-title .swp-bname {
   text-align: center;

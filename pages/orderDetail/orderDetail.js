@@ -110,21 +110,33 @@ Page({
   // 取消订单
   cancle(){
     const that = this;
-    my.httpRequest({
-      url: 'http://bbltest.color3.cn/Mobile/Api/cancerorder', // 目标服务器url
-      dataType:'',
-      method:'POST',
-      data:{
-        orderid:this.data.orderId
-      },
-      success: (res) => {
-        let orderDetail = that.data.orderDetail
-        orderDetail.order_status ='6';
-        that.setData({
-          orderDetail:orderDetail
-        })
+    my.confirm({
+      title: '温馨提示',
+      content: '确定取消订单？',
+      confirmButtonText: '确定取消',
+      cancelButtonText: '暂不取消',
+      success: (result) => {
+        if(result.confirm){
+          my.httpRequest({
+            url: 'http://bbltest.color3.cn/Mobile/Api/cancerorder', // 目标服务器url
+            dataType:'',
+            method:'POST',
+            data:{
+              orderid:this.data.orderId
+            },
+            success: (res) => {
+              let orderDetail = that.data.orderDetail
+              orderDetail.order_status ='6';
+              that.setData({
+                orderDetail:orderDetail
+              })
+            },
+          });
+        }
+       
       },
     });
+    
   },
   //确认订单
   confirm(){

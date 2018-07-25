@@ -38,7 +38,7 @@
     </view>
 </view>
   
-  <view class="model-text">
+  <view class="model-text" id='fabric-text'>
     <text>选择面料</text>
   </view>
   <view class="flex-box fabric-list">

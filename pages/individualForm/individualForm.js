@@ -13,7 +13,8 @@ Page({
     }, //选中的市信息
     wenan:{}, //弹框文案
     layerShow:false,
-    sec:10
+    sec:10,
+    myInterval:''
   },
   onLoad(query) {
     const that = this;
@@ -63,9 +64,13 @@ Page({
     });
   },
   call(){
+    const that = this;
     this.setData({
       layerShow:false
     })
+    clearInterval(that.data.myInterval);
+    my.navigateTo({url:'../orderDetail/orderDetail?id='+that.data.orderId});
+    // my.navigateTo({url:'../orderDetail/orderDetail'});
     my.makePhoneCall({
       number: this.data.wenan.phone, // 电话号码
     });
@@ -249,13 +254,13 @@ Page({
         })
         
         var timesRun = 10;
-        var interval = setInterval(function(){
+        that.data.myInterval = setInterval(function(){
           timesRun -= 1;
           that.setData({
             sec:timesRun
           })
           if(timesRun === 0){
-            clearInterval(interval);
+            clearInterval(that.data.myInterval);
             that.setData({
               layerShow:false
             })

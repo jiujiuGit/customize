@@ -12,7 +12,7 @@
       style='height:512rpx'
       >
       <block a:for="{{background}}">
-        <swiper-item style='height:521rpx'>
+        <swiper-item style='height:512rpx'>
           <view class="swiper-item bc_{{item}}">
             <image src="{{item}}" mode="widthFix" />
           </view>

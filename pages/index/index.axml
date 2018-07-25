@@ -45,7 +45,7 @@
           <!-- <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image>  -->
           
           <view class="textItem" onTap="textTap" data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px; opacity:{{item.opacity/100}}' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'>
-            <text style='fontSize:{{item.fontSize}}px;font-family:{{item.fontFamily}};color:{{item.color}}'>{{item.text}}</text>
+            <text id="text{{index}}" style='fontSize:{{item.fontSize}}px;font-family:{{item.fontFamily}};color:{{item.color}}'>{{item.text}}</text>
           </view> 
 
           <!-- 删除图片 -->

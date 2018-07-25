@@ -45,7 +45,9 @@ Page({
     saveworkdesk:{}, //定制参数
     individualArea:[],//个人定制区域
     personalArea:false, //选择个人定制区域弹框是否可见
-    parent_orderid:''//团体订单id（团体定制下的个人定制）
+    parent_orderid:'',//团体订单id（团体定制下的个人定制）
+    imgInitialW:100,//图片初始大小
+    textInitialW:0,//文字初始大小
   },
   getSystemInfoPage() {
     my.getSystemInfo({
@@ -1396,11 +1398,11 @@ Page({
       that.uploadDrawImg('frontRemix')
       that.uploadDrawImg('backRemix')
     
-    },3000);
+    },3500);
 
     setTimeout(function(){
       that.saveworkdesk();
-    },5000)
+    },6000)
 
     
   },
