@@ -16,7 +16,7 @@ Page({
     logolink:'',
     resStr:'',
     wid:'',//保存定制信息后返回的wid
-    area:''//团体定制下个人可编辑区域
+    area:'',//团体定制下个人可编辑区域
   
   },
   onLoad(query) {
@@ -39,6 +39,8 @@ Page({
       data:{
         wid:query.id,
         orderid:orderid
+        // wid:135,
+        // orderid:408
       },
       success: (res) => {
         console.log(res.data.data.pic2)

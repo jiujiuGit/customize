@@ -42,7 +42,9 @@
 }
 
 
-
+#contanier{
+    background-color: #F2F3F5;
+}
 
 .model-contanier{
     /* display: table; */
@@ -466,6 +468,7 @@ visibility: hidden;
     border:1px solid #7F7F7F;
     margin-left: 30rpx;
     margin-top: 30rpx;
+    box-sizing: border-box;
 }
 .areaDisabel{
     background-color: #F7F7F7;
@@ -478,10 +481,18 @@ visibility: hidden;
     color: white;
     font-weight: bolder;
 }
+#area-group{
+    margin-left: 50rpx;
+}
 #layer-btn{
     text-align: center;
     margin: 40rpx;
     color: #E02666;
     text-decoration: underline;
     font-size:24rpx;
+}
+#backIcon,#upIcon{
+    width: 30rpx;
+    height: 20rpx;
+    margin-top: 20rpx;
 }

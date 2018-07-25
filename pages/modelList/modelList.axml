@@ -25,7 +25,7 @@
                 a:for="{{swiperList}}" a:key=""
                 ontap="swpBtn"
                 data-index="{{index}}">
-            <image src='{{item.thumb}}' mode='aspectFit'></image>
+            <image class="swiper-img" src='{{item.thumb}}' mode='aspectFit'></image>
             <view class='swp-title' hidden="{{item.swpClass!=='swp-center'}}">
                 <view class='swp-btime'>{{item.picname}}</view>
             </view>

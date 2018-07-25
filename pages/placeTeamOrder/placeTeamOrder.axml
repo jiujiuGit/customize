@@ -1,5 +1,5 @@
 <view style='width:100%'>
-  <view style='width:100%'>
+  <view id='swiper-container'>
     <view class="icon-arrow iconfont icon-zuo icon-left" onTap="left"> </view>
     <view class="icon-arrow iconfont icon-you icon-right" onTap="right">  </view>
     <swiper
@@ -9,10 +9,10 @@
       current="{{currentTab}}"
       class="classname"
       onChange="changeimage"
-      style='height:256px'
+      style='height:512rpx'
       >
       <block a:for="{{background}}">
-        <swiper-item style='height:256px'>
+        <swiper-item style='height:521rpx'>
           <view class="swiper-item bc_{{item}}">
             <image src="{{item}}" mode="widthFix" />
           </view>
@@ -26,8 +26,8 @@
   <view class="style-block">
     <text class="hint">订单信息</text>
     <view class="input-area">
-      <input type="text" placeholder="定制服装名称" onInput="nameInput" auto-focus  />
-      <input type="text" placeholder="LOGO下载地址" onInput="logoInput" auto-focus  />
+      <input type="text" placeholder-class='placeholder' placeholder="定制服装名称" onInput="nameInput" auto-focus  />
+      <input type="text" placeholder-class='placeholder' placeholder="LOGO下载地址" onInput="logoInput" auto-focus  />
      
     </view>
     <view class="qty">定制数量：{{num}}件</view>

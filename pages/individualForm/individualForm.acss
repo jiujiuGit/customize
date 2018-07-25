@@ -9,14 +9,16 @@
 }
 .section-content>view{
     border-bottom: 1px dashed #D8D8D8;
-    padding: 10rpx 20rpx;
+    margin: 0 30rpx;
+    padding: 10rpx 0;
     vertical-align: middle;
 }
 .section-content text{
     width: 120rpx;
     color: #7A7A7A;
     vertical-align: middle;
-    line-height: 25px;
+    line-height: 70rpx;
+    font-size: 30rpx;
 }
 .section-content input {
     width: 400rpx;
@@ -88,4 +90,10 @@
     text-align: center;
     font-size: 14px;
     line-height: 30px;
+}
+.dashed-none{
+    border-bottom: none!important;
+}
+.section-content input{
+    margin-left: 14rpx;
 }

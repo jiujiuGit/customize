@@ -1,5 +1,5 @@
-<view style='width:100%'>
-  <view style='width:100%'>
+<view  style='width:100%' >
+  <view style='width:100%' id="swiper-container">
     <view class="icon-arrow icon-left" onTap="left"> < </view>
     <view class="icon-arrow icon-right" onTap="right"> > </view>
     <swiper
@@ -9,10 +9,10 @@
       current="{{currentTab}}"
       class="classname"
       onChange="changeimage"
-      style='height:256px'
+      style='height:512rpx'
       >
       <block a:for="{{background}}">
-        <swiper-item style='height:256px'>
+        <swiper-item style='height:512rpx'>
           <view class="swiper-item bc_{{item}}">
             <image src="{{item}}" mode="widthFix" />
           </view>

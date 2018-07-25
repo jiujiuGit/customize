@@ -1,3 +1,9 @@
+#swiper-container{
+    width:100%;
+    height: 676rpx;
+    box-shadow:0px 10px 10px 0px rgba(86,91,110,0.08);
+    background-color: #fff;
+}
 .icon-arrow{
     position: absolute;
     width: 36px;
@@ -27,6 +33,10 @@
 
 .side{
     text-align: center;
+    font-weight: bolder;
+    color: #3D3D3D;
+    font-size: 24rpx;
+    margin-top: 40rpx;
 }
 .size-block,.style-block{
     margin: 30px 0;
@@ -34,10 +44,10 @@
 }
 
 .hint{
-    font-size: 14px;
+    font-size: 28rpx;
     font-weight: bold;
-    color: #3D3D3D;
-    margin: 10px;
+    color: black;
+    margin: 20rpx 30rpx 20rpx 30rpx;
 }
 .size-hint{
     color: black;

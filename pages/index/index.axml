@@ -1,5 +1,5 @@
 <!-- <view style="width:100%;background-color: #F4F7FA;"> -->
-  <view style="width:100%">
+  <view style="width:100%" id='contanier'>
   <!-- 头部 -->
   <view class="header" a:if="{{footer == 'text' || footer == 'imgTransparency'}}">
     <view class="text-header flex-box" >
@@ -167,8 +167,10 @@
       <view class="custome-window flex-box flex-wrap {{windowActive?'custome-active':''}}" onTouchStart='windowTouchStart' onTouchMove = 'windowTouchMove'>
 
         <view class="custome-window-tab" onTap="windowToggle"  >
-          <view class="iconfont icon-xia" a:if='{{windowActive == true}}'></view>
-          <view class="iconfont icon-shang" a:if='{{windowActive == false}}'></view>
+          <image id="backIcon" src="../../assets/icon/icon_back.png" a:if='{{windowActive == true}}' mode="scaleToFill" />
+          <image id="upIcon" src="../../assets/icon/icon_up.png" a:if='{{windowActive == false}}' mode="scaleToFill" />
+          <!-- <view class="iconfont icon-xia" a:if='{{windowActive == true}}'></view>
+          <view class="iconfont icon-shang" a:if='{{windowActive == false}}'></view> -->
         </view>    
         <view class="custome-item " a:if="{{currentTap != 'leftSide' && currentTap != 'rightSide'}}" onTap="imageEdit">
             <!-- <text class="iconfont icon-tupian"></text> -->
@@ -292,7 +294,7 @@
   <view class="layer" a:if="{{personalArea}}">
     <view class="layer-box">
       <view class="layer-title">选择个人定制区域</view>
-      <view class="flex-box flex-wrap">
+      <view class="flex-box flex-wrap" id='area-group'>
         <view a:for="{{individualArea}}" class="areaItem {{item.active ? 'areaActive':''}}  {{item.disable?'areaDisabel':''}}" data-index='{{index}}' onTap="areaTap">{{item.name}}</view>
         <!-- <view a:if="{{buttons.indexOf('正面')>-1}}" class="areaItem {{1 ==activeAreaid ? 'areaActive':''}}" data-index='1' onTap="areaTap">正面</view>
         <view a:if="{{buttons.indexOf('反面')>-1}}" class="areaItem areaDisabel" data-index='2' onTap="areaTap">反面</view>

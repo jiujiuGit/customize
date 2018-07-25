@@ -31,6 +31,7 @@
   justify-content: space-between;
 }
 
+
 /* 弹框 */
 .layer{
     position: absolute;
@@ -42,7 +43,7 @@
     background-color: rgba(0,0,0,0.6);
 }
 .layer-box{
-    width:60%;   
+    width:460rpx;   
     position: absolute;   
     top: 50%;   
     left: 50%;   
@@ -51,7 +52,7 @@
     -ms-transform: translate(-50%, -50%);   
     -webkit-transform: translate(-50%, -50%);   
     transform: translate(-50%, -50%);
-    border-radius: 8px;
+    border-radius: 16rpx;
     z-index: 2100;
     background-color: white;
   }

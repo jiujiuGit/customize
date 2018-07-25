@@ -29,6 +29,7 @@ Page({
       method: 'post',
       data:{
         wid:query.id
+        // wid:410
       },
       success: (res) => {
         if(res.data.status==0){
