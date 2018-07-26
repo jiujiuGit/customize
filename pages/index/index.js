@@ -48,6 +48,10 @@ Page({
     parent_orderid:'',//团体订单id（团体定制下的个人定制）
     imgInitialW:100,//图片初始大小
     textInitialW:0,//文字初始大小
+
+    drawList:[],
+    uploadList:[]
+
   },
   getSystemInfoPage() {
     my.getSystemInfo({
@@ -63,17 +67,39 @@ Page({
   },
   onShow() {
     const that = this;
+    let backItems = [];
+    let frontItems = [];
+    console.log(app.globalData.backItems)
+    for(var i=0;i<app.globalData.backItems.length;i++){
+      if(!app.globalData.backItems[i].bg){
+        backItems.push(app.globalData.backItems[i])
+      }
+    }
+    for(var i=0;i<app.globalData.frontItems.length;i++){
+      if(!app.globalData.frontItems[i].bg){
+        frontItems.push(app.globalData.frontItems[i])
+      }
+    }
     // 页面显示
     this.setData({
-      backItemList:app.globalData.backItems,
-      frontItemList:app.globalData.frontItems,
+      backItemList:backItems,
+      frontItemList:frontItems,
       index:app.globalData.stickerIndex,
       footer:app.globalData.footer,
       leftStickerId:app.globalData.leftStickerId,
       rightStickerId:app.globalData.rightStickerId
     });
+    // for(let i=0;i<that.data.frontItemList.length;i++){
+    //   if(!that.data.frontItemList[i].bg){
+        
+    //   }
+    // }
+    // for(let i=0;i<that.data.backItemList.length;i++){
+      
+    // }
+    // console.log(app.globalData.frontItems)
     this.getSystemInfoPage();
-    console.log(this.data.frontItemList)
+    // console.log(this.data.frontItemList)
     if(this.data.leftStickerId){  //请求左侧面背景图
       my.httpRequest({
         url: 'http://bbltest.color3.cn/Mobile/Api/getImageByDid',
@@ -307,28 +333,28 @@ Page({
           // individualArea:res.data.data.buttons
         });
         
-        my.downloadFile({
-          url: res.data.data.pic1, // 下载正面图片
-          success: (res) => {         
-            that.data.bgList.tempFilePath1 = res.apFilePath;
-            that.setData({
-              bgList:that.data.bgList
-            })
-          },
-          fail(res){
-          }
-        });
-        my.downloadFile({
-          url: res.data.data.pic2, // 下载背面图片
-          success: (res) => {         
-            that.data.bgList.tempFilePath2 = res.apFilePath
-            that.setData({
-              bgList:that.data.bgList
-            })
-          },
-          fail(res){
-          }
-        });
+        // my.downloadFile({
+        //   url: res.data.data.pic1, // 下载正面图片
+        //   success: (res) => {         
+        //     that.data.bgList.tempFilePath1 = res.apFilePath;
+        //     that.setData({
+        //       bgList:that.data.bgList
+        //     })
+        //   },
+        //   fail(res){
+        //   }
+        // });
+        // my.downloadFile({
+        //   url: res.data.data.pic2, // 下载背面图片
+        //   success: (res) => {         
+        //     that.data.bgList.tempFilePath2 = res.apFilePath
+        //     that.setData({
+        //       bgList:that.data.bgList
+        //     })
+        //   },
+        //   fail(res){
+        //   }
+        // });
         
         
         let individualArea = []
@@ -385,7 +411,7 @@ Page({
     });
    
   },
-
+  
   areaTap(e){
     const index = e.currentTarget.dataset.index
     let areas = this.data.individualArea;
@@ -1398,11 +1424,28 @@ Page({
       that.uploadDrawImg('frontRemix')
       that.uploadDrawImg('backRemix')
     
-    },3500);
+    },3000);
+    //  'position_front':that.data.saveworkdesk.position_front_remix,   //正面合成图片base64编码
+    //     'position_front_remix':that.data.saveworkdesk.position_front,    //正面整体图片
+    //     'position_back':that.data.saveworkdesk.position_back_remix,    //反面合成图片
+    //     'position_back_remix':that.data.saveworkdesk.position_back,     //反面整体图片
+    let params = that.data.saveworkdesk
+    // console.log(params.position_front_remix)
+     let myInterval = setInterval(function(){
+          // timesRun -= 1;
+          // that.setData({
+          //   sec:timesRun
+          // })
+          if(params.position_front_remix!=undefined&& params.position_front!=undefined && params.position_back_remix!=undefined && params.position_back!=undefined){
+            console.log(JSON.stringify(params))
+            clearInterval(myInterval);
+            that.saveworkdesk();
 
-    setTimeout(function(){
-      that.saveworkdesk();
-    },6000)
+          }
+
+        }, 100);
+
+
 
     
   },
@@ -1456,7 +1499,7 @@ Page({
 
        
         if(item.downloadFile){  //绘制图片
-          that.ctx.drawImage(item.downloadFile,0,0,100*item.scale,height) 
+          that.ctx.drawImage(item.image,0,0,100*item.scale,height) 
 
         }else if(item.text){    //绘制文字
 
@@ -1470,6 +1513,12 @@ Page({
     }
       
       that.ctx.draw();
+    //   that.ctx.draw({
+    //   reserve: false,
+    //   callback: function () {
+    //     console.log('画布回调finished')
+    //   }
+    // })
       // that.ctx.save();
   },
 
@@ -1500,13 +1549,16 @@ Page({
       // console.log(itemList)
       bgItem.picw = that.data.bgList.pic1w;
       bgItem.pich = that.data.bgList.pic1h;
-      bgItem.downloadFile = that.data.bgList.tempFilePath1;
+      // bgItem.downloadFile = that.data.bgList.tempFilePath1;
+      bgItem.image = that.data.bgList.pic1;
+      bgItem.bg = true //是否是背景图
       
       itemList.unshift(bgItem);
       // console.log(itemList)
       that.ctx = my.createCanvasContext('frontRemix');
       areaLeft = that.data.bgList.left1; //定制框left
       areaTop = that.data.bgList.top1; //定制框top
+      // that.data.frontItemList.splice(0,1)
        console.log(that.data.frontItemList)
       // that.setData({
       //   frontItemList:that.data.frontItemList.splice(0,1)
@@ -1518,7 +1570,9 @@ Page({
       itemList = that.data.backItemList;
       bgItem.picw = that.data.bgList.pic2w;
       bgItem.pich = that.data.bgList.pic2h;
-      bgItem.downloadFile = that.data.bgList.tempFilePath2;
+      bgItem.bg = true //是否是背景图
+      // bgItem.downloadFile = that.data.bgList.tempFilePath2;
+      bgItem.image = that.data.bgList.pic2
       itemList.unshift(bgItem);
       that.ctx = my.createCanvasContext('backRemix');
       areaLeft = that.data.bgList.left2; //定制框left
@@ -1543,7 +1597,7 @@ Page({
         // this.ctx.rotate(30 * Math.PI / 180);
         that.ctx.save();
         if(i == 0){
-          that.ctx.drawImage(item.downloadFile,0,0,item.picw,item.pich) 
+          that.ctx.drawImage(item.image,0,0,item.picw,item.pich) 
         }else{
           if(item.image == undefined && item.type == 'image'){
             return;
@@ -1557,7 +1611,7 @@ Page({
           that.ctx.setGlobalAlpha(item.opacity/100)
 
           if(item.downloadFile){  //绘制图片
-            that.ctx.drawImage(item.downloadFile,0,0,100*item.scale,height) 
+            that.ctx.drawImage(item.image,0,0,100*item.scale,height) 
           }else if(item.text){    //绘制文字
             that.ctx.setFillStyle(item.color);
             that.ctx.setFontSize(item.fontSize*item.scale);
@@ -1571,7 +1625,7 @@ Page({
         that.ctx.restore();//恢复状态
         
     }
-      
+      app.globalData.footer = 'list'
       that.ctx.draw();
       that.ctx.save();
       // console.log(this.data.frontItemList)
@@ -1702,6 +1756,8 @@ Page({
         }else if(that.data.type == 3){
           my.navigateTo({url:'../placeIndividualOrder/placeIndividualOrder?id='+res.data.id})
         }
+        app.globalData.backItems = [];
+        app.globalData.frontItems = [];
         
       },
       fail:function(){

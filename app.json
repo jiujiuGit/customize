@@ -2,10 +2,16 @@
   "pages": [
     
     "pages/customType/customType",
+
+    "pages/canvas/canvas",
+      
+    
+    
     "pages/groupForm/groupForm",
     "pages/individualForm/individualForm",
     "pages/index/index",
-    
+     
+    "pages/sticker/sticker",
     "pages/modelList/modelList",
     
     
@@ -17,7 +23,6 @@
     "pages/placeIndividualOrder/placeIndividualOrder",
     
     
-    "pages/sticker/sticker",
     
     
     
@@ -43,7 +48,7 @@
     
     
     
-    "pages/canvas/canvas",
+    
     
     
     

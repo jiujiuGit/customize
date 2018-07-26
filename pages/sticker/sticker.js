@@ -140,25 +140,46 @@ Page({
       item.pich = this.data.stickers[tapIndex].pich;
       item.stickerid = this.data.stickers[tapIndex].id;
     }
+    // my.downloadFile({
+    //    url: 'http://pic-bucket.nosdn.127.net/photo/0001/2018-07-26/DNKIQU5R00AO0001NOS.jpg',
+    //   // url: 'http://bbltest.color3.cn/Public/upload/diyset/2016/12-20/5858d5ed6f5bd.png',
+    //   success({ apFilePath }) {
+    //     my.previewImage({
+    //       urls: [apFilePath],
+    //     });
+    //   },
+    //   fail(res) {
+    //     console.log("错误信息"+res)
+    //     my.alert({
+    //       content: res.errorMessage || res.error,
+    //     });
+    //   },
+    // });
 
     my.downloadFile({
       url: item.image, // 下载文件地址
       success: (res) => {         
         item.downloadFile = res.apFilePath;
+        
+        console.log('下载图片返回路径'+res.apFilePath)
+        //  my.previewImage({
+        //   urls: [res.apFilePath],
+        // });
+        // return;
         const eidtAreaParams = app.globalData.eidtAreaParams
         if(this.data.ground == 'front'){  //添加到front编辑列表
-        // console.log(app.globalData.eidtAreaParams)
-        item.left = eidtAreaParams.left1+(eidtAreaParams.width1 - 100)/2;
-        item.top = eidtAreaParams.top1 + (eidtAreaParams.height1 - 100*(item.pich/item.picw))/2;
-        // item.x = item.left + 50;
-        // item.y = item.top1+(100*(item.pich/item.picw))
+          // console.log(app.globalData.eidtAreaParams)
+          item.left = eidtAreaParams.left1+(eidtAreaParams.width1 - 100)/2;
+          item.top = eidtAreaParams.top1 + (eidtAreaParams.height1 - 100*(item.pich/item.picw))/2;
+          // item.x = item.left + 50;
+          // item.y = item.top1+(100*(item.pich/item.picw))
         
           const frontLength = app.globalData.frontItems.length
           item.id = frontLength+1;
           app.globalData.frontItems.push(item)
           app.globalData.stickerIndex = app.globalData.frontItems.length-1
         }else if(this.data.ground == 'back'){ //添加到back编辑列表
-        const backLength = app.globalData.backItems.length
+          const backLength = app.globalData.backItems.length
 
           item.left = eidtAreaParams.left2+(eidtAreaParams.width2 - 100)/2;
           item.top = eidtAreaParams.top2 + (eidtAreaParams.height2 - 100*(item.pich/item.picw))/2
@@ -170,22 +191,28 @@ Page({
         }
         item.x = item.left + 50;
         item.y = item.top+(100*(item.pich/item.picw))/2
-        console.log(item)
+        console.log("路径"+item.downloadFile)
         console.log(item.x+"****"+item.y)
 
 
         // app.globalData.items.push(item);
-        my.navigateBack({
-          delta: 1
-        })
-
+        
         this.setData({
           stickerIndex : item.id
         })
         app.globalData.footer = 'imgTransparency'
-          },
-          fail(res){
-          }
+        my.navigateBack({
+          delta: 1
+        })
+        // my.navigateTo({url:'../index/index'});
+      },
+      fail(res){
+          my.alert({
+            content: res.errorMessage || res.error,
+          });
+      }
+    
+    
     });
 
     

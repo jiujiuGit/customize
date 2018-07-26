@@ -9,6 +9,7 @@ App({
     items:[]
   },
   globalData:{
+    demo:'',
     userInfo:{
       userid:999
     },

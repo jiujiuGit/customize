@@ -76,7 +76,7 @@ Page({
     let newArr = []
     for(var i=0;i<3;i++){
       my.downloadFile({
-        url: 'https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg', // 下载文件地址
+        url: 'http://bbltest.color3.cn/Public/upload/diyset/2016/12-20/5858d5ed6f5bd.png', // 下载文件地址
         success: (res) => {
           newArr.push(res.apFilePath)
         },
