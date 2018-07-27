@@ -52,7 +52,7 @@ Page({
           });
           return;
         }
-        let bgList = [res.data.data.pic1,res.data.data.pic2,res.data.data.pic3];
+        let bgList = [res.data.data.pic1,res.data.data.pic2,res.data.data.pic3,res.data.data.pic4];
         // let bgList = [res.data.data.pic1,res.data.data.pic2,res.data.data.pic3];
         // let bgList = ['../../assets/images/108.png','../../assets/images/img_geren.png']
         console.log(bgList)
@@ -127,7 +127,12 @@ Page({
 
       case 2:
         that.setData({
-          side:'侧面'
+          side:'左侧'
+        })
+        break;
+      case 3:
+        that.setData({
+          side:'右侧'
         })
         break;
     }
@@ -157,7 +162,12 @@ Page({
 
       case 2:
         that.setData({
-          side:'侧面'
+          side:'左侧'
+        })
+        break;
+      case 3:
+        that.setData({
+          side:'右侧'
         })
         break;
     }
@@ -180,7 +190,12 @@ Page({
 
       case 2:
         that.setData({
-          side:'侧面'
+          side:'左侧'
+        })
+        break;
+      case 3:
+        that.setData({
+          side:'右侧'
         })
         break;
     }

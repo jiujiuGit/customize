@@ -12,6 +12,8 @@ Page({
     buttons:[], //可编辑面
     leftStickerId:app.globalData.leftStickerId,//左侧面贴纸或线条id
     leftStickerId:app.globalData.leftStickerId,//右侧面贴纸或线条id
+    oriLeftPic:'',//初始左侧背景图
+    orirightPic:'',//初始右侧背景图
     prodId:'',//款式id
     picname:'',//商品名称
     fabricId:'',//面料id
@@ -118,7 +120,7 @@ Page({
 
             that.setData({
               bgList:bgList,
-              leftSidePicId:res.data.id
+              leftSidePicId:res.data.data.id
             })
           }else{
             my.showToast({
@@ -126,6 +128,7 @@ Page({
             content: '暂时不提供此组件定制,请重新选择',
             duration: 2000,
           });
+          app.globalData.leftStickerId = ''
           }
           
 
@@ -158,7 +161,7 @@ Page({
 
             that.setData({
               bgList:bgList,
-              leftSidePicId:res.data.id
+              rightSidePicId:res.data.data.id
             })
           }else{
             my.showToast({
@@ -166,6 +169,7 @@ Page({
               content: '暂时不提供此组件定制,请重新选择',
               duration: 2000,
             });
+            app.globalData.rightStickerId = ''
           }
           
 
@@ -325,13 +329,16 @@ Page({
         //   });
         //   console.log(that.data.bgList)
         // },1200)
-
+        
         that.setData({
           // bgList:bgList,
           sizes:res.data.data.sizes,
           buttons:res.data.data.buttons,
+          oriLeftPic:res.data.data.pic3,
+          orirightPic:res.data.data.pic4
           // individualArea:res.data.data.buttons
         });
+        console.log(res.data.data.pic3)
         
         // my.downloadFile({
         //   url: res.data.data.pic1, // 下载正面图片
@@ -927,16 +934,62 @@ Page({
               backItemList:[]
             })
           }else if(currentTap == 'leftSide'){ //清除左侧
+            let bgList=that.data.bgList
+            bgList.pic3 = that.data.oriLeftPic
             that.setData({
+              bgList:bgList,
               leftStickerId:'',
               leftSidePicId:0, //左侧图片id
-    
             })
+            // my.httpRequest({
+            //   url: 'http://bbltest.color3.cn/Mobile/Api/getImageByDid',
+            //   method: 'post',
+            //   data: {
+            //     did: 0, //贴纸或线条id
+            //     tid:that.data.prodId,  //款式id
+            //     // oritype:query.oritype
+            //   },
+            //   dataType: 'json',
+            //   success: function(res) {
+            //     my.hideLoading();
+            //     if(res.data.status){
+            //       let bgList = that.data.bgList;
+            //       bgList.pic3 = res.data.data.pic;
+
+            //       that.setData({
+            //         bgList:bgList,
+            //         leftSidePicId:res.data.id
+            //       })
+            //     }else{
+            //       my.showToast({
+            //       type: 'fail',
+            //       content: '暂时不提供此组件定制,请重新选择',
+            //       duration: 2000,
+            //     });
+            //     app.globalData.leftStickerId = ''
+            //     }
+                
+
+            //   },
+            //   fail: function(res) {
+
+            //     // my.alert({content: 'fail'});
+            //   },
+            //   complete: function(res) {
+            //     // my.hideLoading();
+            //     // my.alert({content: 'complete'});
+            //   }
+            // });
           }else if(currentTap == 'rightSide'){ //清除右侧
+            let bgList=that.data.bgList
+            
+            bgList.pic4= that.data.oriRightPic
             that.setData({
+              bgList:bgList,
               rightStickerId:'',
               rightSidePicId:0,//右侧图片id
             })
+            
           }
           // for(let i = 0;i<app.globalData.items.length;i++){
           //   if(app.globalData.items[i].ground == 'front'){
@@ -1703,7 +1756,8 @@ Page({
     }
 
 
-
+  console.log(that.data.leftSidePicId)
+  console.log(that.data.leftSidePicId)
     my.httpRequest({
       url:'http://bbltest.color3.cn/Mobile/Api/saveworkdesk',
       dataType:'json',
@@ -1739,6 +1793,11 @@ Page({
           });
           return;
         }
+        that.setData({
+          saveworkdesk:{}
+        })
+        app.globalData.backItems = [];
+        app.globalData.frontItems = [];
         if(that.data.type == 1){
           my.navigateTo({url:'../placeIndividualOrder/placeIndividualOrder?id='+res.data.id}) //id订单号
         }else if(that.data.type == 2){
@@ -1756,8 +1815,9 @@ Page({
         }else if(that.data.type == 3){
           my.navigateTo({url:'../placeIndividualOrder/placeIndividualOrder?id='+res.data.id})
         }
-        app.globalData.backItems = [];
-        app.globalData.frontItems = [];
+        // that.data.saveworkdesk
+        
+
         
       },
       fail:function(){
