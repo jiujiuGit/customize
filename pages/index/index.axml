@@ -12,7 +12,7 @@
     </view>
   </view>
   <!-- 勾 -->
-  <view id="gou" onTap="personalArea" a:if="{{type == 2}}">
+  <view id="gou" onTap="personalArea" a:if="{{type == 2 && footer == 'list'}}">
     <text class="iconfont  icon-success-no-circle"></text>
   </view>
   <!-- 正面操作区域 -->
@@ -136,8 +136,8 @@
       <!-- <block a:for="{{buttons}}">
         <view data-index = '{{index}}' class='aside-btn btn-back {{(currentTap ==  "back")? "aside-btn-active":""}}' onTap="back">背 <text a:if='{{currentTap ==  "back"}}'>面</text></view>
       </block> -->
-      <view a:if="{{buttons.indexOf('反面')>-1}}" class='aside-btn btn-back {{(currentTap ==  "back")? "aside-btn-active":""}}' onTap="back">背 <text a:if='{{currentTap ==  "back"}}'>面</text></view>
-      <view a:if="{{buttons.indexOf('正面')>-1}}" class='aside-btn btn-front {{(currentTap ==  "front")? "aside-btn-active":""}} ' onTap="front">正 <text a:if='{{currentTap ==  "front"}}'>面</text></view>
+      <view a:if="{{buttons.indexOf('反面')>-1}}" class='aside-btn btn-back {{(currentTap ==  "back")? "aside-btn-active":""}}' onTap="back">背面</view>
+      <view a:if="{{buttons.indexOf('正面')>-1}}" class='aside-btn btn-front {{(currentTap ==  "front")? "aside-btn-active":""}} ' onTap="front">正面</view>
       <view a:if="{{buttons.indexOf('左侧')>-1}}" class='aside-btn btn-side {{(currentTap ==  "leftSide")? "aside-btn-active":""}}' onTap="leftSide">左侧</view>
       <view a:if="{{buttons.indexOf('右侧')>-1}}" class='aside-btn btn-side {{(currentTap ==  "rightSide")? "aside-btn-active":""}}' onTap="rightSide">右侧</view>
 

@@ -193,7 +193,8 @@ Page({
         type:app.globalData.type,
         picname:app.globalData.teamData.picname,
         prodId:app.globalData.teamData.prodId,
-        fabricId:app.globalData.teamData.fabricId
+        fabricId:app.globalData.teamData.fabricId,
+        saveworkdesk:{}//清空定制数据
       })
     if(app.globalData.type == 2){  //团体
       this.setData({
@@ -1483,6 +1484,7 @@ Page({
     //     'position_back':that.data.saveworkdesk.position_back_remix,    //反面合成图片
     //     'position_back_remix':that.data.saveworkdesk.position_back,     //反面整体图片
     let params = that.data.saveworkdesk
+    console.log(params.position_front_remix)
     // console.log(params.position_front_remix)
      let myInterval = setInterval(function(){
           // timesRun -= 1;
@@ -1796,8 +1798,10 @@ Page({
         that.setData({
           saveworkdesk:{}
         })
-        app.globalData.backItems = [];
-        app.globalData.frontItems = [];
+        let params = that.data.saveworkdesk
+        console.log(params.position_front_remix)
+        // console.log()
+       
         if(that.data.type == 1){
           my.navigateTo({url:'../placeIndividualOrder/placeIndividualOrder?id='+res.data.id}) //id订单号
         }else if(that.data.type == 2){

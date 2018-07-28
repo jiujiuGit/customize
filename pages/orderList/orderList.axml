@@ -1,15 +1,15 @@
 <view style='background:rgba(242,243,245,1);height:{{systemInfo.screenHeight}}px;overflow:scroll'>
   <view class="order-item" a:for="{{orderList}}">
     <view class="flex-box ">
-      <view ><image class="item-image" src="{{item.position_front_image}}" mode="widthFix" /></view>
+      <view ><image class="item-image" src="{{item.position_front_image}}" mode="aspectFit" /></view>
       <view class="item-right flex-item-1">
         <view class="flex-box flex-justify-between">
           <view class="item-name">{{item.worksname}}</view>
           <view class="item-state">{{item.statusName}}</view>
         </view>
         <view class="progress flex-box">
-          <view class="down">已定制{{item.yinum}}件</view>
-          <view class="hang">未定制{{item.weinum}}件</view>
+          <view class="down">已定制：{{item.yinum}}件</view>
+          <view class="hang">未定制：{{item.weinum}}件</view>
         </view>
 
         <view class="flex-box third-block flex-justify-between">

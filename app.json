@@ -1,58 +1,26 @@
 {
   "pages": [
-    
     "pages/customType/customType",
-
-    "pages/canvas/canvas",
-      
-    
-    
-    "pages/groupForm/groupForm",
-    "pages/individualForm/individualForm",
     "pages/index/index",
-     
     "pages/sticker/sticker",
-    "pages/modelList/modelList",
-    
-    
-    "pages/placeTeamOrder/placeTeamOrder",
     "pages/orderList/orderList",
     "pages/orderDetail/orderDetail",
-    
-    
+    "pages/individualForm/individualForm",
     "pages/placeIndividualOrder/placeIndividualOrder",
     
     
+    "pages/groupForm/groupForm",
     
+    "pages/placeTeamOrder/placeTeamOrder",
     
-    
-    
-    
-    
-    
-     
-    
-    
-    
-    
-    
-    "pages/customizationDetails/customizationDetails",
-    
-    
-    
-    
-   
-    
-    
+
+    "pages/canvas/canvas",
       
+  
+    "pages/modelList/modelList",
     
-    
-    
-    
-    
-    
-    
-    
+
+    "pages/customizationDetails/customizationDetails",
     
     "pages/sideSticker/sideSticker",
     "pages/images/images",

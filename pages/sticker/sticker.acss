@@ -76,3 +76,7 @@
 #quit{
     border-right: 1px solid gainsboro;
 }
+.layer-box{
+    padding-top: 40rpx;
+    padding-bottom: 0;
+}

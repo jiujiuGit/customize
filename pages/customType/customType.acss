@@ -20,7 +20,9 @@
     width: 250rpx;
 }
 .type-text{
-    font-size: 14px;
+    font-size: 28rpx;
+    font-weight: bolder;
+    margin-top: 24rpx;
 }
 .order-history{
     position: fixed;

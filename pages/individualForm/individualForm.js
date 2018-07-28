@@ -63,6 +63,11 @@ Page({
       phone: e.detail.value,
     });
   },
+  onlyCall(){ //点击客服热线
+    my.makePhoneCall({
+      number: this.data.wenan.phone, // 电话号码
+    });
+  },
   call(){
     const that = this;
     this.setData({

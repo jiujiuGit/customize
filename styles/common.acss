@@ -55,7 +55,13 @@
     border-radius: 16rpx;
     z-index: 2100;
     background-color: white;
+    padding-top: 114rpx;
+    padding-bottom: 114rpx;
   }
   /* .icon-success-no-circle{
     font-size: 30px;
   } */
+  .ok{
+    width: 116rpx;
+    height: 116rpx;
+  }

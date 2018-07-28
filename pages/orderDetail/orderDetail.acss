@@ -34,18 +34,23 @@
     font-size: 34rpx;
     font-weight: 600;
     line-height: 40rpx;
+    /* margin-top: 20rpx; */
     
 }
-.section-recive{
+.section-recive,.section-qrcode{
     border-bottom: 1px dashed #D8D8D8;
     /* margin-top: 300rpx; */
 }
 .detail-section{
-    padding: 40rpx 0;
+    padding: 60rpx 0;
 
 }
+.fir-line{
+    margin-top: 30rpx!important;
+}
 .section-lines>view{
-    padding: 10rpx 0;
+    margin-top: 20rpx;
+    /* padding: 10rpx 0; */
     color:#7F7F7F;
     font-size: 14px;
 }
@@ -63,6 +68,7 @@
 }
 .prod-name{
     font-size: 14px;
+    margin-top: 10rpx;
 }
 .custom-qty{
     font-size: 24rpx;
@@ -77,11 +83,18 @@
     width: 180rpx;
     height: 180rpx;
 }
+.wei{
+    margin-left: 40rpx;
+}
+#yuan{
+    font-size: 24rpx;
+    font-weight: 300;
+}
 .prod-price{
     position: absolute;
     bottom: 5px;
     color: #FF4949;
-    font-size: 34rpx;
+    font-size: 36rpx;
     font-weight: 600;
 }
 .msg-right{
@@ -90,7 +103,7 @@
 .card-state{
     margin: 0 20rpx;
     border-bottom: 1px dashed #D8D8D8;
-    padding: 10rpx 0;
+    padding: 20rpx 0;
 }
 .state-hint{
     font-size: 12px;
@@ -128,11 +141,14 @@
     font-size: 12px;
     line-height: 40rpx;
 }
+#erweima-div{
+    text-align: center
+}
 #erweima{
-    width: 600rpx;
+    width: 360rpx;
 }
 #text{
-    font-weight: bold;
+    font-weight: 600;
     text-align: center;
     line-height: 20px;
     font-size:15px;

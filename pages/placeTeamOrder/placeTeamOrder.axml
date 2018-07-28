@@ -1,7 +1,7 @@
 <view style='width:100%'>
   <view id='swiper-container'>
-    <view class="icon-arrow iconfont icon-zuo icon-left" onTap="left"> </view>
-    <view class="icon-arrow iconfont icon-you icon-right" onTap="right">  </view>
+    <view class="icon-arrow icon-left" onTap="left"> <image src="../../assets/icon/icon-zuo.png" mode="widthFix" /></view>
+    <view class="icon-arrow  icon-right" onTap="right"> <image src="../../assets/icon/icon-you.png" mode="widthFix" /> </view>
     <swiper
       indicator-dots="{{indicatorDots}}"
       autoplay="{{autoplay}}"
@@ -42,7 +42,7 @@
   <!-- 弹框 -->
   <view class="layer" a:if="{{success}}">
     <view class="layer-box">
-      <view id='resIcon'><text class="iconfont icon-gou"></text></view>
+      <view id='resIcon'><image class="ok" src="../../assets/icon/icon_ok.png" mode="widthFix" /></view>
       <view class="resMsg">{{resStr.string}}</view>
       <view id="phone" onTap="call">{{resStr.phone}}</view>
       <view class="home" onTap="home">返回首页</view>
