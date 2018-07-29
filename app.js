@@ -76,22 +76,19 @@ App({
 
 
     // console.log(this.globalData.userInfo)
+
+
+    // this.globalData.type = 3
+    // this.globalData.teamIndividual.parent_orderid = 204
+    // this.globalData.teamIndividual.picname="新衣服"
+    // this.globalData.teamIndividual.prodId = 1
+    // this.globalData.teamIndividual.fabricId = 1
     this.globalData.type = 3
     this.globalData.teamIndividual.parent_orderid = options.query.parent_orderid
     this.globalData.teamIndividual.picname=options.query.picname
     this.globalData.teamIndividual.prodId = options.query.prodId
     this.globalData.teamIndividual.fabricId = options.query.fabricId
-    // console.log(this.globalData.teamIndividual.picname)
-    // this.setData({
-    //   parent_orderid:99,//团体订单id
-    //   picName:'团体单',//商品名称
-    //   picId:1,//款式id
-    //   fabricId:'12',//面料id
-
-    // })
-    // my.navigateTo({url:'../index/index'});
-
-    // 团体定制id
+   
     console.log('query', options.query);
     console.log('App Launch', options);
   },

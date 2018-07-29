@@ -160,7 +160,7 @@
 .imgWrap{
     /* padding: 5px; */
     background-color: rgba(0,0,0,0);
-    width: 100px;
+    /* width: 100px; */
     border:2px solid rgba(0,0,0,0);
     /* box-sizing: border-box;
      -webkit-box-sizing: border-box; 
@@ -171,7 +171,13 @@
     
 }
 .textItem{
-    text-align: center
+    text-align: left;
+    /* overflow: hidden; */
+}
+.textItem>text{
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .touchActive{
     border:2px dashed white;

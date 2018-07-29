@@ -48,8 +48,9 @@ Page({
     individualArea:[],//个人定制区域
     personalArea:false, //选择个人定制区域弹框是否可见
     parent_orderid:'',//团体订单id（团体定制下的个人定制）
-    imgInitialW:100,//图片初始大小
-    textInitialW:0,//文字初始大小
+    imgInitialW:100,//图片初始大小、
+    // textInitialW:50,//文字初始大小
+    // textInitialW:0,//文字初始大小
 
     drawList:[],
     uploadList:[]
@@ -540,6 +541,7 @@ Page({
  
     // let items = this.data.itemList;
     const curTap = this.data.currentTap;
+    let imgInitialW = this.data.imgInitialW 
     let maxLeft ; //可移动的最大left值
     let minLeft; //可移动的最小left值
     let maxTop; //可移动的最大top值
@@ -553,8 +555,8 @@ Page({
     if(curTap == 'front'){
        items = this.data.frontItemList;
        
-       itemW = parseInt(items[index].scale*100); //贴纸等组件的宽度
-       itemH = items[index].scale*100*(items[index].pich/items[index].picw);//贴纸等组件的高度
+       itemW = parseInt(items[index].scale*imgInitialW); //贴纸等组件的宽度
+       itemH = items[index].scale*imgInitialW*(items[index].pich/items[index].picw);//贴纸等组件的高度
        maxLeft = parseInt(this.data.bgList.left1)+(parseInt(this.data.bgList.width) - itemW);
        minLeft = this.data.bgList.left1;
 
@@ -562,8 +564,8 @@ Page({
        minTop = this.data.bgList.top1;
     }else if(curTap == 'back'){
        items = this.data.backItemList; 
-       itemW = parseInt(items[index].scale*100); //贴纸等组件的宽度
-       itemH = items[index].scale*100*(items[index].pich/items[index].picw);//贴纸等组件的高度
+       itemW = parseInt(items[index].scale*imgInitialW); //贴纸等组件的宽度
+       itemH = items[index].scale*imgInitialW*(items[index].pich/items[index].picw);//贴纸等组件的高度
        maxLeft = parseInt(this.data.bgList.left2)+(parseInt(this.data.bgList.width1) - itemW);
        minLeft = this.data.bgList.left2;
 
@@ -586,11 +588,11 @@ Page({
 
           
         //追加改动值  
-        if(items[index].left<minLeft  && movex<0){
+        if(items[index].left<minLeft  && movex<0 && !items[index].text){
           console.log("不能再左移了")
           
           // return;
-        }else if(items[index].left > maxLeft && movex>0){
+        }else if(items[index].left > maxLeft && movex>0 && !items[index].text){
           console.log("不能再右移了")
           // return;
         }else{
@@ -1242,6 +1244,7 @@ Page({
   },
   addText(){
     // let imgLength = app.globalData.items.length;
+    let imgInitialW = this.data.imgInitialW
     let item = {  
             // id: imgLength+1,   
             top: 100,//初始图片的位置   
@@ -1266,7 +1269,7 @@ Page({
     if(this.data.currentTap == 'front'){
       const frontLength = app.globalData.frontItems.length;
       item.id = frontLength +1;
-      item.left = eidtAreaParams.left1+(eidtAreaParams.width1 - 100)/2;
+      item.left = eidtAreaParams.left1+(eidtAreaParams.width1 - imgInitialW)/2;
       item.top = eidtAreaParams.top1 + (eidtAreaParams.height1)/2;
       app.globalData.frontItems.push(item);
       
@@ -1276,7 +1279,7 @@ Page({
       });
     }else if(this.data.currentTap == 'back'){
       const backLength = app.globalData.backItems.length;
-      item.left = eidtAreaParams.left2+(eidtAreaParams.width2 - 100)/2;
+      item.left = eidtAreaParams.left2+(eidtAreaParams.width2 - imgInitialW)/2;
       item.top = eidtAreaParams.top2 + (eidtAreaParams.height2)/2;
       item.id = backLength +1;
       app.globalData.backItems.push(item);
@@ -1513,6 +1516,7 @@ Page({
     let itemList = [];
     let areaLeft ;
     let areaTop ;
+    let imgInitialW = this.data.imgInitialW
     console.log(this.data.frontItemList)
     if(side =='front'){
       itemList = that.data.frontItemList;
@@ -1546,7 +1550,7 @@ Page({
           top = item.fontSize*item.scale+top;  //文字top要加上文字的高度
         }
         const wh = item.pich / item.picw  //图片宽高比例
-        const height = 100*wh*item.scale;  //计算缩放后的图片高度
+        const height = imgInitialW*wh*item.scale;  //计算缩放后的图片高度
 
         that.ctx.translate(left,top);
         that.ctx.rotate(item.angle * Math.PI / 180);
@@ -1554,10 +1558,10 @@ Page({
 
        
         if(item.downloadFile){  //绘制图片
-          that.ctx.drawImage(item.image,0,0,100*item.scale,height) 
+          that.ctx.drawImage(item.image,0,0,imgInitialW*item.scale,height) 
 
         }else if(item.text){    //绘制文字
-
+  
           that.ctx.setFillStyle(item.color);
           that.ctx.setFontSize(item.fontSize*item.scale);
           that.ctx.fillText(item.text, 0, 0)
@@ -1579,7 +1583,7 @@ Page({
 
   //canvas正反面合成图（包含背景图）
   canvasRemix(side){
-   
+   let imgInitialW = this.data.imgInitialW
     // return;
     let that = this;
     let itemList = [];
@@ -1660,13 +1664,13 @@ Page({
           const left = parseInt(item.left) ;
           const top = parseInt(item.top );
           const wh = item.pich / item.picw  //图片宽高比例
-          const height = 100*wh*item.scale;  //计算缩放后的图片高度
+          const height = imgInitialW*wh*item.scale;  //计算缩放后的图片高度
           that.ctx.translate(left,top);
           that.ctx.rotate(item.angle * Math.PI / 180);
           that.ctx.setGlobalAlpha(item.opacity/100)
 
           if(item.downloadFile){  //绘制图片
-            that.ctx.drawImage(item.image,0,0,100*item.scale,height) 
+            that.ctx.drawImage(item.image,0,0,imgInitialW*item.scale,height) 
           }else if(item.text){    //绘制文字
             that.ctx.setFillStyle(item.color);
             that.ctx.setFontSize(item.fontSize*item.scale);

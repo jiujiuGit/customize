@@ -83,7 +83,7 @@
 }
 
 #gou{
-    margin-top: 30px;
+    /* margin-top: 30px; */
     text-align: center;
 }
 .icon-success-no-circle{
@@ -91,14 +91,15 @@
     font-size: 30px;
 }
 .resMsg{
-    font-size: 15px;
-    font-weight: bold;
+    font-size: 30rpx;
+    font-weight: 600;
     text-align: center;
-    margin: 20px 0;
+    margin: 60rpx 0 120rpx 0;
 }
 .home{
-    margin: 20px 0;
-    font-size: 12px;
+    /* margin: 20px 0; */
+    font-size: 24rpx;
     color: #7A7A7A;
     text-align: center;
+    text-decoration: underline;
 }

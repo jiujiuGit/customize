@@ -52,7 +52,7 @@
   <!-- 弹框 -->
   <view class="layer" a:if="{{success}}">
     <view class="layer-box">
-      <view id ="gou"><text class="iconfont icon-success-no-circle"></text></view>
+      <view id ="gou"><image class="ok" src="../../assets/icon/icon_ok.png" mode="widthFix" /></view>
       <view class="resMsg">恭喜你，下单成功</view>
       <view class="home" onTap="home">返回首页</view>
     </view>

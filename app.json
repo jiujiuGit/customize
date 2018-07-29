@@ -1,12 +1,21 @@
 {
   "pages": [
     "pages/customType/customType",
-    "pages/index/index",
-    "pages/sticker/sticker",
+    "pages/customizationDetails/customizationDetails",
+    
     "pages/orderList/orderList",
+    
+    "pages/index/index",
+    "pages/placeIndividualOrder/placeIndividualOrder",
+    
+    
+    
+    "pages/canvas/canvas",
+    "pages/sticker/sticker",
+    
     "pages/orderDetail/orderDetail",
     "pages/individualForm/individualForm",
-    "pages/placeIndividualOrder/placeIndividualOrder",
+    
     
     
     "pages/groupForm/groupForm",
@@ -14,13 +23,13 @@
     "pages/placeTeamOrder/placeTeamOrder",
     
 
-    "pages/canvas/canvas",
+    
       
   
     "pages/modelList/modelList",
     
 
-    "pages/customizationDetails/customizationDetails",
+    
     
     "pages/sideSticker/sideSticker",
     "pages/images/images",

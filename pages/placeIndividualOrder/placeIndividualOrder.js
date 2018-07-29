@@ -17,6 +17,17 @@ Page({
   },
   onLoad(query) {
     console.log(app.globalData.type)
+    let params = ''
+    if(app.globalData.type == 3){
+      params= {
+        wid:query.id,
+        orderid:app.globalData.teamIndividual.parent_orderid
+      }
+    }else{
+      params= {
+        wid:query.id,
+      }
+    }
     this.setData({
       wid:query.id,
       type:app.globalData.type
@@ -27,10 +38,7 @@ Page({
       url: 'http://bbltest.color3.cn/Mobile/Api/getWorkdetail', // 目标服务器url
       dataType:'json',
       method: 'post',
-      data:{
-        wid:query.id
-        // wid:410
-      },
+      data:params,
       success: (res) => {
         if(res.data.status==0){
           my.showToast({
@@ -168,15 +176,26 @@ Page({
   // 下一步
   confirmOrder(){
     const that = this;
+    let params = ''
+    if(app.globalData.type == 3){
+      params = {
+        size:that.data.sizes[that.data.sizeTab],
+        wid:that.data.wid,
+        zfb_userid:app.globalData.userInfo.userId,
+        parent_sn:app.globalData.teamIndividual.parent_orderid
+      }
+    } else{
+      params = {
+        size:that.data.sizes[that.data.sizeTab],
+        wid:that.data.wid,
+        zfb_userid:app.globalData.userInfo.userId,
+      }
+    }
     my.httpRequest({
       url:'http://bbltest.color3.cn/Mobile/Api/suborder',
       method:'POST',
       dataType:'json',
-      data:{
-        size:that.data.sizes[that.data.sizeTab],
-        wid:that.data.wid,
-        zfb_userid:app.globalData.userInfo.userId
-      },
+      data:params,
       success:function(res){
         if(res.data.status==0){
           my.showToast({

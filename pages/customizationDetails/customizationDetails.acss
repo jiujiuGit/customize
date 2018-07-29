@@ -1,8 +1,10 @@
 .hotline{
-    font-size: 14px;
+    font-size: 24rpx;
     color: #239BC9;
-    padding: 20rpx;
+    /* padding: 20rpx; */
     background-color: #F2F3F5;
+    padding: 24rpx 0 24rpx 30rpx;
+    /* margin-left: 30rpx; */
 }
 .tel{
     border-bottom: 1px solid #F2F3F5;
@@ -12,38 +14,55 @@
     padding-bottom: 50px;
 }
 .personal-item{
-    margin: 40rpx;
+    margin: 30rpx;
     /* border-bottom: 1px dashed #D8D8D8;
     border-bottom-width:710rpx; */
 }
+#callIcon{
+    width: 28rpx;
+    vertical-align: middle;
+    /* margin-right: 10rpx; */
+}
 .header-img{
-    width: 70rpx;
+    width: 60rpx;
+    margin-right: 20rpx;
 }
 .person-name{
-    line-height: 70rpx;
-    font-size: 15px;
+    line-height: 60rpx;
+    font-size: 30rpx;
     font-weight: 600;
 }
 .person-msg{
     vertical-align: middle;
 }
 .personal-image{
-    width: 160rpx;
+    width: 106rpx;
+    height:116rpx;
+    margin-top: 22rpx;
 }
 .personal-images{
     margin-left: 60rpx;
     width: 610rpx;
     overflow-x: scroll;
 }
+.scroll{
+    width: 720rpx;
+}
 .personal-item-image{
-    /* margin-left: 10px; */
-    margin: 10px 0 0 10px;
+    margin-left: 20rpx;
+    width: 160rpx!important;
+    height:160rpx!important;
+    /* margin: 10px 0 0 10px; */
+    background-color: #F7F7F7;
+    text-align: center;
+  
     /* border:1px solid red; */
 }
 .personal-remarks{
     margin-left: 70rpx;
-    font-size: 12px;
-    line-height: 40px;
+    font-size: 24rpx;
+    margin: 20rpx 0 30rpx 80rpx;
+    /* line-height: 40px; */
 }
 .qty{
     margin-left: 20px;
@@ -66,4 +85,20 @@
     border:none;
     height: 50px;
     line-height: 50px;
+    font-weight: 600;
+    border-radius: 0;
+}
+.layer-box{
+    text-align: center
+}
+.resMsg{
+    margin: 60rpx 0 120rpx 0;
+    font-size: 30rpx;
+    font-weight: 600;
+}
+.en{
+    font-size: 24rpx;
+    text-align: center;
+    color: #E02666;
+    text-decoration: underline;
 }

@@ -1,5 +1,5 @@
 <view style='background-color:white'>
-  <view class="hotline"><text>客服热线：</text><text onTap="call" class="tel">400-7417474</text></view>
+  <view class="hotline"><image id='callIcon' src="../../assets/icon/icon_contact.png" mode="widthFix" /><text>客服热线：</text><text onTap="call" class="tel">{{wenan.phone}}</text></view>
   <view class="personal-list">
     <view class="personal-item" a:for="{{list}}">
 
@@ -9,18 +9,21 @@
         <view><image class="header-img" src="{{item.leftpic}}" mode="widthFix" /></view>
         <view><image class="header-img" src="{{item.rightpic}}" mode="widthFix" /></view> -->
         <!-- <view><image class="header-img" src="../../assets/images/img_team.png" mode="widthFix" /></view> -->
-        <view><image class="header-img" a:if="{{item.touxiang!=null}}" src="{{item.touxiang}}" mode="widthFix" /></view>
-        <view><image class="header-img" a:if="{{item.touxiang==null}}"  src="../../assets/images/img_geren.png" mode="widthFix" /></view>
+        <view><image class="header-img" a:if="{{item.touxiang!=null && item.touxiang != ''}}" src="{{item.touxiang}}" mode="widthFix" /></view>
+        <view><image class="header-img" a:if="{{item.touxiang==null || item.touxiang == ''}}"  src="../../assets/icon/img_list_poper.png" mode="widthFix" /></view>
 
         <view class="person-name">{{item.nickname}}</view>
       </view>
 
-      <view class="flex-box personal-images">
-        <view class="personal-item-image"><image class="personal-image" src="{{item.zhengpic}}" mode="widthFix" /></view>
-        <view class="personal-item-image"><image class="personal-image" src="{{item.fanpic}}" mode="widthFix" /></view>
-        <view class="personal-item-image"><image class="personal-image" src="{{item.leftpic}}" mode="widthFix" /></view>
-        <view class="personal-item-image"><image class="personal-image" src="{{item.rightpic}}" mode="widthFix" /></view>
-          <!-- <view class="personal-item-image" ><image class="personal-image" src="../../assets/images/img_geren.png" mode="widthFix" /></view> -->
+      <view class=" personal-images">
+        <view class="scroll flex-box">
+          <view class="personal-item-image"><image class="personal-image" src="{{item.zhengpic}}" mode="widthFix" /></view>
+          <view class="personal-item-image"><image class="personal-image" src="{{item.fanpic}}" mode="widthFix" /></view>
+          <view class="personal-item-image"><image class="personal-image" src="{{item.leftpic}}" mode="widthFix" /></view>
+          <view class="personal-item-image"><image class="personal-image" src="{{item.rightpic}}" mode="widthFix" /></view>
+
+        </view>
+                  <!-- <view class="personal-item-image" ><image class="personal-image" src="../../assets/images/img_geren.png" mode="widthFix" /></view> -->
       </view>
     
       <view class="personal-remarks">
@@ -36,5 +39,12 @@
 
   <view class="footer">
     <button class="footer-btn" type="default" size="defaultSize" onTap="defaultTap"> 确认下单 </button>
+  </view>
+   <view class="layer" a:if="{{success}}">
+    <view class="layer-box">
+      <view id ="gou"><image class="ok" src="../../assets/icon/icon_ok.png" mode="widthFix" /></view>
+      <view class="resMsg">恭喜你，下单成功！</view>
+      <view class="en" onTap="ok">确定</view>
+    </view>
   </view>
 </view>
