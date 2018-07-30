@@ -217,6 +217,9 @@
     font-size: 20rpx;
     margin-top: 20rpx;
     margin-left: 14rpx;
+    border: 1px solid transparent;
+    box-sizing:border-box
+    
     
 }
 .aside-btn-active{
@@ -227,6 +230,8 @@
     font-size: 26rpx;
     font-weight: bold;
     margin-left: 0;
+    border: 1px solid transparent;
+    box-sizing:border-box
 }
 .footer{
     position: fixed;
@@ -240,7 +245,8 @@
     font-weight: bolder;
     text-align: left;
     background-color: #474747;
-    line-height: 40px;
+    line-height: 100rpx;
+    height: 100rpx;
     color: white
 }
 .customize-btn{
@@ -249,8 +255,8 @@
     color: white;
     font-size: 14px;
     width: 250rpx;
-    height: 40px;
-    line-height: 40px;
+    height: 100rpx;
+    line-height:100rpx;
     border:none;
     font-weight: bolder;
     font-size: 28rpx;
@@ -294,13 +300,13 @@
     background-color: rgba(0,0,0,0.6);
     border-radius: 10px 10px 0 0;
     position: relative;
-    bottom:-10px;
+    bottom:0px;
     transition: all 0.5s;
     justify-content: center;
     /* opacity: 60%; */
 }
 .custome-active{
-    bottom: 40px;
+    bottom: 100rpx;
 }
 .custome-item{
     color: white;
@@ -308,13 +314,17 @@
     text-align: center;
     font-size: 12px;
     font-weight: normal;
-    padding-top:10px;
+    padding-top:20rpx;
     color: #C0C4CC;
+    margin-bottom: 14rpx;
+    /* margin-bottom: 6rpx; */
 }
 .custome-item-text{
-    line-height: 20px;
+    line-height: 20rpx;
     color:#FFFFFF;
     font-size: 20rpx;
+    margin-top: 8rpx;
+    /* margin: 8rpx 0 26rpx 0; */
 }
 .img-icon{
     width:20px;
@@ -455,12 +465,14 @@ visibility: hidden;
     vertical-align: middle;
 }
 .layer-box{
-    padding: 0 20rpx;
+    padding: 90rpx 0 96rpx 0;
+    /* padding: 0 20rpx; */
 }
 .layer-title{
     text-align: center;
-    margin: 60rpx 0;
-    font-size: 15px;
+    /* margin: 60rpx 0; */
+    font-size: 30rpx;
+    margin-bottom: 40rpx;
     font-weight: bolder;
 }
 .areaItem{
@@ -473,7 +485,7 @@ visibility: hidden;
     border-radius: 8rpx; 
     border:1px solid #7F7F7F;
     margin-left: 30rpx;
-    margin-top: 30rpx;
+    margin-top: 40rpx;
     box-sizing: border-box;
 }
 .areaDisabel{
@@ -492,7 +504,8 @@ visibility: hidden;
 }
 #layer-btn{
     text-align: center;
-    margin: 40rpx;
+    /* margin: 40rpx; */
+    margin-top: 80rpx;
     color: #E02666;
     text-decoration: underline;
     font-size:24rpx;

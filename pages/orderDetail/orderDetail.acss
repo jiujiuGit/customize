@@ -57,10 +57,11 @@
 .section-card{
     /* margin: 20rpx; */
     border-radius: 4px;
+
     position: absolute;
     top: -100rpx;
     background-color: white;
-    box-shadow: 0px 2px 7px #888888;
+    box-shadow: 0px 10px 10px 0px rgba(86,91,110,0.08);;
     /* width: 96%;
     left: 2%; */
     width:100%;

@@ -1,42 +1,40 @@
 {
   "pages": [
-    "pages/customType/customType",
     "pages/index/index",
+    "pages/customType/customType",
+    "pages/placeTeamOrder/placeTeamOrder",
+    
+    
+    "pages/individualForm/individualForm",
+    
+     "pages/placeIndividualOrder/placeIndividualOrder",
+    
+    
+    
+    
+    "pages/groupForm/groupForm",
+    
+    
+    "pages/orderDetail/orderDetail",
+    
+    
+    
+    
     
     "pages/customizationDetails/customizationDetails",
     
     "pages/orderList/orderList",
     
     
-    "pages/placeIndividualOrder/placeIndividualOrder",
+   
     
-    
-    
-    "pages/canvas/canvas",
     "pages/sticker/sticker",
     
-    "pages/orderDetail/orderDetail",
-    "pages/individualForm/individualForm",
-    
-    
-    
-    "pages/groupForm/groupForm",
-    
-    "pages/placeTeamOrder/placeTeamOrder",
-    
 
-    
-      
-  
     "pages/modelList/modelList",
     
-
-    
-    
     "pages/sideSticker/sideSticker",
-    "pages/images/images",
-    "pages/bgList/bgList",
-     "pages/todos/todos"
+    "pages/images/images"
     
   ],
   "window": {

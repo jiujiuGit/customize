@@ -1,5 +1,0 @@
-<view>
-  New Page
-  <view onTap="tz">to page1</view>
-  <image src="{{imgUrl}}" mode="" />
-</view>

@@ -15,7 +15,7 @@ Page({
       "numper":null,
       "peoplenum":null,
       "wid":"116",
-      "worksname":"re",
+      "worksname":"",
       "position_front_image":"",
       "numtype":"",
       "nowtime":"",
@@ -26,10 +26,18 @@ Page({
       "yinum":0,
       "weinum":0
     },
+    systemInfo:'',
     showLayer:false
   },
   onLoad(query) {
     const that = this;
+    my.getSystemInfo({
+      success: (res) => {
+        this.setData({
+          systemInfo: res
+        })
+      }
+    })
     this.setData({
       orderId:query.id
       // orderId:84

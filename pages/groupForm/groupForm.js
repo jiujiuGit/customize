@@ -91,45 +91,72 @@ Page({
     
     
     console.log(that.data.cityPicker)
-    my.showLoading({
-      content: '加载中...',
-    });
+    // my.showLoading({
+    //   content: '加载中...',
+    // });
      // 请选择市
-    my.httpRequest({
-      url: 'http://bbltest.color3.cn/Mobile/Api/getCity?parent_id='+that.data.province.id, // 目标服务器url
-      method:'GET',
-      dataType:'json',
+    // my.httpRequest({
+    //   url: 'http://bbltest.color3.cn/Mobile/Api/getCity?parent_id='+that.data.province.id, // 目标服务器url
+    //   method:'GET',
+    //   dataType:'json',
 
-      success: (res) => {
-        if(res.data.status){
-          that.setData({
-            citys:res.data.list
-          })
-        }else{
-           my.showToast({
-            type: 'fail',
-            content: '服务器繁忙，请稍候再试',
-            duration: 2000,
-          });
-        }
+    //   success: (res) => {
+    //     if(res.data.status){
+    //       that.setData({
+    //         citys:res.data.list
+    //       })
+    //     }else{
+    //        my.showToast({
+    //         type: 'fail',
+    //         content: '服务器繁忙，请稍候再试',
+    //         duration: 2000,
+    //       });
+    //     }
         
-      },
-      fail:(res) => {
+    //   },
+    //   fail:(res) => {
 
-      },
-      complete:(res) =>{
-        my.hideLoading();
-      }
-    });
+    //   },
+    //   complete:(res) =>{
+    //     my.hideLoading();
+    //   }
+    // });
   },
   bindPickerChange(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value);
+    const that = this;
     this.setData({
       province: this.data.pros[e.detail.value],
       cityPicker:false,
       city:{
         name:''
       },
+    });
+    // 请选择市
+    my.httpRequest({
+      url: 'http://bbltest.color3.cn/Mobile/Api/getCity?parent_id='+that.data.province.id, // 目标服务器url
+      method:'GET',
+      dataType:'json',
+
+      success: (res) => {
+        if(res.data.status==0){
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          return;
+        }
+        that.setData({
+          citys:res.data.list
+        })
+      },
+      fail:(res) => {
+
+      },
+      complete:(res) =>{
+        // my.hideLoading();
+      }
     });
   
   },

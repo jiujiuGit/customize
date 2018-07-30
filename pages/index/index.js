@@ -228,8 +228,8 @@ Page({
       url: 'http://bbltest.color3.cn/Mobile/Api/get_style_bg',
       method: 'post',
       data: {
-        id:this.data.prodId,
-        // id:1,//款式id
+        // id:this.data.prodId,
+        id:1,//款式id
         parent_orderid:that.data.parent_orderid,//团体订单id
       },
       dataType: 'json',
@@ -1565,6 +1565,7 @@ Page({
 
         that.ctx.translate(left,top);
         that.ctx.rotate(item.angle * Math.PI / 180);
+        // that.ctx.translate(-(item.width * item.scale  / 2), -(item.height * item.scale / 2))
         that.ctx.setGlobalAlpha(item.opacity/100)
 
        
@@ -1678,6 +1679,7 @@ Page({
           const height = imgInitialW*wh*item.scale;  //计算缩放后的图片高度
           that.ctx.translate(left,top);
           that.ctx.rotate(item.angle * Math.PI / 180);
+          // that.ctx.translate(-(item.width * item.scale  / 2), -(item.height * item.scale / 2))
           that.ctx.setGlobalAlpha(item.opacity/100)
 
           if(item.downloadFile){  //绘制图片

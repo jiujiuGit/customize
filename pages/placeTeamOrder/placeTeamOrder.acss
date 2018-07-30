@@ -29,7 +29,7 @@
 }
 .swiper-item>image{
     width: 460rpx;
-    margin: 20rpx 125rpx 60rpx 125rpx;
+    margin: 20rpx 145rpx 60rpx 145rpx;
     /* height: 256px; */
 }
 .a-swiper-item{
@@ -76,6 +76,7 @@
     padding-left: 30rpx;
     line-height: 68rpx;
     margin-bottom: 60px;
+    font-size: 24rpx;
 }
 
 
@@ -95,6 +96,9 @@
     font-weight: bolder;
     font-size: 28rpx;
     letter-spacing: 2rpx;
+    height:100rpx;
+    line-height: 100rpx;
+    
 }
 
 #resIcon{

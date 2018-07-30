@@ -1,6 +1,7 @@
 .sticker-list{
-    margin: 10px 20rpx;
+    padding: 12rpx 20rpx;
     overflow: hidden;
+    background-color: white;
 }
 .sticker-list>view{
     display: inline-block;
@@ -14,8 +15,10 @@
     width: 350rpx;
     /* height: auto; */
      display: flex;
-  justify-content: space-around;
-  margin-top: 10px;
+    justify-content: space-around;
+    margin-top: 10rpx;
+     position: relative;
+     background-color: #F0F0F3;
 }
 .item-right{
     margin-left: 10rpx;
