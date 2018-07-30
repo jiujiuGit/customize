@@ -331,16 +331,27 @@ Page({
         //   });
         //   console.log(that.data.bgList)
         // },1200)
-        
+        let ct = 'front'
+        if(res.data.data.buttons.indexOf('正面')>-1){
+          ct = 'front'
+        }else if(res.data.data.buttons.indexOf('反面')>-1){
+          ct = 'back'
+        }else if(res.data.data.buttons.indexOf('左侧')>-1){
+          ct = 'leftSide'
+        }else if(res.data.data.buttons.indexOf('右侧')>-1){
+          ct = 'rightSide'
+        }
         that.setData({
           // bgList:bgList,
           sizes:res.data.data.sizes,
           buttons:res.data.data.buttons,
           oriLeftPic:res.data.data.pic3,
-          orirightPic:res.data.data.pic4
+          orirightPic:res.data.data.pic4,
+          currentTap:ct
           // individualArea:res.data.data.buttons
         });
-        console.log(res.data.data.pic3)
+        
+        // console.log(res.data.data.pic3)
         
         // my.downloadFile({
         //   url: res.data.data.pic1, // 下载正面图片
