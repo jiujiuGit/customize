@@ -80,9 +80,20 @@
     padding: 20rpx;
     /* position: relative; */
 }
-#prodImg{
+#img-wrap{
+    background-color: #F7F7F7;
     width: 180rpx;
     height: 180rpx;
+    line-height: 180rpx;
+    margin-right: 10px;
+    text-align: center;
+    /* margin: 0 auto */
+}
+#prodImg{
+     height: 120rpx;
+    width: 120rpx;
+    display: inline-block; 
+    vertical-align: middle;
 }
 .wei{
     margin-left: 40rpx;

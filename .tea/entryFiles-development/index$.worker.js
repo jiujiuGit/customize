@@ -2,8 +2,8 @@ require('./config$');
 
 function success() {
 require('../..//app');
-require('../../pages/index/index');
 require('../../pages/customType/customType');
+require('../../pages/index/index');
 require('../../pages/placeTeamOrder/placeTeamOrder');
 require('../../pages/individualForm/individualForm');
 require('../../pages/placeIndividualOrder/placeIndividualOrder');

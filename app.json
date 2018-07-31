@@ -1,7 +1,10 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/customType/customType",
+    "pages/index/index",
+    
+    
+    
     "pages/placeTeamOrder/placeTeamOrder",
     
     

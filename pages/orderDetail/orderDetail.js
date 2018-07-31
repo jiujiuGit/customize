@@ -42,7 +42,10 @@ Page({
       orderId:query.id
       // orderId:84
     })
-  
+    my.showLoading({
+      content: '加载中...',
+        
+    });
     my.httpRequest({
       url: 'http://bbltest.color3.cn/Mobile/Api/ordertail', // 目标服务器url
       method:'POST',
@@ -92,6 +95,9 @@ Page({
           orderDetail:orderDetail
         })
       },
+      complete:function(){
+        my.hideLoading();
+      }
     });
 
     // 获取文案

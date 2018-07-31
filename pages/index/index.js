@@ -17,8 +17,8 @@ Page({
     prodId:'',//款式id
     picname:'',//商品名称
     fabricId:'',//面料id
-    leftSidePicId:0, //左侧图片id
-    rightSidePicId:0,//右侧图片id
+    leftSidePicId:'', //左侧图片id
+    rightSidePicId:'',//右侧图片id
     headerSeen:true,
 
     //可编辑图片列表
@@ -92,6 +92,8 @@ Page({
       leftStickerId:app.globalData.leftStickerId,
       rightStickerId:app.globalData.rightStickerId
     });
+    console.log(this.data.leftStickerId)
+    console.log(this.data.rightStickerId)
     // for(let i=0;i<that.data.frontItemList.length;i++){
     //   if(!that.data.frontItemList[i].bg){
         
@@ -190,12 +192,16 @@ Page({
   },
   onLoad(query) {  
     // const that = this;
+    app.globalData.leftStickerId = '';
+    app.globalData.rightStickerId = '';
     this.setData({
         type:app.globalData.type,
         picname:app.globalData.teamData.picname,
         prodId:app.globalData.teamData.prodId,
         fabricId:app.globalData.teamData.fabricId,
-        saveworkdesk:{}//清空定制数据
+        saveworkdesk:{},//清空定制数据
+        leftStickerId:'',//清空左右侧贴纸
+        rightStickerId:''
       })
     if(app.globalData.type == 2){  //团体
       this.setData({
@@ -228,8 +234,8 @@ Page({
       url: 'http://bbltest.color3.cn/Mobile/Api/get_style_bg',
       method: 'post',
       data: {
-        // id:this.data.prodId,
-        id:1,//款式id
+        id:this.data.prodId,
+        // id:1,//款式id
         parent_orderid:that.data.parent_orderid,//团体订单id
       },
       dataType: 'json',
@@ -346,7 +352,7 @@ Page({
           sizes:res.data.data.sizes,
           buttons:res.data.data.buttons,
           oriLeftPic:res.data.data.pic3,
-          orirightPic:res.data.data.pic4,
+          oriRightPic:res.data.data.pic4,
           currentTap:ct
           // individualArea:res.data.data.buttons
         });
@@ -950,10 +956,11 @@ Page({
           }else if(currentTap == 'leftSide'){ //清除左侧
             let bgList=that.data.bgList
             bgList.pic3 = that.data.oriLeftPic
+            app.globalData.leftStickerId = ''
             that.setData({
               bgList:bgList,
               leftStickerId:'',
-              leftSidePicId:0, //左侧图片id
+              leftSidePicId:'', //左侧图片id
             })
             // my.httpRequest({
             //   url: 'http://bbltest.color3.cn/Mobile/Api/getImageByDid',
@@ -996,12 +1003,14 @@ Page({
             // });
           }else if(currentTap == 'rightSide'){ //清除右侧
             let bgList=that.data.bgList
-            
+            console.log( that.data.oriRightPic)
+            app.globalData.rightStickerId = ''
             bgList.pic4= that.data.oriRightPic
+            console.log(bgList.pic4)
             that.setData({
               bgList:bgList,
               rightStickerId:'',
-              rightSidePicId:0,//右侧图片id
+              rightSidePicId:'',//右侧图片id
             })
             
           }
@@ -1775,8 +1784,7 @@ Page({
     }
 
 
-  console.log(that.data.leftSidePicId)
-  console.log(that.data.leftSidePicId)
+
     my.httpRequest({
       url:'http://bbltest.color3.cn/Mobile/Api/saveworkdesk',
       dataType:'json',

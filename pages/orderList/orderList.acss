@@ -5,10 +5,21 @@
     padding: 20rpx;
     width: 670rpx;
 }
-.item-image{
+.img-wrap{
+    background-color: #F7F7F7;
     width: 160rpx;
     height: 160rpx;
+    line-height: 160rpx;
     margin-right: 10px;
+    text-align: center;
+    /* margin: 0 auto */
+}
+.item-image{
+    height: 116rpx;
+    width: 106rpx;
+    display: inline-block; 
+    vertical-align: middle;
+    
 }
 .item-name{
     font-weight: 600;
