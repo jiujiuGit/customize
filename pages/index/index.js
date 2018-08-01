@@ -1540,11 +1540,11 @@ Page({
     console.log(this.data.frontItemList)
     if(side =='front'){
       itemList = that.data.frontItemList;
-      console.log(itemList.length)
-      console.log(this.data.frontItemList.length)
+     
       that.ctx = my.createCanvasContext('canvasFront');
       areaLeft = that.data.bgList.left1; //定制框left
       areaTop = that.data.bgList.top1; //定制框top
+      
     }else if(side == 'back'){
       itemList = that.data.backItemList;
       that.ctx = my.createCanvasContext('canvasBack');
@@ -1566,15 +1566,28 @@ Page({
         // that.ctx.fillText('Hello', 50, 12)
         const left = item.left - areaLeft;
         let top = item.top - areaTop;
+        let wh = item.pich / item.picw  //图片宽高比例
+        
+        let height = imgInitialW*wh*item.scale;  //计算缩放后的图片高度
         if(item.text){
           top = item.fontSize*item.scale+top;  //文字top要加上文字的高度
+          height = 12*item.scale;//文字的高度
         }
-        const wh = item.pich / item.picw  //图片宽高比例
-        const height = imgInitialW*wh*item.scale;  //计算缩放后的图片高度
+        
 
-        that.ctx.translate(left,top);
-        that.ctx.rotate(item.angle * Math.PI / 180);
-        // that.ctx.translate(-(item.width * item.scale  / 2), -(item.height * item.scale / 2))
+
+        console.log(item)
+        that.ctx.translate(item.x-areaLeft,item.y-areaTop);//圆心坐标
+        that.ctx.rotate(item.angle * Math.PI / 180);//旋转
+        that.ctx.translate(-(imgInitialW * item.scale/ 2), -(height / 2))
+
+        // that.ctx.translate(left,top);
+        // that.ctx.rotate(item.angle * Math.PI / 180);
+
+
+
+
+
         that.ctx.setGlobalAlpha(item.opacity/100)
 
        
@@ -1686,9 +1699,15 @@ Page({
           const top = parseInt(item.top );
           const wh = item.pich / item.picw  //图片宽高比例
           const height = imgInitialW*wh*item.scale;  //计算缩放后的图片高度
-          that.ctx.translate(left,top);
-          that.ctx.rotate(item.angle * Math.PI / 180);
-          // that.ctx.translate(-(item.width * item.scale  / 2), -(item.height * item.scale / 2))
+          // that.ctx.translate(left,top);
+          // that.ctx.rotate(item.angle * Math.PI / 180);
+        
+          that.ctx.translate(item.x,item.y);//圆心坐标
+          that.ctx.rotate(item.angle * Math.PI / 180);//旋转
+          that.ctx.translate(-(imgInitialW * item.scale/ 2), -(height / 2))
+
+
+
           that.ctx.setGlobalAlpha(item.opacity/100)
 
           if(item.downloadFile){  //绘制图片
