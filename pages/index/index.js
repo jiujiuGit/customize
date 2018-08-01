@@ -1264,7 +1264,8 @@ Page({
   },
   addText(){
     // let imgLength = app.globalData.items.length;
-    let imgInitialW = this.data.imgInitialW
+    let imgInitialW = this.data.imgInitialW;
+    const that =  this;
     let item = {  
             // id: imgLength+1,   
             top: 100,//初始图片的位置   
@@ -1285,12 +1286,15 @@ Page({
         }
         
     item.text = this.data.textContent;
-    const eidtAreaParams = app.globalData.eidtAreaParams
+    const eidtAreaParams = app.globalData.eidtAreaParams;
+    
     if(this.data.currentTap == 'front'){
       const frontLength = app.globalData.frontItems.length;
       item.id = frontLength +1;
       item.left = eidtAreaParams.left1+(eidtAreaParams.width1 - imgInitialW)/2;
       item.top = eidtAreaParams.top1 + (eidtAreaParams.height1)/2;
+      item.x = item.left+that.data.imgInitialW/2;
+      item.y = item.top+6;
       app.globalData.frontItems.push(item);
       
       this.setData({
@@ -1301,7 +1305,10 @@ Page({
       const backLength = app.globalData.backItems.length;
       item.left = eidtAreaParams.left2+(eidtAreaParams.width2 - imgInitialW)/2;
       item.top = eidtAreaParams.top2 + (eidtAreaParams.height2)/2;
+     
       item.id = backLength +1;
+       item.x = item.left+that.data.imgInitialW/2;
+      item.y = item.top;
       app.globalData.backItems.push(item);
 
       this.setData({
