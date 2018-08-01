@@ -93,12 +93,14 @@ Page({
         that.ctx.rotate(i*10 * Math.PI / 180);
         that.ctx.setGlobalAlpha(i/10)
         that.ctx.setFillStyle('red');
+        // that.ctx.setTextAlign('center')
         that.ctx.fillText('我是'+i, 90, 90)
         that.ctx.drawImage(newArr[i],0,0,100,120) 
         that.ctx.restore();//恢复状态
       }
-        that.ctx.setFillStyle('black');
-        that.ctx.fillText('我是Jiujiu', 90, 90)
+        that.ctx.setFillStyle('right');
+        // that.ctx.setTextAlign('center')
+        that.ctx.fillText('我是Jiujiu', 50, 50)
       that.ctx.draw();
       that.ctx.save();
     },1000)

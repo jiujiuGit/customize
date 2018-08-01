@@ -42,6 +42,32 @@ Page({
       orderId:query.id
       // orderId:84
     })
+    
+    
+    that.getOrderDetail(that.data.orderId)
+    // 获取文案
+    my.httpRequest({
+      url: 'http://bbltest.color3.cn/Mobile/Api/getwenan', // 目标服务器url
+      methos:'POST',
+      dataType:'json',
+      data:{},
+      success: (res) => {
+        if(res.data.status==0){
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          return;
+        }
+        that.setData({
+          wenan:res.data
+        })
+      },
+    });
+  },
+  getOrderDetail(orderId){
+    const that = this
     my.showLoading({
       content: '加载中...',
         
@@ -51,7 +77,7 @@ Page({
       method:'POST',
       dataType:'json',
       data:{
-        orderid:that.data.orderId
+        orderid:orderId
       },
       success: (res) => {
         if(res.data.status==0){
@@ -99,27 +125,6 @@ Page({
         my.hideLoading();
       }
     });
-
-    // 获取文案
-    my.httpRequest({
-      url: 'http://bbltest.color3.cn/Mobile/Api/getwenan', // 目标服务器url
-      methos:'POST',
-      dataType:'json',
-      data:{},
-      success: (res) => {
-        if(res.data.status==0){
-          my.showToast({
-            type: 'fail',
-            content: '服务器繁忙，请稍候再试',
-            duration: 2000,
-          });
-          return;
-        }
-        that.setData({
-          wenan:res.data
-        })
-      },
-    });
   },
   // 取消订单
   cancle(){
@@ -139,11 +144,12 @@ Page({
               orderid:this.data.orderId
             },
             success: (res) => {
-              let orderDetail = that.data.orderDetail
-              orderDetail.order_status ='6';
-              that.setData({
-                orderDetail:orderDetail
-              })
+              that.getOrderDetail(that.data.orderId)
+              // let orderDetail = that.data.orderDetail
+              // orderDetail.order_status ='6';
+              // that.setData({
+              //   orderDetail:orderDetail
+              // })
             },
           });
         }
@@ -189,5 +195,9 @@ Page({
   //保存二维码
   saveqrcode(){
     my.saveImage({url:this.data.orderDetail.erweima});
-  }
+  },
+  myCatchTouch: function () {
+    console.log('stop user scroll it!');
+    return;
+  },
 });

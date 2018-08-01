@@ -36,7 +36,7 @@
     </view>
   </view>
 
-  <view class="layer"  id="my-layer" a:if="{{showLayer}}">
+  <view class="layer"  id="my-layer" a:if="{{showLayer}}" catchTouchMove="true">
     <view class="layer-box">
       <view id="text">{{text}}</view>
       <view id="phone">{{wenan.phone}}</view>

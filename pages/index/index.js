@@ -234,8 +234,8 @@ Page({
       url: 'http://bbltest.color3.cn/Mobile/Api/get_style_bg',
       method: 'post',
       data: {
-        id:this.data.prodId,
-        // id:1,//款式id
+        // id:this.data.prodId,
+        id:1,//款式id
         parent_orderid:that.data.parent_orderid,//团体订单id
       },
       dataType: 'json',

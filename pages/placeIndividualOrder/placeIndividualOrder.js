@@ -191,7 +191,17 @@ Page({
         zfb_userid:app.globalData.userInfo.userId,
       }
     }
-    my.httpRequest({
+
+    if(that.data.type==1){ //个人定制
+      let params = {
+        size:that.data.sizes[that.data.sizeTab],
+        wid:that.data.wid,
+        zfb_userid:app.globalData.userInfo.userId,
+        // id:res.data.order
+      }
+      my.navigateTo({url:'../individualForm/individualForm?params='+JSON.stringify(params)});
+    }else{  //团体定制、团体定制下的个人定制
+      my.httpRequest({
       url:'http://bbltest.color3.cn/Mobile/Api/suborder',
       method:'POST',
       dataType:'json',
@@ -206,23 +216,23 @@ Page({
           return;
         }
         if(res.data.status == 1){
-          if(that.data.type==1){
-            my.navigateTo({url:'../individualForm/individualForm?id='+res.data.order});
-          }else if(that.data.type == 3){
-            that.setData({
+          that.setData({
               success:true
-            })
-          }
-          
-          // that.setData({
-          //   success:true
-          // })
+          })
+          // if(that.data.type==1){
+          //   my.navigateTo({url:'../individualForm/individualForm?id='+res.data.order});
+          // }else if(that.data.type == 3){
+            
+          // }
+
         }
       },
       fail:function(){
 
       }
     })
+    }
+    
   },
 
   home(){

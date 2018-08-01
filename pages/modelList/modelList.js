@@ -142,6 +142,8 @@ Page({
           fabricId:fabricId//面料id
       }
         app.globalData.footer = 'list' //定制页面底部展示列表
+        app.globalData.backItems = [];//清空历史数据
+        app.globalData.frontItems = [];
     }
     
   },

@@ -13,7 +13,7 @@ App({
     userInfo:{
       userid:999
     },
-    type:'', //定制类型 ，1个人，2团体
+    type:'', //定制类型 ，1个人，2团体，3团体定制下的个人定制
     items: [],
     ground:"",
     frontItems:[],

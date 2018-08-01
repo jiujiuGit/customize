@@ -14,10 +14,15 @@ Page({
     wenan:{}, //弹框文案
     layerShow:false,
     sec:10,
-    myInterval:''
+    myInterval:'',
+    orderParams:''
   },
   onLoad(query) {
     const that = this;
+    that.setData({
+      orderParams:JSON.parse(query.params)
+    })
+    console.log(that.data.orderParams)
     my.httpRequest({
       url: 'http://bbltest.color3.cn/Mobile/Api/getPro', // 目标服务器url
       method:'POST',
@@ -36,7 +41,7 @@ Page({
         }
         that.setData({
           pros:res.data.list,
-          orderId:query.id
+          // orderId:query.id
         })
       },
     });
@@ -230,21 +235,34 @@ Page({
       });
       return;
     }
+    // c:that.data.sizes[that.data.sizeTab],
+    //     wid:that.data.wid,
+    //     zfb_userid:app.globalData.userInfo.userId,
+    //     id:res.data.order
+    const params = that.data.orderParams
     my.httpRequest({
-      url:'http://bbltest.color3.cn/Mobile/Api/subgerenaddress',
+      url:'http://bbltest.color3.cn/Mobile/Api/gerensuborder',
       dataType:'json',
       method:'POST',
       data:{
-        orderid:that.data.orderId,
-        company:that.data.company, //公司
-        phone:that.data.phone,//电话
-        name:that.data.name,//联系人姓名
+        zfb_userid:params.zfb_userid,
+        size:params.params,
+        wid:params.wid,
+        phone:that.data.phone,
+        name:that.data.name,
         pro_id:that.data.province.id,//省份id
         city_id:that.data.city.id,//城市id
         address:that.data.address,//详细地址
-        yjtimwbank:that.data.yjtimwbank,//预计使用时间
-        numper:that.data.numper,//每人件数
-        peoplenum:that.data.peoplenum//人数
+        // orderid:that.data.orderId,
+        // company:that.data.company, //公司
+        // phone:that.data.phone,//电话
+        // name:that.data.name,//联系人姓名
+        // pro_id:that.data.province.id,//省份id
+        // city_id:that.data.city.id,//城市id
+        // address:that.data.address,//详细地址
+        // yjtimwbank:that.data.yjtimwbank,//预计使用时间
+        // numper:that.data.numper,//每人件数
+        // peoplenum:that.data.peoplenum//人数
       },
       success:function(res){
         console.log(res.data.order)
@@ -279,27 +297,9 @@ Page({
             });
 
           }
-          
-          //do whatever here..
+
         }, 1000);
-        // if(res.data.status){
-          
-        // }else{
-        //   my.showToast({
-        //     type: 'fail',
-        //     content: '服务器繁忙，请稍候再试',
-        //     duration: 2000,
-        //   });
-        // }
-        // app.globalData.teamData.order = res.data.order
-        // my.showToast({
-        //   type: 'success',
-        //   content: '提交成功！',
-        //   duration: 3000,
-        //   success: () => {
-        //     my.reLaunch({url:'../customType/customType'});
-        //   },
-        // });
+  
         
       }
     })
