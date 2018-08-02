@@ -1,8 +1,10 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/canvas/canvas",
     "pages/customType/customType",
+    
+    "pages/canvas/canvas",
+    
     
     
     

@@ -675,19 +675,16 @@ Page({
       }
     }
 
-    // for(let i = 0;i<app.globalData.items.length;i++){
-    //   if(index == app.globalData.items[i].id){
-    //       app.globalData.items.splice(i,1)
-    //   }
-    // }
     if(curTap == 'front'){
           this.setData({   //赋值   
             frontItemList: items
-          })  
+          }) 
+          app.globalData.frontItems = this.data.frontItemList 
         }else if(curTap == 'back'){
           this.setData({   //赋值   
             backItemList: items
           })  
+          app.globalData.backItems = this.data.backItemList 
     }
     
 
@@ -1294,7 +1291,7 @@ Page({
       item.left = eidtAreaParams.left1+(eidtAreaParams.width1 - imgInitialW)/2;
       item.top = eidtAreaParams.top1 + (eidtAreaParams.height1)/2;
       item.x = item.left+that.data.imgInitialW/2;
-      item.y = item.top+6;
+      item.y = item.top+item.fontSize;
       app.globalData.frontItems.push(item);
       
       this.setData({
@@ -1577,8 +1574,8 @@ Page({
         
         let height = imgInitialW*wh*item.scale;  //计算缩放后的图片高度
         if(item.text){
-          top = item.fontSize*item.scale+top;  //文字top要加上文字的高度
-          height = 12*item.scale;//文字的高度
+          top = (item.fontSize*item.scale)/2+top;  //文字top要加上文字的高度
+          height = -item.fontSize*item.scale;//文字的高度
         }
         
 
@@ -1703,9 +1700,13 @@ Page({
             return;
           }
           const left = parseInt(item.left) ;
-          const top = parseInt(item.top );
+          let top = parseInt(item.top );
           const wh = item.pich / item.picw  //图片宽高比例
-          const height = imgInitialW*wh*item.scale;  //计算缩放后的图片高度
+          let height = imgInitialW*wh*item.scale;  //计算缩放后的图片高度
+          if(item.text){
+            top = (item.fontSize*item.scale)/2+top;  //文字top要加上文字的高度
+            height = -item.fontSize*item.scale;//文字的高度
+          }
           // that.ctx.translate(left,top);
           // that.ctx.rotate(item.angle * Math.PI / 180);
         
