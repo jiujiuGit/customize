@@ -574,19 +574,19 @@ Page({
        
        itemW = parseInt(items[index].scale*imgInitialW); //贴纸等组件的宽度
        itemH = items[index].scale*imgInitialW*(items[index].pich/items[index].picw);//贴纸等组件的高度
-       maxLeft = parseInt(this.data.bgList.left1)+(parseInt(this.data.bgList.width) - itemW);
+       maxLeft = parseInt(this.data.bgList.left1)+(parseInt(this.data.bgList.width));
        minLeft = this.data.bgList.left1;
 
-       maxTop = parseInt(this.data.bgList.top1)+(parseInt(this.data.bgList.height) - itemH);
+       maxTop = parseInt(this.data.bgList.top1)+(parseInt(this.data.bgList.height));
        minTop = this.data.bgList.top1;
     }else if(curTap == 'back'){
        items = this.data.backItemList; 
        itemW = parseInt(items[index].scale*imgInitialW); //贴纸等组件的宽度
        itemH = items[index].scale*imgInitialW*(items[index].pich/items[index].picw);//贴纸等组件的高度
-       maxLeft = parseInt(this.data.bgList.left2)+(parseInt(this.data.bgList.width1) - itemW);
+       maxLeft = parseInt(this.data.bgList.left2)+(parseInt(this.data.bgList.width1));
        minLeft = this.data.bgList.left2;
 
-       maxTop = parseInt(this.data.bgList.top2)+(parseInt(this.data.bgList.height1) - itemH);
+       maxTop = parseInt(this.data.bgList.top2)+(parseInt(this.data.bgList.height1));
        minTop = this.data.bgList.top2;
     }
 
@@ -605,11 +605,14 @@ Page({
 
           
         //追加改动值  
-        if(items[index].left<minLeft  && movex<0 && !items[index].text){
+        console.log(items[index])
+        console.log(items[index].x  + '****'+imgInitialW*items[index].scale + '****'+maxLeft)
+        if(items[index].x - imgInitialW*items[index].scale/2 < minLeft  && movex<0 && !items[index].text){
           console.log("不能再左移了")
           
           // return;
-        }else if(items[index].left > maxLeft && movex>0 && !items[index].text){
+          
+        }else if(items[index].x + imgInitialW*items[index].scale/2 > maxLeft && movex>0 && !items[index].text){
           console.log("不能再右移了")
           // return;
         }else{
@@ -619,9 +622,9 @@ Page({
           items[index].lx = e.touches[0].clientX;  
         }
 
-        if(items[index].top<minTop && movey<0){
+        if(items[index].y - itemH/2<minTop && movey<0){
           console.log('不能再往上移了')
-        }else if(items[index].top>maxTop && movey>0){
+        }else if(items[index].y+ itemH/2>maxTop && movey>0){
           console.log('不能再往下移了')
         }else{
           items[index].top += items[index]._ly - items[index].ly;    // y方向  

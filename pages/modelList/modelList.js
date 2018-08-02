@@ -120,6 +120,8 @@ Page({
     const picname = this.data.swiperList[index].picname;
     const fabricId = this.data.fabricId;
     console.log(this.data.type)
+    app.globalData.frontItems = []  //清空定制项
+    app.globalData.backItems = []
     if(this.data.type == 2){
       app.globalData.teamData = {//团体
         prodId:prodId, //款式id
@@ -131,8 +133,7 @@ Page({
     }else if(this.data.type == 1){  //个人
         my.navigateTo({url:'../index/index'});
         // my.navigateTo({ url: "../index/index?prodId="+prodId+"&picname="+picname+'&fabricId'+this.data.fabricId });
-        app.globalData.frontItems = []  //清空定制项
-        app.globalData.backItems = []
+        
         this.setData({
           stickerIndex : -1
         })
@@ -142,8 +143,6 @@ Page({
           fabricId:fabricId//面料id
       }
         app.globalData.footer = 'list' //定制页面底部展示列表
-        app.globalData.backItems = [];//清空历史数据
-        app.globalData.frontItems = [];
     }
     
   },
