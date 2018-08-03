@@ -23,8 +23,9 @@ Page({
     });
      my.httpRequest({
       url: 'http://bbltest.color3.cn/Mobile/Api/index',
-      method: 'get',
+      method: 'POST',
       data: {
+        tgtype:app.globalData.type
         // from: '支付宝',
         // production: 'AlipayJSAPI',
       },

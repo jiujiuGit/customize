@@ -194,6 +194,9 @@ Page({
     // const that = this;
     app.globalData.leftStickerId = '';
     app.globalData.rightStickerId = '';
+    app.globalData.frontItems = [];
+    app.globalData.backItems = [];
+    console.log('onLoad事件')
     this.setData({
         type:app.globalData.type,
         picname:app.globalData.teamData.picname,
@@ -746,6 +749,55 @@ Page({
         if(items[index].pictype == 2){
           return;
         }
+
+        // let index = this.data.index;
+        let itemW ;//组件宽度
+        let itemH; //组件高度
+        let maxLeft;//
+        let minLeft;
+        let minTop;
+        let maxTop;
+        if(curTap == 'front'){
+          items = this.data.frontItemList;
+          
+          itemW = parseInt(items[index].scale*imgInitialW); //贴纸等组件的宽度
+          itemH = items[index].scale*imgInitialW*(items[index].pich/items[index].picw);//贴纸等组件的高度
+          maxLeft = parseInt(this.data.bgList.left1)+(parseInt(this.data.bgList.width));
+          minLeft = this.data.bgList.left1;
+
+          maxTop = parseInt(this.data.bgList.top1)+(parseInt(this.data.bgList.height));
+          minTop = this.data.bgList.top1;
+        }else if(curTap == 'back'){
+          items = this.data.backItemList; 
+          itemW = parseInt(items[index].scale*imgInitialW); //贴纸等组件的宽度
+          itemH = items[index].scale*imgInitialW*(items[index].pich/items[index].picw);//贴纸等组件的高度
+          maxLeft = parseInt(this.data.bgList.left2)+(parseInt(this.data.bgList.width1));
+          minLeft = this.data.bgList.left2;
+
+          maxTop = parseInt(this.data.bgList.top2)+(parseInt(this.data.bgList.height1));
+          minTop = this.data.bgList.top2;
+        }
+        const imgInitialW = this.data.imgInitialW
+        //  if(items[index].x - imgInitialW*items[index].scale/2 < minLeft  && movex<0 && !items[index].text){
+        //   console.log("不能再左移了")
+          
+        //   // return;
+          
+        // }else if(items[index].x + imgInitialW*items[index].scale/2 > maxLeft && movex>0 && !items[index].text){
+        //   console.log("不能再右移了")
+        //  if(items[index].y - itemH/2<minTop && movey<0){
+        //   console.log('不能再往上移了')
+        // }else if(items[index].y+ itemH/2>maxTop && movey>0){
+        //   console.log('不能再往下移了')
+        console.log(items[index])
+        console.log(imgInitialW*items[index].scale/2+"$$$$$$$"+maxLeft)
+        
+        // let disPtoO = this.getDistancs(items[index].x, items[index].y, items[index]._tx - this.data.systemInfo.windowWidth * 0.125, items[index]._ty - 10)  
+
+        // let scale = disPtoO / items[index].r; //手指滑动的点到圆心的距离与半径的比值作为图片的放大比例  
+        
+        
+        
         items[index]._tx = e.touches[0].clientX;  
         items[index]._ty = e.touches[0].clientY;  
         //移动的点到圆心的距离  
@@ -753,6 +805,13 @@ Page({
         items[index].disPtoO = this.getDistancs(items[index].x, items[index].y, items[index]._tx - this.data.systemInfo.windowWidth * 0.125, items[index]._ty - 10)  
 
         items[index].scale = items[index].disPtoO / items[index].r; //手指滑动的点到圆心的距离与半径的比值作为图片的放大比例  
+        console.log(items[index].scale)
+        if(items[index].scale>1){
+          if(items[index].x - imgInitialW*items[index].scale/2 < minLeft || items[index].x + imgInitialW*items[index].scale/2 > maxLeft || items[index].y - itemH/2<minTop || items[index].y+ itemH/2>maxTop){
+            console.log('不能再放大啦');
+            return;
+          }
+        }
 
         items[index].oScale = 1 / items[index].scale;//图片放大响应的右下角按钮同比缩小  
   

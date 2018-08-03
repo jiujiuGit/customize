@@ -1,5 +1,5 @@
 <view style="background-color:#474747;width:750rpx;max-height:{{systemInfo.screenHeight}}px;overflow:{{(showLayer)?'hidden':'scroll'}}" >
-  <view style=''>
+  <view>
     <view class="state">
       <image id='loading-icon' src="../../assets/icon/icon_loading.png" mode="widthFixed" /> <text class="state-des">{{orderDetail.statusName}}</text>
     </view>
