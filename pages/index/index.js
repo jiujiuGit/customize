@@ -737,6 +737,7 @@ Page({
         //记录移动后的位置 
         // let items = this.data.itemList;
         const curTap = this.data.currentTap;
+        const that = this;
   
         let items = [];
         if(curTap == 'front'){
@@ -789,8 +790,7 @@ Page({
         //   console.log('不能再往上移了')
         // }else if(items[index].y+ itemH/2>maxTop && movey>0){
         //   console.log('不能再往下移了')
-        console.log(items[index])
-        console.log(imgInitialW*items[index].scale/2+"$$$$$$$"+maxLeft)
+        
         
         // let disPtoO = this.getDistancs(items[index].x, items[index].y, items[index]._tx - this.data.systemInfo.windowWidth * 0.125, items[index]._ty - 10)  
 
@@ -798,21 +798,31 @@ Page({
         
         
         
-        items[index]._tx = e.touches[0].clientX;  
-        items[index]._ty = e.touches[0].clientY;  
+        
+        let clientX = e.touches[0].clientX; 
+        let clientY = e.touches[0].clientY;  
+        
         //移动的点到圆心的距离  
       
-        items[index].disPtoO = this.getDistancs(items[index].x, items[index].y, items[index]._tx - this.data.systemInfo.windowWidth * 0.125, items[index]._ty - 10)  
+      console.log(items[index])
 
-        items[index].scale = items[index].disPtoO / items[index].r; //手指滑动的点到圆心的距离与半径的比值作为图片的放大比例  
-        console.log(items[index].scale)
-        if(items[index].scale>1){
-          if(items[index].x - imgInitialW*items[index].scale/2 < minLeft || items[index].x + imgInitialW*items[index].scale/2 > maxLeft || items[index].y - itemH/2<minTop || items[index].y+ itemH/2>maxTop){
+        let disPtoO = this.getDistancs(items[index].x, items[index].y, clientX - that.data.bgList.contLeft1, clientY - that.data.bgList.contTop1)  
+
+        let scale = disPtoO / items[index].r; //手指滑动的点到圆心的距离与半径的比值作为图片的放大比例  
+        console.log(scale)
+        if(scale>1){
+          if(items[index].x - imgInitialW*scale/2 < minLeft || items[index].x + imgInitialW*scale/2 > maxLeft || items[index].y - itemH/2<minTop || items[index].y+ itemH/2>maxTop){
             console.log('不能再放大啦');
             return;
           }
         }
+        console.log(1)
+        items[index].disPtoO = this.getDistancs(items[index].x, items[index].y, clientX - that.data.bgList.contLeft1, clientY - that.data.bgList.contTop1)  
 
+        items[index].scale = items[index].disPtoO / items[index].r; //手指滑动的点到圆心的距离与半径的比值作为图片的放大比例  
+
+        items[index]._tx = e.touches[0].clientX;  
+        items[index]._ty = e.touches[0].clientY;  
         items[index].oScale = 1 / items[index].scale;//图片放大响应的右下角按钮同比缩小  
   
         //移动后位置的角度  
@@ -1317,9 +1327,17 @@ Page({
     })
   },
   bindTextInput(e){
+    let text = this.filterEmoji(e.detail.value)
     this.setData({
-      textContent:e.detail.value
+      textContent:text
     })
+  },
+  filterEmoji(text){
+    var reg = /[^\u0020-\u007E\u00A0-\u00BE\u2E80-\uA4CF\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFFEF\u0080-\u009F\u2000-\u201f\u2026\u2022\u20ac\r\n]/g;
+    if(text.match(reg)) {
+        text = text.replace(reg, '');
+    }
+    return text
   },
   addText(){
     // let imgLength = app.globalData.items.length;
