@@ -237,8 +237,8 @@ Page({
       url: 'http://bbltest.color3.cn/Mobile/Api/get_style_bg',
       method: 'post',
       data: {
-        // id:this.data.prodId,
-        id:1,//款式id
+        id:this.data.prodId,
+        // id:1,//款式id
         parent_orderid:that.data.parent_orderid,//团体订单id
       },
       dataType: 'json',
@@ -754,6 +754,7 @@ Page({
         // let index = this.data.index;
         let itemW ;//组件宽度
         let itemH; //组件高度
+        let hypotenuse;//斜边
         let maxLeft;//
         let minLeft;
         let minTop;
@@ -762,6 +763,7 @@ Page({
           items = this.data.frontItemList;
           
           itemW = parseInt(items[index].scale*imgInitialW); //贴纸等组件的宽度
+
           itemH = items[index].scale*imgInitialW*(items[index].pich/items[index].picw);//贴纸等组件的高度
           maxLeft = parseInt(this.data.bgList.left1)+(parseInt(this.data.bgList.width));
           minLeft = this.data.bgList.left1;
@@ -779,6 +781,7 @@ Page({
           minTop = this.data.bgList.top2;
         }
         const imgInitialW = this.data.imgInitialW
+        hypotenuse =  Math.sqrt(  (itemW/2) * (itemW/2) + (itemH/2) * (itemH/2)  )
         //  if(items[index].x - imgInitialW*items[index].scale/2 < minLeft  && movex<0 && !items[index].text){
         //   console.log("不能再左移了")
           

@@ -29,7 +29,7 @@
     <block class="bg3"  a:for="{{frontItemList}}"  a:key="{{item.id}}">
       <view class="touchWrap"  style="transform:scale({{item.scale}});z-index:{{id}};top:{{item.top}}px;left:{{item.left}}px; ">
         <!-- 图片编辑 -->
-        <view a:if="{{item.type == 'image'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);width:{{imgInitialW}}px">
+        <view a:if="{{item.type == 'image'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="fontSize:0;transform: rotate({{item.angle}}deg);width:{{imgInitialW}}px">
           <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style=' opacity:{{item.opacity/100}}'   onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image> 
           
           <!-- <text class="textItem"  data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'>{{item.text}}</text>  -->
@@ -78,7 +78,7 @@
     <block class="bg3" a:for="{{backItemList}}" a:key="{{item.id}}">
       <view class="touchWrap" style="transform:scale({{item.scale}});top:{{item.top}}px;left:{{item.left}}px; ">
         <!-- 图片编辑 -->
-        <view a:if="{{item.type == 'image'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="transform: rotate({{item.angle}}deg);width:{{imgInitialW}}px">
+        <view a:if="{{item.type == 'image'}}" class='imgWrap {{item.active? "touchActive":""}}'  style="fontSize:0;transform: rotate({{item.angle}}deg);width:{{imgInitialW}}px">
           <image class="imgItem" mode="widthFix" src='{{item.image}}' data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'></image> 
           
           <!-- <text class="textItem"  data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' onTouchStart='WraptouchStart' bindload='loadImg' onTouchMove='WraptouchMove' onTouchEnd='WraptouchEnd'>{{item.text}}</text>  -->
