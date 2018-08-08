@@ -13,6 +13,7 @@ Page({
     sizeTab:0,
     success:false, //是否下单成功
     wid:'',//
+    total_amount:'',
     type:app.globalData.type
   },
   onLoad(query) {
@@ -55,7 +56,8 @@ Page({
         that.setData({
           background:bgList,
           tname:res.data.data.tname,
-          sizes:res.data.data.sizes
+          sizes:res.data.data.sizes,
+          total_amount:res.data.data.total_amount
         })
         console.log(that.data.sizes)
       },
@@ -197,6 +199,7 @@ Page({
         size:that.data.sizes[that.data.sizeTab],
         wid:that.data.wid,
         zfb_userid:app.globalData.userInfo.userId,
+        total_amount:that.data.total_amount
         // id:res.data.order
       }
       my.navigateTo({url:'../individualForm/individualForm?params='+JSON.stringify(params)});

@@ -16,6 +16,7 @@ Page({
     logolink:'',
     resStr:'',
     wid:'',//保存定制信息后返回的wid
+    total_amount:'',
     area:'',//团体定制下个人可编辑区域
   
   },
@@ -60,7 +61,8 @@ Page({
           background:bgList,
           tname:res.data.data.tname,
           sizes:res.data.data.sizes,
-          num:res.data.data.num
+          num:res.data.data.num,
+          total_amount:res.data.data.total_amount
         })
         console.log(that.data.sizes)
       },
@@ -230,9 +232,45 @@ Page({
           });
           return;
         }
-        that.setData({
-            success:true
+        // 获取支付str
+        my.httpRequest({
+          url:'http://bbltest.color3.cn/Mobile/Api/zhifubaopay',
+          method:'POST',
+          dataType:'json',
+          data:{
+            ordersn:res.data.order_sn,
+            orderid:res.data.orderid,
+            // total_amount:that.data.total_amount
+            total_amount:0.01
+          },
+          success:function(payRes){
+            if(payRes.data.status==0){
+              my.showToast({
+                  type: 'fail',
+                  content: '服务器繁忙，请稍候再试',
+                  duration: 2000,
+              });
+              return;
+            }
+            my.tradePay({
+              orderStr: payRes.data.orderstring, //完整的支付参数拼接成的字符串，从服务端获取
+              success: (res) => {
+                that.setData({
+                    success:true
+                })
+              },
+              fail: (res) => {
+                my.alert({
+                content: JSON.stringify(res),
+              });
+              }
+            });
+          }
+
         })
+        // that.setData({
+        //     success:true
+        // })
       },
       fail:function(res){
         

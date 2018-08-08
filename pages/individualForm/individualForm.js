@@ -274,31 +274,70 @@ Page({
           });
           return;
         }
-        that.setData({
-            layerShow:true
-        })
         
-        var timesRun = 10;
-        that.data.myInterval = setInterval(function(){
-          timesRun -= 1;
-          that.setData({
-            sec:timesRun
-          })
-          if(timesRun === 0){
-            clearInterval(that.data.myInterval);
-            that.setData({
-              layerShow:false
-            })
-            my.reLaunch({
-              url: '../customType/customType', // 页面路径。如果页面不为 tabbar 页面则路径后可以带参数。参数规则如下：路径与参数之间使用
+        
+        let orderId = res.data.order;
+        let order_sn = res.data.order_sn
+       
+        // 获取支付str
+        my.httpRequest({
+          url:'http://bbltest.color3.cn/Mobile/Api/zhifubaopay',
+          method:'POST',
+          dataType:'json',
+          data:{
+            ordersn:order_sn,
+            orderid:orderId,
+            // total_amount:params.total_amount
+            total_amount:0.01
+          },
+          success:function(payRes){
+            if(payRes.data.status==0){
+              my.showToast({
+                  type: 'fail',
+                  content: '服务器繁忙，请稍候再试',
+                  duration: 2000,
+              });
+              return;
+            }
+            my.tradePay({
+              orderStr: payRes.data.orderstring, //完整的支付参数拼接成的字符串，从服务端获取
               success: (res) => {
-                
-              },
-            });
+                that.setData({
+                    layerShow:true
+                })
+                var timesRun = 10;
+                that.data.myInterval = setInterval(function(){
+                  timesRun -= 1;
+                  that.setData({
+                    sec:timesRun
+                  })
+                  if(timesRun === 0){
+                    clearInterval(that.data.myInterval);
+                    that.setData({
+                      layerShow:false
+                    })
+                    my.reLaunch({
+                      url: '../customType/customType', // 页面路径。如果页面不为 tabbar 页面则路径后可以带参数。参数规则如下：路径与参数之间使用
+                      success: (res) => {
+                        
+                      },
+                    });
 
+                  }
+
+                }, 1000);
+              },
+              fail: (res) => {
+                my.alert({
+                content: JSON.stringify(res),
+              });
+              }
+            });
           }
 
-        }, 1000);
+        })
+        
+        
   
         
       }

@@ -782,24 +782,7 @@ Page({
         }
         const imgInitialW = this.data.imgInitialW
         hypotenuse =  Math.sqrt(  (itemW/2) * (itemW/2) + (itemH/2) * (itemH/2)  )
-        //  if(items[index].x - imgInitialW*items[index].scale/2 < minLeft  && movex<0 && !items[index].text){
-        //   console.log("不能再左移了")
-          
-        //   // return;
-          
-        // }else if(items[index].x + imgInitialW*items[index].scale/2 > maxLeft && movex>0 && !items[index].text){
-        //   console.log("不能再右移了")
-        //  if(items[index].y - itemH/2<minTop && movey<0){
-        //   console.log('不能再往上移了')
-        // }else if(items[index].y+ itemH/2>maxTop && movey>0){
-        //   console.log('不能再往下移了')
-        
-        
-        // let disPtoO = this.getDistancs(items[index].x, items[index].y, items[index]._tx - this.data.systemInfo.windowWidth * 0.125, items[index]._ty - 10)  
 
-        // let scale = disPtoO / items[index].r; //手指滑动的点到圆心的距离与半径的比值作为图片的放大比例  
-        
-        
         
         
         let clientX = e.touches[0].clientX; 
@@ -811,8 +794,17 @@ Page({
 
         let disPtoO = this.getDistancs(items[index].x, items[index].y, clientX - that.data.bgList.contLeft1, clientY - that.data.bgList.contTop1)  
 
-        let scale = disPtoO / items[index].r; //手指滑动的点到圆心的距离与半径的比值作为图片的放大比例  
-        console.log(scale)
+        let scale = disPtoO / items[index].r; //手指滑动的点到圆心的距离与半径的比值作为图片的放大比例
+        // let center = [items[index].x,items[index].y]
+        // let point1 = [center[0]-itemW/2,center[1]-itemH/2];//组件的左上角坐标
+        // let point2 = [center[0]+itemW/2,center[1]-itemH/2];//组件的右上角坐标
+        // let point2 = [center[0]-itemW/2,center[1]+itemH/2];//组件的左下角坐标
+        // let point2 = [center[0]+itemW/2,center[1]+itemH/2];//组件的右下角坐标
+        // let angle = items[index].angle;
+        // that.countCoordinate(point1[0],point1[1],center[0],center[1],angle)
+
+        // let xArr = [(x0 - a) * cosb + (y0 - b) * sinb];
+
         if(scale>1){
           if(items[index].x - imgInitialW*scale/2 < minLeft || items[index].x + imgInitialW*scale/2 > maxLeft || items[index].y - itemH/2<minTop || items[index].y+ itemH/2>maxTop){
             console.log('不能再放大啦');
@@ -858,6 +850,14 @@ Page({
         //     itemList: items  
         // }) 
      
+  },
+  //计算旋转后的坐标
+  countCoordinate:function(x0,y0,a,b,angle){ //(x0, y0)绕(a, b) 旋转b度后得到的坐标
+    let x = (x0 - a) * cosb + (y0 - b) * sinb;
+
+    let y = (y0 - b) * cosb + (x0 - a) * sinb;
+    let coordinate = [x,y]
+    return coordinate
   },
   countDeg: function (cx, cy, pointer_x, pointer_y) {  
         var ox = pointer_x - cx;  
