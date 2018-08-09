@@ -232,6 +232,9 @@ Page({
           });
           return;
         }
+        my.showLoading({
+          content: '加载中...'
+        });
         // 获取支付str
         my.httpRequest({
           url:'http://bbltest.color3.cn/Mobile/Api/zhifubaopay',
@@ -240,8 +243,8 @@ Page({
           data:{
             ordersn:res.data.order_sn,
             orderid:res.data.orderid,
-            // total_amount:that.data.total_amount
-            total_amount:0.01
+            total_amount:that.data.total_amount
+            // total_amount:0.01
           },
           success:function(payRes){
             if(payRes.data.status==0){
@@ -255,9 +258,11 @@ Page({
             my.tradePay({
               orderStr: payRes.data.orderstring, //完整的支付参数拼接成的字符串，从服务端获取
               success: (res) => {
-                that.setData({
-                    success:true
-                })
+                if(res.resultCode == 9000){
+                  that.setData({
+                      success:true
+                  })
+                }
               },
               fail: (res) => {
                 my.alert({
@@ -265,6 +270,9 @@ Page({
               });
               }
             });
+          },
+          complete:function(){
+            my.hideLoading();
           }
 
         })

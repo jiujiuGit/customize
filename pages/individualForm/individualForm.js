@@ -239,7 +239,8 @@ Page({
     //     wid:that.data.wid,
     //     zfb_userid:app.globalData.userInfo.userId,
     //     id:res.data.order
-    const params = that.data.orderParams
+    const params = that.data.orderParams;
+    
     my.httpRequest({
       url:'http://bbltest.color3.cn/Mobile/Api/gerensuborder',
       dataType:'json',
@@ -277,7 +278,10 @@ Page({
         
         
         let orderId = res.data.order;
-        let order_sn = res.data.order_sn
+        let order_sn = res.data.order_sn;
+        my.showLoading({
+          content: '加载中...'
+        });
        
         // 获取支付str
         my.httpRequest({
@@ -287,8 +291,8 @@ Page({
           data:{
             ordersn:order_sn,
             orderid:orderId,
-            // total_amount:params.total_amount
-            total_amount:0.01
+            total_amount:params.total_amount
+            // total_amount:0.01
           },
           success:function(payRes){
             if(payRes.data.status==0){
@@ -302,30 +306,33 @@ Page({
             my.tradePay({
               orderStr: payRes.data.orderstring, //完整的支付参数拼接成的字符串，从服务端获取
               success: (res) => {
-                that.setData({
-                    layerShow:true
-                })
-                var timesRun = 10;
-                that.data.myInterval = setInterval(function(){
-                  timesRun -= 1;
+                if(res.resultCode == 9000){
                   that.setData({
-                    sec:timesRun
+                    layerShow:true
                   })
-                  if(timesRun === 0){
-                    clearInterval(that.data.myInterval);
+                  var timesRun = 10;
+                  that.data.myInterval = setInterval(function(){
+                    timesRun -= 1;
                     that.setData({
-                      layerShow:false
+                      sec:timesRun
                     })
-                    my.reLaunch({
-                      url: '../customType/customType', // 页面路径。如果页面不为 tabbar 页面则路径后可以带参数。参数规则如下：路径与参数之间使用
-                      success: (res) => {
-                        
-                      },
-                    });
+                    if(timesRun === 0){
+                      clearInterval(that.data.myInterval);
+                      that.setData({
+                        layerShow:false
+                      })
+                      my.reLaunch({
+                        url: '../customType/customType', // 页面路径。如果页面不为 tabbar 页面则路径后可以带参数。参数规则如下：路径与参数之间使用
+                        success: (res) => {
+                          
+                        },
+                      });
 
-                  }
+                    }
 
-                }, 1000);
+                  }, 1000);
+                }
+                
               },
               fail: (res) => {
                 my.alert({
@@ -333,6 +340,9 @@ Page({
               });
               }
             });
+          },
+          complete:function(){
+            my.hideLoading();
           }
 
         })

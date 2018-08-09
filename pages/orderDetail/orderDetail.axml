@@ -60,7 +60,7 @@
   <!-- 弹框 -->
   <view class="layer" id="my-layer" a:if="{{showLayer}}" catchTouchMove="myCatchTouch">
     <view class="layer-box">
-      <view id="text">{{wenan.quzhifu}}</view>
+      <view id="text">支付成功！</view>
       <view id="phone">{{wenan.phone}}</view>
       <view id="close" onTap="closeLayer">关闭</view>
     </view>

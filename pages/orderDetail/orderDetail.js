@@ -165,8 +165,65 @@ Page({
   },
   //去支付
   pay(){
-    this.setData({
-      showLayer:true
+    // this.setData({
+    //   showLayer:true
+    // })
+    // "order_id":"",
+    //   "order_sn":"",
+    //   "order_status":"",
+    //   "consignee":"",
+    //   "total_amount":"0.00",
+    const that = this;
+    let order_sn = this.data.orderDetail.order_sn;
+    let orderId = this.data.orderDetail.order_id;
+    let total_amount = this.data.orderDetail.total_amount;
+    my.showLoading({
+      content: '加载中...'
+    });
+    my.httpRequest({
+      url:'http://bbltest.color3.cn/Mobile/Api/zhifubaopay',
+      method:'POST',
+      dataType:'json',
+      data:{
+        ordersn:order_sn,
+        orderid:orderId,
+        total_amount:total_amount
+        // total_amount:0.01
+      },
+      success:function(payRes){
+        if(payRes.data.status==0){
+          my.showToast({
+              type: 'fail',
+              content: '服务器繁忙，请稍候再试',
+              duration: 2000,
+          });
+          return;
+        }
+        my.tradePay({
+          orderStr: payRes.data.orderstring, //完整的支付参数拼接成的字符串，从服务端获取
+          success: (res) => {
+            if(res.resultCode == 9000){
+              that.getOrderDetail(that.data.orderId)
+              that.setData({
+                showLayer:true,
+                
+                // text:"支付成功！"
+              })
+            }
+            
+            
+          },
+          fail: (res) => {
+            my.alert({
+            content: JSON.stringify(res),
+          });
+          }
+        });
+      },
+      complete:function(){
+        my.hideLoading();
+      }
+
     })
   },
   closeLayer(){
@@ -188,7 +245,11 @@ Page({
         orderid:that.data.orderId
       },
       success: (res) => {
-        
+        my.showToast({
+            type: 'success',
+            content: '提交成功',
+            duration: 2000,
+        });
       },
     });
   },

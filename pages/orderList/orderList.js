@@ -20,6 +20,29 @@ Page({
     })
 
 
+    this.getOrderList();
+    my.httpRequest({
+      url: 'http://bbltest.color3.cn/Mobile/Api/getwenan', // 目标服务器url
+      methos:'POST',
+      dataType:'json',
+      data:{},
+      success: (res) => {
+        if(res.data.status==0){
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          return;
+        }
+        that.setData({
+          wenan:res.data
+        })
+      },
+    });
+  },
+  getOrderList(){
+    const that = this;
     my.showLoading({
       content: '加载中...',
     });
@@ -93,27 +116,7 @@ Page({
         my.hideLoading();
       }
     });
-    my.httpRequest({
-      url: 'http://bbltest.color3.cn/Mobile/Api/getwenan', // 目标服务器url
-      methos:'POST',
-      dataType:'json',
-      data:{},
-      success: (res) => {
-        if(res.data.status==0){
-          my.showToast({
-            type: 'fail',
-            content: '服务器繁忙，请稍候再试',
-            duration: 2000,
-          });
-          return;
-        }
-        that.setData({
-          wenan:res.data
-        })
-      },
-    });
   },
-
   // 点击更多
   more(e){
     console.log(e.currentTarget.dataset.id)
@@ -126,10 +129,66 @@ Page({
     })
   },
   // 支付按钮
-  pay(){
-    this.setData({
-      showLayer:true,
-      text:this.data.wenan.quzhifu
+  pay(e){
+    // this.setData({
+    //   showLayer:true,
+    //   text:this.data.wenan.quzhifu
+    // })
+    // 获取支付str
+    const that = this
+    // console.log(e.target.dataset.index)
+    let tabIndex = e.target.dataset.index
+    let order_sn = this.data.orderList[tabIndex].order_sn;
+    let orderId = this.data.orderList[tabIndex].order_id;
+    let total_amount = this.data.orderList[tabIndex].total_amount
+    my.showLoading({
+       content: '加载中...'
+    });
+    my.httpRequest({
+      url:'http://bbltest.color3.cn/Mobile/Api/zhifubaopay',
+      method:'POST',
+      dataType:'json',
+      data:{
+        ordersn:order_sn,
+        orderid:orderId,
+        total_amount:total_amount
+        // total_amount:0.01
+      },
+      success:function(payRes){
+        if(payRes.data.status==0){
+          my.showToast({
+              type: 'fail',
+              content: '服务器繁忙，请稍候再试',
+              duration: 2000,
+          });
+          return;
+        }
+        my.tradePay({
+          orderStr: payRes.data.orderstring, //完整的支付参数拼接成的字符串，从服务端获取
+          success: (res) => {
+            console.log(res.resultCode)
+            if(res.resultCode == 9000){
+              that.getOrderList();
+              that.setData({
+                showLayer:true,
+                text:"支付成功！"
+              })
+               
+            }
+            
+            
+          },
+          fail: (res) => {
+            my.alert({
+            content: JSON.stringify(res),
+          });
+          }
+        });
+      },
+      complete:function(){
+        my.hideLoading();
+      }
+
     })
   },
   // 修改地址
@@ -146,29 +205,30 @@ Page({
   // 开始定制
   confirm(e){
     const that = this;
-    my.httpRequest({
-      method:'POST',
-      dataType:'json',
-      url: 'http://bbltest.color3.cn/Mobile/Api/suborder', // 目标服务器url
-      data:{
-        orderid:e.currentTarget.dataset.id
-      },
-      success: (res) => {
-        if(res.data.status==0){
-          my.showToast({
-            type: 'fail',
-            content: '服务器繁忙，请稍候再试',
-            duration: 2000,
-          });
-          return;
-        }
-        my.showToast({
-            type: 'success',
-            content: '提交成功',
-            duration: 2000,
-        });
-      },
-    });
+    my.navigateTo({url:'../orderDetail/orderDetail?id='+e.currentTarget.dataset.id});
+    // my.httpRequest({
+    //   method:'POST',
+    //   dataType:'json',
+    //   url: 'http://bbltest.color3.cn/Mobile/Api/suborder', // 目标服务器url
+    //   data:{
+    //     orderid:e.currentTarget.dataset.id
+    //   },
+    //   success: (res) => {
+    //     if(res.data.status==0){
+    //       my.showToast({
+    //         type: 'fail',
+    //         content: '服务器繁忙，请稍候再试',
+    //         duration: 2000,
+    //       });
+    //       return;
+    //     }
+    //     my.showToast({
+    //         type: 'success',
+    //         content: '提交成功',
+    //         duration: 2000,
+    //     });
+    //   },
+    // });
   },
   // 提醒发货
   remind(e){
