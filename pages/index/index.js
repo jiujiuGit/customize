@@ -610,31 +610,31 @@ Page({
         //追加改动值  
         console.log(items[index])
         console.log(items[index].x  + '****'+imgInitialW*items[index].scale + '****'+maxLeft)
-        if(items[index].x - imgInitialW*items[index].scale/2 < minLeft  && movex<0 && !items[index].text){
-          console.log("不能再左移了")
+        // if(items[index].x - imgInitialW*items[index].scale/2 < minLeft  && movex<0 && !items[index].text){
+        //   console.log("不能再左移了")
           
-          // return;
+        //   // return;
           
-        }else if(items[index].x + imgInitialW*items[index].scale/2 > maxLeft && movex>0 && !items[index].text){
-          console.log("不能再右移了")
-          // return;
-        }else{
+        // }else if(items[index].x + imgInitialW*items[index].scale/2 > maxLeft && movex>0 && !items[index].text){
+        //   console.log("不能再右移了")
+        //   // return;
+        // }else{
           items[index].left  += items[index]._lx - items[index].lx;  // x方向 
           items[index].x +=  items[index]._lx - items[index].lx;   
              //把新的值赋给老的值  
           items[index].lx = e.touches[0].clientX;  
-        }
+        // }
 
-        if(items[index].y - itemH/2<minTop && movey<0){
-          console.log('不能再往上移了')
-        }else if(items[index].y+ itemH/2>maxTop && movey>0){
-          console.log('不能再往下移了')
-        }else{
+        // if(items[index].y - itemH/2<minTop && movey<0){
+        //   console.log('不能再往上移了')
+        // }else if(items[index].y+ itemH/2>maxTop && movey>0){
+        //   console.log('不能再往下移了')
+        // }else{
           items[index].top += items[index]._ly - items[index].ly;    // y方向  
           items[index].y += items[index]._ly - items[index].ly;  
           items[index].ly = e.touches[0].clientY;  
 
-        }
+        // }
         // if(){
 
         // }
@@ -705,10 +705,16 @@ Page({
         const index = this.data.index;
   
         let items = [];
+        let editLeft; //编辑区域left、top值
+        let editTop;
         if(curTap == 'front'){
           items = this.data.frontItemList;
+          editLeft = this.data.bgList.left1;
+          editTop = this.data.bgList.top1;
         }else if(curTap == 'back'){
           items = this.data.backItemList; 
+          editLeft = this.data.bgList.left2
+          editTop = this.data.bgList.top2;
         }
         for (let i = 0; i < items.length; i++) {  
             items[i].active = false;  
@@ -730,7 +736,8 @@ Page({
         items[index].anglePre = this.countDeg(items[index].x, items[index].y, items[index].tx, items[index].ty)  
   
         //获取图片半径  
-        items[index].r = this.getDistancs(items[index].x, items[index].y, items[index].left, items[index].top)  
+        items[index].r = this.getDistancs(items[index].x-editLeft, items[index].y-editTop, items[index].left, items[index].top)  
+        console.log(items[index].r)
     },  
     // 触摸移动事件    
   touchMove: function (e) {  
@@ -792,26 +799,11 @@ Page({
       
       console.log(items[index])
 
-        let disPtoO = this.getDistancs(items[index].x, items[index].y, clientX - that.data.bgList.contLeft1, clientY - that.data.bgList.contTop1)  
+        // let disPtoO = this.getDistancs(items[index].x, items[index].y, clientX - that.data.bgList.contLeft1, clientY - that.data.bgList.contTop1)  
 
-        let scale = disPtoO / items[index].r; //手指滑动的点到圆心的距离与半径的比值作为图片的放大比例
-        // let center = [items[index].x,items[index].y]
-        // let point1 = [center[0]-itemW/2,center[1]-itemH/2];//组件的左上角坐标
-        // let point2 = [center[0]+itemW/2,center[1]-itemH/2];//组件的右上角坐标
-        // let point2 = [center[0]-itemW/2,center[1]+itemH/2];//组件的左下角坐标
-        // let point2 = [center[0]+itemW/2,center[1]+itemH/2];//组件的右下角坐标
-        // let angle = items[index].angle;
-        // that.countCoordinate(point1[0],point1[1],center[0],center[1],angle)
-
-        // let xArr = [(x0 - a) * cosb + (y0 - b) * sinb];
-
-        if(scale>1){
-          if(items[index].x - imgInitialW*scale/2 < minLeft || items[index].x + imgInitialW*scale/2 > maxLeft || items[index].y - itemH/2<minTop || items[index].y+ itemH/2>maxTop){
-            console.log('不能再放大啦');
-            return;
-          }
-        }
-        console.log(1)
+        // let scale = disPtoO / items[index].r; //手指滑动的点到圆心的距离与半径的比值作为图片的放大比例
+        
+       
         items[index].disPtoO = this.getDistancs(items[index].x, items[index].y, clientX - that.data.bgList.contLeft1, clientY - that.data.bgList.contTop1)  
 
         items[index].scale = items[index].disPtoO / items[index].r; //手指滑动的点到圆心的距离与半径的比值作为图片的放大比例  
@@ -1368,13 +1360,15 @@ Page({
     item.text = this.data.textContent;
     const eidtAreaParams = app.globalData.eidtAreaParams;
     
+    
     if(this.data.currentTap == 'front'){
       const frontLength = app.globalData.frontItems.length;
       item.id = frontLength +1;
-      item.left = eidtAreaParams.left1+(eidtAreaParams.width1 - imgInitialW)/2;
-      item.top = eidtAreaParams.top1 + (eidtAreaParams.height1)/2;
-      item.x = item.left+that.data.imgInitialW/2;
-      item.y = item.top+item.fontSize;
+      item.left = (eidtAreaParams.width1 - imgInitialW)/2;
+      item.top = (eidtAreaParams.height1)/2;
+      console.log(typeof(this.data.bgList.left1)+typeof(item.left)+typeof(that.data.imgInitialW/2))
+      item.x =parseInt(this.data.bgList.left1)+ item.left+that.data.imgInitialW/2;
+      item.y = parseInt(this.data.bgList.top1)+item.top+item.fontSize;
       app.globalData.frontItems.push(item);
       
       this.setData({
@@ -1383,12 +1377,12 @@ Page({
       });
     }else if(this.data.currentTap == 'back'){
       const backLength = app.globalData.backItems.length;
-      item.left = eidtAreaParams.left2+(eidtAreaParams.width2 - imgInitialW)/2;
-      item.top = eidtAreaParams.top2 + (eidtAreaParams.height2)/2;
+      item.left = (eidtAreaParams.width2 - imgInitialW)/2;
+      item.top = (eidtAreaParams.height2)/2;
      
       item.id = backLength +1;
-       item.x = item.left+that.data.imgInitialW/2;
-      item.y = item.top;
+       item.x =parseInt(this.data.bgList.left2)+ item.left+that.data.imgInitialW/2;
+      item.y =parseInt(this.data.bgList.top2)+ item.top;
       app.globalData.backItems.push(item);
 
       this.setData({
@@ -1569,8 +1563,8 @@ Page({
     // let backItemList = that.data.backItemList;                                            h 
     that.canvasDraw('front');
     that.canvasDraw('back');
-    that.canvasRemix('front');
-    that.canvasRemix('back');
+    // that.canvasRemix('front');
+    // that.canvasRemix('back');
     
    
 
@@ -1585,6 +1579,14 @@ Page({
 
       that.uploadDrawImg('front');
       that.uploadDrawImg('back');
+      // that.uploadDrawImg('frontRemix')
+      // that.uploadDrawImg('backRemix')
+    
+    },2000);
+     setTimeout(function(){
+
+      // that.uploadDrawImg('front');
+      // that.uploadDrawImg('back');
       that.uploadDrawImg('frontRemix')
       that.uploadDrawImg('backRemix')
     
@@ -1651,8 +1653,8 @@ Page({
         that.ctx.save();
         // console.log(areaLeft)
         // that.ctx.fillText('Hello', 50, 12)
-        const left = item.left - areaLeft;
-        let top = item.top - areaTop;
+        const left = item.left;
+        let top = item.top;
         let wh = item.pich / item.picw  //图片宽高比例
         
         let height = imgInitialW*wh*item.scale;  //计算缩放后的图片高度
@@ -1821,6 +1823,48 @@ Page({
       that.ctx.save();
       // console.log(this.data.frontItemList)
   },
+  //canvas正反面合成图（包含背景图）
+  canvasBg(side,cusImg){
+    console.log(side,cusImg)
+    let that = this;
+    let bgItem = {};
+    let areaLeft ;
+    let areaTop ;
+    if(side =='front'){
+    
+     
+      bgItem.picw = that.data.bgList.pic1w;
+      bgItem.pich = that.data.bgList.pic1h;
+   
+      bgItem.image = that.data.bgList.pic1;
+
+      that.ctx = my.createCanvasContext('frontRemix');
+      areaLeft = that.data.bgList.left1; //定制框left
+      areaTop = that.data.bgList.top1; //定制框top
+      console.log(bgItem)
+      //  that.ctx.save();
+      that.ctx.drawImage(bgItem.image,0,0,bgItem.picw,bgItem.pich)//画背景图
+      that.ctx.drawImage(cusImg,areaLeft,areaTop,that.data.bgList.width,that.data.bgList.height)//画定制图
+      that.ctx.draw()
+
+
+      
+    }else if(side == 'back'){
+      
+    
+      bgItem.picw = that.data.bgList.pic2w;
+      bgItem.pich = that.data.bgList.pic2h;
+      bgItem.image = that.data.bgList.pic2
+    
+      that.ctx = my.createCanvasContext('backRemix');
+      areaLeft = that.data.bgList.left2; //定制框left
+      areaTop = that.data.bgList.top2; //定制框top
+      that.ctx.drawImage(bgItem.image,0,0,bgItem.picw,bgItem.pich)//画背景图
+      that.ctx.drawImage(cusImg,areaLeft,areaTop,that.data.bgList.width1,that.data.bgList.height1)//画定制图
+      that.ctx.draw()
+   
+    }
+  },
   //上传定制后的图片
   uploadDrawImg(side){
     const that = this;
@@ -1837,6 +1881,11 @@ Page({
           success(res) {
       
             let path = res.apFilePath;
+            if(side == 'front'){
+              that.canvasBg('front',res.apFilePath)
+            }else if(side == 'back'){
+              that.canvasBg('back',res.apFilePath)
+            }
             my.uploadFile({
               url: 'http://bbltest.color3.cn/Mobile/Api/workupload',
               fileType: 'image',

@@ -88,6 +88,7 @@ App({
     this.globalData.teamIndividual.picname=options.query.picname
     this.globalData.teamIndividual.prodId = options.query.prodId
     this.globalData.teamIndividual.fabricId = options.query.fabricId
+    
    
     console.log('query', options.query);
     console.log('App Launch', options);

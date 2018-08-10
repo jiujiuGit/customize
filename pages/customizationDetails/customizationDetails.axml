@@ -17,10 +17,10 @@
 
       <view class=" personal-images">
         <view class="scroll flex-box">
-          <view class="personal-item-image"><image class="personal-image" src="{{item.zhengpic}}" mode="widthFix" /></view>
-          <view class="personal-item-image"><image class="personal-image" src="{{item.fanpic}}" mode="widthFix" /></view>
-          <view class="personal-item-image"><image class="personal-image" src="{{item.leftpic}}" mode="widthFix" /></view>
-          <view class="personal-item-image"><image class="personal-image" src="{{item.rightpic}}" mode="widthFix" /></view>
+          <view class="personal-item-image" v-if='{{item.zhengpic}}'><image class="personal-image" src="{{item.zhengpic}}" mode="widthFix" /></view>
+          <view class="personal-item-image" v-if='{{item.fanpic}}'><image class="personal-image" src="{{item.fanpic}}" mode="widthFix" /></view>
+          <view class="personal-item-image" v-if='{{item.leftpic}}'><image class="personal-image" src="{{item.leftpic}}" mode="widthFix" /></view>
+          <view class="personal-item-image" v-if='{{item.rightpic}}'><image class="personal-image" src="{{item.rightpic}}" mode="widthFix" /></view>
 
         </view>
                   <!-- <view class="personal-item-image" ><image class="personal-image" src="../../assets/images/img_geren.png" mode="widthFix" /></view> -->

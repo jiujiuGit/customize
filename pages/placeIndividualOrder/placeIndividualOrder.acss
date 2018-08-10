@@ -76,7 +76,21 @@
     bottom: 0;
     width: 100%;
 }
-.confirm-order>button{
+#price{
+    height: 100rpx;
+    line-height: 100rpx;
+    width: 240rpx;
+    font-size: 28rpx;
+    color: #FFFFFF;
+    text-align: center;
+    background-color: #565656;
+    font-weight: bolder;
+    letter-spacing: 1px;
+}
+#yuan{
+    font-size: 24rpx;
+}
+.btn{
     background-color: #474747;
     border:none;
     border-radius: 0;
@@ -84,8 +98,11 @@
     line-height: 100rpx;
     font-size: 28rpx;
     font-weight:600;
+    width: 100%;
 }
-
+.next-btn{
+    width: 510rpx;
+}
 #gou{
     /* margin-top: 30px; */
     text-align: center;

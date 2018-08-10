@@ -1,6 +1,9 @@
 {
   "pages": [
     "pages/customType/customType",
+    "pages/placeIndividualOrder/placeIndividualOrder",
+    "pages/placeTeamOrder/placeTeamOrder",
+    
     "pages/index/index",
     
     
@@ -10,12 +13,12 @@
     
     
     
-    "pages/placeTeamOrder/placeTeamOrder",
+    
     
     
     "pages/individualForm/individualForm",
     
-     "pages/placeIndividualOrder/placeIndividualOrder",
+     
     
     
     

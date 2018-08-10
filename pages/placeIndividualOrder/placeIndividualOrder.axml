@@ -40,11 +40,18 @@
     </view>
   </view>
 
-  <view class="confirm-order">
-    <button type="primary" onTap="confirmOrder">
-      <text a:if="{{type == 1}}">下一步</text>
-      <text a:if="{{type == 3}}">确认订单</text>
+  <view class="confirm-order flex-box">
+     
+    <view id='price' a:if="{{type == 1}}"><text id='yuan'>￥</text> {{total_amount}}</view>
+    <button type="primary" onTap="confirmOrder" class='btn next-btn' a:if="{{type == 1}}">
+      <text >下一步</text>
+      
     </button>
+    <button type="primary" onTap="confirmOrder" class='btn' a:if="{{type == 3}}">
+      
+      <text >确认订单</text>
+    </button>
+   
     <!-- <button type="primary"  onTap="defaultTap"> 确认订单 </button> -->
   </view>
 

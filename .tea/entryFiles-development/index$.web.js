@@ -1,11 +1,11 @@
 require('@alipay/appx-compiler/lib/sjsEnvInit');
 require('./config$');
 require('../../pages/customType/customType');
+require('../../pages/placeIndividualOrder/placeIndividualOrder');
+require('../../pages/placeTeamOrder/placeTeamOrder');
 require('../../pages/index/index');
 require('../../pages/canvas/canvas');
-require('../../pages/placeTeamOrder/placeTeamOrder');
 require('../../pages/individualForm/individualForm');
-require('../../pages/placeIndividualOrder/placeIndividualOrder');
 require('../../pages/groupForm/groupForm');
 require('../../pages/orderDetail/orderDetail');
 require('../../pages/customizationDetails/customizationDetails');

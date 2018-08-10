@@ -152,6 +152,7 @@
     position: absolute;
     /* left: 50px;
     top: 100px; */
+    overflow: hidden;
     border:2px dashed #FFA700;
     z-index: 100;
     /* width: 160px;
