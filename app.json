@@ -1,10 +1,13 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/customType/customType",
+    
+    
     "pages/placeIndividualOrder/placeIndividualOrder",
     "pages/placeTeamOrder/placeTeamOrder",
     
-    "pages/index/index",
+    
     
     
     "pages/canvas/canvas",

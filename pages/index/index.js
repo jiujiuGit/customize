@@ -1530,7 +1530,7 @@ Page({
      const curTap = this.data.currentTap;
      const index = this.data.index ;
 
-    //  console.log(e.detail.value)
+     console.log(curTap)
     if(curTap == 'front'){
       let items = this.data.frontItemList;
       items[index].opacity =  e.detail.value;
@@ -1543,7 +1543,9 @@ Page({
       this.setData({
        backItemList:items
       })
+       console.log(this.data.backItemList)
     }
+   
     //  app.globalData.items[index].opacity =  e.detail.value;
     
     //  this.setData({

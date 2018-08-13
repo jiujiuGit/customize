@@ -53,7 +53,8 @@
     justify-content: center;
 }
 .fabric-btn{
-    width: 160rpx;
+    /* width: 160rpx; */
+    padding: 0 44rpx;
     height: 68rpx;
     line-height: 68rpx;
     background-color: #D4D7DD;

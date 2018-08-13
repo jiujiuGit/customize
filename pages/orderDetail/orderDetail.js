@@ -44,7 +44,7 @@ Page({
     })
     
     
-    that.getOrderDetail(that.data.orderId)
+    
     // 获取文案
     my.httpRequest({
       url: 'http://bbltest.color3.cn/Mobile/Api/getwenan', // 目标服务器url
@@ -65,6 +65,10 @@ Page({
         })
       },
     });
+  },
+  onShow(){
+    const that = this;
+    that.getOrderDetail(that.data.orderId)
   },
   getOrderDetail(orderId){
     const that = this

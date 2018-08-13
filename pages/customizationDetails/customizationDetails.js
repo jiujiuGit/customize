@@ -83,16 +83,7 @@ Page({
           that.setData({
             success:true
           })
-            // my.showToast({
-            //   type: 'success',
-            //   content: '下单成功',
-            //   duration: 3000,
-            //   success: () => {
-            //     my.reLaunch({
-            //       url: '../customType/customType', // 页面路径。如果页面不为 tabbar 页面则路径后可以带参数。参数规则如下：路径与参数之间使用
-            //     });
-            //   },
-            // });
+           
         }else{
           my.showToast({
             type: 'fail',
@@ -106,6 +97,9 @@ Page({
   ok(){
     this.setData({
       success:false
+    });
+    my.navigateBack({
+      delta: 1
     })
   }
 });
