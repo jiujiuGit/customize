@@ -34,8 +34,10 @@
           <view class="section-lines">
             <view class="fir-line">收货人：{{orderDetail.consignee}}</view>
             <view>收货地址：{{orderDetail.address}}</view>
+            <view a:if="{{orderDetail.shipping_code!='0'}}">物流单号：{{orderDetail.shipping_name}}{{orderDetail.shipping_code}}</view>
           </view>
         </view>
+
         <view class="detail-section section-qrcode" a:if="{{orderDetail.erweima!=''&&orderDetail.numtype == '2'}}">
           <view><text class="section-title">定制二维码</text></view>
           <view id='erweima-div'><image onLongTap='saveqrcode' src="{{orderDetail.erweima}}" id='erweima' mode="widthFix" /></view>

@@ -1,47 +1,29 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/customType/customType",
+    "pages/logistics/logistics",
     
-    
+    "pages/index/index",
+  
     "pages/placeIndividualOrder/placeIndividualOrder",
     "pages/placeTeamOrder/placeTeamOrder",
     
-    
-    
-    
+  
     "pages/canvas/canvas",
-    
-    
-    
-    
-    
-    
-    
-    
+   
     "pages/individualForm/individualForm",
-    
-     
-    
-    
-    
-    
+ 
     "pages/groupForm/groupForm",
     
     
     "pages/orderDetail/orderDetail",
-    
-    
-    
-    
+
     
     "pages/customizationDetails/customizationDetails",
     
     "pages/orderList/orderList",
     
-    
-   
-    
+        
     "pages/sticker/sticker",
     
 

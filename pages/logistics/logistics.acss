@@ -1,0 +1,87 @@
+#logistic-header{
+    margin: 20rpx;
+    border-radius: 8rpx;
+    box-shadow:0px 10px 10px 0px rgba(86,91,110,0.15);
+    width: 670rpx;
+    justify-content: space-between;
+    background-color: white;
+    padding: 20rpx;
+    align-items: center;
+}
+#header-img>image{
+    width: 100rpx;
+    height:100rpx;
+    margin-right: 20rpx;
+}
+#company{
+    font-size: 30rpx;
+    font-weight: bolder;
+    margin: 10rpx 0 24rpx 0;
+}
+#no{
+    font-size: 26rpx;
+    color: #7F7F7F;
+}
+#state{
+    font-size:36rpx;
+    color: #E02666;
+    font-weight: bolder;
+}
+#consignee{
+    width: 670rpx;
+    padding: 20rpx;
+    margin: 20rpx;
+    background-color: white;
+    border-radius: 8rpx;
+    font-size: 28rpx;
+    color: #7F7F7F;
+    margin-top: 40rpx;
+}
+#consigneer{
+    margin-bottom: 20rpx;
+}
+#list{
+    margin: 72rpx 40rpx 0 40rpx;
+}
+/* .item{
+    padding-bottom: 70rpx;
+} */
+.time{
+    color: #7F7F7F;
+    font-size: 22rpx;
+    margin-right: 50rpx;
+    line-height: 40rpx;
+    flex-shrink: 0;
+    /* width: 144rpx; */
+}
+.minute{
+    font-size:20rpx;
+    line-height: 20rpx;
+}
+
+.des{
+    border-left: 1px solid #D8D8D8;
+    padding-left: 50rpx;
+    font-size: 24rpx;
+    line-height: 40rpx;
+    color: #7F7F7F;
+    padding-bottom: 110rpx;
+}
+.last{
+    color: black;
+}
+.time .last{
+    font-weight: bolder;
+}
+.dian{
+    width: 18rpx;
+    height: 18rpx;
+    border-radius: 50%;
+    background-color: #D8D8D8;
+    position: absolute;
+    top: 0;
+    left: -9rpx;
+}   
+.border{
+    position: relative;
+}

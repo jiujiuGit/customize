@@ -20,7 +20,7 @@
       </view>
     </view>
     <view class="flex-box operate-btns">
-      <button form-type="submit" plain class="btn gray" a:if="{{item.order_status == '4'}}" data-id='{{item.order_id}}' onTap="wuliu">查看物流</button>
+      <button form-type="submit" plain class="btn gray" a:if="{{item.order_status == '4'}}" data-index = '{{index}}' data-id='{{item.order_id}}' onTap="wuliu">查看物流</button>
       <button form-type="submit" class="btn pink" a:if="{{item.order_status == '3' && item.numtype=='2'}}" data-id='{{item.order_id}}' onTap='confirm'>开始定制</button>
       <button form-type="submit" class="btn pink" a:if="{{item.order_status == '0'}}" onTap="pay" data-index = '{{index}}'>去支付</button>
       <button form-type="submit" class="btn pink" a:if="{{item.order_status == '4'}}" data-id='{{item.order_id}}' onTap="recieve">确认收货</button>

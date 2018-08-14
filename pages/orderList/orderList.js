@@ -200,7 +200,43 @@ Page({
   },
   // 查看物流
   wuliu(e){
-    my.navigateTo({url:'../orderDetail/orderDetail?id='+e.currentTarget.dataset.id});
+    const that = this;
+     my.showLoading({
+      content: '加载中...',
+        
+    });
+    my.httpRequest({
+      url: 'http://bbltest.color3.cn/Mobile/Api/ordertail', // 目标服务器url
+      method:'POST',
+      dataType:'json',
+      data:{
+        orderid:e.currentTarget.dataset.id
+      },
+      success: (res) => {
+        if(res.data.status==0){
+          my.showToast({
+            type: 'fail',
+            content: '服务器繁忙，请稍候再试',
+            duration: 2000,
+          });
+          return;
+        }
+        let params = {
+          // shipping_code:'800867508626210843',
+          // shipping_name	:'yt'
+          shipping_code:that.data.orderList[e.currentTarget.dataset.index].shipping_code,
+          shipping_name:that.data.orderList[e.currentTarget.dataset.index].shipping_name,
+          consignee:res.data.data.consignee,
+          address:res.data.data.address
+        }
+        my.navigateTo({url:'../logistics/logistics?params='+JSON.stringify(params)});
+      },
+      complete:function(){
+        my.hideLoading();
+      }
+    })
+    
+    // my.navigateTo({url:'../orderDetail/orderDetail?id='+e.currentTarget.dataset.id});
   },
   // 开始定制
   confirm(e){

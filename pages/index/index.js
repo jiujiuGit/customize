@@ -72,7 +72,7 @@ Page({
     const that = this;
     let backItems = [];
     let frontItems = [];
-    console.log(app.globalData.backItems)
+    
     for(var i=0;i<app.globalData.backItems.length;i++){
       if(!app.globalData.backItems[i].bg){
         backItems.push(app.globalData.backItems[i])
@@ -90,21 +90,13 @@ Page({
       index:app.globalData.stickerIndex,
       footer:app.globalData.footer,
       leftStickerId:app.globalData.leftStickerId,
-      rightStickerId:app.globalData.rightStickerId
+      rightStickerId:app.globalData.rightStickerId,
+      sliderValue:100
     });
-    console.log(this.data.leftStickerId)
-    console.log(this.data.rightStickerId)
-    // for(let i=0;i<that.data.frontItemList.length;i++){
-    //   if(!that.data.frontItemList[i].bg){
-        
-    //   }
-    // }
-    // for(let i=0;i<that.data.backItemList.length;i++){
-      
-    // }
-    // console.log(app.globalData.frontItems)
+    
+  
     this.getSystemInfoPage();
-    // console.log(this.data.frontItemList)
+    
     if(this.data.leftStickerId){  //请求左侧面背景图
       my.httpRequest({
         url: 'http://bbltest.color3.cn/Mobile/Api/getImageByDid',
@@ -196,7 +188,6 @@ Page({
     app.globalData.rightStickerId = '';
     app.globalData.frontItems = [];
     app.globalData.backItems = [];
-    console.log('onLoad事件')
     this.setData({
         type:app.globalData.type,
         picname:app.globalData.teamData.picname,
@@ -282,7 +273,7 @@ Page({
             })
           },
           fail:function(res){
-            console.log(res)
+           
           }
         });
          my.getImageInfo({  //背面
@@ -312,34 +303,6 @@ Page({
         });
 
 
-
-        // bgList.pic1w = 360; //正面宽高
-        // bgList.pic1h = 500;
-
-        // bgList.pic2w = 360; //背面宽高
-        // bgList.pic2h = 500;
-
-        // bgList.pic2w = 360; //侧面宽高
-        // bgList.pic2h = 500;
-      
-        // setTimeout(function(){
-        //   bgList.contLeft1 = (that.data.systemInfo.windowWidth - bgList.pic1w)/2; //定制区域left
-        //   bgList.contTop1 = (that.data.systemInfo.windowHeight - bgList.pic1h -80)/2  //定制区域top
-
-        //   bgList.contLeft2 = (that.data.systemInfo.windowWidth - bgList.pic2w)/2; //定制区域left
-        //   bgList.contTop2 = (that.data.systemInfo.windowHeight - bgList.pic2h -80)/2  //定制区域top
-
-        //   bgList.contLeft3 = (that.data.systemInfo.windowWidth - bgList.pic3w)/2; //定制区域left
-        //   bgList.contTop3 = (that.data.systemInfo.windowHeight - bgList.pic3h -80)/2  //定制区域top
-
-        //   that.setData({
-        //     bgList:bgList,
-        //     sizes:res.data.data.sizes,
-        //     buttons:res.data.data.buttons,
-        //     // individualArea:res.data.data.buttons
-        //   });
-        //   console.log(that.data.bgList)
-        // },1200)
         let ct = 'front'
         if(res.data.data.buttons.indexOf('正面')>-1){
           ct = 'front'
@@ -360,31 +323,7 @@ Page({
           // individualArea:res.data.data.buttons
         });
         
-        // console.log(res.data.data.pic3)
-        
-        // my.downloadFile({
-        //   url: res.data.data.pic1, // 下载正面图片
-        //   success: (res) => {         
-        //     that.data.bgList.tempFilePath1 = res.apFilePath;
-        //     that.setData({
-        //       bgList:that.data.bgList
-        //     })
-        //   },
-        //   fail(res){
-        //   }
-        // });
-        // my.downloadFile({
-        //   url: res.data.data.pic2, // 下载背面图片
-        //   success: (res) => {         
-        //     that.data.bgList.tempFilePath2 = res.apFilePath
-        //     that.setData({
-        //       bgList:that.data.bgList
-        //     })
-        //   },
-        //   fail(res){
-        //   }
-        // });
-        
+      
         
         let individualArea = []
         for(let i=0;i<res.data.data.buttons.length;i++){
@@ -429,7 +368,7 @@ Page({
         that.setData({
           colorList:res.data.list
         })
-        // console.log(JSON.stringify(res))
+       
       },
       fail:function(){
 
@@ -509,7 +448,7 @@ Page({
   },
   // 图片touchStart
   WraptouchStart(e){
-    console.log(this.data.frontItemList)
+    
     if(this.data.footer == 'list'){
       this.setData({
         footer:'transparency'
@@ -554,7 +493,7 @@ Page({
             sliderValue:parseInt(curItem.opacity) 
           })  
         }
-        console.log(this.data.frontItemList)
+      
         
   },
   WraptouchMove: function (e) {  
@@ -608,8 +547,7 @@ Page({
 
           
         //追加改动值  
-        console.log(items[index])
-        console.log(items[index].x  + '****'+imgInitialW*items[index].scale + '****'+maxLeft)
+      
         // if(items[index].x - imgInitialW*items[index].scale/2 < minLeft  && movex<0 && !items[index].text){
         //   console.log("不能再左移了")
           
@@ -655,7 +593,7 @@ Page({
             backItemList: items
           })  
         }
-      console.log(this.data.frontItemList)
+     
         // this.setData({//赋值就移动了  
         //     itemList: items  
         // })  
@@ -737,7 +675,7 @@ Page({
   
         //获取图片半径  
         items[index].r = this.getDistancs(items[index].x-editLeft, items[index].y-editTop, items[index].left, items[index].top)  
-        console.log(items[index].r)
+        
     },  
     // 触摸移动事件    
   touchMove: function (e) {  
@@ -797,7 +735,7 @@ Page({
         
         //移动的点到圆心的距离  
       
-      console.log(items[index])
+     
 
         // let disPtoO = this.getDistancs(items[index].x, items[index].y, clientX - that.data.bgList.contLeft1, clientY - that.data.bgList.contTop1)  
 
@@ -837,7 +775,7 @@ Page({
             backItemList: items
           })  
         }
-        console.log(this.data.frontItemList)
+    
         // this.setData({  
         //     itemList: items  
         // }) 
@@ -954,7 +892,7 @@ Page({
     }else if(curTap == 'back'){
       items = this.data.backItemList; 
     }
-  //  console.log(this.data.index)
+
     if(this.data.index == undefined ){
       return;
     }
@@ -1067,10 +1005,10 @@ Page({
             // });
           }else if(currentTap == 'rightSide'){ //清除右侧
             let bgList=that.data.bgList
-            console.log( that.data.oriRightPic)
+           
             app.globalData.rightStickerId = ''
             bgList.pic4= that.data.oriRightPic
-            console.log(bgList.pic4)
+            
             that.setData({
               bgList:bgList,
               rightStickerId:'',
@@ -1366,7 +1304,7 @@ Page({
       item.id = frontLength +1;
       item.left = (eidtAreaParams.width1 - imgInitialW)/2;
       item.top = (eidtAreaParams.height1)/2;
-      console.log(typeof(this.data.bgList.left1)+typeof(item.left)+typeof(that.data.imgInitialW/2))
+    
       item.x =parseInt(this.data.bgList.left1)+ item.left+that.data.imgInitialW/2;
       item.y = parseInt(this.data.bgList.top1)+item.top+item.fontSize;
       app.globalData.frontItems.push(item);
@@ -1516,7 +1454,7 @@ Page({
             
           })  
     }
-    console.log(this.data.frontItemList)
+
 
     // this.setData({
     //   itemList:items
@@ -1530,7 +1468,7 @@ Page({
      const curTap = this.data.currentTap;
      const index = this.data.index ;
 
-     console.log(curTap)
+   
     if(curTap == 'front'){
       let items = this.data.frontItemList;
       items[index].opacity =  e.detail.value;
@@ -1543,7 +1481,7 @@ Page({
       this.setData({
        backItemList:items
       })
-       console.log(this.data.backItemList)
+       
     }
    
     //  app.globalData.items[index].opacity =  e.detail.value;
@@ -1554,7 +1492,7 @@ Page({
   },
   //  开始定制
   customize(){
-    console.log(this.data.frontItemList)
+    
     let that = this;
     my.showLoading({
       content: '提交中，请稍后...',
@@ -1598,15 +1536,11 @@ Page({
     //     'position_back':that.data.saveworkdesk.position_back_remix,    //反面合成图片
     //     'position_back_remix':that.data.saveworkdesk.position_back,     //反面整体图片
     let params = that.data.saveworkdesk
-    console.log(params.position_front_remix)
-    // console.log(params.position_front_remix)
+
      let myInterval = setInterval(function(){
-          // timesRun -= 1;
-          // that.setData({
-          //   sec:timesRun
-          // })
+          
           if(params.position_front_remix!=undefined&& params.position_front!=undefined && params.position_back_remix!=undefined && params.position_back!=undefined){
-            console.log(JSON.stringify(params))
+            
             clearInterval(myInterval);
             that.saveworkdesk();
 
@@ -1628,7 +1562,7 @@ Page({
     let areaLeft ;
     let areaTop ;
     let imgInitialW = this.data.imgInitialW
-    console.log(this.data.frontItemList)
+  
     if(side =='front'){
       itemList = that.data.frontItemList;
      
@@ -1647,14 +1581,13 @@ Page({
     for(let i=0;i<itemList.length;i++){
 
         const item = itemList[i]
-        // console.log(itemList)
+ 
         if(item.image == undefined && item.type == 'image'){
           return;
         }
         // this.ctx.rotate(30 * Math.PI / 180);
         that.ctx.save();
-        // console.log(areaLeft)
-        // that.ctx.fillText('Hello', 50, 12)
+        
         const left = item.left;
         let top = item.top;
         let wh = item.pich / item.picw  //图片宽高比例
@@ -1667,7 +1600,7 @@ Page({
         
 
 
-        console.log(item)
+       
         that.ctx.translate(item.x-areaLeft,item.y-areaTop);//圆心坐标
         that.ctx.rotate(item.angle * Math.PI / 180);//旋转
         that.ctx.translate(-(imgInitialW * item.scale/ 2), -(height / 2))
@@ -1697,13 +1630,7 @@ Page({
     }
       
       that.ctx.draw();
-    //   that.ctx.draw({
-    //   reserve: false,
-    //   callback: function () {
-    //     console.log('画布回调finished')
-    //   }
-    // })
-      // that.ctx.save();
+
   },
 
   //canvas正反面合成图（包含背景图）
@@ -1827,7 +1754,7 @@ Page({
   },
   //canvas正反面合成图（包含背景图）
   canvasBg(side,cusImg){
-    console.log(side,cusImg)
+
     let that = this;
     let bgItem = {};
     let areaLeft ;
@@ -1843,7 +1770,7 @@ Page({
       that.ctx = my.createCanvasContext('frontRemix');
       areaLeft = that.data.bgList.left1; //定制框left
       areaTop = that.data.bgList.top1; //定制框top
-      console.log(bgItem)
+
       //  that.ctx.save();
       that.ctx.drawImage(bgItem.image,0,0,bgItem.picw,bgItem.pich)//画背景图
       that.ctx.drawImage(cusImg,areaLeft,areaTop,that.data.bgList.width,that.data.bgList.height)//画定制图
@@ -1912,7 +1839,7 @@ Page({
                 that.setData({
                   saveworkdesk:params
                 })
-                console.log(that.data.saveworkdesk)
+                
 
               },
               fail(res) {
@@ -1925,7 +1852,7 @@ Page({
   },
   // 提交定制参数
   saveworkdesk(){
-    console.log(this.data.frontItemList)
+  
     let userInfo;
     const that = this;
     let frontStickers = '';
@@ -1985,8 +1912,7 @@ Page({
           saveworkdesk:{}
         })
         let params = that.data.saveworkdesk
-        console.log(params.position_front_remix)
-        // console.log()
+
        
         if(that.data.type == 1){
           my.navigateTo({url:'../placeIndividualOrder/placeIndividualOrder?id='+res.data.id}) //id订单号

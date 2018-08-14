@@ -2,8 +2,9 @@ require('./config$');
 require('./importScripts$');
 function success() {
 require('../..//app');
-require('../../pages/index/index');
 require('../../pages/customType/customType');
+require('../../pages/logistics/logistics');
+require('../../pages/index/index');
 require('../../pages/placeIndividualOrder/placeIndividualOrder');
 require('../../pages/placeTeamOrder/placeTeamOrder');
 require('../../pages/canvas/canvas');

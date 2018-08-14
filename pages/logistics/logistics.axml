@@ -1,0 +1,30 @@
+<view style='width:100%'>
+  <view id='logistic-header' class="flex-box">
+    <view id='header-img'><image src="../../assets/images/kuaidi.png" mode="widthFix" /></view>
+    <view class="flex-item-1">
+      <view id='company'>{{logistic.company}}</view>
+      <view id='no'>{{logistic.no}}</view>
+    </view>
+    <!-- <view id='state'></view> -->
+  </view>
+  <view id='consignee'>
+    <view id='consigneer'>收货人：{{consignee}}</view>
+    <view>收货地址：{{address}}</view>
+  </view>
+  <view id='list'>
+    <view class=" flex-box item " a:for='{{list}}' >
+      <view class="time">
+        <view class="{{(index == 0)?'last':''}}">
+          <view>{{item.datetime.substring(5,10)}}</view>
+          <view class="minute">{{item.datetime.substring(11,16)}}</view>
+        </view>
+       
+      </view>
+      <view class="border">
+        <view class="dian"></view>
+        <view class="line"></view>
+      </view>
+      <view class="des {{(index == 0)?'last':''}}">{{item.remark}}</view>
+    </view>
+  </view>
+</view>
