@@ -93,6 +93,7 @@ Page({
     this.setData({
       type:app.globalData.type, //定制类型 ，1个人，2团体
     })
+    app.getUserInfo();
   },
   fabricTap(e){
     // console.log(e)
@@ -115,6 +116,10 @@ Page({
     // console.log(this.data.current)  
   },
   nextStep(){
+    if(app.globalData.userInfo.userId==undefined){
+      app.getUserInfo();
+      return;
+    }
     const index = this.data.swpCurIdx;
     const prodId = this.data.modelList[this.data.swpCurIdx].id;  //款式id
     // console.log(index)

@@ -49,8 +49,9 @@
           <text class="section-title fir-line">订单信息</text>
           <view class="section-lines">
             <view class="fir-line">订单编号：{{orderDetail.order_sn}}</view>
-            <view>订单时间：{{orderDetail.ordertime}}</view>
             <view>下单时间：{{orderDetail.addtime}}</view>
+            <view a:if='{{orderDetail.paytime!=""}}'>支付时间：{{orderDetail.paytime}}</view>
+            <view>合计数量：{{orderDetail.znum}}</view>
           </view>
         </view>
 

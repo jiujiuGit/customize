@@ -9,7 +9,7 @@ Page({
   },
   onLoad() {
     const that = this;
-
+    // app.getUserInfo();
     // 获取屏幕信息
     my.getSystemInfo({
       success: (res) => {
@@ -20,7 +20,7 @@ Page({
     })
 
 
-    this.getOrderList();
+   
     my.httpRequest({
       url: 'http://bbltest.color3.cn/Mobile/Api/getwenan', // 目标服务器url
       methos:'POST',
@@ -41,11 +41,59 @@ Page({
       },
     });
   },
+  onShow(){
+     this.getOrderList();
+  },
   getOrderList(){
     const that = this;
+    console.log(app.globalData.userInfo.userId)
+    if(app.globalData.userInfo.userId==undefined){
+      my.getAuthCode({
+        scopes: ['auth_user'],
+        success: (authcode) => {
+          // console.info(authcode);
+          var  authCode = authcode
+          my.getAuthUserInfo({
+            success: (res) => {
+              app.globalData.userInfo = res;
+              // console.log(authcode)
+              my.httpRequest({
+                url: 'http://bbltest.color3.cn/Mobile/Api/getZFBuserInfo', // 目标服务器url
+                method:'POST',
+                dataType:'json',
+                data:{
+                  code:authcode.authCode
+                },
+                success: (res) => {
+                  if(res.data.status){
+                    app.globalData.userInfo.userId = res.data.user_id;
+                    that.getOrderList();
+                  }else{
+                    my.showToast({
+                      type: 'fail',
+                      content: '服务器繁忙，请稍候再试',
+                      duration: 2000,
+                    });
+                  }
+                },
+              });
+              
+            },
+            fail: () => {
+             
+            },
+          });
+        },
+        fail: () => {
+          // reject({});
+        },
+      });
+      return;
+    }
     my.showLoading({
       content: '加载中...',
     });
+    app.getUserInfo();
     my.httpRequest({
       url: 'http://bbltest.color3.cn/Mobile/Api/getOrderList', // 目标服务器url
       dataType:"json",

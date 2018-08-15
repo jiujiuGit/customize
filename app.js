@@ -52,7 +52,7 @@ App({
 
   },
   onLaunch(options) {
-    this.getUserInfo()
+    // this.getUserInfo()
     console.log(options.query)
     // my.alert({content: '启动参数：'+JSON.stringify(options.query)});
 
@@ -94,18 +94,19 @@ App({
     console.log('App Launch', options);
   },
   getUserInfo() {
+    
     return new Promise((resolve, reject) => {
       if (this.userInfo) resolve(this.userInfo);
 
       my.getAuthCode({
         scopes: ['auth_user'],
         success: (authcode) => {
-          console.info(authcode);
+          // console.info(authcode);
           var  authCode = authcode
           my.getAuthUserInfo({
             success: (res) => {
               this.globalData.userInfo = res;
-              console.log(authcode)
+              // console.log(authcode)
               my.httpRequest({
                 url: 'http://bbltest.color3.cn/Mobile/Api/getZFBuserInfo', // 目标服务器url
                 method:'POST',
