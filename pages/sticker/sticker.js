@@ -100,14 +100,71 @@ Page({
     }
     
     
-    console.log(item.pictype)
+    // console.log(item.pictype)
     if(item.pictype == "3"){  //定制贴纸，弹框输入定制内容
       this.setData({
-        editContent:true,
+        // editContent:true,
         individualStickerId:this.data.stickers[tapIndex].id,
         individualSticker :this.data.stickers[tapIndex] //个性定制贴纸index
       })
-      return;
+      
+
+    const eidtAreaParams = app.globalData.eidtAreaParams
+console.log(this.data.individualSticker)
+    let item = {  
+        pictype:3,
+        // id: imgLength+1,   
+        // top: 100,//初始图片的位置   
+        // left: 100,  
+        x: 155, //初始圆心位置，可再downImg之后又宽高和初始的图片位置得出  
+        y: 155,  
+        scale: 1,//缩放比例  1为不缩放  
+        angle: 0,//旋转角度  
+        active: false, //判定点击状态
+        rotate:0,
+        opacity:100,//透明度
+        type:'text',  //文字  
+        ground:this.data.ground,
+        fontFamily:'SimSun',
+        // fontSize:this.data.individualSticker.fontsize,
+        // color:this.data.individualSticker.fontcolor,
+        fontSize:12,
+        color:'black',
+        stickerid:this.data.individualStickerId
+    }
+      
+      item.text =  '请输入...';
+      if(this.data.ground == 'front'){  //添加到front编辑列表
+      const frontLength = app.globalData.frontItems.length;
+    
+      item.left = (eidtAreaParams.width1 - 100)/2;
+      item.top =  (eidtAreaParams.height1)/2;
+      item.x = eidtAreaParams.left1+ item.left + 50;
+      item.y = eidtAreaParams.top1 +item.top+item.fontSize;
+      
+
+      item.id = frontLength+1;
+      app.globalData.frontItems.push(item)
+      app.globalData.stickerIndex = app.globalData.frontItems.length-1
+    }else if(this.data.ground == 'back'){ //添加到back编辑列表
+      const backLength = app.globalData.backItems.length
+       item.left = (eidtAreaParams.width1 - 100)/2;
+      item.top =  (eidtAreaParams.height1)/2;
+      item.x = eidtAreaParams.left1+ item.left + 50;
+      item.y = eidtAreaParams.top1 +item.top+item.fontSize;
+      item.id = backLength+1;
+      app.globalData.backItems.push(item)
+      app.globalData.stickerIndex = app.globalData.backItems.length-1
+    }
+
+
+    // app.globalData.items.push(item);
+    my.navigateBack({
+      delta: 1
+    })
+
+    app.globalData.footer = 'imgTransparency';
+    return;
      
     }else if(item.pictype == "1" || item.pictype == "2"){  //普通贴纸和魔术贴
       

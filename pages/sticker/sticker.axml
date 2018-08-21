@@ -5,7 +5,7 @@
        <!-- <view class="pictype {{(item.pictype == 2)?'velcro':''}}">魔术贴</view>
        <view class="pictype {{item.pictype == 3}}?'personalSticker':''">定制贴纸</view> -->
        <view class="pictype velcro" a:if="{{item.pictype == 2}}">魔术贴</view>
-       <view class="pictype personalSticker"  a:if="{{item.pictype == 3}}">定制贴纸</view>
+       <view class="pictype velcro"  a:if="{{item.pictype == 3}}">定制贴纸</view>
     </view>
  </view>
  <view class="item-right">

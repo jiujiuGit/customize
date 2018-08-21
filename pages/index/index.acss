@@ -441,6 +441,14 @@ visibility: hidden;
 z-index: -1;
 visibility: hidden;
 }
+#frontRemixZs{
+z-index: -1;
+visibility: hidden;
+}
+#backRemixZs{
+z-index: -1;
+visibility: hidden;
+}
 .www{
     position: absolute;
     z-index: 1000000;

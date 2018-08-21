@@ -1049,7 +1049,7 @@ Page({
     if(individualArea[frontIndex].active){
       my.confirm({
         title: '温馨提示',
-        content: '是否清空个人定制区域（正面）',
+        content: '是否取消（正面）个人定制权限',
         confirmButtonText: '清空',
         cancelButtonText: '取消',
         success: (result) => {
@@ -1117,7 +1117,7 @@ Page({
     if(individualArea[backIndex].active){
       my.confirm({
         title: '温馨提示',
-        content: '是否清空个人定制区域（反面）',
+        content: '是否取消（反面）个人定制权限',
         confirmButtonText: '清空',
         cancelButtonText: '取消',
         success: (result) => {
@@ -1182,7 +1182,7 @@ Page({
     if(individualArea[leftIndex].active){
       my.confirm({
         title: '温馨提示',
-        content: '是否清空个人定制区域（左侧）',
+        content: '是否取消（左侧）个人定制权限',
         confirmButtonText: '清空',
         cancelButtonText: '取消',
         success: (result) => {
@@ -1219,7 +1219,7 @@ Page({
     if(individualArea[rightIndex].active){
       my.confirm({
         title: '温馨提示',
-        content: '是否清空个人定制区域（右侧）',
+        content: '是否取消（右侧）个人定制权限',
         confirmButtonText: '清空',
         cancelButtonText: '取消',
         success: (result) => {
@@ -1501,8 +1501,10 @@ Page({
     // that.ctx = my.createCanvasContext('canvasFront');
     // let frontItemList = that.data.frontItemList;
     // let backItemList = that.data.backItemList;                                            h 
-    that.canvasDraw('front');
-    that.canvasDraw('back');
+    that.canvasDraw('front',true);//背景图（不包含个性定制贴纸）
+    that.canvasDraw('back',true);
+    that.canvasDraw('front',false);//展示图（包含个性定制贴纸）
+    that.canvasDraw('back',false);
     // that.canvasRemix('front');
     // that.canvasRemix('back');
     
@@ -1555,7 +1557,7 @@ Page({
 
 // canvas绘制正反面整体图（不包含背景图）
 
-  canvasDraw(side){
+  canvasDraw(side,isBg){  //side:front正面、back反面,isBg：true团体定制成的背景图（无个性定制贴纸），false团体定制的展示图（有个性定制贴纸）
 
     let that = this;
     let itemList = [];
@@ -1565,23 +1567,31 @@ Page({
   
     if(side =='front'){
       itemList = that.data.frontItemList;
-     
+      console.log(itemList)
       that.ctx = my.createCanvasContext('canvasFront');
+      if(!isBg){ //展示图，非背景图，不包含个性贴纸
+        that.ctx = my.createCanvasContext('canvasFrontZs');
+      }
       areaLeft = that.data.bgList.left1; //定制框left
       areaTop = that.data.bgList.top1; //定制框top
       
     }else if(side == 'back'){
       itemList = that.data.backItemList;
       that.ctx = my.createCanvasContext('canvasBack');
+      if(!isBg){ //展示图，非背景图
+        that.ctx = my.createCanvasContext('canvasBackZs');
+      }
       areaLeft = that.data.bgList.left2; //定制框left
       areaTop = that.data.bgList.top2; //定制框top
     }
 
 
     for(let i=0;i<itemList.length;i++){
-
+        
         const item = itemList[i]
- 
+        if(item.pictype == 3&& isBg){
+          return;
+        }
         if(item.image == undefined && item.type == 'image'){
           return;
         }
@@ -1634,7 +1644,7 @@ Page({
   },
 
   //canvas正反面合成图（包含背景图）
-  canvasRemix(side){
+  canvasRemix(side,isBg){  
    let imgInitialW = this.data.imgInitialW
     // return;
     let that = this;
@@ -1753,7 +1763,7 @@ Page({
       // console.log(this.data.frontItemList)
   },
   //canvas正反面合成图（包含背景图）
-  canvasBg(side,cusImg){
+  canvasBg(side,cusImg){ 
 
     let that = this;
     let bgItem = {};
@@ -1857,21 +1867,31 @@ Page({
     const that = this;
     let frontStickers = '';
     let backStickers = '';
+    let content_parm = { //个性定制贴纸参数
+     
+    };
 
     for(let i=0;i<this.data.frontItemList.length;i++){
       if(this.data.frontItemList[i].pictype != undefined){
         // frontStickers.push(this.data.frontItemList[i].stickerid)
         frontStickers+=this.data.frontItemList[i].stickerid+','
       }
+      if(this.data.frontItemList[i].pictype==3){
+        content_parm['front'] = this.data.frontItemList[i]
+      }
     }
     for(let i=0;i<this.data.backItemList.length;i++){
       if(this.data.backItemList[i].pictype != undefined){
         // backStickers.push(this.data.backItemList[i].stickerid)
         backStickers+=this.data.backItemList[i].stickerid+','
+        if(this.data.backItemList[i].pictype==3){
+        content_parm['back'] = this.data.backItemList[i]
+      }
       }
     }
 
-
+    content_parm = JSON.stringify(content_parm)
+    console.log(content_parm)
 
     my.httpRequest({
       url:'http://bbltest.color3.cn/Mobile/Api/saveworkdesk',
@@ -1896,9 +1916,11 @@ Page({
         'numtype':app.globalData.type, //1个人 2团体
         'nickname':app.globalData.userInfo.nickName,  //支付宝用户昵称
         'zfb_userid':app.globalData.userInfo.userId, //支付宝id
-        'touxiang':app.globalData.userInfo.avatar //支付宝头像
+        'touxiang':app.globalData.userInfo.avatar, //支付宝头像
+        'content_parm':content_parm
       },
       success:function(res){
+        app.globalData.footer = 'list';
         my.hideLoading();
         if(res.data.status == 0){
           my.showToast({

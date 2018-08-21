@@ -52,6 +52,7 @@ App({
 
   },
   onLaunch(options) {
+   
     // this.getUserInfo()
     console.log(options.query)
     // my.alert({content: '启动参数：'+JSON.stringify(options.query)});
@@ -60,23 +61,7 @@ App({
     if(options.query == undefined){
         return;
     }
-    // if(options.query.parent_orderid==undefined||options.query.parent_orderid == ''||options.query.parent_orderid ==null){
-    //   console.log(1)
-    //   return
-    // }
-    // let options = {
-    //   parent_orderid:84,
-    //   picname:'我的T恤',
-    //   prodId : 1,
-    //   fabricId:12,
-    // }
-    // my.alert({content: '启动参数：'+JSON.stringify(options.query.x),});
-    // console.log('query', options.query);
-    // console.log('App Launch', options);
-
-
-    // console.log(this.globalData.userInfo)
-
+    
 
     // this.globalData.type = 3
     // this.globalData.teamIndividual.parent_orderid = 204
@@ -88,10 +73,35 @@ App({
     this.globalData.teamIndividual.picname=options.query.picname
     this.globalData.teamIndividual.prodId = options.query.prodId
     this.globalData.teamIndividual.fabricId = options.query.fabricId
+    this.isNum();//判断是否能定制
     
-   
-    console.log('query', options.query);
-    console.log('App Launch', options);
+  },
+  isNum(){
+    my.httpRequest({
+      url:'http://bbltest.color3.cn/Mobile/Api/isnum',
+      dataType:'json',
+      method:'POST',
+      data:{
+        orderid:this.globalData.teamIndividual.parent_orderid
+      },
+      success:function(res){
+        console.log(res)
+        if(res.data.status == 0){
+          my.alert({
+           
+            content: res.data.info,
+            buttonText: '我知道了',
+            success: () => {
+             my.reLaunch({
+               url: '../customType/customType', // 页面路径。如果页面不为 tabbar 页面则路径后可以带参数。参数规则如下：路径与参数之间使用
+               
+             });
+            },
+          });
+        }
+        
+      }
+    })
   },
   getUserInfo() {
     
