@@ -60,8 +60,8 @@ Page({
       data: {
         type: 1,
         oritype:query.oritype,
-        // tuantype:app.globalData.type
-        tuantype:2
+        tuantype:app.globalData.type
+        // tuantype:2
 
         // from: '支付宝',
         // production: 'AlipayJSAPI',

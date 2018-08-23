@@ -426,36 +426,36 @@
     /* display: none */
 }
 #canvasFront{
-z-index: -1;
-visibility: hidden;
+    z-index: -1;
+    visibility: hidden;
 }
 #canvasBack{
-z-index: -1;
-visibility: hidden;
-}
-#frontRemix{
-z-index: -1;
-visibility: hidden;
-}
-#backRemix{
-z-index: -1;
-visibility: hidden;
+    z-index: -1;
+    visibility: hidden;
 }
 #canvasFrontBg{
-z-index: -1;
-visibility: hidden;
+    z-index: -1;
+    visibility: hidden;
 }
 #canvasBackBg{
-z-index: -1;
-visibility: hidden;
+    z-index: -1;
+    visibility: hidden;
+}
+#frontRemix{
+    z-index: -1;
+    visibility: hidden;
+}
+#backRemix{
+    z-index: -1;
+    visibility: hidden;
 }
 #frontRemixBg{
-z-index: -1;
-visibility: hidden;
+    z-index: -1;
+    visibility: hidden;
 }
 #backRemixBg{
-z-index: -1;
-visibility: hidden;
+    z-index: -1;
+    visibility: hidden;
 }
 .www{
     position: absolute;
