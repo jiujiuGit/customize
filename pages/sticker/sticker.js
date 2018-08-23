@@ -59,7 +59,9 @@ Page({
       method: 'post',
       data: {
         type: 1,
-        oritype:query.oritype
+        oritype:query.oritype,
+        // tuantype:app.globalData.type
+        tuantype:2
 
         // from: '支付宝',
         // production: 'AlipayJSAPI',

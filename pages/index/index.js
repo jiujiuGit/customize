@@ -1521,25 +1521,25 @@ Page({
 
       that.uploadDrawImg('front');
       that.uploadDrawImg('back');
+      that.uploadDrawImg('frontBg');
+      that.uploadDrawImg('backBg');
       // that.uploadDrawImg('frontRemix')
       // that.uploadDrawImg('backRemix')
     
     },2000);
      setTimeout(function(){
 
-      // that.uploadDrawImg('front');
-      // that.uploadDrawImg('back');
       that.uploadDrawImg('frontRemix')
       that.uploadDrawImg('backRemix')
+
+      that.uploadDrawImg('frontRemixBg')
+      that.uploadDrawImg('backRemixBg')
     
     },3000);
-    //  'position_front':that.data.saveworkdesk.position_front_remix,   //正面合成图片base64编码
-    //     'position_front_remix':that.data.saveworkdesk.position_front,    //正面整体图片
-    //     'position_back':that.data.saveworkdesk.position_back_remix,    //反面合成图片
-    //     'position_back_remix':that.data.saveworkdesk.position_back,     //反面整体图片
+
     let params = that.data.saveworkdesk
 
-     let myInterval = setInterval(function(){
+    let myInterval = setInterval(function(){
           
           if(params.position_front_remix!=undefined&& params.position_front!=undefined && params.position_back_remix!=undefined && params.position_back!=undefined){
             
@@ -1569,8 +1569,8 @@ Page({
       itemList = that.data.frontItemList;
       console.log(itemList)
       that.ctx = my.createCanvasContext('canvasFront');
-      if(!isBg){ //展示图，非背景图，不包含个性贴纸
-        that.ctx = my.createCanvasContext('canvasFrontZs');
+      if(isBg){ //背景图，非展示图，不包含个性贴纸
+        that.ctx = my.createCanvasContext('canvasFrontBg');
       }
       areaLeft = that.data.bgList.left1; //定制框left
       areaTop = that.data.bgList.top1; //定制框top
@@ -1578,8 +1578,8 @@ Page({
     }else if(side == 'back'){
       itemList = that.data.backItemList;
       that.ctx = my.createCanvasContext('canvasBack');
-      if(!isBg){ //展示图，非背景图
-        that.ctx = my.createCanvasContext('canvasBackZs');
+      if(isBg){ //背景图，非展示图，不包含个性贴纸
+        that.ctx = my.createCanvasContext('canvasBackBg');
       }
       areaLeft = that.data.bgList.left2; //定制框left
       areaTop = that.data.bgList.top2; //定制框top
@@ -1802,6 +1802,32 @@ Page({
       that.ctx.drawImage(cusImg,areaLeft,areaTop,that.data.bgList.width1,that.data.bgList.height1)//画定制图
       that.ctx.draw()
    
+    }else if(side == 'canvasFrontBg'){
+       bgItem.picw = that.data.bgList.pic1w;
+      bgItem.pich = that.data.bgList.pic1h;
+   
+      bgItem.image = that.data.bgList.pic1;
+
+      that.ctx = my.createCanvasContext('frontRemixBg');
+      areaLeft = that.data.bgList.left1; //定制框left
+      areaTop = that.data.bgList.top1; //定制框top
+
+      //  that.ctx.save();
+      that.ctx.drawImage(bgItem.image,0,0,bgItem.picw,bgItem.pich)//画背景图
+      that.ctx.drawImage(cusImg,areaLeft,areaTop,that.data.bgList.width,that.data.bgList.height)//画定制图
+      that.ctx.draw()
+
+    }else if(side == 'canvasBackBg'){
+      bgItem.picw = that.data.bgList.pic2w;
+      bgItem.pich = that.data.bgList.pic2h;
+      bgItem.image = that.data.bgList.pic2
+    
+      that.ctx = my.createCanvasContext('backRemixBg');
+      areaLeft = that.data.bgList.left2; //定制框left
+      areaTop = that.data.bgList.top2; //定制框top
+      that.ctx.drawImage(bgItem.image,0,0,bgItem.picw,bgItem.pich)//画背景图
+      that.ctx.drawImage(cusImg,areaLeft,areaTop,that.data.bgList.width1,that.data.bgList.height1)//画定制图
+      that.ctx.draw()
     }
   },
   //上传定制后的图片
@@ -1815,6 +1841,14 @@ Page({
       that.ctx = my.createCanvasContext('frontRemix');
     }else if(side == 'backRemix'){
       that.ctx = my.createCanvasContext('backRemix');
+    }else if(side == 'frontRemixBg'){
+      that.ctx = my.createCanvasContext('frontRemixBg');
+    }else if(side == 'backRemixBg'){
+      that.ctx = my.createCanvasContext('backRemixBg');
+    }else if(side == 'frontBg'){
+      that.ctx = my.createCanvasContext('canvasFrontBg');
+    }else if(side == 'backBg'){
+      that.ctx = my.createCanvasContext('canvasBackBg');
     }
     that.ctx.toTempFilePath({
           success(res) {
@@ -1824,6 +1858,10 @@ Page({
               that.canvasBg('front',res.apFilePath)
             }else if(side == 'back'){
               that.canvasBg('back',res.apFilePath)
+            }else if(side == 'frontRemixBg'){
+              that.canvasBg('canvasFrontBg',res.apFilePath)
+            }else if(side == 'backRemixBg'){
+              that.canvasBg('canvasFrontBg',res.apFilePath)
             }
             my.uploadFile({
               url: 'http://bbltest.color3.cn/Mobile/Api/workupload',
@@ -1844,6 +1882,11 @@ Page({
                 }else if(side == 'backRemix'){
                  
                   params.position_back_remix = resData.data.url
+                }else if(side == 'frontRemixBg'){
+                  params.position_font_clear= resData.data.url;
+                  console.log( resData.data.url)
+                }else if(side == 'backRemixBg'){
+                  params.position_back_clear = resData.data.url
                 }
 
                 that.setData({
@@ -1917,7 +1960,9 @@ Page({
         'nickname':app.globalData.userInfo.nickName,  //支付宝用户昵称
         'zfb_userid':app.globalData.userInfo.userId, //支付宝id
         'touxiang':app.globalData.userInfo.avatar, //支付宝头像
-        'content_parm':content_parm
+        'content_parm':content_parm,  
+        'position_font_clear':that.data.saveworkdesk.position_font_clear,//不包含个性贴纸的背景图片
+        'position_back_clear':that.data.saveworkdesk.position_back_clear
       },
       success:function(res){
         app.globalData.footer = 'list';

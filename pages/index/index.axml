@@ -132,9 +132,11 @@
   <canvas class="mycanvas" id="backRemix" style="width:{{bgList.pic2w}}px; height:{{bgList.pic2h}}px"></canvas>
 
 
-
-  <canvas class="mycanvas" id="frontRemixZs"  style="width:{{bgList.pic1w}}px; height:{{bgList.pic1h}}px"></canvas>
-  <canvas class="mycanvas" id="backRemixZs" style="width:{{bgList.pic2w}}px; height:{{bgList.pic2h}}px"></canvas>
+  <!-- 正反面没有个性化贴纸的canvs -->
+  <canvas class="mycanvas" id="canvasFrontBg" style="width:{{bgList.width}}px; height:{{bgList.height}}px"></canvas>
+  <canvas class="mycanvas" id="canvasBackBg" style="width:{{bgList.width1}}px; height:{{bgList.height1}}px"></canvas>
+  <canvas class="mycanvas" id="frontRemixBg"  style="width:{{bgList.pic1w}}px; height:{{bgList.pic1h}}px"></canvas>
+  <canvas class="mycanvas" id="backRemixBg" style="width:{{bgList.pic2w}}px; height:{{bgList.pic2h}}px"></canvas>
 
 
 

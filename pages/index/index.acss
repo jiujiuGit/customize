@@ -441,11 +441,19 @@ visibility: hidden;
 z-index: -1;
 visibility: hidden;
 }
-#frontRemixZs{
+#canvasFrontBg{
 z-index: -1;
 visibility: hidden;
 }
-#backRemixZs{
+#canvasBackBg{
+z-index: -1;
+visibility: hidden;
+}
+#frontRemixBg{
+z-index: -1;
+visibility: hidden;
+}
+#backRemixBg{
 z-index: -1;
 visibility: hidden;
 }
