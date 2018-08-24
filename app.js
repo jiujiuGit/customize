@@ -58,21 +58,21 @@ App({
     // my.alert({content: '启动参数：'+JSON.stringify(options.query)});
 
     // 获取团体定制下的个人定制参数
-    if(options.query == undefined){
-        return;
-    }
+    // if(options.query == undefined){
+    //     return;
+    // }
     
 
-    // this.globalData.type = 3
-    // this.globalData.teamIndividual.parent_orderid = 204
-    // this.globalData.teamIndividual.picname="新衣服"
-    // this.globalData.teamIndividual.prodId = 1
-    // this.globalData.teamIndividual.fabricId = 1
     this.globalData.type = 3
-    this.globalData.teamIndividual.parent_orderid = options.query.parent_orderid
-    this.globalData.teamIndividual.picname=options.query.picname
-    this.globalData.teamIndividual.prodId = options.query.prodId
-    this.globalData.teamIndividual.fabricId = options.query.fabricId
+    this.globalData.teamIndividual.parent_orderid = 420
+        this.globalData.teamIndividual.picname="新衣服"
+    this.globalData.teamIndividual.prodId = 1
+    this.globalData.teamIndividual.fabricId = 1
+    // this.globalData.type = 3
+    // this.globalData.teamIndividual.parent_orderid = options.query.parent_orderid
+    // this.globalData.teamIndividual.picname=options.query.picname
+    // this.globalData.teamIndividual.prodId = options.query.prodId
+    // this.globalData.teamIndividual.fabricId = options.query.fabricId
     this.isNum();//判断是否能定制
     
   },

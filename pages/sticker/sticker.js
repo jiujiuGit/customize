@@ -112,7 +112,7 @@ Page({
       
 
     const eidtAreaParams = app.globalData.eidtAreaParams
-console.log(this.data.individualSticker)
+
     let item = {  
         pictype:3,
         // id: imgLength+1,   

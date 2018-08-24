@@ -324,7 +324,10 @@ Page({
         });
         
       
-        
+        // let content_parm = res.data.data.content_parm.slice(0,0).slice(0,res.data.data.content_parm.length)
+        console.log(res.data.data.content_parm )
+        let content_parm  = JSON.parse(res.data.data.content_parm )
+        console.log(content_parm.back)
         let individualArea = []
         for(let i=0;i<res.data.data.buttons.length;i++){
           let btnItem = {
@@ -335,9 +338,27 @@ Page({
           individualArea.push(btnItem)
 
         }
+        if(content_parm.front!=undefined){
+          let btnItem = {
+            name:'正面',
+            active:false,
+            disable:false
+          }
+          individualArea.push(btnItem)
+        }
+        if(content_parm.back!=undefined){
+          console.log(1)
+          let btnItem = {
+            name:'反面',
+            active:false,
+            disable:false
+          }
+          individualArea.push(btnItem)
+        }
         that.setData({
           individualArea:individualArea
         })
+        console.log(that.data.individualArea)
 
         
         
@@ -1912,8 +1933,9 @@ Page({
       }
       }
     }
-
+    
     content_parm = JSON.stringify(content_parm)
+  
 
 
     my.httpRequest({

@@ -1,9 +1,13 @@
 {
   "pages": [
-    "pages/customType/customType",
+     "pages/index/index",
+  "pages/customType/customType",
+   
+    
     "pages/logistics/logistics",
     
-    "pages/index/index",
+     
+     
   
     "pages/placeIndividualOrder/placeIndividualOrder",
     "pages/placeTeamOrder/placeTeamOrder",
