@@ -53,7 +53,8 @@ Page({
     // textInitialW:0,//文字初始大小
 
     drawList:[],
-    uploadList:[]
+    uploadList:[],
+    inputArea:false  //个性化贴纸个人部分
 
   },
   getSystemInfoPage() {
@@ -313,10 +314,32 @@ Page({
         }else if(res.data.data.buttons.indexOf('右侧')>-1){
           ct = 'rightSide'
         }
+        let buttons = res.data.data.buttons;
+        let content_parm = JSON.parse(res.data.data.content_parm)
+
+        if(content_parm['front']!=undefined){ 
+          let frontItemList = that.data.frontItemList;
+          frontItemList.push(content_parm.front)
+          that.setData({
+            frontItemList:frontItemList
+          })
+          
+          buttons.push('正面')
+        }
+        if(content_parm['back']!=undefined){
+          let backItemList = that.data.backItemList;
+          backItemList.push(content_parm.back)
+          that.setData({
+            backItemList:backItemList
+          })
+          buttons.push('反面')
+        }
+    
+        
         that.setData({
           // bgList:bgList,
           sizes:res.data.data.sizes,
-          buttons:res.data.data.buttons,
+          buttons:buttons,
           oriLeftPic:res.data.data.pic3,
           oriRightPic:res.data.data.pic4,
           currentTap:ct
@@ -325,9 +348,9 @@ Page({
         
       
         // let content_parm = res.data.data.content_parm.slice(0,0).slice(0,res.data.data.content_parm.length)
-        console.log(res.data.data.content_parm )
-        let content_parm  = JSON.parse(res.data.data.content_parm )
-        console.log(content_parm.back)
+        // console.log(res.data.data.content_parm )
+        // let content_parm  = JSON.parse(res.data.data.content_parm )
+        // console.log(content_parm.back)
         let individualArea = []
         for(let i=0;i<res.data.data.buttons.length;i++){
           let btnItem = {
@@ -338,23 +361,23 @@ Page({
           individualArea.push(btnItem)
 
         }
-        if(content_parm.front!=undefined){
-          let btnItem = {
-            name:'正面',
-            active:false,
-            disable:false
-          }
-          individualArea.push(btnItem)
-        }
-        if(content_parm.back!=undefined){
-          console.log(1)
-          let btnItem = {
-            name:'反面',
-            active:false,
-            disable:false
-          }
-          individualArea.push(btnItem)
-        }
+        // if(content_parm.front!=undefined){
+        //   let btnItem = {
+        //     name:'正面',
+        //     active:false,
+        //     disable:false
+        //   }
+        //   individualArea.push(btnItem)
+        // }
+        // if(content_parm.back!=undefined){
+        //   console.log(1)
+        //   let btnItem = {
+        //     name:'反面',
+        //     active:false,
+        //     disable:false
+        //   }
+        //   individualArea.push(btnItem)
+        // }
         that.setData({
           individualArea:individualArea
         })
@@ -410,18 +433,20 @@ Page({
     areas[index].active = !areas[index].active;
     this.setData({
       individualArea:areas
-    })
+    });
+    
     
   },
   // 选择个人定制区域
   personalArea(){
     // let front = this.data.individualArea.indexof
     let individualArea = this.data.individualArea;
+    console.log(individualArea)
     let frontIndex,
         backIndex,
         leftIndex,
         rightIndex;
-    for(let i=0;i<individualArea.length;i++){
+    for(let i=0;i<c.length;i++){
       if(individualArea[i].name == '正面'){
           frontIndex = i
       }else if(individualArea[i].name == '反面'){
@@ -486,6 +511,7 @@ Page({
     }
 
     
+    
      for (let i = 0; i < items.length; i++) {  //旋转数据找到点击的  
             items[i].active = false;  
             if (e.currentTarget.dataset.id == items[i].id) {  
@@ -494,6 +520,16 @@ Page({
                 })
                 // index = i;   //记录下标  
                 items[this.data.index].active = true;  //开启点击属性  
+
+                console.log(items[this.data.index])
+                if(items[this.data.index].pictype == 3){
+                  this.setData({
+                    inputArea:true
+                  })
+                }
+
+
+
             }  
         }  
         
@@ -620,7 +656,23 @@ Page({
         // })  
         
   } , 
-
+  inputQuit(){
+    this.setData({
+      inputArea:false
+    })
+  },
+  inputConfirm(){
+    this.setData({
+      inputArea:false
+    })
+  },
+  stickerInput(e){
+    console.log(e)
+    
+    this.setData({
+      stickrtInputValue: e.detail.value,
+    });
+  },  
   // 删除图片
   deleteItem(e){
     // let items = this.data.itemList;
