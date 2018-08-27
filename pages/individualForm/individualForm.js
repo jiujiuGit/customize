@@ -597,7 +597,7 @@ Page({
     //     zfb_userid:app.globalData.userInfo.userId,
     //     id:res.data.order
     const params = that.data.orderParams;
-    cocnsole.log(params)
+    // cocnsole.log(params)
     my.httpRequest({
       url:'http://bbltest.color3.cn/Mobile/Api/gerensuborder',
       dataType:'json',

@@ -50,9 +50,9 @@
             </view> 
 
             <!-- 删除图片 -->
-            <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTap='deleteItem'></image>  
+            <image class='x' a:if="{{item.active && footer!='individualSticker'}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTap='deleteItem'></image>  
             <!-- 缩放旋转 -->
-            <image class='o' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/suofang.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTouchStart='touchStart' onTouchMove='touchMove' onTouchEnd='touchEnd'></image>  
+            <image class='o' a:if="{{item.active && footer!='individualSticker'}}" mode="widthFix" src='../../assets/images/suofang.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTouchStart='touchStart' onTouchMove='touchMove' onTouchEnd='touchEnd'></image>  
           </view>
           
         </view>
@@ -101,9 +101,9 @@
             </view> 
 
             <!-- 删除图片 -->
-            <image class='x' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTap='deleteItem'></image>  
+            <image class='x' a:if="{{item.active && footer!='individualSticker'}}" mode="widthFix" src='../../assets/images/cha.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTap='deleteItem'></image>  
             <!-- 缩放旋转 -->
-            <image class='o' a:if="{{item.active}}" mode="widthFix" src='../../assets/images/suofang.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTouchStart='touchStart' onTouchMove='touchMove' onTouchEnd='touchEnd'></image>  
+            <image class='o' a:if="{{item.active && footer!='individualSticker'}}" mode="widthFix" src='../../assets/images/suofang.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' onTouchStart='touchStart' onTouchMove='touchMove' onTouchEnd='touchEnd'></image>  
           </view>
           
         </view>
@@ -173,8 +173,8 @@
     </view>
 
     <!-- 定制列表 -->
-    <view class="custome-list" a:if="{{footer == 'list'}}">
-      <view class="custome-window flex-box flex-wrap {{windowActive?'custome-active':''}}" onTouchStart='windowTouchStart' onTouchMove = 'windowTouchMove'>
+    <view class="custome-list" a:if="{{footer == 'list' || footer =='individualSticker'}}">
+      <view a:if="{{footer == 'list'}}" class="custome-window flex-box flex-wrap {{windowActive?'custome-active':''}}" onTouchStart='windowTouchStart' onTouchMove = 'windowTouchMove'>
 
         <view class="custome-window-tab" onTap="windowToggle"  >
           <image id="backIcon" src="../../assets/icon/icon_back.png" a:if='{{windowActive == true}}' mode="scaleToFill" />
@@ -224,14 +224,14 @@
             <text class="custome-item-text">清除</text>
           </view>
         </view>  
-        </view>
+      </view>
         
-        <view class="flex-box bottom">
-            <view class="goods-name flex-item-1">  {{picname}}</view>
-            <button form-type="submit" class="customize-btn" onTap="customize">开始定制</button>
-          </view>
+      <view class="flex-box bottom" a:if="{{footer =='individualSticker'}}}}">
+          <view class="goods-name flex-item-1">  {{picname}}</view>
+          <button form-type="submit" class="customize-btn" onTap="customize">开始定制</button>
+      </view>
         
-        </view>
+    </view>
   
       <!-- 文字 -->
       <view class="text-content" a:elif="{{footer == 'text'}}">

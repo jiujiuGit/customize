@@ -54,7 +54,9 @@ Page({
 
     drawList:[],
     uploadList:[],
-    inputArea:false  //个性化贴纸个人部分
+    inputArea:false,  //个性化贴纸个人部分
+    hasFrontIndivSticker:false, //正反面是否存在个性化贴纸
+    hasBackIndivSticker:false
 
   },
   getSystemInfoPage() {
@@ -315,24 +317,34 @@ Page({
           ct = 'rightSide'
         }
         let buttons = res.data.data.buttons;
-        let content_parm = JSON.parse(res.data.data.content_parm)
+        if(that.data.type == 3){
+          let content_parm = JSON.parse(res.data.data.content_parm)
 
         if(content_parm['front']!=undefined){ 
           let frontItemList = that.data.frontItemList;
           frontItemList.push(content_parm.front)
           that.setData({
-            frontItemList:frontItemList
+            frontItemList:frontItemList,
+            footer:'individualSticker',
+            hasFrontIndivSticker:true
           })
-          
+           ct = 'front'
+          app.globalData.frontItems = frontItemList
           buttons.push('正面')
         }
         if(content_parm['back']!=undefined){
+          console.log('hasBackIndivSticker')
           let backItemList = that.data.backItemList;
           backItemList.push(content_parm.back)
           that.setData({
-            backItemList:backItemList
+            backItemList:backItemList,
+            footer:'individualSticker',
+            hasBackIndivSticker:true
           })
+          app.globalData.backItems = backItemList
           buttons.push('反面')
+          ct = 'back'
+        }
         }
     
         
@@ -446,7 +458,7 @@ Page({
         backIndex,
         leftIndex,
         rightIndex;
-    for(let i=0;i<c.length;i++){
+    for(let i=0;i<individualArea.length;i++){
       if(individualArea[i].name == '正面'){
           frontIndex = i
       }else if(individualArea[i].name == '反面'){
@@ -522,9 +534,10 @@ Page({
                 items[this.data.index].active = true;  //开启点击属性  
 
                 console.log(items[this.data.index])
-                if(items[this.data.index].pictype == 3){
+                if(items[this.data.index].pictype == 3 && this.data.type == 3){
                   this.setData({
-                    inputArea:true
+                    inputArea:true,
+                    footer:'individualSticker'
                   })
                 }
 
@@ -556,6 +569,9 @@ Page({
   WraptouchMove: function (e) {  
  
     // let items = this.data.itemList;
+    if(this.data.footer == 'individualSticker'){
+      return; //个人定制下的个性贴纸不允许移动
+    }
     const curTap = this.data.currentTap;
     let imgInitialW = this.data.imgInitialW 
     let maxLeft ; //可移动的最大left值
@@ -658,20 +674,56 @@ Page({
   } , 
   inputQuit(){
     this.setData({
-      inputArea:false
+      inputArea:false,
+      // footer:'individualSticker'
+    
     })
   },
   inputConfirm(){
     this.setData({
-      inputArea:false
+      inputArea:false,
+      // footer:'individualSticker'
     })
+    const curTap = this.data.currentTap;
+    let index = this.data.index;
+    let items = [];
+    if(curTap == 'front'){
+       items = this.data.frontItemList;
+    }else if(curTap == 'back'){
+       items = this.data.backItemList; 
+    }
+    console.log(items[curTap])
+    items[index].text = this.data.stickrtInputValue;
+    if(curTap == 'front'){
+       items = this.data.frontItemList;
+      this.setData({
+        frontItemList:items
+      })
+    }else if(curTap == 'back'){
+      items = this.data.backItemList;
+      this.setData({
+        backItemList:items
+      })
+        // backItemList:items
+    }
   },
   stickerInput(e){
-    console.log(e)
+    const curTap = this.data.currentTap;
+  
+    let items = [];
+    if(curTap == 'front'){
+       items = this.data.frontItemList;
+    }else if(curTap == 'back'){
+       items = this.data.backItemList; 
+    }
     
+    let text = this.filterEmoji(e.detail.value)
+   
     this.setData({
-      stickrtInputValue: e.detail.value,
+      stickrtInputValue: text,
     });
+     
+    
   },  
   // 删除图片
   deleteItem(e){
@@ -951,12 +1003,18 @@ Page({
 
   },
   windowHide(){
-    this.setData({
-      footer:'list'
-    })
-    this.setData({
-      windowActive: false
-    });
+    if(this.data.footer == 'individualSticker'){
+
+    }else{
+      this.setData({
+        footer:'list',
+        windowActive: false
+      })
+    }
+    
+    // this.setData({
+     
+    // });
    
    const curTap = this.data.currentTap;
     let items = [];
@@ -1108,10 +1166,21 @@ Page({
   },
   // 点击正面
   front(e){
+    console.log(this.data.footer)
     if(this.data.footer =='text'){
       return; //编辑字体时不允许切换
     }
-
+    console.log(this.data.hasFrontIndivSticker)
+    if(this.data.hasFrontIndivSticker){ //存在个性化贴纸
+      this.setData({
+        footer:'individualSticker'
+      })
+    }else{
+      this.setData({
+        footer:'list'
+      })
+    }
+    console.log()
     let individualArea = this.data.individualArea;
     let frontIndex;
     for(let i=0;i<individualArea.length;i++){
@@ -1175,10 +1244,21 @@ Page({
   },
   // 点击背面
   back(e){
-    
+    console.log(this.data.footer)
     if(this.data.footer =='text'){
       return; //编辑字体时不允许切换
     }
+    console.log(this.data.hasBackIndivSticker)
+    if(this.data.hasBackIndivSticker){ //存在个性化贴纸
+      this.setData({
+        footer:'individualSticker'
+      })
+    }else{
+      this.setData({
+        footer:'list'
+      })
+    }
+    
     let individualArea = this.data.individualArea;
     let backIndex;
         
@@ -1272,7 +1352,8 @@ Page({
     this.setData({
       currentTap:'leftSide',
       windowActive:true,
-      individualArea:individualArea
+      individualArea:individualArea,
+      footer:'list'
     })
   },
   // 点击右侧
@@ -1307,7 +1388,8 @@ Page({
     this.setData({
       currentTap:'rightSide',
       windowActive:true,
-      individualArea:individualArea
+      individualArea:individualArea,
+      footer:'list'
     })
   },
   // 点击文字
@@ -1566,6 +1648,27 @@ Page({
   //  开始定制
   customize(){
     
+    for(var i=0;i<this.data.frontItemList.length;i++){
+      if(this.data.frontItemList[i].text == '请输入...' && this.data.frontItemList[i].pictype == 3){
+        
+        my.alert({
+          title: '请输入个性贴纸内容',
+        });
+        return;
+      }
+    }
+    
+    for(var j=0;j<this.data.backItemList.length;j++){
+      
+      if(this.data.backItemList[j].text == '请输入...' &&  this.data.backItemList[j].pictype == 3){
+       
+        my.alert({
+          title: '请输入个性贴纸内容',
+        });
+        return;
+      }
+    }
+   
     let that = this;
     my.showLoading({
       content: '提交中，请稍后...',
@@ -1661,7 +1764,7 @@ Page({
         
         const item = itemList[i]
         
-        if(item.pictype == 3&& isBg){
+        if(item.pictype == 3&& isBg && that.data.footer!='individualSticker'){
 
           
         }else{
