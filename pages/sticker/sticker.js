@@ -51,6 +51,7 @@ Page({
     this.setData({
       ground:query.currentTap 
     });
+    console.log(query.currentTap )
     my.showLoading({
       content: '加载中...'
     });
@@ -76,8 +77,17 @@ Page({
           });
           return;
         }
+        let stickers = res.data.list;
+        // if(that.data.ground == 'leftSide' || that.data.ground == 'rightSide'){
+        //   for(var i=0;i<stickers.length;i++){
+        //     if(stickers[i].pictype == 3){
+        //       stickers.splice(i,1)
+        //     }
+        //   }
+        // }
+        // console.log(stickers)
         that.setData({
-          stickers:res.data.list
+          stickers:stickers
         })
       },
       fail: function(res) {
@@ -138,7 +148,15 @@ Page({
       item.text =  '请输入...';
       if(this.data.ground == 'front'){  //添加到front编辑列表
       const frontLength = app.globalData.frontItems.length;
-    
+      for(var i=0;i<frontLength;i++){
+        if(app.globalData.frontItems[i].pictype == 3){
+          my.alert({
+            content:"抱歉，个性贴纸在每一面只能使用一次哦！",
+            buttonText: '我知道了'
+          })
+          return;
+        }
+      }
       item.left = (eidtAreaParams.width1 - 100)/2;
       item.top =  (eidtAreaParams.height1)/2;
       item.x = eidtAreaParams.left1+ item.left + 50;
@@ -149,7 +167,16 @@ Page({
       app.globalData.frontItems.push(item)
       app.globalData.stickerIndex = app.globalData.frontItems.length-1
     }else if(this.data.ground == 'back'){ //添加到back编辑列表
-      const backLength = app.globalData.backItems.length
+      const backLength = app.globalData.backItems.length;
+      for(var i=0;i<backLength;i++){
+        if(app.globalData.backItems[i].pictype == 3){
+          my.alert({
+            content:"抱歉，个性贴纸在每一面只能使用一次哦！",
+            buttonText: '我知道了'
+          })
+          return;
+        }
+      }
        item.left = (eidtAreaParams.width1 - 100)/2;
       item.top =  (eidtAreaParams.height1)/2;
       item.x = eidtAreaParams.left1+ item.left + 50;

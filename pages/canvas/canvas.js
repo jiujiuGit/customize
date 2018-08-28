@@ -94,6 +94,7 @@ Page({
         that.ctx.setGlobalAlpha(i/10)
         that.ctx.setFillStyle('red');
         // that.ctx.setTextAlign('center')
+        that.ctx.setTextAlign("right");
         that.ctx.fillText('我是'+i, 90, 90)
         that.ctx.drawImage(newArr[i],0,0,100,120) 
         that.ctx.restore();//恢复状态

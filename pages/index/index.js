@@ -186,6 +186,7 @@ Page({
   
   },
   onLoad(query) {  
+    console.log(app.globalData.userInfo)
     // const that = this;
     app.globalData.leftStickerId = '';
     app.globalData.rightStickerId = '';
@@ -234,6 +235,7 @@ Page({
         id:this.data.prodId,
         // id:1,//款式id
         parent_orderid:that.data.parent_orderid,//团体订单id
+        tgtype:app.globalData.type  //个人传1 
       },
       dataType: 'json',
       
@@ -1649,7 +1651,7 @@ Page({
   customize(){
     
     for(var i=0;i<this.data.frontItemList.length;i++){
-      if(this.data.frontItemList[i].text == '请输入...' && this.data.frontItemList[i].pictype == 3){
+      if(this.data.frontItemList[i].text == '请输入...' && this.data.frontItemList[i].pictype == 3 && app.globalData.type == 3){
         
         my.alert({
           title: '请输入个性贴纸内容',
@@ -1660,7 +1662,7 @@ Page({
     
     for(var j=0;j<this.data.backItemList.length;j++){
       
-      if(this.data.backItemList[j].text == '请输入...' &&  this.data.backItemList[j].pictype == 3){
+      if(this.data.backItemList[j].text == '请输入...' &&  this.data.backItemList[j].pictype == 3 && app.globalData.type == 3){
        
         my.alert({
           title: '请输入个性贴纸内容',
@@ -1692,8 +1694,7 @@ Page({
       that.uploadDrawImg('back');
       that.uploadDrawImg('frontBg');
       that.uploadDrawImg('backBg');
-      // that.uploadDrawImg('frontRemix')
-      // that.uploadDrawImg('backRemix')
+
     
     },2000);
      setTimeout(function(){
@@ -1736,7 +1737,9 @@ Page({
     let itemList = [];
     let areaLeft ;
     let areaTop ;
-    let imgInitialW = this.data.imgInitialW
+    let imgInitialW = this.data.imgInitialW;
+    let areaW;//可定制区域宽高
+    let areaH;
   
     if(side =='front'){
       itemList = that.data.frontItemList;
@@ -1749,6 +1752,8 @@ Page({
       }
       areaLeft = that.data.bgList.left1; //定制框left
       areaTop = that.data.bgList.top1; //定制框top
+      areaW = that.data.bgList.width;
+      areaH = that.data.bgList.height;
       
     }else if(side == 'back'){
       itemList = that.data.backItemList;
@@ -1758,6 +1763,8 @@ Page({
       }
       areaLeft = that.data.bgList.left2; //定制框left
       areaTop = that.data.bgList.top2; //定制框top
+      areaW = that.data.bgList.width1;
+      areaH = that.data.bgList.height1;
     }
 
     for(let i=0;i<itemList.length;i++){
@@ -1784,7 +1791,16 @@ Page({
             top = (item.fontSize*item.scale)/2+top;  //文字top要加上文字的高度
             height = -item.fontSize*item.scale;//文字的高度
           }
+          if(app.globalData.type == 3){
+            if(side == 'front'){
+              console.log(that.data.bgList.pic1_remix+"*"+areaLeft+"*"+areaTop+"*"+areaW+"*"+areaH)
+              that.ctx.drawImage(that.data.bgList.pic1_remix,0,0,areaW,areaH) 
+            }else if(side == 'back'){
+              console.log(that.data.bgList.pic2_remix+"*"+areaLeft+"*"+areaTop+"*"+areaW+"*"+areaH)
+              that.ctx.drawImage(that.data.bgList.pic2_remix,0,0,areaW,areaH) 
+            }
             
+          }  
           that.ctx.translate(item.x-areaLeft,item.y-areaTop);//圆心坐标
           that.ctx.rotate(item.angle * Math.PI / 180);//旋转
           that.ctx.translate(-(imgInitialW * item.scale/ 2), -(height / 2))
@@ -2018,10 +2034,7 @@ Page({
               
                 const resData = JSON.parse(res.data)
                 let params = that.data.saveworkdesk
-//  that.uploadDrawImg('frontRemix')
-//       that.uploadDrawImg('backRemix')
-//       that.uploadDrawImg('frontRemixBg')
-//       that.uploadDrawImg('backRemixBg')
+
     
                 if(side == 'front'){
                   params.position_front = resData.data.url
@@ -2043,6 +2056,10 @@ Page({
                 }else if(side == 'backRemixBg'){
       
                   params.position_back_clear = resData.data.url
+                }else if(side == 'frontBg'){
+                  params.position_font_clear_remix = resData.data.url
+                }else if(side == 'backBg'){
+                  params.position_back_clear_remix = resData.data.url
                 }
 
                 that.setData({
@@ -2106,6 +2123,8 @@ Page({
         'position_back_remix':that.data.saveworkdesk.position_back,     //反面整体图片
         'position_font_clear':that.data.saveworkdesk.position_font_clear,
         'position_back_clear':that.data.saveworkdesk.position_back_clear,
+        'position_font_clear_remix':that.data.saveworkdesk.position_font_clear_remix,
+        'position_back_clear_remix':that.data.saveworkdesk.position_back_clear_remix,
         'position_side_id':that.data.leftSidePicId,   //侧面的图片id左侧
         'position_side_id1':that.data.rightSidePicId,//侧面的图片id右侧
         'size':that.data.fabricId,  //尺码

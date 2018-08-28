@@ -1,8 +1,10 @@
 {
   "pages": [
-    
-    "pages/customType/customType",
     "pages/index/index",
+    "pages/customType/customType",
+    "pages/canvas/canvas",
+    
+    
     
     "pages/logistics/logistics",
     
@@ -13,7 +15,7 @@
     "pages/placeTeamOrder/placeTeamOrder",
     
   
-    "pages/canvas/canvas",
+    
    
     "pages/individualForm/individualForm",
  
