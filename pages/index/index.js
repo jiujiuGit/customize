@@ -186,7 +186,8 @@ Page({
   
   },
   onLoad(query) {  
-    console.log(app.globalData.userInfo)
+
+    app.getUserInfo();
     // const that = this;
     app.globalData.leftStickerId = '';
     app.globalData.rightStickerId = '';
@@ -332,10 +333,10 @@ Page({
           })
            ct = 'front'
           app.globalData.frontItems = frontItemList
-          buttons.push('正面')
+          // buttons.push('正面')
         }
         if(content_parm['back']!=undefined){
-          console.log('hasBackIndivSticker')
+     
           let backItemList = that.data.backItemList;
           backItemList.push(content_parm.back)
           that.setData({
@@ -344,7 +345,7 @@ Page({
             hasBackIndivSticker:true
           })
           app.globalData.backItems = backItemList
-          buttons.push('反面')
+          // buttons.push('反面')
           ct = 'back'
         }
         }
@@ -455,7 +456,7 @@ Page({
   personalArea(){
     // let front = this.data.individualArea.indexof
     let individualArea = this.data.individualArea;
-    console.log(individualArea)
+  
     let frontIndex,
         backIndex,
         leftIndex,
@@ -535,7 +536,7 @@ Page({
                 // index = i;   //记录下标  
                 items[this.data.index].active = true;  //开启点击属性  
 
-                console.log(items[this.data.index])
+                
                 if(items[this.data.index].pictype == 3 && this.data.type == 3){
                   this.setData({
                     inputArea:true,
@@ -694,7 +695,7 @@ Page({
     }else if(curTap == 'back'){
        items = this.data.backItemList; 
     }
-    console.log(items[curTap])
+
     items[index].text = this.data.stickrtInputValue;
     if(curTap == 'front'){
        items = this.data.frontItemList;
@@ -1168,11 +1169,11 @@ Page({
   },
   // 点击正面
   front(e){
-    console.log(this.data.footer)
+    
     if(this.data.footer =='text'){
       return; //编辑字体时不允许切换
     }
-    console.log(this.data.hasFrontIndivSticker)
+   
     if(this.data.hasFrontIndivSticker){ //存在个性化贴纸
       this.setData({
         footer:'individualSticker'
@@ -1182,7 +1183,7 @@ Page({
         footer:'list'
       })
     }
-    console.log()
+ 
     let individualArea = this.data.individualArea;
     let frontIndex;
     for(let i=0;i<individualArea.length;i++){
@@ -1246,11 +1247,11 @@ Page({
   },
   // 点击背面
   back(e){
-    console.log(this.data.footer)
+    
     if(this.data.footer =='text'){
       return; //编辑字体时不允许切换
     }
-    console.log(this.data.hasBackIndivSticker)
+
     if(this.data.hasBackIndivSticker){ //存在个性化贴纸
       this.setData({
         footer:'individualSticker'
@@ -1649,7 +1650,7 @@ Page({
   },
   //  开始定制
   customize(){
-    
+  
     for(var i=0;i<this.data.frontItemList.length;i++){
       if(this.data.frontItemList[i].text == '请输入...' && this.data.frontItemList[i].pictype == 3 && app.globalData.type == 3){
         
@@ -1699,14 +1700,12 @@ Page({
     },2000);
      setTimeout(function(){
 
-      // that.uploadDrawImg('front');
-      // that.uploadDrawImg('back');
       that.uploadDrawImg('frontRemix')
       that.uploadDrawImg('backRemix')
       that.uploadDrawImg('frontRemixBg')
       that.uploadDrawImg('backRemixBg')
     
-    },3000);
+    },4000);
     //  'position_front':that.data.saveworkdesk.position_front_remix,   //正面合成图片base64编码
     //     'position_front_remix':that.data.saveworkdesk.position_front,    //正面整体图片
     //     'position_back':that.data.saveworkdesk.position_back_remix,    //反面合成图片
@@ -1714,15 +1713,23 @@ Page({
     let params = that.data.saveworkdesk
         
      let myInterval = setInterval(function(){
-          
-          if(params.position_front_remix!=undefined&& params.position_front!=undefined && params.position_back_remix!=undefined && params.position_back!=undefined && params.position_font_clear!=undefined&& params.position_back_clear!=undefined){
+          console.log(JSON.stringify(params))
+          if(params.position_front_remix!=undefined&& 
+          params.position_front!=undefined && 
+          params.position_back_remix!=undefined && 
+          params.position_back!=undefined && 
+          params.position_font_clear!=undefined&& 
+          params.position_back_clear!=undefined&&
+          params.position_back_clear_remix!=undefined &&
+          params.position_font_clear_remix!=undefined
+          ){
             
             clearInterval(myInterval);
             that.saveworkdesk();
 
           }
 
-        }, 100);
+        }, 1000);
 
 
 
@@ -1793,10 +1800,9 @@ Page({
           }
           if(app.globalData.type == 3){
             if(side == 'front'){
-              console.log(that.data.bgList.pic1_remix+"*"+areaLeft+"*"+areaTop+"*"+areaW+"*"+areaH)
               that.ctx.drawImage(that.data.bgList.pic1_remix,0,0,areaW,areaH) 
             }else if(side == 'back'){
-              console.log(that.data.bgList.pic2_remix+"*"+areaLeft+"*"+areaTop+"*"+areaW+"*"+areaH)
+              
               that.ctx.drawImage(that.data.bgList.pic2_remix,0,0,areaW,areaH) 
             }
             
@@ -2031,8 +2037,9 @@ Page({
               fileName: 'file',
               filePath: path,
               success: (res) => {
-              
+                // console.log(res.data.data.url)
                 const resData = JSON.parse(res.data)
+                console.log(resData.data.url)
                 let params = that.data.saveworkdesk
 
     
@@ -2078,7 +2085,7 @@ Page({
   },
   // 提交定制参数
   saveworkdesk(){
-  
+ 
     let userInfo;
     const that = this;
     let frontStickers = '';
@@ -2093,7 +2100,8 @@ Page({
         frontStickers+=this.data.frontItemList[i].stickerid+','
       }
       if(this.data.frontItemList[i].pictype==3){
-        content_parm['front'] = this.data.frontItemList[i]
+        content_parm['front'] = this.data.frontItemList[i];
+        
       }
     }
     for(let i=0;i<this.data.backItemList.length;i++){
@@ -2168,6 +2176,16 @@ Page({
               // area.push(that.data.individualArea[i].name)
               area+=that.data.individualArea[i].name+","
             }
+          }
+          let json_content_parm = JSON.parse(content_parm)
+          
+         if(json_content_parm['front']!=undefined){ 
+           
+            area+='正面'
+          }
+          if(json_content_parm['back']!=undefined){ 
+            
+            area+='反面'
           }
 
           // app.globalData.area = area;

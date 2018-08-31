@@ -74,7 +74,7 @@ Page({
 
     // this.ctx.drawImage('https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg',0,0,100,120) 
     let newArr = []
-    for(var i=0;i<3;i++){
+    for(var i=0;i<5;i++){
       my.downloadFile({
         url: 'http://bbltest.color3.cn/Public/upload/diyset/2016/12-20/5858d5ed6f5bd.png', // 下载文件地址
         success: (res) => {
@@ -96,7 +96,7 @@ Page({
         // that.ctx.setTextAlign('center')
         that.ctx.setTextAlign("right");
         that.ctx.fillText('我是'+i, 90, 90)
-        that.ctx.drawImage(newArr[i],0,0,100,120) 
+        that.ctx.drawImage('http://bbltest.color3.cn/Public/upload/diyset/2016/12-20/5858d5ed6f5bd.png',0,0,100,120) 
         that.ctx.restore();//恢复状态
       }
         that.ctx.setFillStyle('right');
