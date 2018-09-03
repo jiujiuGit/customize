@@ -8,7 +8,7 @@ Page({
     // currentTab:1,
     tname:'',//款式
     sizes:[],
-    currentTab:1,
+    currentTab:0,
     side:'正面',
     sizeTab:0,
     success:false, //是否下单成功
@@ -27,10 +27,12 @@ Page({
     }else{
       params= {
         wid:query.id,
+        // wid:1273,
       }
     }
     this.setData({
       wid:query.id,
+      // wid:1273,
       type:app.globalData.type
     });
     console.log(this.data.type)
@@ -110,12 +112,14 @@ Page({
   right(){
     const that = this;
     let current = this.data.currentTab;
+
     if(current==this.data.background.length-1){
       return;
     }
     this.setData({
       currentTab:current+1
     })
+    console.log(this.data.currentTab)
      const num = this.data.currentTab
     switch(num){
       case 0:

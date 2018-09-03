@@ -3,10 +3,10 @@ require('./config$');
 function success() {
 require('../..//app');
 require('../../pages/customType/customType');
+require('../../pages/placeIndividualOrder/placeIndividualOrder');
 require('../../pages/index/index');
 require('../../pages/canvas/canvas');
 require('../../pages/logistics/logistics');
-require('../../pages/placeIndividualOrder/placeIndividualOrder');
 require('../../pages/placeTeamOrder/placeTeamOrder');
 require('../../pages/individualForm/individualForm');
 require('../../pages/groupForm/groupForm');

@@ -1705,7 +1705,7 @@ Page({
       that.uploadDrawImg('frontRemixBg')
       that.uploadDrawImg('backRemixBg')
     
-    },4000);
+    },6000);
     //  'position_front':that.data.saveworkdesk.position_front_remix,   //正面合成图片base64编码
     //     'position_front_remix':that.data.saveworkdesk.position_front,    //正面整体图片
     //     'position_back':that.data.saveworkdesk.position_back_remix,    //反面合成图片
@@ -2039,9 +2039,9 @@ Page({
               success: (res) => {
                 // console.log(res.data.data.url)
                 const resData = JSON.parse(res.data)
-                console.log(resData.data.url)
+                console.log(res.data)
                 let params = that.data.saveworkdesk
-
+                try{
     
                 if(side == 'front'){
                   params.position_front = resData.data.url
@@ -2067,6 +2067,9 @@ Page({
                   params.position_font_clear_remix = resData.data.url
                 }else if(side == 'backBg'){
                   params.position_back_clear_remix = resData.data.url
+                }}catch(e){
+                  console.log("生成图片报错"+side+e.toLocaleString())
+                  that.uploadDrawImg(side)
                 }
 
                 that.setData({

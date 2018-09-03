@@ -7,7 +7,7 @@ Page({
     interval: 3000,
     // currentTab:1,
     num:0,//定制数量
-    currentTab:1,
+    currentTab:0,
     side:'正面',
     sizeTab:0,
     success:false, //是否下单成功

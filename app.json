@@ -2,6 +2,7 @@
   "pages": [
    
     "pages/customType/customType",
+    "pages/placeIndividualOrder/placeIndividualOrder",
       "pages/index/index",
       "pages/canvas/canvas",
    
@@ -14,7 +15,7 @@
      
      
   
-    "pages/placeIndividualOrder/placeIndividualOrder",
+    
     "pages/placeTeamOrder/placeTeamOrder",
     
   
