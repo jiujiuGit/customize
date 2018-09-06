@@ -116,7 +116,9 @@ Page({
     // console.log(this.data.current)  
   },
   nextStep(){
+    console.log(app.globalData.userInfo)
     if(app.globalData.userInfo.userId==undefined){
+      console.log(21)
       app.getUserInfo();
       return;
     }

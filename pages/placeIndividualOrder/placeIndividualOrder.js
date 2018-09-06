@@ -175,8 +175,9 @@ Page({
     }
     var source = e.detail.source;
     this.setData({
-      currentTap: num,
+      currentTab: num,
     })
+    console.log(this.data.currentTab)
     console.log(num, source)
   },
   // 下一步

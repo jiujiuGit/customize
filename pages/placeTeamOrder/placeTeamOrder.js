@@ -203,7 +203,7 @@ Page({
     }
     var source = e.detail.source;
     this.setData({
-      currentTap: num,
+      currentTab: num,
     })
     console.log(num, source)
   },

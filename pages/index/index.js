@@ -1697,7 +1697,7 @@ Page({
       that.uploadDrawImg('backBg');
 
     
-    },2000);
+    },3000);
      setTimeout(function(){
 
       that.uploadDrawImg('frontRemix')
@@ -1705,7 +1705,7 @@ Page({
       that.uploadDrawImg('frontRemixBg')
       that.uploadDrawImg('backRemixBg')
     
-    },6000);
+    },7000);
     //  'position_front':that.data.saveworkdesk.position_front_remix,   //正面合成图片base64编码
     //     'position_front_remix':that.data.saveworkdesk.position_front,    //正面整体图片
     //     'position_back':that.data.saveworkdesk.position_back_remix,    //反面合成图片
