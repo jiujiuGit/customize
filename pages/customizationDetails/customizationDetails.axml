@@ -1,5 +1,6 @@
-<view style='background-color:white'>
+<view style='background-color:white;width:100%'>
   <view class="hotline"><image id='callIcon' src="../../assets/icon/icon_contact.png" mode="widthFix" /><text>客服热线：</text><text onTap="call" class="tel">{{wenan.phone}}</text></view>
+  
   <view class="personal-list">
     <view class="personal-item" a:for="{{list}}">
 
@@ -36,7 +37,7 @@
       
       
   </view>
-
+  <view class="personNone" a:if="{{list.length == 0}}">暂无个人定制信息</view>
   <view class="footer">
     <button class="footer-btn" type="default" size="defaultSize" onTap="defaultTap"> 确认下单 </button>
   </view>

@@ -1697,7 +1697,7 @@ Page({
       that.uploadDrawImg('backBg');
 
     
-    },3000);
+    },2000);
      setTimeout(function(){
 
       that.uploadDrawImg('frontRemix')
@@ -1705,7 +1705,7 @@ Page({
       that.uploadDrawImg('frontRemixBg')
       that.uploadDrawImg('backRemixBg')
     
-    },7000);
+    },6000);
     //  'position_front':that.data.saveworkdesk.position_front_remix,   //正面合成图片base64编码
     //     'position_front_remix':that.data.saveworkdesk.position_front,    //正面整体图片
     //     'position_back':that.data.saveworkdesk.position_back_remix,    //反面合成图片
@@ -2021,67 +2021,69 @@ Page({
     that.ctx.toTempFilePath({
           success(res) {
       
-            let path = res.apFilePath;
-            if(side == 'front'){
-              that.canvasBg('front',res.apFilePath,false)
-            }else if(side == 'back'){
-              that.canvasBg('back',res.apFilePath,false)
-            }else if(side == 'frontBg'){
-              that.canvasBg('front',res.apFilePath,true)
-            }else if(side == 'backBg'){
-              that.canvasBg('back',res.apFilePath,true)
-            }
-            my.uploadFile({
-              url: 'http://bbltest.color3.cn/Mobile/Api/workupload',
-              fileType: 'image',
-              fileName: 'file',
-              filePath: path,
-              success: (res) => {
-                // console.log(res.data.data.url)
-                const resData = JSON.parse(res.data)
-                console.log(res.data)
-                let params = that.data.saveworkdesk
-                try{
-    
-                if(side == 'front'){
-                  params.position_front = resData.data.url
-                  
-                }else if(side == 'back'){
-                  
-                   params.position_back = resData.data.url;
-                }else if(side == 'frontRemix'){
-                 
-                 
-                  params.position_front_remix = resData.data.url
-                  
-                }else if(side == 'backRemix'){
-                
-                  params.position_back_remix = resData.data.url
-                }else if(side == 'frontRemixBg'){
-             
-                  params.position_font_clear = resData.data.url
-                }else if(side == 'backRemixBg'){
+            setTimeout(function(){
+              let path = res.apFilePath;
+              if(side == 'front'){
+                that.canvasBg('front',res.apFilePath,false)
+              }else if(side == 'back'){
+                that.canvasBg('back',res.apFilePath,false)
+              }else if(side == 'frontBg'){
+                that.canvasBg('front',res.apFilePath,true)
+              }else if(side == 'backBg'){
+                that.canvasBg('back',res.apFilePath,true)
+              }
+              my.uploadFile({
+                url: 'http://bbltest.color3.cn/Mobile/Api/workupload',
+                fileType: 'image',
+                fileName: 'file',
+                filePath: path,
+                success: (res) => {
+                  // console.log(res.data.data.url)
+                  const resData = JSON.parse(res.data)
+                  console.log(res.data)
+                  let params = that.data.saveworkdesk
+                  try{
       
-                  params.position_back_clear = resData.data.url
-                }else if(side == 'frontBg'){
-                  params.position_font_clear_remix = resData.data.url
-                }else if(side == 'backBg'){
-                  params.position_back_clear_remix = resData.data.url
-                }}catch(e){
-                  console.log("生成图片报错"+side+e.toLocaleString())
-                  that.uploadDrawImg(side)
-                }
-
-                that.setData({
-                  saveworkdesk:params
-                })
+                  if(side == 'front'){
+                    params.position_front = resData.data.url
+                    
+                  }else if(side == 'back'){
+                    
+                    params.position_back = resData.data.url;
+                  }else if(side == 'frontRemix'){
+                  
+                  
+                    params.position_front_remix = resData.data.url
+                    
+                  }else if(side == 'backRemix'){
+                  
+                    params.position_back_remix = resData.data.url
+                  }else if(side == 'frontRemixBg'){
               
+                    params.position_font_clear = resData.data.url
+                  }else if(side == 'backRemixBg'){
+        
+                    params.position_back_clear = resData.data.url
+                  }else if(side == 'frontBg'){
+                    params.position_font_clear_remix = resData.data.url
+                  }else if(side == 'backBg'){
+                    params.position_back_clear_remix = resData.data.url
+                  }}catch(e){
+                    console.log("生成图片报错"+side+e.toLocaleString())
+                    that.uploadDrawImg(side)
+                  }
 
-              },
-              fail(res) {
+                  that.setData({
+                    saveworkdesk:params
+                  })
+                
 
-              },
-            });
+                },
+                fail(res) {
+
+                },
+              });
+            },1000)
             
           },
       });

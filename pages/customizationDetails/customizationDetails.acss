@@ -102,3 +102,7 @@
     color: #E02666;
     text-decoration: underline;
 }
+.personNone{
+    text-align: center;
+    margin-top: 200rpx;
+}
