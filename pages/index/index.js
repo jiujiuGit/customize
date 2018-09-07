@@ -2021,7 +2021,7 @@ Page({
     that.ctx.toTempFilePath({
           success(res) {
       
-            setTimeout(function(){
+            
               let path = res.apFilePath;
               if(side == 'front'){
                 that.canvasBg('front',res.apFilePath,false)
@@ -2032,58 +2032,60 @@ Page({
               }else if(side == 'backBg'){
                 that.canvasBg('back',res.apFilePath,true)
               }
-              my.uploadFile({
-                url: 'http://bbltest.color3.cn/Mobile/Api/workupload',
-                fileType: 'image',
-                fileName: 'file',
-                filePath: path,
-                success: (res) => {
-                  // console.log(res.data.data.url)
-                  const resData = JSON.parse(res.data)
-                  console.log(res.data)
-                  let params = that.data.saveworkdesk
-                  try{
-      
-                  if(side == 'front'){
-                    params.position_front = resData.data.url
-                    
-                  }else if(side == 'back'){
-                    
-                    params.position_back = resData.data.url;
-                  }else if(side == 'frontRemix'){
-                  
-                  
-                    params.position_front_remix = resData.data.url
-                    
-                  }else if(side == 'backRemix'){
-                  
-                    params.position_back_remix = resData.data.url
-                  }else if(side == 'frontRemixBg'){
-              
-                    params.position_font_clear = resData.data.url
-                  }else if(side == 'backRemixBg'){
+             setTimeout(function(){
+                my.uploadFile({
+                  url: 'http://bbltest.color3.cn/Mobile/Api/workupload',
+                  fileType: 'image',
+                  fileName: 'file',
+                  filePath: path,
+                  success: (res) => {
+                    // console.log(res.data.data.url)
+                    const resData = JSON.parse(res.data)
+                    console.log(res.data)
+                    let params = that.data.saveworkdesk
+                    try{
         
-                    params.position_back_clear = resData.data.url
-                  }else if(side == 'frontBg'){
-                    params.position_font_clear_remix = resData.data.url
-                  }else if(side == 'backBg'){
-                    params.position_back_clear_remix = resData.data.url
-                  }}catch(e){
-                    console.log("生成图片报错"+side+e.toLocaleString())
-                    that.uploadDrawImg(side)
-                  }
-
-                  that.setData({
-                    saveworkdesk:params
-                  })
+                    if(side == 'front'){
+                      params.position_front = resData.data.url
+                      
+                    }else if(side == 'back'){
+                      
+                      params.position_back = resData.data.url;
+                    }else if(side == 'frontRemix'){
+                    
+                    
+                      params.position_front_remix = resData.data.url
+                      
+                    }else if(side == 'backRemix'){
+                    
+                      params.position_back_remix = resData.data.url
+                    }else if(side == 'frontRemixBg'){
                 
+                      params.position_font_clear = resData.data.url
+                    }else if(side == 'backRemixBg'){
+          
+                      params.position_back_clear = resData.data.url
+                    }else if(side == 'frontBg'){
+                      params.position_font_clear_remix = resData.data.url
+                    }else if(side == 'backBg'){
+                      params.position_back_clear_remix = resData.data.url
+                    }}catch(e){
+                      console.log("生成图片报错"+side+e.toLocaleString())
+                      that.uploadDrawImg(side)
+                    }
 
-                },
-                fail(res) {
+                    that.setData({
+                      saveworkdesk:params
+                    })
+                  
 
-                },
-              });
-            },1000)
+                  },
+                  fail(res) {
+
+                  },
+                });
+             },1000)
+            
             
           },
       });
